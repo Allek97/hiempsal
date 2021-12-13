@@ -16,7 +16,7 @@ export async function getStaticProps() {
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home: NextPage<Props> = ({ products }) => {
-    return <div>Hello World</div>;
+    return <div>{JSON.stringify(products, null, 2)}</div>;
 };
 
 export default Home;

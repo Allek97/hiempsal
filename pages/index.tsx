@@ -1,6 +1,7 @@
 import { getConfig } from "@framework/api/config";
-import type { InferGetStaticPropsType, NextPage } from "next";
+import type { InferGetStaticPropsType } from "next";
 import { getAllProducts } from "@framework/product";
+import Layout from "@components/common/Layout";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -15,8 +16,10 @@ export async function getStaticProps() {
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Home: NextPage<Props> = ({ products }) => {
+const Home = ({ products }: Props) => {
     return <div>{JSON.stringify(products, null, 2)}</div>;
 };
+
+Home.Layout = Layout;
 
 export default Home;

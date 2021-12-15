@@ -6,4 +6,7 @@ module.exports = {
         locales: ["en-US", "es"],
         defaultLocale: "en-US",
     },
+    images: {
+        domains: ["cdn.shopify.com"],
+    },
 };

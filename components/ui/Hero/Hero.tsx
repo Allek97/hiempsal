@@ -7,11 +7,11 @@ const Hero: FC = () => {
         <Container>
             <div>
                 <Image
-                    src="/images/hero-cloth.png"
+                    src="/images/testing.png"
                     alt="hero image"
-                    width={1050}
-                    height={1050}
-                    quality="85"
+                    width={750}
+                    height={950}
+                    quality="100"
                 />
             </div>
         </Container>

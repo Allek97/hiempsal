@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 
 interface Props {
-    children: ReactNode[];
+    children: ReactNode | ReactNode[];
 }
 
 const Grid: FC<Props> = ({ children }) => {

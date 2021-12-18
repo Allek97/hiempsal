@@ -7,7 +7,7 @@ import { ProductName, ProductPrice, Root } from "./ProductCard.styled";
 
 interface Props {
     product: Product;
-    variant?: "simple" | "complex";
+    variant?: "simple" | "slim";
 }
 
 const ProductCard: FC<Props> = ({ product, variant = "simple" }) => {
@@ -24,7 +24,7 @@ const ProductCard: FC<Props> = ({ product, variant = "simple" }) => {
                     <ProductName>
                         <span>{name}</span>
                     </ProductName>
-                    <ProductPrice>{`${currencySymbol}${productPrice}${currency}`}</ProductPrice>
+                    <ProductPrice>{`${currencySymbol}${productPrice} ${currency}`}</ProductPrice>
                 </div>
 
                 <Image src={thumbnailUrl} alt={alt} height={500} width={400} />

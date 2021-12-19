@@ -3,7 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@framework/types/product";
 import Heart from "@components/icons/Heart";
-import { ProductName, ProductPrice, Root } from "./ProductCard.styled";
+import {
+    ProductBg,
+    ProductFavorite,
+    ProductImageWrapper,
+    ProductName,
+    ProductPrice,
+    ProductTag,
+    Root,
+} from "./ProductCard.styled";
 
 interface Props {
     product: Product;
@@ -16,20 +24,36 @@ const ProductCard: FC<Props> = ({ product, variant = "simple" }) => {
 
     const { value: productPrice, currencyCode: currency } = price;
 
+    const placeholderImage = "/product-image-placeholder.svg";
     const currencySymbol = currency === "EUR" ? "€" : "$";
     return (
         <Link href={`/${product.slug}`} passHref>
             <Root>
-                <div>
+                <ProductBg />
+                <ProductTag>
                     <ProductName>
                         <span>{name}</span>
                     </ProductName>
-                    <ProductPrice>{`${currencySymbol}${productPrice} ${currency}`}</ProductPrice>
-                </div>
-
-                <Image src={thumbnailUrl} alt={alt} height={500} width={400} />
-
-                <Heart />
+                    <ProductPrice>
+                        {`${currencySymbol}${productPrice} ${currency}`}
+                    </ProductPrice>
+                </ProductTag>
+                <ProductImageWrapper>
+                    {product.images && (
+                        <Image
+                            src={thumbnailUrl ?? placeholderImage}
+                            alt={alt ?? "Product image"}
+                            height={540}
+                            width={540}
+                            quality="100"
+                            layout="responsive"
+                            objectFit="contain"
+                        />
+                    )}
+                </ProductImageWrapper>
+                <ProductFavorite aria-label="Add to wishlist">
+                    <Heart />
+                </ProductFavorite>
             </Root>
         </Link>
     );

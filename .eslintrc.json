@@ -53,7 +53,8 @@
         "at-rule-no-unknown": "off",
         "scss/at-rule-no-unknown": "off",
         "css-rcurlyexpected": "off",
-        "react/function-component-definition": "off"
+        "react/function-component-definition": "off",
+        "no-restricted-exports": "off"
     },
     "parserOptions": {
         "ecmaVersion": 2021,

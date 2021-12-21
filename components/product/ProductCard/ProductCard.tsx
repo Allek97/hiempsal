@@ -51,7 +51,13 @@ const ProductCard: FC<Props> = ({ product, variant = "simple" }) => {
                         />
                     )}
                 </ProductImageWrapper>
-                <ProductFavorite aria-label="Add to wishlist">
+                <ProductFavorite
+                    aria-label="Add to wishlist"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        alert("added to wishlist");
+                    }}
+                >
                     <Heart />
                 </ProductFavorite>
             </Root>

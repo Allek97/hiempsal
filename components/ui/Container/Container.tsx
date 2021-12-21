@@ -7,7 +7,11 @@ interface Props {
 }
 
 const Container: FC<Props> = ({ children, el: Component = "div" }) => {
-    return <Component className="mx-auto max-w-8xl">{children}</Component>;
+    return (
+        <Component className="px-4 py-5 mx-auto max-w-8xl">
+            {children}
+        </Component>
+    );
 };
 
 export default Container;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-export const Root = styled.div`
+export const MobileMenuRoot = styled.nav`
     ${tw`fixed bottom-4 left-1/2 z-50 w-12 h-12`}
     transform: translateX(-50%);
 `;

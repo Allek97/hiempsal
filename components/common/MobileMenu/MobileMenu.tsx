@@ -1,18 +1,30 @@
 import { FC } from "react";
+import { useUI } from "@components/ui/context";
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { Cart, MenuBtn, Navigation, Profile, Root } from "./MobileMenu.styled";
+import {
+    Cart,
+    MenuBtn,
+    Navigation,
+    Profile,
+    MobileMenuRoot,
+} from "./MobileMenu.styled";
 
 const MobileMenu: FC = () => {
+    const { openSidebar } = useUI();
     return (
-        <Root>
-            <MenuBtn aria-label="To menu" type="button">
+        <MobileMenuRoot>
+            <MenuBtn aria-label="Menu" type="button">
                 <HiOutlineMenuAlt3 />
             </MenuBtn>
             <Navigation>
                 <Cart>
-                    <button aria-label="Cart" type="button">
+                    <button
+                        aria-label="Cart"
+                        type="button"
+                        onClick={openSidebar}
+                    >
                         <Bag />
                     </button>
                 </Cart>
@@ -22,7 +34,7 @@ const MobileMenu: FC = () => {
                     </button>
                 </Profile>
             </Navigation>
-        </Root>
+        </MobileMenuRoot>
     );
 };
 

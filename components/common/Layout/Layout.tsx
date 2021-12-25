@@ -1,13 +1,18 @@
 import { FC } from "react";
+import UIProvider from "@components/ui/context";
 import { NavBar } from "..";
 import { Fit, Root } from "./Layout.styled";
+import { Usernav } from "../Usernav";
 
 const Layout: FC = ({ children }) => {
     return (
-        <Root>
-            <NavBar />
-            <Fit>{children}</Fit>
-        </Root>
+        <UIProvider>
+            <Root>
+                <NavBar />
+                <Usernav />
+                <Fit>{children}</Fit>
+            </Root>
+        </UIProvider>
     );
 };
 

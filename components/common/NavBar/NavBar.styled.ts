@@ -1,8 +1,19 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-export const Root = styled.div`
-    ${tw`sticky top-0 z-50 bg-primary`}
+interface Props {
+    isSidebarOpen: boolean;
+}
+interface HiemsalProps {
+    isDesktop: boolean;
+}
+
+export const NavbarRoot = styled.div<Props>`
+    ${tw`sticky top-0 z-50`}
+
+    background-color: ${(props) =>
+        props.isSidebarOpen ? "transparent" : "#fff"};
 `;
 
 export const Navigation = styled.nav`
@@ -30,19 +41,28 @@ export const NavbarItem = styled.span`
     }
 `;
 
-export const HiemsalWrapper = styled.div`
+export const HiemsalWrapper = styled.div<HiemsalProps>`
     ${tw`w-52 m-auto cursor-pointer`}
 
     svg {
         ${tw`w-full h-full`}
+
+        ${(props) =>
+            props.isDesktop
+                ? css`
+                      ${tw`w-full h-full`}
+                  `
+                : css`
+                      ${tw`w-5/6 h-5/6`}
+                  `};
     }
 `;
 
 export const UtilWrapper = styled.div`
-    ${tw`flex items-center space-x-5`}
+    ${tw`flex items-center space-x-6`}
 
     svg {
-        ${tw`cursor-pointer transition-colors hover:text-accents-6`}
+        ${tw`cursor-pointer transition-colors hover:text-accents-7`}
     }
 `;
 

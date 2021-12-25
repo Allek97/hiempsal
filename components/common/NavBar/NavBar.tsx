@@ -2,27 +2,29 @@ import { FC } from "react";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import { Container } from "@components/ui/Container";
-import Logo from "@components/icons/Logo";
-import Hiempsal from "@components/icons/Text";
-import Heart from "@components/icons/Heart";
-import Bag from "@components/icons/Bag";
+import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
+import { useUI } from "@components/ui/context";
+import { MobileMenu } from "..";
+
 import {
     HiemsalWrapper,
     LogoWrapper,
     NavbarItem,
     Navigation,
     Profile,
-    Root,
+    NavbarRoot,
     UtilWrapper,
 } from "./NavBar.styled";
-import { MobileMenu } from "..";
 
 const Navbar: FC = () => {
-    const isDesktopOrMobile = useMediaQuery({ query: `(min-width: 64em)` });
+    const { isSidebarOpen, openSidebar } = useUI();
+
+    const isDesktop = useMediaQuery({ query: `(min-width: 64em)` });
+
     return (
         <>
-            <MobileMenu />
-            <Root>
+            {!isDesktop && <MobileMenu />}
+            <NavbarRoot isSidebarOpen={isSidebarOpen}>
                 <Container>
                     <Navigation>
                         <div className="flex items-center space-x-5">
@@ -31,7 +33,7 @@ const Navbar: FC = () => {
                                     <Logo />
                                 </LogoWrapper>
                             </Link>
-                            {isDesktopOrMobile && (
+                            {isDesktop && (
                                 <nav className="space-x-5">
                                     <Link href="/" passHref>
                                         <NavbarItem>All</NavbarItem>
@@ -49,21 +51,29 @@ const Navbar: FC = () => {
                             )}
                         </div>
 
-                        <HiemsalWrapper>
+                        <HiemsalWrapper isDesktop={isDesktop}>
                             <Hiempsal />
                         </HiemsalWrapper>
-                        {isDesktopOrMobile && (
+                        {isDesktop && (
                             <UtilWrapper>
-                                <Heart />
-                                <Bag />
-                                <button aria-label="Menu" type="button">
+                                <button aria-label="Wish list" type="button">
+                                    <Heart />
+                                </button>
+                                <button
+                                    aria-label="Cart"
+                                    type="button"
+                                    onClick={openSidebar}
+                                >
+                                    <Bag />
+                                </button>
+                                <button aria-label="Profile" type="button">
                                     <Profile />
                                 </button>
                             </UtilWrapper>
                         )}
                     </Navigation>
                 </Container>
-            </Root>
+            </NavbarRoot>
         </>
     );
 };

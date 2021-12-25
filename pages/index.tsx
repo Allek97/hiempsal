@@ -2,9 +2,8 @@ import { getConfig } from "@framework/api/config";
 import type { InferGetStaticPropsType } from "next";
 import { getAllProducts } from "@framework/product";
 import Layout from "@components/common/Layout";
-import { Grid } from "@components/ui/Grid";
-import { Hero } from "@components/ui/Hero";
 import { ProductCard } from "@components/product/ProductCard";
+import { Grid } from "@components/ui";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -31,7 +30,7 @@ const Home = ({ products }: Props) => {
                     />
                 ))}
             </Grid>
-            <Grid>{JSON.stringify(products, null, 2)}</Grid>
+            {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
         </>
     );
 };

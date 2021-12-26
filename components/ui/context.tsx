@@ -2,21 +2,31 @@
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
 interface StateValues {
-    isSidebarOpen: boolean;
+    isCartOpen: boolean;
+    isWishListOpen: boolean;
+    isViewedProductsOpen: boolean;
 }
 
 interface StateModifiers {
-    openSidebar: () => void;
-    closeSidebar: () => void;
+    closeUsernav: () => void;
+    openCart: () => void;
+    openWishList: () => void;
+    openViewedProducts: () => void;
 }
 
 type State = StateValues & StateModifiers;
 
-const initialState: StateValues = { isSidebarOpen: false };
+const initialState: StateValues = {
+    isCartOpen: false,
+    isWishListOpen: false,
+    isViewedProductsOpen: false,
+};
 
 const stateModifiers: StateModifiers = {
-    openSidebar: () => {},
-    closeSidebar: () => {},
+    closeUsernav: () => {},
+    openCart: () => {},
+    openWishList: () => {},
+    openViewedProducts: () => {},
 };
 
 const UIContext = createContext<State>({
@@ -24,15 +34,47 @@ const UIContext = createContext<State>({
     ...stateModifiers,
 });
 
-type Action = { type: "OPEN_SIDEBAR" | "CLOSE_SIDEBAR" };
+type Action = {
+    type:
+        | "CLOSE_USERNAV"
+        | "OPEN_CART"
+        | "OPEN_WISHLIST"
+        | "OPEN_VIEWED_PRODUCTS";
+};
 
 function uiReducer(state: StateValues, action: Action) {
     switch (action.type) {
-        case "OPEN_SIDEBAR":
-            return { ...state, isSidebarOpen: true };
+        case "CLOSE_USERNAV":
+            return {
+                ...state,
+                isCartOpen: false,
+                isWishListOpen: false,
+                isViewedProductsOpen: false,
+            };
 
-        case "CLOSE_SIDEBAR":
-            return { ...state, isSidebarOpen: false };
+        case "OPEN_CART":
+            return {
+                ...state,
+                isCartOpen: true,
+                isWishListOpen: false,
+                isViewedProductsOpen: false,
+            };
+
+        case "OPEN_WISHLIST":
+            return {
+                ...state,
+                isWishListOpen: true,
+                isCartOpen: false,
+                isViewedProductsOpen: false,
+            };
+
+        case "OPEN_VIEWED_PRODUCTS":
+            return {
+                ...state,
+                isViewedProductsOpen: true,
+                isCartOpen: false,
+                isWishListOpen: false,
+            };
 
         default:
             return { ...state };
@@ -42,16 +84,18 @@ function uiReducer(state: StateValues, action: Action) {
 const UIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);
 
-    console.log(state);
-
-    const openSidebar = () => dispatch({ type: "OPEN_SIDEBAR" });
-    const closeSidebar = () => dispatch({ type: "CLOSE_SIDEBAR" });
+    const closeUsernav = () => dispatch({ type: "CLOSE_USERNAV" });
+    const openCart = () => dispatch({ type: "OPEN_CART" });
+    const openWishList = () => dispatch({ type: "OPEN_WISHLIST" });
+    const openViewedProducts = () => dispatch({ type: "OPEN_VIEWED_PRODUCTS" });
 
     const value = useMemo(() => {
         return {
             ...state,
-            openSidebar,
-            closeSidebar,
+            closeUsernav,
+            openCart,
+            openWishList,
+            openViewedProducts,
         };
     }, [state]);
 

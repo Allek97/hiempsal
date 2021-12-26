@@ -12,7 +12,7 @@ import {
 } from "./MobileMenu.styled";
 
 const MobileMenu: FC = () => {
-    const { openSidebar } = useUI();
+    const { openCart } = useUI();
     return (
         <MobileMenuRoot>
             <MenuBtn aria-label="Menu" type="button">
@@ -20,11 +20,7 @@ const MobileMenu: FC = () => {
             </MenuBtn>
             <Navigation>
                 <Cart>
-                    <button
-                        aria-label="Cart"
-                        type="button"
-                        onClick={openSidebar}
-                    >
+                    <button aria-label="Cart" type="button" onClick={openCart}>
                         <Bag />
                     </button>
                 </Cart>

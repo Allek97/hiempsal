@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface Props {
-    isSidebarOpen: boolean;
+    isCartOpen: boolean;
 }
 interface HiemsalProps {
     isDesktop: boolean;
@@ -12,8 +12,7 @@ interface HiemsalProps {
 export const NavbarRoot = styled.div<Props>`
     ${tw`sticky top-0 z-50`}
 
-    background-color: ${(props) =>
-        props.isSidebarOpen ? "transparent" : "#fff"};
+    background-color: ${(props) => (props.isCartOpen ? "transparent" : "#fff")};
 `;
 
 export const Navigation = styled.nav`

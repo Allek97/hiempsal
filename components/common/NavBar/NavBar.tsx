@@ -17,14 +17,14 @@ import {
 } from "./NavBar.styled";
 
 const Navbar: FC = () => {
-    const { isSidebarOpen, openSidebar } = useUI();
+    const { isCartOpen, openCart } = useUI();
 
     const isDesktop = useMediaQuery({ query: `(min-width: 64em)` });
 
     return (
         <>
             {!isDesktop && <MobileMenu />}
-            <NavbarRoot isSidebarOpen={isSidebarOpen}>
+            <NavbarRoot isCartOpen={isCartOpen}>
                 <Container>
                     <Navigation>
                         <div className="flex items-center space-x-5">
@@ -62,7 +62,7 @@ const Navbar: FC = () => {
                                 <button
                                     aria-label="Cart"
                                     type="button"
-                                    onClick={openSidebar}
+                                    onClick={openCart}
                                 >
                                     <Bag />
                                 </button>

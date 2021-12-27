@@ -1,6 +1,4 @@
 import { FC, MutableRefObject, useEffect, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import {
     clearAllBodyScrollLocks,
     disableBodyScroll,
@@ -8,16 +6,15 @@ import {
 } from "body-scroll-lock";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
+import { Cart } from "@components/cart";
+
 import { useUI } from "@components/ui/context";
 
 import {
-    Article,
     Container,
     Content,
-    ImageContainer,
     NavBtn,
     Navigation,
-    ProductDetails,
     Root,
     Separator,
 } from "./Usernav.styled";
@@ -25,6 +22,7 @@ import {
 const Usernav: FC = () => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     const {
+        isUsernavOpen,
         isCartOpen,
         isWishListOpen,
         isViewedProductsOpen,
@@ -32,8 +30,6 @@ const Usernav: FC = () => {
         openWishList,
         openViewedProducts,
     } = useUI();
-
-    const isUsernavOpen = isCartOpen || isWishListOpen || isViewedProductsOpen;
 
     useEffect(() => {
         if (ref.current) {
@@ -85,30 +81,7 @@ const Usernav: FC = () => {
                         </Navigation>
 
                         <Content>
-                            <Article>
-                                <Link href="/" passHref>
-                                    <ImageContainer>
-                                        <Image
-                                            src="/images/Men-Hoodie-Black-Front.png"
-                                            alt="Black hoodie"
-                                            width={2}
-                                            height={3}
-                                            quality="100"
-                                            layout="responsive"
-                                            objectFit="contain"
-                                        />
-                                    </ImageContainer>
-                                </Link>
-
-                                <ProductDetails>
-                                    <div>
-                                        <h1>Black Hoodie Men</h1>
-                                        <p>Black M</p>
-                                    </div>
-                                    <span>CAD150$</span>
-                                    <div>Remove</div>
-                                </ProductDetails>
-                            </Article>
+                            <Cart />
                         </Content>
                     </Container>
                 </Root>

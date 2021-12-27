@@ -2,17 +2,19 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-interface Props {
-    isCartOpen: boolean;
+interface RootProps {
+    isUsernavOpen: boolean;
 }
 interface HiemsalProps {
     isDesktop: boolean;
+    isUsernavOpen: boolean;
 }
 
-export const NavbarRoot = styled.div<Props>`
+export const NavbarRoot = styled.div<RootProps>`
     ${tw`sticky top-0 z-50`}
 
-    background-color: ${(props) => (props.isCartOpen ? "transparent" : "#fff")};
+    background-color: ${(props) =>
+        props.isUsernavOpen ? "transparent" : "#fff"};
 `;
 
 export const Navigation = styled.nav`
@@ -41,19 +43,22 @@ export const NavbarItem = styled.span`
 `;
 
 export const HiemsalWrapper = styled.div<HiemsalProps>`
-    ${tw`w-52 m-auto cursor-pointer`}
+    ${tw`transition-transform w-52 m-auto cursor-pointer`}
+
+    ${(props) =>
+        props.isUsernavOpen &&
+        css`
+            transform: translateY(-1rem);
+        `};
 
     svg {
-        ${tw`w-full h-full`}
+        ${tw`w-3/4 h-3/4`}
 
         ${(props) =>
-            props.isDesktop
-                ? css`
-                      ${tw`w-full h-full`}
-                  `
-                : css`
-                      ${tw`w-5/6 h-5/6`}
-                  `};
+            props.isDesktop &&
+            css`
+                ${tw`w-full h-full`}
+            `};
     }
 `;
 

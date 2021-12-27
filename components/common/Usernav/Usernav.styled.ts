@@ -15,8 +15,9 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.section`
-    ${tw`pt-20 px-8 text-2xl text-primary`}
+    ${tw`text-2xl text-primary`}
 
+    padding : 5rem 4vw 0;
     background: var(--primary);
 
     nav {
@@ -75,16 +76,9 @@ export const Separator = styled.hr`
 `;
 
 export const Content = styled.section`
-    ${tw`flex max-w-full min-h-screen px-8 outline-none`}
+    ${tw`max-w-full min-h-screen outline-none`}
 
-    background : var(--primary);
-`;
+    padding : 0 4vw;
 
-export const Article = styled.article`
-    ${tw`flex h-full w-screen lg:max-w-4xl text-base overflow-y-auto`}
+    background: var(--primary);
 `;
-
-export const ImageContainer = styled.div`
-    width: 25%;
-`;
-export const ProductDetails = styled.div``;

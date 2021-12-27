@@ -2,6 +2,7 @@
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
 interface StateValues {
+    isUsernavOpen: boolean;
     isCartOpen: boolean;
     isWishListOpen: boolean;
     isViewedProductsOpen: boolean;
@@ -17,6 +18,7 @@ interface StateModifiers {
 type State = StateValues & StateModifiers;
 
 const initialState: StateValues = {
+    isUsernavOpen: false,
     isCartOpen: false,
     isWishListOpen: false,
     isViewedProductsOpen: false,
@@ -47,6 +49,7 @@ function uiReducer(state: StateValues, action: Action) {
         case "CLOSE_USERNAV":
             return {
                 ...state,
+                isUsernavOpen: false,
                 isCartOpen: false,
                 isWishListOpen: false,
                 isViewedProductsOpen: false,
@@ -55,6 +58,7 @@ function uiReducer(state: StateValues, action: Action) {
         case "OPEN_CART":
             return {
                 ...state,
+                isUsernavOpen: true,
                 isCartOpen: true,
                 isWishListOpen: false,
                 isViewedProductsOpen: false,
@@ -63,6 +67,7 @@ function uiReducer(state: StateValues, action: Action) {
         case "OPEN_WISHLIST":
             return {
                 ...state,
+                isUsernavOpen: true,
                 isWishListOpen: true,
                 isCartOpen: false,
                 isViewedProductsOpen: false,
@@ -71,6 +76,7 @@ function uiReducer(state: StateValues, action: Action) {
         case "OPEN_VIEWED_PRODUCTS":
             return {
                 ...state,
+                isUsernavOpen: true,
                 isViewedProductsOpen: true,
                 isCartOpen: false,
                 isWishListOpen: false,

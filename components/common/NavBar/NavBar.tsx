@@ -17,14 +17,16 @@ import {
 } from "./NavBar.styled";
 
 const Navbar: FC = () => {
-    const { isCartOpen, openCart } = useUI();
+    const { isUsernavOpen, openCart } = useUI();
+
+    console.log(isUsernavOpen);
 
     const isDesktop = useMediaQuery({ query: `(min-width: 64em)` });
 
     return (
         <>
             {!isDesktop && <MobileMenu />}
-            <NavbarRoot isCartOpen={isCartOpen}>
+            <NavbarRoot isUsernavOpen={isUsernavOpen}>
                 <Container>
                     <Navigation>
                         <div className="flex items-center space-x-5">
@@ -51,7 +53,10 @@ const Navbar: FC = () => {
                             )}
                         </div>
 
-                        <HiemsalWrapper isDesktop={isDesktop}>
+                        <HiemsalWrapper
+                            isDesktop={isDesktop}
+                            isUsernavOpen={isUsernavOpen}
+                        >
                             <Hiempsal />
                         </HiemsalWrapper>
                         {isDesktop && (

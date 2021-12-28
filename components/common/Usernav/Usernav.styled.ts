@@ -7,7 +7,7 @@ interface NavBtnProps {
 }
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full overflow-hidden`}
+    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto`}
 `;
 
 export const Container = styled.div`
@@ -46,7 +46,7 @@ export const NavBtn = styled.button<NavBtnProps>`
                   `}
     }
     h1 {
-        ${tw`transition-transform font-normal text-accents-5`}
+        ${tw`transition-transform font-normal text-accents-5 tracking-tighter`}
 
         ${(props) =>
             props.isSelected

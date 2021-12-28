@@ -1,8 +1,8 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-interface RootProps {
+interface Props {
     isUsernavOpen: boolean;
 }
 interface HiemsalProps {
@@ -10,7 +10,13 @@ interface HiemsalProps {
     isUsernavOpen: boolean;
 }
 
-export const NavbarRoot = styled.div<RootProps>`
+const fadeIn = keyframes`
+    to {
+        opacity: 1;
+    }
+`;
+
+export const NavbarRoot = styled.div<Props>`
     ${tw`sticky top-0 z-50`}
 
     background-color: ${(props) =>
@@ -21,20 +27,36 @@ export const Navigation = styled.nav`
     ${tw`flex`}
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div<Props>`
     ${tw`transition-transform h-9 w-9 cursor-pointer`}
+
+    ${(props) =>
+        props.isUsernavOpen &&
+        css`
+            transform: translateY(-0.5rem);
+            opacity: 0;
+            animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+                0.3s 1 forwards;
+        `};
 
     svg {
         ${tw`w-full h-full`}
     }
 
     &:hover {
-        transform: scale(1.05);
+        ${(props) =>
+            props.isUsernavOpen
+                ? css`
+                      transform: scale(1.05) translateY(-0.5rem);
+                  `
+                : css`
+                      transform: scale(1.05);
+                  `};
     }
 `;
 
 export const NavbarItem = styled.span`
-    ${tw`transition-transform text-lg text-accents-6 cursor-pointer`}
+    ${tw`text-lg text-accents-6 cursor-pointer`}
 
     &:hover {
         ${tw`text-accents-9`}
@@ -49,6 +71,9 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
         props.isUsernavOpen &&
         css`
             transform: translateY(-1rem);
+            opacity: 0;
+            animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+                0.3s 1 forwards;
         `};
 
     svg {

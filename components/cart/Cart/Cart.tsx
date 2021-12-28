@@ -2,20 +2,25 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdRemoveShoppingCart } from "react-icons/md";
+import payments from "lib/const";
 
 import {
     Article,
+    CheckoutButton,
+    CheckoutWrapper,
+    PaymentVendors,
     ProductDetails,
     ProductImage,
     RemoveBtn,
     ShippingBox,
+    ShopPolicy,
     TotalBox,
 } from "./Cart.styled";
 import { CartAction } from "..";
 
 const Cart: FC = () => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col min-h-screen">
             <div className="flex flex-col">
                 <Article>
                     <Link href="/" passHref>
@@ -47,8 +52,8 @@ const Cart: FC = () => {
                         </div>
 
                         <div>
-                            <span>$150.00</span>
-                            <span>CAD</span>
+                            <span>$150.0</span>
+                            {/* <span>CAD</span> */}
                         </div>
 
                         <div>
@@ -76,10 +81,29 @@ const Cart: FC = () => {
             <TotalBox>
                 <div>
                     <h1>Total</h1>
-                    <span>(Includes $45CAD VAT)</span>
+                    <p>(Includes $45.5 VAT)</p>
                 </div>
-                <p>$150CAD</p>
+                <span>$150.0</span>
             </TotalBox>
+
+            <CheckoutWrapper>
+                <CheckoutButton Component="a" href="/checkout">
+                    Checkout
+                </CheckoutButton>
+            </CheckoutWrapper>
+
+            <PaymentVendors>
+                {payments.map(({ id, icon }) => (
+                    <li key={id}>{icon}</li>
+                ))}
+            </PaymentVendors>
+
+            <ShopPolicy>
+                <span>Delivery time: 5-7 business days</span>
+                <span>100-day return period</span>
+                <span>Free returns</span>
+                <span>FREE SHIPPING FROM $ 50.00 CAD</span>
+            </ShopPolicy>
         </div>
     );
 };

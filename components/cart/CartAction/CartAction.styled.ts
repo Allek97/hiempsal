@@ -12,10 +12,7 @@ export const Root = styled.div`
     border-radius: 5px;
 
     span {
-        ${tw`text-primary text-center font-normal`}
-        cursor: pointer;
-        text-align: center;
-        font-size: 15px;
+        ${tw`text-primary text-center font-normal cursor-pointer`}
     }
 
     span:first-of-type,

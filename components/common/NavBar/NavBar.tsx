@@ -19,8 +19,6 @@ import {
 const Navbar: FC = () => {
     const { isUsernavOpen, openCart } = useUI();
 
-    console.log(isUsernavOpen);
-
     const isDesktop = useMediaQuery({ query: `(min-width: 64em)` });
 
     return (
@@ -31,7 +29,7 @@ const Navbar: FC = () => {
                     <Navigation>
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref>
-                                <LogoWrapper>
+                                <LogoWrapper isUsernavOpen={isUsernavOpen}>
                                     <Logo />
                                 </LogoWrapper>
                             </Link>

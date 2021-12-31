@@ -1,51 +1,95 @@
 import { FC } from "react";
 import Link from "next/link";
-import { useMediaQuery } from "react-responsive";
-import { Container } from "@components/ui/Container";
-import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
+import { IoCloseSharp } from "react-icons/io5";
+
 import { useUI } from "@components/ui/context";
+import { useMediaQueryNext } from "lib/customHooks";
+import useScroll from "lib/customHooks/useScroll";
+
+import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
+
 import { MobileMenu } from "..";
 
 import {
+    Wrapper,
     HiemsalWrapper,
-    LogoWrapper,
     NavbarItem,
     Navigation,
     Profile,
     NavbarRoot,
     UtilWrapper,
+    Container,
 } from "./NavBar.styled";
 
 const Navbar: FC = () => {
-    const { isUsernavOpen, openCart } = useUI();
+    const { isUsernavOpen, isUsernavScrolled, closeUsernav, openCart } =
+        useUI();
 
-    const isDesktop = useMediaQuery({ query: `(min-width: 64em)` });
+    const isDesktop = useMediaQueryNext("lg");
+
+    const isScrolled = useScroll(70, 10);
 
     return (
         <>
             {!isDesktop && <MobileMenu />}
-            <NavbarRoot isUsernavOpen={isUsernavOpen}>
-                <Container>
+            <NavbarRoot
+                isUsernavScrolled={isUsernavScrolled}
+                isScrolled={isScrolled}
+                isUsernavOpen={isUsernavOpen}
+            >
+                <Container isUsernavOpen={isUsernavOpen}>
                     <Navigation>
                         <div className="flex items-center space-x-5">
-                            <Link href="/" passHref>
-                                <LogoWrapper isUsernavOpen={isUsernavOpen}>
-                                    <Logo />
-                                </LogoWrapper>
+                            <Link href="/" passHref scroll={false}>
+                                <Wrapper isUsernavOpen={isUsernavOpen}>
+                                    {isUsernavOpen && !isDesktop ? (
+                                        <IoCloseSharp onClick={closeUsernav} />
+                                    ) : (
+                                        <Logo />
+                                    )}
+                                </Wrapper>
                             </Link>
                             {isDesktop && (
                                 <nav className="space-x-5">
                                     <Link href="/" passHref>
-                                        <NavbarItem>All</NavbarItem>
+                                        <NavbarItem
+                                            isUsernavOpen={isUsernavOpen}
+                                            isUsernavScrolled={
+                                                isUsernavScrolled
+                                            }
+                                        >
+                                            All
+                                        </NavbarItem>
                                     </Link>
                                     <Link href="/" passHref>
-                                        <NavbarItem>Clothes</NavbarItem>
+                                        <NavbarItem
+                                            isUsernavOpen={isUsernavOpen}
+                                            isUsernavScrolled={
+                                                isUsernavScrolled
+                                            }
+                                        >
+                                            Clothes
+                                        </NavbarItem>
                                     </Link>
                                     <Link href="/" passHref>
-                                        <NavbarItem>Technologies</NavbarItem>
+                                        <NavbarItem
+                                            isUsernavOpen={isUsernavOpen}
+                                            isUsernavScrolled={
+                                                isUsernavScrolled
+                                            }
+                                        >
+                                            Technologies
+                                        </NavbarItem>
                                     </Link>
                                     <Link href="/" passHref>
-                                        <NavbarItem>More</NavbarItem>
+                                        <NavbarItem
+                                            isUsernavOpen={isUsernavOpen}
+                                            isUsernavScrolled={
+                                                isUsernavScrolled
+                                            }
+                                        >
+                                            More
+                                        </NavbarItem>
                                     </Link>
                                 </nav>
                             )}

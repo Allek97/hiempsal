@@ -18,7 +18,7 @@ export const ProductTag = styled.div`
     ${tw`absolute top-0 left-0 z-20`}
 
     & > * {
-        font-size: 2rem;
+        font-size: 2.1rem;
         letter-spacing: 0.4px;
     }
 `;

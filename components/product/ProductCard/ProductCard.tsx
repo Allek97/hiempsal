@@ -28,7 +28,7 @@ const ProductCard: FC<Props> = ({ product, variant = "simple" }) => {
     const currencySymbol = currency === "EUR" ? "€" : "$";
     return (
         <Link href={`/${product.slug}`} passHref>
-            <Root>
+            <Root className="product-card" id="product-card">
                 <ProductBg />
                 <ProductTag>
                     <ProductName>

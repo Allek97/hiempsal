@@ -22,7 +22,7 @@ const Cart: FC = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <div className="flex flex-col">
-                <Article>
+                <Article className="art">
                     <Link href="/" passHref>
                         <ProductImage>
                             <div className="w-full mx-8">

@@ -5,10 +5,12 @@ import {
     enableBodyScroll,
 } from "body-scroll-lock";
 import { HiArrowNarrowRight } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
 
 import { Cart } from "@components/cart";
 
 import { useUI } from "@components/ui/context";
+import { useMediaQueryNext } from "lib/customHooks";
 
 import {
     Container,
@@ -21,6 +23,9 @@ import {
 
 const Usernav: FC = () => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
+
+    const isDesktop = useMediaQueryNext("lg");
+
     const {
         isUsernavOpen,
         isCartOpen,
@@ -29,23 +34,33 @@ const Usernav: FC = () => {
         openCart,
         openWishList,
         openViewedProducts,
+        closeUsernav,
+        setUsernavScrollStatus,
     } = useUI();
 
     useEffect(() => {
         if (ref.current) {
+            setUsernavScrollStatus(0);
             if (isUsernavOpen) disableBodyScroll(ref.current);
             else enableBodyScroll(ref.current);
         }
         return () => {
             clearAllBodyScrollLocks();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUsernavOpen]);
+
+    const listenScrollEvent = () => {
+        if (ref.current) {
+            setUsernavScrollStatus(ref.current.scrollTop);
+        }
+    };
 
     return (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {isUsernavOpen && (
-                <Root ref={ref}>
+                <Root ref={ref} onScroll={listenScrollEvent}>
                     <Container>
                         <Navigation>
                             <nav>
@@ -76,8 +91,19 @@ const Usernav: FC = () => {
                                     <HiArrowNarrowRight />
                                     <h1>Viewed products</h1>
                                 </NavBtn>
+                                {isDesktop && (
+                                    <NavBtn
+                                        type="button"
+                                        aria-label="Close Usernav"
+                                        onClick={closeUsernav}
+                                        isSelected={false}
+                                    >
+                                        <IoClose />
+                                        <h1>Close</h1>
+                                    </NavBtn>
+                                )}
                             </nav>
-                            <Separator />
+                            {!isDesktop && <Separator />}
                         </Navigation>
 
                         <Content>

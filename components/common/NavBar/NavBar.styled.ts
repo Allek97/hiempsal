@@ -2,8 +2,17 @@ import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-interface Props {
+interface RootProps {
+    isScrolled: boolean;
+    isUsernavScrolled: boolean;
     isUsernavOpen: boolean;
+}
+interface WrapperProps {
+    isUsernavOpen: boolean;
+}
+interface NavbarItemProps {
+    isUsernavOpen: boolean;
+    isUsernavScrolled: boolean;
 }
 interface HiemsalProps {
     isDesktop: boolean;
@@ -16,38 +25,63 @@ const fadeIn = keyframes`
     }
 `;
 
-export const NavbarRoot = styled.div<Props>`
-    ${tw`sticky top-0 z-50`}
+export const NavbarRoot = styled.div<RootProps>`
+    ${tw`sticky top-0 z-50 bg-primary`}
 
-    background-color: ${(props) =>
-        props.isUsernavOpen ? "transparent" : "#fff"};
+    ${(props) =>
+        props.isUsernavOpen &&
+        (props.isUsernavScrolled
+            ? css`
+                  box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+                  background-color: var(--primary);
+              `
+            : css`
+                  ${tw`bg-transparent`}
+              `)}
+
+    ${(props) =>
+        props.isScrolled &&
+        !props.isUsernavOpen &&
+        css`
+            box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+            background-color: var(--primary);
+        `}
+`;
+
+export const Container = styled.div<WrapperProps>`
+    ${tw`px-4 py-5 mx-auto max-w-8xl`}
+
+    ${(props) =>
+        props.isUsernavOpen &&
+        css`
+            padding: 1.25rem 2.66666666666667vw;
+        `}
 `;
 
 export const Navigation = styled.nav`
     ${tw`flex`}
 `;
 
-export const LogoWrapper = styled.div<Props>`
+export const Wrapper = styled.div<WrapperProps>`
     ${tw`transition-transform h-9 w-9 cursor-pointer`}
-
-    ${(props) =>
-        props.isUsernavOpen &&
-        css`
-            transform: translateY(-0.5rem);
-            opacity: 0;
-            animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
-                0.3s 1 forwards;
-        `};
 
     svg {
         ${tw`w-full h-full`}
     }
 
+    ${(props) =>
+        props.isUsernavOpen &&
+        css`
+            opacity: 0;
+            animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+                0.3s 1 forwards;
+        `};
+
     &:hover {
         ${(props) =>
             props.isUsernavOpen
                 ? css`
-                      transform: scale(1.05) translateY(-0.5rem);
+                      transform: scale(0.95);
                   `
                 : css`
                       transform: scale(1.05);
@@ -55,12 +89,25 @@ export const LogoWrapper = styled.div<Props>`
     }
 `;
 
-export const NavbarItem = styled.span`
-    ${tw`text-lg text-accents-6 cursor-pointer`}
+export const NavbarItem = styled.span<NavbarItemProps>`
+    ${tw`transition-colors text-lg text-accents-6 cursor-pointer`}
+
+    ${(props) =>
+        props.isUsernavOpen &&
+        !props.isUsernavScrolled &&
+        css`
+            ${tw`text-primary`}
+        `}
 
     &:hover {
         ${tw`text-accents-9`}
-        transform: skew(-10deg);
+
+        ${(props) =>
+            props.isUsernavOpen &&
+            !props.isUsernavScrolled &&
+            css`
+                ${tw`text-accents-7`}
+            `}
     }
 `;
 
@@ -70,7 +117,7 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
     ${(props) =>
         props.isUsernavOpen &&
         css`
-            transform: translateY(-1rem);
+            transform: translateY(0);
             opacity: 0;
             animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
                 0.3s 1 forwards;

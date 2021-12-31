@@ -1,28 +1,34 @@
 import { Button } from "@components/ui";
 import styled from "@emotion/styled";
-import tw from "twin.macro";
+import tw, { theme } from "twin.macro";
 
 export const Article = styled.article`
-    ${tw`flex h-full w-full mt-4 lg:max-w-4xl text-base overflow-y-auto tracking-tighter`}
+    ${tw`flex h-full w-full mt-4 lg:max-w-4xl text-base overflow-y-hidden tracking-tighter`}
 
     border-bottom: 1px solid var(--accents-2);
 `;
 
-export const ProductImage = styled.div`
+export const ProductImage = styled.div<Record<string, unknown>>`
     ${tw`flex justify-center items-center mr-4 
     border-t-8 border-accents-0 cursor-pointer`}
 
     width: 70%;
     max-width: 14rem;
+
+    @media only screen and (min-width: ${theme`screens.lg`}) {
+        width: 30%;
+    }
 `;
-export const ProductDetails = styled.div`
-    ${tw`relative w-full text-primary`}
+export const ProductDetails = styled.div<Record<string, unknown>>`
+    ${tw`relative w-full text-primary lg:flex`}
 
     & > div:first-of-type {
-        ${tw`absolute top-0 left-0 flex flex-col mr-20`}
+        ${tw`absolute top-0 left-0 flex flex-col mr-20 
+        lg:(static flex-row)`}
 
         h2 {
             ${tw`pb-1 cursor-pointer`}
+            font-size: 17px;
         }
 
         p {
@@ -30,13 +36,19 @@ export const ProductDetails = styled.div`
         }
     }
     & > div:nth-of-type(2) {
-        ${tw`absolute top-0 right-0 flex flex-col items-end leading-5`}
+        ${tw`absolute top-0 right-0 flex flex-col items-end leading-5 
+        lg:static`}
     }
     & > div:nth-of-type(3) {
-        ${tw`absolute bottom-0 left-0 mb-5 w-full leading-3 cursor-pointer`}
+        ${tw`absolute bottom-0 left-0 mb-5 w-full leading-3 cursor-pointer 
+        lg:static`}
     }
     & > div:nth-of-type(4) {
-        ${tw`absolute bottom-0 right-0 mb-5 cursor-pointer`}
+        ${tw`absolute bottom-0 right-0 mb-5 cursor-pointer 
+        lg:static`}
+    }
+
+    @media only screen and (min-width: ${theme`screens.lg`}) {
     }
 `;
 
@@ -84,7 +96,8 @@ export const TotalBox = styled.div`
     }
 
     span {
-        ${tw`font-semibold`}
+        font-size: 16px;
+        font-weight: 600;
     }
 `;
 

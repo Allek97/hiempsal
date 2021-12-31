@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import { FC } from "react";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import "../assets/base.css";
 
 // eslint-disable-next-line react/jsx-no-useless-fragment

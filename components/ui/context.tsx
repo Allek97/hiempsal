@@ -6,6 +6,7 @@ interface StateValues {
     isCartOpen: boolean;
     isWishListOpen: boolean;
     isViewedProductsOpen: boolean;
+    isUsernavScrolled: boolean;
 }
 
 interface StateModifiers {
@@ -13,12 +14,15 @@ interface StateModifiers {
     openCart: () => void;
     openWishList: () => void;
     openViewedProducts: () => void;
+    // eslint-disable-next-line no-unused-vars
+    setUsernavScrollStatus: (scrollTop: number) => void;
 }
 
 type State = StateValues & StateModifiers;
 
 const initialState: StateValues = {
     isUsernavOpen: false,
+    isUsernavScrolled: false,
     isCartOpen: false,
     isWishListOpen: false,
     isViewedProductsOpen: false,
@@ -29,6 +33,9 @@ const stateModifiers: StateModifiers = {
     openCart: () => {},
     openWishList: () => {},
     openViewedProducts: () => {},
+    setUsernavScrollStatus: (scrollTop: number) => {
+        console.log(scrollTop);
+    },
 };
 
 const UIContext = createContext<State>({
@@ -41,7 +48,9 @@ type Action = {
         | "CLOSE_USERNAV"
         | "OPEN_CART"
         | "OPEN_WISHLIST"
-        | "OPEN_VIEWED_PRODUCTS";
+        | "OPEN_VIEWED_PRODUCTS"
+        | "SET_USERNAV_SCROLL_STATUS";
+    payload?: any;
 };
 
 function uiReducer(state: StateValues, action: Action) {
@@ -82,6 +91,11 @@ function uiReducer(state: StateValues, action: Action) {
                 isWishListOpen: false,
             };
 
+        case "SET_USERNAV_SCROLL_STATUS":
+            if (action.payload >= 20)
+                return { ...state, isUsernavScrolled: true };
+            return { ...state, isUsernavScrolled: false };
+
         default:
             return { ...state };
     }
@@ -94,6 +108,8 @@ const UIProvider: FC = ({ children }) => {
     const openCart = () => dispatch({ type: "OPEN_CART" });
     const openWishList = () => dispatch({ type: "OPEN_WISHLIST" });
     const openViewedProducts = () => dispatch({ type: "OPEN_VIEWED_PRODUCTS" });
+    const setUsernavScrollStatus = (scrollTop: number) =>
+        dispatch({ type: "SET_USERNAV_SCROLL_STATUS", payload: scrollTop });
 
     const value = useMemo(() => {
         return {
@@ -102,6 +118,7 @@ const UIProvider: FC = ({ children }) => {
             openCart,
             openWishList,
             openViewedProducts,
+            setUsernavScrollStatus,
         };
     }, [state]);
 

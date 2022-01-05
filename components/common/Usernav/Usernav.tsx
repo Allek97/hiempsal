@@ -12,19 +12,12 @@ import { Cart } from "@components/cart";
 import { useUI } from "@components/ui/context";
 import { useMediaQueryNext } from "lib/customHooks";
 
-import {
-    Container,
-    Content,
-    NavBtn,
-    Navigation,
-    Root,
-    Separator,
-} from "./Usernav.styled";
+import { Container, Content, NavBtn, Navigation, Root } from "./Usernav.styled";
 
 const Usernav: FC = () => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 
-    const isDesktop = useMediaQueryNext("lg");
+    const isScreenLarge = useMediaQueryNext("lg");
 
     const {
         isUsernavOpen,
@@ -91,7 +84,7 @@ const Usernav: FC = () => {
                                     <HiArrowNarrowRight />
                                     <h1>Viewed products</h1>
                                 </NavBtn>
-                                {isDesktop && (
+                                {isScreenLarge && (
                                     <NavBtn
                                         type="button"
                                         aria-label="Close Usernav"
@@ -103,7 +96,6 @@ const Usernav: FC = () => {
                                     </NavBtn>
                                 )}
                             </nav>
-                            {!isDesktop && <Separator />}
                         </Navigation>
 
                         <Content>

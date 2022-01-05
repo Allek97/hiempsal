@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import payments from "lib/const";
+import { useMediaQueryNext } from "lib/customHooks";
 
 import {
     Article,
     CheckoutButton,
     CheckoutWrapper,
+    ItemsHeader,
     PaymentVendors,
     ProductDetails,
     ProductImage,
@@ -19,10 +21,22 @@ import {
 import { CartAction } from "..";
 
 const Cart: FC = () => {
+    const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <div className="flex flex-col min-h-screen">
             <div className="flex flex-col">
-                <Article className="art">
+                {isScreenLarge && (
+                    <ItemsHeader>
+                        <div>Product</div>
+                        <div>Colors</div>
+                        <div>Size</div>
+                        <div>Quantity</div>
+                        <div>Price</div>
+                    </ItemsHeader>
+                )}
+
+                <Article className="article-item">
                     <Link href="/" passHref>
                         <ProductImage>
                             <div className="w-full mx-8">
@@ -66,6 +80,7 @@ const Cart: FC = () => {
                                 <span>Remove</span>
                             </RemoveBtn>
                         </div>
+
                         <div>
                             <CartAction />
                         </div>

@@ -12,16 +12,13 @@ export const Root = styled.div`
     border-radius: 5px;
 
     span {
-        ${tw`text-primary text-center font-normal cursor-pointer`}
+        ${tw`text-primary text-center font-normal cursor-pointer font-size[16px]`}
     }
 
     span:first-of-type,
     span:nth-of-type(3) {
-        ${tw`flex justify-center items-center h-4 w-4`}
-
-        &:hover {
-            ${tw`bg-accents-1`}
-        }
+        ${tw`flex justify-center items-center h-4 w-4
+        hover:bg-accents-1`}
     }
 
     span:nth-of-type(2) {

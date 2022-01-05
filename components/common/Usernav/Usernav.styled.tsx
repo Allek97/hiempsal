@@ -35,7 +35,7 @@ export const Container = styled.div`
 
 export const Navigation = styled.section<Record<string, unknown>>`
     ${tw`text-2xl text-primary bg-primary pt-20 
-      lg:(width[34%] pt-28 bg-accents-3)`}
+      lg:(width[34%] pt-40 bg-accents-3)`}
 
     padding-left: 4vw;
     padding-right: 4vw;
@@ -52,7 +52,9 @@ export const Navigation = styled.section<Record<string, unknown>>`
 
 export const NavBtn = styled.button<NavBtnProps>`
     ${tw`relative flex items-center
-    lg:(py-3.5 border-b-2 border-secondary border-solid)`}
+    lg:(py-3 border-b-2 border-secondary border-solid font-size[1.25rem] text-primary) 
+    xl:(font-size[1.6vw] py-4) 
+    2xl:(font-size[1.27vw])`}
 
     @media only screen and (min-width: ${theme`screens.lg`}) {
         &:first-of-type {
@@ -83,7 +85,7 @@ export const NavBtn = styled.button<NavBtnProps>`
     }
     h1 {
         ${tw`transition-transform font-normal text-accents-5 tracking-tighter
-         lg:(font-size[1.35rem] text-primary)`}
+         lg:text-primary`}
 
         ${(props) =>
             props.isSelected
@@ -106,14 +108,9 @@ export const NavBtn = styled.button<NavBtnProps>`
     }
 `;
 
-export const Separator = styled.hr`
-    ${tw`mt-6 bg-secondary`}
-    height : 3px;
-`;
-
 export const Content = styled.section<Record<string, unknown>>`
     ${tw`max-w-full min-h-screen bg-primary outline-none 
-      lg:(width[66%] pt-28)`}
+      lg:(width[66%] pt-40)`}
 
     padding-left: 4vw;
     padding-right: 4vw;

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
 export const Root = styled.div<any>`
-    ${tw`relative h-full mx-auto`}
+    ${tw`relative h-full mx-auto max-w-8xl`}
     max-width: 153.75rem; // 2460px
     color: ${theme`textColor[base]`};
 `;

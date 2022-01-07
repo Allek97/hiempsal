@@ -56,6 +56,9 @@ module.exports = {
 
                 "2xl": "96em",
                 // => @media (min-width: 1536px) { ... }
+
+                "3xl": "105em",
+                // => @media (min-width: 1680px) { ... }
             },
         },
     },

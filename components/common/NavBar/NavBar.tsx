@@ -25,13 +25,13 @@ const Navbar: FC = () => {
     const { isUsernavOpen, isUsernavScrolled, closeUsernav, openCart } =
         useUI();
 
-    const isDesktop = useMediaQueryNext("lg");
+    const isScreenLarge = useMediaQueryNext("lg");
 
     const isScrolled = useScroll(70, 10);
 
     return (
         <>
-            {!isDesktop && <MobileMenu />}
+            {!isScreenLarge && <MobileMenu />}
             <NavbarRoot
                 isUsernavScrolled={isUsernavScrolled}
                 isScrolled={isScrolled}
@@ -42,14 +42,14 @@ const Navbar: FC = () => {
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref scroll={false}>
                                 <Wrapper isUsernavOpen={isUsernavOpen}>
-                                    {isUsernavOpen && !isDesktop ? (
+                                    {isUsernavOpen && !isScreenLarge ? (
                                         <IoCloseSharp onClick={closeUsernav} />
                                     ) : (
                                         <Logo />
                                     )}
                                 </Wrapper>
                             </Link>
-                            {isDesktop && (
+                            {isScreenLarge && (
                                 <nav className="space-x-5">
                                     <Link href="/" passHref>
                                         <NavbarItem
@@ -96,12 +96,12 @@ const Navbar: FC = () => {
                         </div>
 
                         <HiemsalWrapper
-                            isDesktop={isDesktop}
                             isUsernavOpen={isUsernavOpen}
+                            isScrolled={isScrolled}
                         >
                             <Hiempsal />
                         </HiemsalWrapper>
-                        {isDesktop && (
+                        {isScreenLarge && (
                             <UtilWrapper>
                                 <button aria-label="Wish list" type="button">
                                     <Heart />

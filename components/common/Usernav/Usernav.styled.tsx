@@ -7,7 +7,7 @@ interface NavBtnProps {
 }
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto`}
+    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-3`}
 
     &::-webkit-scrollbar {
         width: 8px;
@@ -30,7 +30,7 @@ export const Root = styled.main`
 `;
 
 export const Container = styled.div`
-    ${tw`flex flex-1 flex-col lg:flex-row overflow-hidden`}
+    ${tw`flex flex-1 flex-col max-w-8xl mx-auto lg:flex-row overflow-hidden`}
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`

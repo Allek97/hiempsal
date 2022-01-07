@@ -15,8 +15,8 @@ interface NavbarItemProps {
     isUsernavScrolled: boolean;
 }
 interface HiemsalProps {
-    isDesktop: boolean;
     isUsernavOpen: boolean;
+    isScrolled: boolean;
 }
 
 const fadeIn = keyframes`
@@ -124,13 +124,7 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
         `};
 
     svg {
-        ${tw`w-3/4 h-3/4`}
-
-        ${(props) =>
-            props.isDesktop &&
-            css`
-                ${tw`w-full h-full`}
-            `};
+        ${tw`w-3/4 h-3/4 lg:(w-full h-full)`}
     }
 `;
 

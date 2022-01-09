@@ -8,7 +8,7 @@ import useScroll from "lib/customHooks/useScroll";
 
 import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
 
-import { MobileMenu } from "..";
+import { MobileNav } from "..";
 
 import {
     Wrapper,
@@ -31,7 +31,7 @@ const Navbar: FC = () => {
 
     return (
         <>
-            {!isScreenLarge && <MobileMenu />}
+            {!isScreenLarge && <MobileNav />}
             <NavbarRoot
                 isUsernavScrolled={isUsernavScrolled}
                 isScrolled={isScrolled}

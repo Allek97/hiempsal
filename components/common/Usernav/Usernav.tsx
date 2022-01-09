@@ -1,18 +1,28 @@
 import { FC, MutableRefObject, useEffect, useRef } from "react";
+import Image from "next/image";
 import {
     clearAllBodyScrollLocks,
     disableBodyScroll,
     enableBodyScroll,
 } from "body-scroll-lock";
+
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
+import { VscEyeClosed } from "react-icons/vsc";
 
 import { Cart } from "@components/cart";
 
 import { useUI } from "@components/ui/context";
 import { useMediaQueryNext } from "lib/customHooks";
 
-import { Container, Content, NavBtn, Navigation, Root } from "./Usernav.styled";
+import {
+    Container,
+    Content,
+    HelpCard,
+    HelpCardImage,
+    NavBtn,
+    Navigation,
+    Root,
+} from "./Usernav.styled";
 
 const Usernav: FC = () => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -91,11 +101,32 @@ const Usernav: FC = () => {
                                         onClick={closeUsernav}
                                         isSelected={false}
                                     >
-                                        <IoClose />
+                                        <VscEyeClosed />
                                         <h1>Close</h1>
                                     </NavBtn>
                                 )}
                             </nav>
+
+                            {isScreenLarge && (
+                                <button type="button">
+                                    <HelpCard>
+                                        <HelpCardImage>
+                                            <Image
+                                                alt="Help agent"
+                                                src="/images/agent.jpg"
+                                                quality="80"
+                                                layout="fill"
+                                                objectFit="cover"
+                                            />
+                                        </HelpCardImage>
+
+                                        <div>
+                                            <span>Get help</span>
+                                            <span>Online now</span>
+                                        </div>
+                                    </HelpCard>
+                                </button>
+                            )}
                         </Navigation>
 
                         <Content>

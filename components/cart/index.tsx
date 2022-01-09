@@ -1,3 +1,3 @@
 export { Cart } from "./Cart";
-export { CartAction } from "./CartAction";
+export { CartQuantity } from "./CartQuantity";
 export { CartArticle } from "./CartArticle";

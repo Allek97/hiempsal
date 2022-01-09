@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useMediaQueryNext } from "lib/customHooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
-import { CartAction } from "..";
+import { CartQuantity } from "..";
 
 import {
     Article,
@@ -31,7 +31,6 @@ const CartArticle: FC = () => {
                             quality="80"
                             layout="responsive"
                             objectFit="contain"
-                            className="xxx"
                         />
                     </div>
                 </ProductImage>
@@ -71,7 +70,7 @@ const CartArticle: FC = () => {
                 </div>
 
                 <div>
-                    <CartAction />
+                    <CartQuantity />
                 </div>
             </ProductDetails>
         </Article>

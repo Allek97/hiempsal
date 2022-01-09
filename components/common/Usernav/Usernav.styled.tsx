@@ -1,3 +1,4 @@
+import { EffectButton } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
@@ -50,10 +51,9 @@ export const Navigation = styled.section<Record<string, unknown>>`
     }
 `;
 
-export const NavBtn = styled.button<NavBtnProps>`
-    ${tw`relative flex items-center
-    lg:(py-3 border-b-2 border-secondary border-solid font-size[1.25rem] text-primary) 
-    xl:(font-size[1.6vw] py-4) 
+export const NavBtn = styled(EffectButton)<NavBtnProps>`
+    ${tw`lg:(py-3 border-b-2 border-secondary border-solid font-size[1.25rem] text-primary)
+    xl:(font-size[1.6vw] py-4)
     2xl:(font-size[1.27vw])`}
 
     @media only screen and (min-width: ${theme`screens.lg`}) {
@@ -68,44 +68,59 @@ export const NavBtn = styled.button<NavBtnProps>`
         ${tw`lg:px-0`}
     }
 
-    svg {
-        ${tw`absolute top-1/2 opacity-0`}
-        transition : cubic-bezier(.19,1,.22,1) .3s;
-        transform: translateY(-50%);
+    h1 {
+        ${tw`text-accents-5 lg:text-primary`}
 
+        ${(props) =>
+            props.isSelected &&
+            css`
+                ${tw`text-primary`}
+            `};
+    }
+
+    svg {
         ${(props) =>
             props.isSelected
                 ? css`
-                      ${tw`opacity-100 left-0`}
+                      ${tw`text-primary`}
                   `
                 : css`
-                      ${tw`left-1/4 text-accents-5 
-                      lg:(left-8 text-primary)`}
+                      ${tw`text-accents-5 lg:text-primary`}
                   `};
     }
-    h1 {
-        ${tw`transition-transform font-normal text-accents-5 tracking-tighter
-         lg:text-primary`}
+`;
 
-        ${(props) =>
-            props.isSelected
-                ? css`
-                      transform: translateX(2rem);
-                      color: var(--text-base);
-                  `
-                : css`
-                      transform: translateX(0);
-                  `}
+export const HelpCard = styled.div`
+    ${tw`fixed bottom-16 flex items-center transition 
+    font-size[14.5px] cursor-pointer`}
+
+    div:nth-of-type(2) {
+        ${tw`flex flex-col leading-6`}
+
+        span {
+            ${tw`w-max`}
+        }
+
+        span:nth-of-type(2) {
+            ${tw`text-accents-6 text-xs`}
+        }
     }
 
-    &:hover svg {
-        opacity: 1;
-        left: 0;
+    &:hover div:nth-of-type(2) {
+        span:first-of-type {
+            ${tw`transition`}
+            transform: skewX(-10deg);
+        }
     }
+`;
 
-    &:hover h1 {
-        transform: translateX(2rem);
-    }
+export const HelpCardImage = styled.div`
+    ${tw`h-11 w-11`}
+
+    margin-right: 0.8vw;
+    border-radius: 50%;
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.15));
+    overflow: hidden;
 `;
 
 export const Content = styled.section<Record<string, unknown>>`

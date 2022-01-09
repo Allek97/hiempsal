@@ -93,13 +93,13 @@ export const PaymentVendors = styled.ul`
 
 export const ShopPolicy = styled.div`
     ${tw`flex items-center justify-center flex-col w-full
-    lg:(flex-row justify-between margin-top[8vw] w-4/5)
+    lg:(flex-row justify-between margin-top[6vw] w-4/5)
     xl:(font-size[1.05vw])
-    2xl:(font-size[1.15vw])
+    2xl:(font-size[0.95vw])
     3xl:(font-size[16.5px])`}
 
     margin-top: 8vw;
-    padding-bottom: 5rem;
+    margin-bottom: 5rem;
 
     line-height: 1.2em;
     letter-spacing: -0.05em;

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Root } from "./CartAction.styled";
+import { Root } from "./CartQuantity.styled";
 
-const CartAction: FC = () => {
+const CartQuantity: FC = () => {
     return (
         <Root>
             <span>-</span>
@@ -11,4 +11,4 @@ const CartAction: FC = () => {
     );
 };
 
-export default CartAction;
+export default CartQuantity;

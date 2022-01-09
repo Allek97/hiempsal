@@ -1,36 +1,30 @@
 import { FC } from "react";
-import { useUI } from "@components/ui/context";
-import Bag from "@components/icons/Bag";
-import { BsPerson } from "react-icons/bs";
-import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import {
-    Cart,
-    MenuBtn,
-    Navigation,
-    Profile,
-    MobileMenuRoot,
-} from "./MobileMenu.styled";
+import { EffectButton } from "@components/ui";
+import { HiArrowNarrowRight } from "react-icons/hi";
+import { Navigation, Root } from "./MobileMenu.styled";
 
 const MobileMenu: FC = () => {
-    const { openCart } = useUI();
     return (
-        <MobileMenuRoot>
-            <MenuBtn aria-label="Menu" type="button">
-                <HiOutlineMenuAlt3 />
-            </MenuBtn>
+        <Root>
             <Navigation>
-                <Cart>
-                    <button aria-label="Cart" type="button" onClick={openCart}>
-                        <Bag />
-                    </button>
-                </Cart>
-                <Profile>
-                    <button aria-label="Profile" type="button">
-                        <BsPerson />
-                    </button>
-                </Profile>
+                <EffectButton type="button" aria-label="All">
+                    <HiArrowNarrowRight />
+                    <h1>All</h1>
+                </EffectButton>
+                <EffectButton type="button" aria-label="Clothes">
+                    <HiArrowNarrowRight />
+                    <h1>Clothes</h1>
+                </EffectButton>
+                <EffectButton type="button" aria-label="Technologies">
+                    <HiArrowNarrowRight />
+                    <h1>Technologies</h1>
+                </EffectButton>
+                <EffectButton type="button" aria-label="More">
+                    <HiArrowNarrowRight />
+                    <h1>More</h1>
+                </EffectButton>
             </Navigation>
-        </MobileMenuRoot>
+        </Root>
     );
 };
 

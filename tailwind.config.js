@@ -42,6 +42,9 @@ module.exports = {
                 secondary: "var(--text-secondary)",
             },
             screens: {
+                xs: "30em",
+                // => @media (min-width: 480px) { ... }
+
                 sm: "40em",
                 // => @media (min-width: 640px) { ... }
 
@@ -59,6 +62,9 @@ module.exports = {
 
                 "3xl": "105em",
                 // => @media (min-width: 1680px) { ... }
+
+                "4xl": "120em",
+                // => @media (min-width: 1920px) { ... }
             },
         },
     },

@@ -1,3 +1,4 @@
+import customScroll from "@assets/customScroll.styled";
 import { EffectButton } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -10,24 +11,7 @@ interface NavBtnProps {
 export const Root = styled.main`
     ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-3`}
 
-    &::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 8rem;
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: #fff;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: RGBA(var(--color-blue-special));
-        box-shadow: inset 0 0 6px RGBA(0, 0, 0, 0.5);
-        border-radius: 8rem;
-    }
-
-    &::-webkit-scrollbar-thumb:window-inactive {
-        background-color: RGBA(var(--color-blue-special));
-    }
+    ${customScroll}
 `;
 
 export const Container = styled.div`
@@ -88,39 +72,6 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
                       ${tw`text-accents-5 lg:text-primary`}
                   `};
     }
-`;
-
-export const HelpCard = styled.div`
-    ${tw`fixed bottom-16 flex items-center transition 
-    font-size[14.5px] cursor-pointer`}
-
-    div:nth-of-type(2) {
-        ${tw`flex flex-col leading-6`}
-
-        span {
-            ${tw`w-max`}
-        }
-
-        span:nth-of-type(2) {
-            ${tw`text-accents-6 text-xs`}
-        }
-    }
-
-    &:hover div:nth-of-type(2) {
-        span:first-of-type {
-            ${tw`transition`}
-            transform: skewX(-10deg);
-        }
-    }
-`;
-
-export const HelpCardImage = styled.div`
-    ${tw`h-11 w-11`}
-
-    margin-right: 0.8vw;
-    border-radius: 50%;
-    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.15));
-    overflow: hidden;
 `;
 
 export const Content = styled.section<Record<string, unknown>>`

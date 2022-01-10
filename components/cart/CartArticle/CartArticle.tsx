@@ -22,7 +22,7 @@ const CartArticle: FC = () => {
         <Article className="article-item">
             <Link href="/" passHref>
                 <ProductImage>
-                    <div className="w-full mx-8">
+                    <div>
                         <Image
                             src="/images/Men-Hoodie-Black-Front.png"
                             alt="Black hoodie"

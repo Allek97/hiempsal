@@ -1,4 +1,6 @@
-@mixin customScroll {
+import { css } from "@emotion/react";
+
+const customScroll = css`
     &::-webkit-scrollbar {
         width: 8px;
         border-radius: 8rem;
@@ -17,4 +19,6 @@
     &::-webkit-scrollbar-thumb:window-inactive {
         background-color: RGBA(var(--color-blue-special));
     }
-}
+`;
+
+export default customScroll;

@@ -56,12 +56,16 @@ export const Separator = styled.hr`
 ////////////////////////////////////////////////////////
 
 export const ProductImage = styled.div`
-    ${tw`flex justify-center items-center mr-4 
+    ${tw`flex justify-center items-center mr-3 
     border-t-8 border-accents-0 cursor-pointer
     lg:width[35%]`}
 
     width: 70%;
     max-width: 14rem;
+
+    & > div:first-of-type {
+        ${tw`w-full mx-4 xs:mx-8`}
+    }
 `;
 
 ////////////////////////////////////////////////////////
@@ -73,18 +77,18 @@ export const ProductDetails = styled.div`
     lg:(flex justify-between)`}
 
     & > div:first-of-type {
-        ${tw`absolute top-0 left-0 flex flex-col mr-20 
+        ${tw`absolute top-0 left-0 flex flex-col mr-20
         lg:(static flex-row items-start height[max-content] mr-0 order-1)`}
 
         h2 {
-            ${tw`pb-1 cursor-pointer font-size[17px] line-height[1.15em]
+            ${tw`pb-2 cursor-pointer font-size[17px] line-height[1.15em]
             lg:(width[35%] margin-right[4vw] pb-0)
             xl:(margin-right[6vw] font-size[1.4vw] letter-spacing[-.06em])
             3xl:(font-size[24px])`}
         }
 
         p {
-            ${tw`text-sm text-accents-7 space-x-3
+            ${tw`w-max text-sm text-accents-7 space-x-3
             lg:(flex justify-between items-center mt-0.5 width[20%] font-size[16px] letter-spacing[-.06em] text-accents-8)
             xl:(font-size[1.25vw])
             2xl:(font-size[1.15vw])
@@ -120,10 +124,9 @@ export const ProductDetails = styled.div`
 `;
 
 export const RemoveBtn = styled.button`
-    ${tw`flex items-center justify-center transition-opacity text-red 
-        font-medium opacity-80 hover:opacity-100`}
+    ${tw`flex items-center justify-center transition-opacity 
+    font-size[0.85rem] text-red font-medium opacity-80 hover:(opacity-100 font-size[0.9rem])`}
     letter-spacing: -.05em;
-    font-size: 0.9rem;
 
     svg {
         ${tw`mr-1`}

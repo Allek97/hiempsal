@@ -11,7 +11,7 @@ import {
     Profile,
     MobileNavRoot,
 } from "./MobileNav.styled";
-import { MobileMenu } from "..";
+import { MobileMenu } from "../..";
 
 const MobileNav: FC = () => {
     const { openCart } = useUI();

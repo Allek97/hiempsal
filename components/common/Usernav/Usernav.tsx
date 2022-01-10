@@ -1,5 +1,4 @@
 import { FC, MutableRefObject, useEffect, useRef } from "react";
-import Image from "next/image";
 import {
     clearAllBodyScrollLocks,
     disableBodyScroll,
@@ -14,15 +13,9 @@ import { Cart } from "@components/cart";
 import { useUI } from "@components/ui/context";
 import { useMediaQueryNext } from "lib/customHooks";
 
-import {
-    Container,
-    Content,
-    HelpCard,
-    HelpCardImage,
-    NavBtn,
-    Navigation,
-    Root,
-} from "./Usernav.styled";
+import { HelpCard } from "../HelpCard";
+
+import { Container, Content, NavBtn, Navigation, Root } from "./Usernav.styled";
 
 const Usernav: FC = () => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -108,24 +101,9 @@ const Usernav: FC = () => {
                             </nav>
 
                             {isScreenLarge && (
-                                <button type="button">
-                                    <HelpCard>
-                                        <HelpCardImage>
-                                            <Image
-                                                alt="Help agent"
-                                                src="/images/agent.jpg"
-                                                quality="80"
-                                                layout="fill"
-                                                objectFit="cover"
-                                            />
-                                        </HelpCardImage>
-
-                                        <div>
-                                            <span>Get help</span>
-                                            <span>Online now</span>
-                                        </div>
-                                    </HelpCard>
-                                </button>
+                                <div className="fixed bottom-16">
+                                    <HelpCard />
+                                </div>
                             )}
                         </Navigation>
 

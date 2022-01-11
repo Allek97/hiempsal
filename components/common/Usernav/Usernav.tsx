@@ -1,14 +1,10 @@
 import { FC, MutableRefObject, useEffect, useRef } from "react";
-import {
-    clearAllBodyScrollLocks,
-    disableBodyScroll,
-    enableBodyScroll,
-} from "body-scroll-lock";
 
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { VscEyeClosed } from "react-icons/vsc";
 
 import { Cart } from "@components/cart";
+import { Wishlist } from "@components/wishlist";
 
 import { useUI } from "@components/ui/context";
 import { useMediaQueryNext } from "lib/customHooks";
@@ -37,12 +33,7 @@ const Usernav: FC = () => {
     useEffect(() => {
         if (ref.current) {
             setUsernavScrollStatus(0);
-            if (isUsernavOpen) disableBodyScroll(ref.current);
-            else enableBodyScroll(ref.current);
         }
-        return () => {
-            clearAllBodyScrollLocks();
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUsernavOpen]);
 
@@ -51,6 +42,8 @@ const Usernav: FC = () => {
             setUsernavScrollStatus(ref.current.scrollTop);
         }
     };
+
+    console.log(isWishListOpen, isCartOpen);
 
     return (
         // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -108,7 +101,8 @@ const Usernav: FC = () => {
                         </Navigation>
 
                         <Content>
-                            <Cart />
+                            {isCartOpen && <Cart />}
+                            {isWishListOpen && <Wishlist />}
                         </Content>
                     </Container>
                 </Root>

@@ -7,6 +7,7 @@ interface StateValues {
     isWishListOpen: boolean;
     isViewedProductsOpen: boolean;
     isUsernavScrolled: boolean;
+    isMobileMenuOpen: boolean;
 }
 
 interface StateModifiers {
@@ -14,6 +15,7 @@ interface StateModifiers {
     openCart: () => void;
     openWishList: () => void;
     openViewedProducts: () => void;
+    toggleMobileMenu: () => void;
     // eslint-disable-next-line no-unused-vars
     setUsernavScrollStatus: (scrollTop: number) => void;
 }
@@ -26,6 +28,7 @@ const initialState: StateValues = {
     isCartOpen: false,
     isWishListOpen: false,
     isViewedProductsOpen: false,
+    isMobileMenuOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -33,9 +36,8 @@ const stateModifiers: StateModifiers = {
     openCart: () => {},
     openWishList: () => {},
     openViewedProducts: () => {},
-    setUsernavScrollStatus: (scrollTop: number) => {
-        console.log(scrollTop);
-    },
+    setUsernavScrollStatus: () => {},
+    toggleMobileMenu: () => {},
 };
 
 const UIContext = createContext<State>({
@@ -49,7 +51,8 @@ type Action = {
         | "OPEN_CART"
         | "OPEN_WISHLIST"
         | "OPEN_VIEWED_PRODUCTS"
-        | "SET_USERNAV_SCROLL_STATUS";
+        | "SET_USERNAV_SCROLL_STATUS"
+        | "TOGGLE_MOBILE_MENU";
     payload?: any;
 };
 
@@ -71,6 +74,7 @@ function uiReducer(state: StateValues, action: Action) {
                 isCartOpen: true,
                 isWishListOpen: false,
                 isViewedProductsOpen: false,
+                isMobileMenu: false,
             };
 
         case "OPEN_WISHLIST":
@@ -96,6 +100,12 @@ function uiReducer(state: StateValues, action: Action) {
                 return { ...state, isUsernavScrolled: true };
             return { ...state, isUsernavScrolled: false };
 
+        case "TOGGLE_MOBILE_MENU":
+            return {
+                ...state,
+                isMobileMenuOpen: !state.isMobileMenuOpen,
+            };
+
         default:
             return { ...state };
     }
@@ -110,6 +120,9 @@ const UIProvider: FC = ({ children }) => {
     const openViewedProducts = () => dispatch({ type: "OPEN_VIEWED_PRODUCTS" });
     const setUsernavScrollStatus = (scrollTop: number) =>
         dispatch({ type: "SET_USERNAV_SCROLL_STATUS", payload: scrollTop });
+    const toggleMobileMenu = () => {
+        dispatch({ type: "TOGGLE_MOBILE_MENU" });
+    };
 
     const value = useMemo(() => {
         return {
@@ -119,6 +132,7 @@ const UIProvider: FC = ({ children }) => {
             openWishList,
             openViewedProducts,
             setUsernavScrollStatus,
+            toggleMobileMenu,
         };
     }, [state]);
 

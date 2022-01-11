@@ -1,8 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+
 import { useUI } from "@components/ui/context";
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import Close from "@components/icons/Close";
 
 import {
     Cart,
@@ -14,21 +16,29 @@ import {
 import { MobileMenu } from "../..";
 
 const MobileNav: FC = () => {
-    const { openCart } = useUI();
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-    const manageMenu = () => {
-        setIsMenuOpen((state) => !state);
-    };
+    const { openCart, isUsernavOpen, isMobileMenuOpen, toggleMobileMenu } =
+        useUI();
 
     return (
         <>
-            {isMenuOpen && <MobileMenu />}
+            <MobileMenu />
             <MobileNavRoot>
-                <MenuBtn aria-label="Menu" type="button" onClick={manageMenu}>
-                    <HiOutlineMenuAlt3 />
+                <MenuBtn
+                    aria-label="Menu"
+                    type="button"
+                    onClick={toggleMobileMenu}
+                    isMobileMenuOpen={isMobileMenuOpen}
+                    isUsernavOpen={isUsernavOpen}
+                    isProfileOpen={false}
+                >
+                    {isMobileMenuOpen ? <Close /> : <HiOutlineMenuAlt3 />}
                 </MenuBtn>
                 <Navigation>
-                    <Cart>
+                    <Cart
+                        isUsernavOpen={isUsernavOpen}
+                        isMobileMenuOpen={isMobileMenuOpen}
+                        isProfileOpen={false}
+                    >
                         <button
                             aria-label="Cart"
                             type="button"
@@ -37,7 +47,11 @@ const MobileNav: FC = () => {
                             <Bag />
                         </button>
                     </Cart>
-                    <Profile>
+                    <Profile
+                        isProfileOpen={false}
+                        isMobileMenuOpen={isMobileMenuOpen}
+                        isUsernavOpen={isUsernavOpen}
+                    >
                         <button aria-label="Profile" type="button">
                             <BsPerson />
                         </button>

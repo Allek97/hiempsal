@@ -1,13 +1,31 @@
-import customScroll from "@assets/customScroll.styled";
+import customScroll from "@styles/customScroll.styled";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import { css } from "@emotion/react";
 
-export const Root = styled.div`
+interface Props {
+    isMobileMenuOpen: boolean;
+}
+
+export const Root = styled.section<Props>`
     ${tw`fixed z-index[41] h-full w-full flex flex-col padding-top[30vw] pb-20 bg-white overflow-y-auto
     xs:padding-top[23vw]`}
 
     padding-left : 4.4vw;
     padding-right: 4.4vw;
+
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+
+    ${(props) =>
+        props.isMobileMenuOpen
+            ? css`
+                  transform: translateY(0);
+              `
+            : css`
+                  transform: translateY(100%);
+              `}
+
+    ${customScroll}
 
     @media only screen and (min-width: 40em) {
         padding-top: 18vw;
@@ -15,8 +33,6 @@ export const Root = styled.div`
     @media only screen and (min-width: 48em) {
         padding-top: 8rem;
     }
-
-    ${customScroll}
 `;
 
 export const Navigation = styled.nav`

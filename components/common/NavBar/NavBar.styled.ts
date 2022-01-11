@@ -6,6 +6,7 @@ interface RootProps {
     isScrolled: boolean;
     isUsernavScrolled: boolean;
     isUsernavOpen: boolean;
+    isMobileMenuOpen: boolean;
 }
 interface WrapperProps {
     isUsernavOpen: boolean;
@@ -30,7 +31,7 @@ export const NavbarRoot = styled.div<RootProps>`
 
     ${(props) =>
         props.isUsernavOpen &&
-        (props.isUsernavScrolled
+        (props.isUsernavScrolled && !props.isMobileMenuOpen
             ? css`
                   box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
                   background-color: var(--primary);
@@ -42,9 +43,16 @@ export const NavbarRoot = styled.div<RootProps>`
     ${(props) =>
         props.isScrolled &&
         !props.isUsernavOpen &&
+        !props.isMobileMenuOpen &&
         css`
             box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
             background-color: var(--primary);
+        `}
+
+    ${(props) =>
+        props.isMobileMenuOpen &&
+        css`
+            ${tw`bg-transparent`}
         `}
 `;
 

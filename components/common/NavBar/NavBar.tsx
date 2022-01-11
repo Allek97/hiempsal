@@ -22,8 +22,13 @@ import {
 } from "./NavBar.styled";
 
 const Navbar: FC = () => {
-    const { isUsernavOpen, isUsernavScrolled, closeUsernav, openCart } =
-        useUI();
+    const {
+        isUsernavOpen,
+        isUsernavScrolled,
+        isMobileMenuOpen,
+        closeUsernav,
+        openCart,
+    } = useUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
@@ -36,13 +41,16 @@ const Navbar: FC = () => {
                 isUsernavScrolled={isUsernavScrolled}
                 isScrolled={isScrolled}
                 isUsernavOpen={isUsernavOpen}
+                isMobileMenuOpen={isMobileMenuOpen}
             >
                 <Container isUsernavOpen={isUsernavOpen}>
                     <Navigation>
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref scroll={false}>
                                 <Wrapper isUsernavOpen={isUsernavOpen}>
-                                    {isUsernavOpen && !isScreenLarge ? (
+                                    {isUsernavOpen &&
+                                    !isMobileMenuOpen &&
+                                    !isScreenLarge ? (
                                         <IoCloseSharp onClick={closeUsernav} />
                                     ) : (
                                         <Logo />

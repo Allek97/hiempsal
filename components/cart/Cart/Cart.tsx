@@ -8,6 +8,7 @@ import {
     CheckoutWrapper,
     ItemsHeader,
     PaymentVendors,
+    Root,
     ShippingBox,
     ShopPolicy,
     TotalBox,
@@ -18,7 +19,7 @@ const Cart: FC = () => {
     const isScreenLarge = useMediaQueryNext("lg");
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <Root>
             <div className="flex flex-col">
                 {isScreenLarge && (
                     <ItemsHeader>
@@ -69,7 +70,7 @@ const Cart: FC = () => {
                 <span>Free returns</span>
                 <span>FREE SHIPPING FROM $ 50.00 CAD</span>
             </ShopPolicy>
-        </div>
+        </Root>
     );
 };
 

@@ -25,7 +25,7 @@ export const HelpCardBox = styled.div`
     }
 `;
 export const HelpCardImage = styled.div`
-    ${tw`h-11 w-11`}
+    ${tw`relative h-11 w-11`}
 
     margin-right: 0.8vw;
     border-radius: 50%;

@@ -1,6 +1,18 @@
 import { Button } from "@components/ui";
 import styled from "@emotion/styled";
-import tw from "twin.macro";
+import tw, { theme } from "twin.macro";
+
+export const Root = styled.div<Record<string, unknown>>`
+    ${tw`flex flex-col min-h-screen`}
+
+    padding-left: 4vw;
+    padding-right: 4vw;
+
+    @media only screen and (min-width: ${theme`screens.lg`}) {
+        padding-left: 2.66666666667vw;
+        padding-right: 2.66666666667vw;
+    }
+`;
 
 export const ItemsHeader = styled.div`
     ${tw`flex font-size[14px] text-accents-7

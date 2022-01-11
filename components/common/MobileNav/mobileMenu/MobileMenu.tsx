@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { EffectButton } from "@components/ui";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+
+import { useUI } from "@components/ui/context";
+
+import { EffectButton } from "@components/ui";
 import { HelpCard } from "@components/common/HelpCard";
+
 import {
     Complement,
     DecorationBottom,
@@ -11,8 +15,9 @@ import {
 } from "./MobileMenu.styled";
 
 const MobileMenu: FC = () => {
+    const { isMobileMenuOpen } = useUI();
     return (
-        <Root>
+        <Root isMobileMenuOpen={isMobileMenuOpen}>
             <Navigation>
                 <EffectButton type="button" aria-label="All">
                     <HiOutlineArrowNarrowRight />

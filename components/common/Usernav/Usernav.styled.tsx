@@ -1,4 +1,4 @@
-import customScroll from "@assets/customScroll.styled";
+import customScroll from "@styles/customScroll.styled";
 import { EffectButton } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -77,12 +77,4 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 export const Content = styled.section<Record<string, unknown>>`
     ${tw`max-w-full min-h-screen bg-primary outline-none 
       lg:(width[66%] pt-40)`}
-
-    padding-left: 4vw;
-    padding-right: 4vw;
-
-    @media only screen and (min-width: ${theme`screens.lg`}) {
-        padding-left: 2.66666666667vw;
-        padding-right: 2.66666666667vw;
-    }
 `;

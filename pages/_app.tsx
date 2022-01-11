@@ -3,6 +3,8 @@ import { FC } from "react";
 import "../styles/globals.scss";
 import "../assets/base.css";
 
+import UIProvider from "@components/ui/context";
+
 // eslint-disable-next-line react/jsx-no-useless-fragment
 const Noop: FC = ({ children }) => <>{children}</>;
 
@@ -13,9 +15,11 @@ function MyApp({
     const Layout = Component.Layout ?? Noop;
 
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <UIProvider>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </UIProvider>
     );
 }
 

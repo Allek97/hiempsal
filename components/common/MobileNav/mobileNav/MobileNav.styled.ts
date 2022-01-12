@@ -18,10 +18,10 @@ const expandHorizontal = keyframes`
     }
 `;
 
-const expandVertical = keyframes` 
+const expandVerticalCenter = keyframes` 
     100% {
         opacity : 1;
-        transform: translateY(0);
+        transform: translate(-50%,0)
     }
 `;
 
@@ -30,15 +30,16 @@ const smallRotate = keyframes`
     100% {transform: rotate(0)}
 `;
 
-////////////////////////////////////////////
+///////////////////////////////////////////
 ///////////////////////////////////////////
 
 export const MobileNavRoot = styled.nav`
     ${tw`fixed bottom-4 left-1/2 z-50 w-12 h-12`}
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(100%) translateX(-50%);
 
-    animation: ${expandVertical} 0.5s cubic-bezier(0.19, 1, 0.22, 1) 1s forwards;
+    animation: ${expandVerticalCenter} 0.5s cubic-bezier(0.19, 1, 0.22, 1) 1s
+        forwards;
 `;
 
 export const MenuBtn = styled.button<BtnProps>`

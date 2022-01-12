@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Whyte Inktrap";
+    src: local("Whyte Inktrap Book"), local("Whyte-Inktrap-Book"),
+        url("WhyteInktrap-Book.woff2") format("woff2"),
+        url("WhyteInktrap-Book.woff") format("woff"),
+        url("WhyteInktrap-Book.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}

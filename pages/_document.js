@@ -15,6 +15,10 @@ class MyDocument extends Document {
                         rel="stylesheet"
                         href="/fonts/HelveticaNowText/style.css"
                     />
+                    <link
+                        rel="stylesheet"
+                        href="/fonts/Whytelnktrap/style.css"
+                    />
                 </Head>
                 <body>
                     <Main />

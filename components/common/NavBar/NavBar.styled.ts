@@ -52,7 +52,8 @@ export const NavbarRoot = styled.div<RootProps>`
     ${(props) =>
         props.isMobileMenuOpen &&
         css`
-            ${tw`bg-transparent`}
+            box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+            background-color: var(--primary);
         `}
 `;
 

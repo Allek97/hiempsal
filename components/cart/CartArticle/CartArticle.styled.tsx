@@ -40,7 +40,7 @@ export const Article = styled.article`
         pt-4 border-t-accents-7`}
 
     &:first-of-type {
-        ${tw`border-t-2 `}
+        ${tw`border-t-2`}
     }
 
     border-bottom: 2px solid var(--accents-3);

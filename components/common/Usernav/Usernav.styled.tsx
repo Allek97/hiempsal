@@ -9,7 +9,7 @@ interface NavBtnProps {
 }
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-3`}
+    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-2`}
 
     ${customScroll}
 `;
@@ -19,8 +19,8 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`text-2xl text-primary bg-primary pt-20 
-      lg:(width[34%] pt-40 bg-accents-3)`}
+    ${tw`font-size[26px] pt-20 text-primary bg-primary
+      lg:(width[34%] pt-40 bg-accents-2)`}
 
     padding-left: 4vw;
     padding-right: 4vw;

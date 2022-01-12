@@ -1,9 +1,14 @@
 import { Button } from "@components/ui";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
+interface ShopPolicyProps {
+    isCartEmpty: boolean;
+}
+
 export const Root = styled.div<Record<string, unknown>>`
-    ${tw`flex flex-col min-h-screen`}
+    ${tw`relative flex flex-col min-h-screen`}
 
     padding-left: 4vw;
     padding-right: 4vw;
@@ -41,6 +46,27 @@ export const ItemsHeader = styled.div`
     & > div:nth-of-type(4) {
         ${tw`mr-auto`}
     }
+`;
+
+////////////////////////////////////////////////////////
+// NOTE: Empty Card
+////////////////////////////////////////////////////////
+export const EmptyCartRoot = styled.div`
+    ${tw`flex flex-col`}
+`;
+
+export const EmptyCartBox = styled.div`
+    ${tw`flex items-center mt-4 min-height[11.25rem] margin-bottom[1em]
+    border-b border-b-accents-5 border-t-2 border-t-secondary
+    font-size[20px] font-family["Whyte Inktrap"] tracking-tighter`}
+`;
+
+export const ShoppingWrapper = styled.div`
+    ${tw`w-1/2 ml-auto`}
+`;
+
+export const ShoppingButton = styled(Button)`
+    ${tw`font-size[17px] py-5 text-white tracking-tighter`}
 `;
 
 ////////////////////////////////////////////////////////
@@ -90,7 +116,7 @@ export const TotalBox = styled.div`
 `;
 
 export const CheckoutWrapper = styled.div`
-    ${tw`flex items-center content-center w-full text-center margin-top[6vw]
+    ${tw`flex items-center content-center w-full margin-top[6vw] text-center 
     lg:(mt-0)`}
 `;
 
@@ -106,7 +132,7 @@ export const PaymentVendors = styled.ul`
     }
 `;
 
-export const ShopPolicy = styled.div`
+export const ShopPolicy = styled.div<ShopPolicyProps>`
     ${tw`flex items-center justify-center flex-col w-full
     lg:(flex-row justify-between margin-top[6vw] w-4/5)
     xl:(font-size[1.05vw])

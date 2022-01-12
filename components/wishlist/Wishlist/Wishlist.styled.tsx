@@ -12,7 +12,7 @@ export const RootEmpty = styled.div`
     font-family[Whyte Inktrap] text-2xl text-center letter-spacing[-0.03em]
     md:font-size[1.8rem]
     lg:(border-0 font-size[2.7vw])
-    2xl:font-size[2.6rem]`}
+    2xl:font-size[2.7rem]`}
 
     h1:first-child {
         ${tw`mb-3 lg:mb-5`}
@@ -52,22 +52,11 @@ export const BrowsingBtn = styled.button`
 
 export const DecorationOneTop = styled.span`
     ${tw`absolute block top[1rem] right[4vw] 
-    height[1.65rem] width[7rem] p-0 bg-accents-9`}
+    height[1.7rem] width[8rem] p-0 bg-accents-9`}
 
     transform: skewY(-10deg);
 `;
 
 export const DecorationOneBottom = styled(DecorationOneTop)`
     ${tw`top[2rem] right[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
-`;
-
-export const DecorationTwoTop = styled.span`
-    ${tw`fixed block bottom[1rem] left[4vw] 
-    height[1.65rem] width[7rem] p-0 bg-accents-4`}
-
-    transform: skewY(-10deg);
-`;
-
-export const DecorationTwoBottom = styled(DecorationTwoTop)`
-    ${tw`bottom[2rem] left[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
 `;

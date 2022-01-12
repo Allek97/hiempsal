@@ -8,8 +8,11 @@ interface Props {
 
 export const Root = styled.button<Props>`
     ${tw`flex items-center justify-center w-full p-3.5 
-    transition ease-in-out duration-300 shadow-lg rounded-sm bg-secondary 
+    shadow-lg rounded-sm bg-secondary 
     text-accents-1 text-center leading-6 capitalize cursor-pointer`}
+
+    transition: background .5s cubic-bezier(.19,1,.22,1),
+                color .5s cubic-bezier(.19,1,.22,1);
 
     &:hover {
         ${tw`bg-accents-0 text-primary`}

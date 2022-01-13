@@ -1,11 +1,7 @@
 import { Button } from "@components/ui";
-import { css } from "@emotion/react";
+
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
-
-interface ShopPolicyProps {
-    isCartEmpty: boolean;
-}
 
 export const Root = styled.div<Record<string, unknown>>`
     ${tw`relative flex flex-col min-h-screen`}
@@ -58,15 +54,16 @@ export const EmptyCartRoot = styled.div`
 export const EmptyCartBox = styled.div`
     ${tw`flex items-center mt-4 min-height[11.25rem] margin-bottom[1em]
     border-b border-b-accents-5 border-t-2 border-t-secondary
-    font-size[20px] font-family["Whyte Inktrap"] tracking-tighter`}
+    font-family["Whyte Inktrap"] tracking-tighter
+    lg:font-size[20px]`}
 `;
 
 export const ShoppingWrapper = styled.div`
-    ${tw`w-1/2 ml-auto`}
+    ${tw`w-full ml-auto lg:w-1/2`}
 `;
 
 export const ShoppingButton = styled(Button)`
-    ${tw`font-size[17px] py-5 text-white tracking-tighter`}
+    ${tw`font-size[15px] py-4 text-white tracking-tighter lg:(py-5 font-size[15px])`}
 `;
 
 ////////////////////////////////////////////////////////
@@ -132,10 +129,10 @@ export const PaymentVendors = styled.ul`
     }
 `;
 
-export const ShopPolicy = styled.div<ShopPolicyProps>`
+export const ShopPolicy = styled.div`
     ${tw`flex items-center justify-center flex-col w-full
-    lg:(flex-row justify-between margin-top[6vw] w-4/5)
-    xl:(font-size[1.05vw])
+    lg:(flex-row justify-between margin-top[6vw] w-full font-size[1.15vw])
+    xl:(font-size[1vw] w-4/5)
     2xl:(font-size[0.95vw])
     3xl:(font-size[16.5px])`}
 

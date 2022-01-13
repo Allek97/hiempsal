@@ -22,7 +22,7 @@ import { CartArticle } from "../CartArticle";
 const Cart: FC = () => {
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const [isCartEmpty, _] = useState<boolean>(true);
+    const [isCartEmpty, _] = useState<boolean>(false);
 
     return (
         <Root>
@@ -86,7 +86,7 @@ const Cart: FC = () => {
                     </CartPaymentContainer>
                 </>
             )}
-            <ShopPolicy isCartEmpty={isCartEmpty}>
+            <ShopPolicy>
                 <span>Delivery time: 5-7 business days</span>
                 <span>100-day return period</span>
                 <span>Free returns</span>

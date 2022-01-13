@@ -9,12 +9,15 @@ import {
     DecorationOneTop,
     Root,
     RootEmpty,
+    WishlistBox,
+    WishlistFull,
 } from "./Wishlist.styled";
+import WishlistArticle from "../WishlistArticle/WishlistArticle";
 
 const Wishlist: FC = () => {
     const { closeUsernav } = useUI();
 
-    const [isWishlistEmpty, _] = useState<boolean>(true);
+    const [isWishlistEmpty, _] = useState<boolean>(false);
     return (
         <Root>
             {isWishlistEmpty ? (
@@ -33,9 +36,14 @@ const Wishlist: FC = () => {
                     </RootEmpty>
                 </ContainerEmpty>
             ) : (
-                <div>
-                    <h1>Wishlist</h1>
-                </div>
+                <WishlistFull>
+                    <h1>Your Wish List</h1>
+                    <WishlistBox>
+                        <WishlistArticle />
+                        <WishlistArticle />
+                        <WishlistArticle />
+                    </WishlistBox>
+                </WishlistFull>
             )}
         </Root>
     );

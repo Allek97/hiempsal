@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
 export const Root = styled.div`
-    ${tw`height[90vh] mt-3 lg:(h-full w-full)
-    lg:mt-0`}
+    ${tw`height[100%] mt-3 
+    lg:(h-full w-full mt-0 padding-left[2.66667vw] padding-right[2.66667vw])`}
 `;
 
 export const RootEmpty = styled.div`
-    ${tw`flex flex-col items-center justify-center w-full h-full
+    ${tw`flex flex-col items-center justify-center w-full h-full min-height[90vh]
     border-t-2 border-accents-7
     font-family[Whyte Inktrap] text-2xl text-center letter-spacing[-0.03em]
     md:font-size[1.8rem]
@@ -59,4 +59,24 @@ export const DecorationOneTop = styled.span`
 
 export const DecorationOneBottom = styled(DecorationOneTop)`
     ${tw`top[2rem] right[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
+`;
+
+///////////////////////////////////////
+// Wishlist articles
+//////////////////////////////////////
+
+export const WishlistFull = styled.article`
+    ${tw`flex flex-col`}
+
+    & > h1:first-of-type {
+        ${tw`py-4 margin-left[4vw] border-t-2 border-t-secondary 
+        font-size[27px] font-family["Whyte Inktrap"] tracking-tighter
+        lg:(ml-0 pt-0 border-0 font-size[29px] )
+        xl:(font-size[2.25vw])
+        2xl:(font-size[33px])`}
+    }
+`;
+
+export const WishlistBox = styled.ul`
+    ${tw`w-full flex justify-between flex-wrap`}
 `;

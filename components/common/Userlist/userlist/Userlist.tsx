@@ -14,7 +14,11 @@ import {
 } from "./Userlist.styled";
 import { UserlistArticle } from "..";
 
-const Userlist: FC = () => {
+interface Props {
+    variant: "wishlist" | "viewed-products";
+}
+
+const Userlist: FC<Props> = ({ variant }) => {
     const { closeUsernav } = useUI();
 
     const [isWishlistEmpty, _] = useState<boolean>(false);
@@ -28,7 +32,11 @@ const Userlist: FC = () => {
                     </>
 
                     <RootEmpty>
-                        <h1>The products on your wish list will appear here</h1>
+                        <h1>
+                            {variant === "wishlist"
+                                ? "The products on your wish list will appear here"
+                                : "Your visited products will appear here"}
+                        </h1>
                         <BrowsingBtn onClick={closeUsernav}>
                             <AiTwotoneFire />
                             <h1>Start browsing</h1>
@@ -37,11 +45,15 @@ const Userlist: FC = () => {
                 </ContainerEmpty>
             ) : (
                 <UserlistFull>
-                    <h1>Your Wish List</h1>
+                    <h1>
+                        {variant === "wishlist"
+                            ? "Your Wish List"
+                            : "Recently Viewed"}
+                    </h1>
                     <UserlistBox>
-                        <UserlistArticle />
-                        <UserlistArticle />
-                        <UserlistArticle />
+                        <UserlistArticle variant={variant} />
+                        <UserlistArticle variant={variant} />
+                        <UserlistArticle variant={variant} />
                     </UserlistBox>
                 </UserlistFull>
             )}

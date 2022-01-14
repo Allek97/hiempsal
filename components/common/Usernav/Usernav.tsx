@@ -5,6 +5,7 @@ import { VscEyeClosed } from "react-icons/vsc";
 
 import { Cart } from "@components/cart";
 import { Wishlist } from "@components/wishlist";
+import { ViewedProduct } from "@components/viewedProduct";
 
 import { useUI } from "@components/ui/context";
 import { useMediaQueryNext } from "lib/customHooks";
@@ -101,6 +102,7 @@ const Usernav: FC = () => {
                         <Content>
                             {isCartOpen && <Cart />}
                             {isWishListOpen && <Wishlist />}
+                            {isViewedProductsOpen && <ViewedProduct />}
                         </Content>
                     </Container>
                 </Root>

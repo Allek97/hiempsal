@@ -1,6 +1,12 @@
 import { Button } from "@components/ui";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+
+interface UserlistBtnProps {
+    isWishlist: boolean;
+    isAddedToWishlist: boolean;
+}
 
 export const Root = styled.li`
     ${tw`width[calc(50% - 1vw)] margin[1vw 0 10vw]
@@ -45,12 +51,22 @@ export const UserlistInfo = styled.div`
     }
 `;
 
-export const UserlistRemoveBtn = styled.button`
-    ${tw`padding-top[1vw] margin-top[0.8vw] font-size[1.25em] cursor-pointer
+export const UserlistBtn = styled.button<UserlistBtnProps>`
+    ${tw`padding-top[1vw] margin-top[0.8vw] font-size[1.3em] cursor-pointer
     lg:(mt-4 pt-1)`}
 
     svg {
-        ${tw`fill[red]`}
+        ${(props) =>
+            props.isWishlist &&
+            css`
+                fill: red;
+            `}
+
+        ${(props) =>
+            !props.isWishlist &&
+            css`
+                fill: ${props.isAddedToWishlist ? "red" : "currentColor"};
+            `}
         transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     }
 

@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdCardGiftcard } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
+import { FiHeart } from "react-icons/fi";
+import { RiHeartAddLine } from "react-icons/ri";
 
 import {
     AddToCartBtn,
@@ -11,10 +13,40 @@ import {
     UserlistImageWrapper,
     UserlistInfo,
     UserlistProduct,
-    UserlistRemoveBtn,
+    UserlistBtn,
 } from "./UserlistArticle.styled";
 
-const UserlistArticle: FC = () => {
+interface Props {
+    variant: "wishlist" | "viewed-products";
+}
+
+const UserlistArticle: FC<Props> = ({ variant }) => {
+    const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
+
+    function viewedProductAction() {
+        if (isAddedToWishlist) {
+            setIsAddedToWishlist(false);
+            console.log("Remove item from wish list");
+        } else {
+            setIsAddedToWishlist(true);
+            console.log("Add item to wish list");
+        }
+    }
+
+    const manageProductAction = (): void => {
+        switch (variant) {
+            case "wishlist":
+                alert("Remove Item");
+                break;
+            case "viewed-products":
+                viewedProductAction();
+                break;
+
+            default:
+                break;
+        }
+    };
+
     return (
         <Root>
             <UserlistProduct>
@@ -42,12 +74,18 @@ const UserlistArticle: FC = () => {
                             <h3>Black radiant classic hoodie for men ...</h3>
                         </Link>
 
-                        <UserlistRemoveBtn
-                            onClick={() => alert("Remove Item")}
+                        <UserlistBtn
+                            onClick={manageProductAction}
                             type="button"
+                            isWishlist={variant === "wishlist"}
+                            isAddedToWishlist={isAddedToWishlist}
                         >
-                            <FaHeartBroken />
-                        </UserlistRemoveBtn>
+                            {variant === "wishlist" ? (
+                                <FaHeartBroken />
+                            ) : (
+                                <RiHeartAddLine />
+                            )}
+                        </UserlistBtn>
                     </div>
 
                     <span>$300</span>
@@ -57,7 +95,9 @@ const UserlistArticle: FC = () => {
                         <p>Winter Offer</p>
                     </UserlistBonus>
 
-                    <AddToCartBtn>Add to Cart</AddToCartBtn>
+                    {variant === "wishlist" && (
+                        <AddToCartBtn>Add to Cart</AddToCartBtn>
+                    )}
                 </UserlistInfo>
             </UserlistProduct>
         </Root>

@@ -5,14 +5,14 @@ import {
     enableBodyScroll,
 } from "body-scroll-lock";
 
-import { useUI } from "@components/ui/context";
+import { useUsernavUI } from "@components/ui/usernavContext";
 
 import { NavBar } from "..";
 import { Fit, Root } from "./Layout.styled";
 import { Usernav } from "../Usernav";
 
 const Layout: FC = ({ children }) => {
-    const { isUsernavOpen, isMobileMenuOpen } = useUI();
+    const { isUsernavOpen, isMobileMenuOpen } = useUsernavUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 

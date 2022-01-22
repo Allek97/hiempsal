@@ -1,13 +1,23 @@
 import { Button } from "@components/ui";
+import { keyframes } from "@emotion/react";
 
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
-export const Root = styled.div<Record<string, unknown>>`
-    ${tw`relative flex flex-col min-h-screen`}
+const opaqueAnimation = keyframes`
+    100% {
+        opacity: 1;
+    }
+`;
+
+export const Root = styled.div<any>`
+    ${tw`relative flex flex-col min-h-screen opacity-0`}
 
     padding-left: 4vw;
     padding-right: 4vw;
+
+    animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1
+        forwards;
 
     @media only screen and (min-width: ${theme`screens.lg`}) {
         padding-left: 2.66666666667vw;

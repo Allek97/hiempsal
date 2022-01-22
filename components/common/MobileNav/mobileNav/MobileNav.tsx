@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { useUI } from "@components/ui/context";
+import { useUsernavUI } from "@components/ui/usernavContext";
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -17,7 +17,7 @@ import { MobileMenu } from "../..";
 
 const MobileNav: FC = () => {
     const { openCart, isUsernavOpen, isMobileMenuOpen, toggleMobileMenu } =
-        useUI();
+        useUsernavUI();
 
     return (
         <>

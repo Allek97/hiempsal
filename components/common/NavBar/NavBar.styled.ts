@@ -7,6 +7,7 @@ interface RootProps {
     isUsernavScrolled: boolean;
     isUsernavOpen: boolean;
     isMobileMenuOpen: boolean;
+    isProductPopupOpen: boolean;
 }
 interface WrapperProps {
     isUsernavOpen: boolean;
@@ -27,7 +28,7 @@ const fadeIn = keyframes`
 `;
 
 export const NavbarRoot = styled.div<RootProps>`
-    ${tw`sticky top-0 z-50 bg-primary`}
+    ${tw`sticky transition-transform top-0 z-50 bg-primary`}
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -54,6 +55,12 @@ export const NavbarRoot = styled.div<RootProps>`
         css`
             box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
             background-color: var(--primary);
+        `}
+
+    ${(props) =>
+        props.isProductPopupOpen &&
+        css`
+            transform: translateY(-100%);
         `}
 `;
 

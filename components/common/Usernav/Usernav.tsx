@@ -7,7 +7,7 @@ import { Cart } from "@components/cart";
 import { Wishlist } from "@components/wishlist";
 import { ViewedProduct } from "@components/viewedProduct";
 
-import { useUI } from "@components/ui/context";
+import { useUsernavUI } from "@components/ui/usernavContext";
 import { useMediaQueryNext } from "lib/customHooks";
 
 import { HelpCard } from "../HelpCard";
@@ -29,7 +29,7 @@ const Usernav: FC = () => {
         openViewedProducts,
         closeUsernav,
         setUsernavScrollStatus,
-    } = useUI();
+    } = useUsernavUI();
 
     useEffect(() => {
         if (ref.current) {

@@ -2,7 +2,9 @@ import { FC } from "react";
 import Link from "next/link";
 import { IoCloseSharp } from "react-icons/io5";
 
-import { useUI } from "@components/ui/context";
+import { useUsernavUI } from "@components/ui/usernavContext";
+import { useProductUI } from "@components/ui/productContext";
+
 import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
 
@@ -28,7 +30,10 @@ const Navbar: FC = () => {
         isMobileMenuOpen,
         closeUsernav,
         openCart,
-    } = useUI();
+        openWishList,
+    } = useUsernavUI();
+
+    const { isProductPopupOpen } = useProductUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
@@ -42,6 +47,7 @@ const Navbar: FC = () => {
                 isScrolled={isScrolled}
                 isUsernavOpen={isUsernavOpen}
                 isMobileMenuOpen={isMobileMenuOpen}
+                isProductPopupOpen={isProductPopupOpen}
             >
                 <Container isUsernavOpen={isUsernavOpen}>
                     <Navigation>
@@ -111,7 +117,11 @@ const Navbar: FC = () => {
                         </HiemsalWrapper>
                         {isScreenLarge && (
                             <UtilWrapper>
-                                <button aria-label="Wish list" type="button">
+                                <button
+                                    aria-label="Wish list"
+                                    type="button"
+                                    onClick={openWishList}
+                                >
                                     <Heart />
                                 </button>
                                 <button

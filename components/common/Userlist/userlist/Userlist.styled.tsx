@@ -1,9 +1,18 @@
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
+const opaqueAnimation = keyframes`
+    100% {
+        opacity: 1;
+    }
+`;
+
 export const Root = styled.div`
-    ${tw`height[100%] mt-3 
+    ${tw`height[100%] mt-3 opacity-0
     lg:(h-full w-full mt-0 padding-left[2.66667vw] padding-right[2.66667vw])`}
+
+    animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1 forwards;
 `;
 
 export const RootEmpty = styled.div`

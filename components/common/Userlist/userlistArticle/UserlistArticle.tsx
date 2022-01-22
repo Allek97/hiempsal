@@ -3,8 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdCardGiftcard } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
-import { FiHeart } from "react-icons/fi";
 import { RiHeartAddLine } from "react-icons/ri";
+
+import { ProductPopup } from "@components/common/ProductPopup";
+
+import { useProductUI } from "@components/ui/productContext";
 
 import {
     AddToCartBtn,
@@ -23,13 +26,15 @@ interface Props {
 const UserlistArticle: FC<Props> = ({ variant }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
+    const { openProductPopup } = useProductUI();
+
     function viewedProductAction() {
         if (isAddedToWishlist) {
             setIsAddedToWishlist(false);
-            console.log("Remove item from wish list");
+            // console.log("Remove item from wish list");
         } else {
             setIsAddedToWishlist(true);
-            console.log("Add item to wish list");
+            // console.log("Add item to wish list");
         }
     }
 
@@ -49,19 +54,21 @@ const UserlistArticle: FC<Props> = ({ variant }) => {
 
     return (
         <Root>
+            <ProductPopup />
             <UserlistProduct>
                 <Link href="/" passHref>
                     <div className="flex justify-center items-center w-full bg-accents-1 cursor-pointer">
                         <UserlistImageWrapper>
                             <div>
                                 <Image
-                                    src="/images/Men-Hoodie-White-Front.png"
+                                    src="/images/mcbook.png"
                                     alt="Black hoodie"
                                     width={2}
                                     height={3}
-                                    quality="80"
+                                    quality="50"
                                     layout="responsive"
                                     objectFit="contain"
+                                    priority
                                 />
                             </div>
                         </UserlistImageWrapper>
@@ -96,7 +103,9 @@ const UserlistArticle: FC<Props> = ({ variant }) => {
                     </UserlistBonus>
 
                     {variant === "wishlist" && (
-                        <AddToCartBtn>Add to Cart</AddToCartBtn>
+                        <AddToCartBtn onClick={openProductPopup}>
+                            Add to Cart
+                        </AddToCartBtn>
                     )}
                 </UserlistInfo>
             </UserlistProduct>

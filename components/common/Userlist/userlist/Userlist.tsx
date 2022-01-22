@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import { AiTwotoneFire } from "react-icons/ai";
-import { useUI } from "@components/ui/context";
+import { useUsernavUI } from "@components/ui/usernavContext";
 import {
     BrowsingBtn,
     ContainerEmpty,
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Userlist: FC<Props> = ({ variant }) => {
-    const { closeUsernav } = useUI();
+    const { closeUsernav } = useUsernavUI();
 
     const [isWishlistEmpty, _] = useState<boolean>(false);
     return (

@@ -40,7 +40,7 @@ const stateModifiers: StateModifiers = {
     toggleMobileMenu: () => {},
 };
 
-const UIContext = createContext<State>({
+const UsernavUIContext = createContext<State>({
     ...initialState,
     ...stateModifiers,
 });
@@ -111,7 +111,7 @@ function uiReducer(state: StateValues, action: Action) {
     }
 }
 
-const UIProvider: FC = ({ children }) => {
+const UsernavUIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);
 
     const closeUsernav = () => dispatch({ type: "CLOSE_USERNAV" });
@@ -136,12 +136,16 @@ const UIProvider: FC = ({ children }) => {
         };
     }, [state]);
 
-    return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
+    return (
+        <UsernavUIContext.Provider value={value}>
+            {children}
+        </UsernavUIContext.Provider>
+    );
 };
 
-export const useUI = () => {
-    const context = useContext(UIContext);
+export const useUsernavUI = () => {
+    const context = useContext(UsernavUIContext);
     return context;
 };
 
-export default UIProvider;
+export default UsernavUIProvider;

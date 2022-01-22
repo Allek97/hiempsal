@@ -1,12 +1,18 @@
 import customScroll from "@styles/customScroll.styled";
 import { EffectButton } from "@components/ui";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
 
 interface NavBtnProps {
     isSelected: boolean;
 }
+
+const opaqueAnimation = keyframes`
+    100% {
+        opacity: 1;
+    }
+`;
 
 export const Root = styled.main`
     ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-2`}
@@ -75,6 +81,8 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full min-h-screen bg-primary outline-none 
+    ${tw`max-w-full min-h-screen opacity-0 bg-primary outline-none 
       lg:(width[66%] pt-40)`}
+
+    animation: ${opaqueAnimation} 2s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
 `;

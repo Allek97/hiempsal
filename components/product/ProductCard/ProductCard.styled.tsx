@@ -25,7 +25,7 @@ export const ProductTag = styled.div`
 
 export const ProductName = styled.h3`
     ${tw`font-bold`}
-    line-height: 1.65em;
+    line-height: 1.8em;
 
     span {
         ${tw`py-6 px-10 bg-primary`}

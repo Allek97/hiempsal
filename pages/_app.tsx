@@ -3,7 +3,7 @@ import { FC } from "react";
 import "../styles/globals.scss";
 import "../assets/base.css";
 
-import UIProvider from "@components/ui/context";
+import UIProvider from "@components/ui/usernavContext";
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
 const Noop: FC = ({ children }) => <>{children}</>;

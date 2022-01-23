@@ -11,6 +11,7 @@ interface RootProps {
 }
 interface WrapperProps {
     isUsernavOpen: boolean;
+    isScrolled?: boolean;
 }
 interface NavbarItemProps {
     isUsernavOpen: boolean;
@@ -28,44 +29,65 @@ const fadeIn = keyframes`
 `;
 
 export const NavbarRoot = styled.div<RootProps>`
-    ${tw`sticky transition-transform top-0 z-50 bg-primary`}
-
-    ${(props) =>
-        props.isUsernavOpen &&
-        (props.isUsernavScrolled && !props.isMobileMenuOpen
-            ? css`
-                  box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
-                  background-color: var(--primary);
-              `
-            : css`
-                  ${tw`bg-transparent`}
-              `)}
-
-    ${(props) =>
-        props.isScrolled &&
-        !props.isUsernavOpen &&
-        !props.isMobileMenuOpen &&
-        css`
-            box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
-            background-color: var(--primary);
-        `}
-
-    ${(props) =>
-        props.isMobileMenuOpen &&
-        css`
-            box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
-            background-color: var(--primary);
-        `}
+    ${tw`sticky top-0 z-50 bg-transparent`}
 
     ${(props) =>
         props.isProductPopupOpen &&
+        !props.isMobileMenuOpen &&
         css`
             transform: translateY(-100%);
         `}
+
+    &:before {
+        content: "";
+
+        ${tw`absolute left-0 right-0 h-full bg-white`}
+
+        transition: transform .5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+        transform-origin: top;
+
+        transform: scaleY(0);
+        box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+
+        ${(props) =>
+            (props.isScrolled && !props.isUsernavOpen) ||
+            props.isUsernavScrolled ||
+            props.isMobileMenuOpen
+                ? css`
+                      transform: scaleY(1);
+                  `
+                : css`
+                      transform: scaleY(0);
+                  `}
+    }
+
+    &:after {
+        content: "";
+
+        ${tw`absolute left-4 right-4 h-1`}
+        box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+        background-color: #e00b25;
+
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+
+        transform-origin: left;
+
+        ${(props) =>
+            (props.isScrolled && !props.isUsernavOpen) ||
+            props.isUsernavScrolled ||
+            props.isMobileMenuOpen
+                ? css`
+                      transform: scaleX(1);
+                  `
+                : css`
+                      transform: scaleX(0);
+                      transform-origin: right;
+                  `}
+    }
 `;
 
 export const Container = styled.div<WrapperProps>`
-    ${tw`px-4 py-5 mx-auto max-w-8xl`}
+    ${tw`relative px-4 py-5 mx-auto max-w-8xl`}
 
     ${(props) =>
         props.isUsernavOpen &&

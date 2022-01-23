@@ -26,7 +26,7 @@ interface Props {
 const UserlistArticle: FC<Props> = ({ variant }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
-    const { openProductPopup } = useProductUI();
+    const { isProductPopupOpen, openProductPopup } = useProductUI();
 
     function viewedProductAction() {
         if (isAddedToWishlist) {
@@ -54,7 +54,7 @@ const UserlistArticle: FC<Props> = ({ variant }) => {
 
     return (
         <Root>
-            <ProductPopup />
+            {isProductPopupOpen && <ProductPopup />}
             <UserlistProduct>
                 <Link href="/" passHref>
                     <div className="flex justify-center items-center w-full bg-accents-1 cursor-pointer">

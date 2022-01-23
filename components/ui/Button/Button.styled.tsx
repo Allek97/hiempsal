@@ -23,7 +23,7 @@ export const Root = styled.button<Props>`
     }
 
     &:active {
-        ${tw`bg-gray-600`}
+        ${tw`bg-accents-2`}
     }
 
     ${(props) =>

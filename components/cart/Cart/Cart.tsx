@@ -90,7 +90,7 @@ const Cart: FC = () => {
                 <span>Delivery time: 5-7 business days</span>
                 <span>100-day return period</span>
                 <span>Free returns</span>
-                <span>FREE SHIPPING FROM $ 50.00 CAD</span>
+                <span>FREE SHIPPING FROM $50.00 CAD</span>
             </ShopPolicy>
         </Root>
     );

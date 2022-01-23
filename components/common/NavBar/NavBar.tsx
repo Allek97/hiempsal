@@ -49,7 +49,10 @@ const Navbar: FC = () => {
                 isMobileMenuOpen={isMobileMenuOpen}
                 isProductPopupOpen={isProductPopupOpen}
             >
-                <Container isUsernavOpen={isUsernavOpen}>
+                <Container
+                    isUsernavOpen={isUsernavOpen}
+                    isScrolled={isScrolled}
+                >
                     <Navigation>
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref scroll={false}>

@@ -1,12 +1,17 @@
 import { FC } from "react";
 import Image from "next/image";
+import { useProductUI } from "@components/ui/productContext";
+import Close from "@components/icons/Close";
 import {
+    CartButton,
+    CloseWrapper,
     Container,
     Content,
     ImageVariantWrapper,
     Overlay,
     ProductColor,
     ProductInfo,
+    ProductPolicy,
     ProductSize,
     ProductVariantColor,
     ProductVariantList,
@@ -15,7 +20,9 @@ import {
 } from "./ProductPopup.styled";
 
 const ProductPopup: FC = () => {
-    const maximumLength = (content: string, maxLength = 30): string => {
+    const { closeProductPopup } = useProductUI();
+
+    const maximumLength = (content: string, maxLength = 29): string => {
         const contentCut = content.substring(0, maxLength);
 
         if (content.length > maxLength) return `${contentCut}...`;
@@ -24,8 +31,12 @@ const ProductPopup: FC = () => {
 
     return (
         <Root>
-            <Overlay />
+            <Overlay onClick={closeProductPopup} />
             <Container>
+                <CloseWrapper>
+                    <Close />
+                </CloseWrapper>
+
                 <Content>
                     <ProductInfo>
                         <h1>
@@ -112,13 +123,31 @@ const ProductPopup: FC = () => {
                             <ProductVariantSize>
                                 <h2>XS</h2>
                             </ProductVariantSize>
-                            <ProductVariantSize isSelected>
+                            <ProductVariantSize>
                                 <h2>S</h2>
+                            </ProductVariantSize>
+                            <ProductVariantSize isSelected>
+                                <h2>M</h2>
+                            </ProductVariantSize>
+                            <ProductVariantSize>
+                                <h2>L</h2>
+                            </ProductVariantSize>
+                            <ProductVariantSize>
+                                <h2>XL</h2>
+                            </ProductVariantSize>
+                            <ProductVariantSize>
+                                <h2>XXL</h2>
                             </ProductVariantSize>
                         </ProductVariantList>
                     </ProductSize>
                 </Content>
-                <h1>hey</h1>
+                <ProductPolicy>
+                    <span>Delivery time: 5-7 business days</span>
+                    <span>100-day return period</span>
+                    <span>Free returns</span>
+                    <span>FREE SHIPPING FROM $50.00 CAD</span>
+                </ProductPolicy>
+                <CartButton>Add To Cart</CartButton>
             </Container>
         </Root>
     );

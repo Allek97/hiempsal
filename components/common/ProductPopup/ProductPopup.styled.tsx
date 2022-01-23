@@ -1,3 +1,4 @@
+import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import customScroll from "@styles/customScroll.styled";
@@ -12,30 +13,51 @@ export const Root = styled.aside`
 `;
 
 export const Overlay = styled.div`
-    ${tw`fixed inset-0 z-index[90] bg-accents-9 opacity-40`}
+    ${tw`fixed inset-0 z-index[95] bg-accents-9 opacity-40 pointer-events-auto`}
+
+    cursor: url(/close.svg), auto;
 `;
 
 export const Container = styled.section`
     ${tw`fixed z-index[95] bottom-9 right[4vw] width[94vw] height[80%] bg-primary
-    rounded-md overflow-y-scroll`}
+    rounded-md overflow-y-scroll
+    md:(width[55vw] right[0] left[0] mx-auto)
+    lg:(bottom-4 height[85%] width[33vw] ml-auto mr-10)
+    2xl:(width[31rem])`}
 
-    border-top-right-radius: 2rem;
+    filter: drop-shadow(rgba(0, 0, 0, 0.15) 1px 1px 3px);
+    border-top-left-radius: 1.5rem;
     ${customScroll}
 `;
 
+export const CloseWrapper = styled.div`
+    ${tw`absolute top-3 right-3 w-4 cursor-pointer z-10`}
+
+    &:hover svg {
+        transition: fill 0.3s;
+        fill: #e00b25;
+        cursor: pointer;
+    }
+`;
+
 export const Content = styled.div`
-    ${tw`flex flex-col py-8 px-4`}
+    ${tw`relative flex flex-col py-8 px-4
+    lg:pt-10
+    2xl:px-6`}
 `;
 
 export const ProductInfo = styled.div`
-    ${tw`flex justify-between items-center mb-12 font-size[17px] tracking-tighter`}
+    ${tw`flex justify-between items-center mb-12 font-size[17px] tracking-tighter cursor-pointer
+    lg:justify-start
+    xl:font-size[19px]`}
 
     h1 {
         ${tw`mr-3`}
     }
 
     span {
-        ${tw`font-size[14.5px] text-accents-9`}
+        ${tw`font-size[14.5px] text-accents-9
+        xl:font-size[16.5px]`}
     }
 `;
 
@@ -44,7 +66,8 @@ export const ProductInfo = styled.div`
 ///////////////////////////////////////////////////
 
 export const ProductColor = styled.section`
-    ${tw`text-xs tracking-tighter text-accents-7`}
+    ${tw`text-xs tracking-tighter text-accents-7
+    xl:font-size[13px]`}
 
     h3 {
         ${tw`mb-4`}
@@ -55,15 +78,20 @@ export const ProductVariantList = styled.div`
 `;
 export const ProductVariantColor = styled.article<ProductVariantColorProps>`
     ${tw`flex flex-col items-center justify-start text-center flex-1 
-    border border-color[#f0f0f0] border-radius[3px] bg-primary cursor-pointer`};
-    min-height: 9.5rem;
+    border border-color[#f0f0f0] border-radius[3px] bg-primary cursor-pointer
+    md:min-height[12.5rem]
+    lg:min-height[14.5vw]
+    2xl:min-height[13.5rem]`};
+    min-height: 38vw;
     transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
     // width: calc(33.333333333%);
 
     h2 {
-        ${tw`mx-2 font-size[13px] text-accents-8`}
+        ${tw`mx-2 font-size[13px] text-accents-8
+        xl:font-size[14px]
+        2xl:font-size[16px]`}
     }
 
     ${(props) =>
@@ -92,6 +120,33 @@ export const ImageVariantWrapper = styled.div`
 
 export const ProductSize = styled(ProductColor)``;
 export const ProductVariantSize = styled(ProductVariantColor)`
-    justify-content: center;
-    min-height: 4rem;
+    ${tw`justify-center min-height[15vw]
+    md:min-height[5.5rem]`}
+`;
+
+///////////////////////////////////////////////////
+
+export const ProductPolicy = styled.div`
+    ${tw`flex items-center justify-center flex-col w-full font-size[11px] leading-3 tracking-tighter
+    2xl:font-size[12.5px]`}
+
+    margin-bottom: 4rem;
+
+    span {
+        margin-bottom: 0.5rem;
+    }
+`;
+
+export const CartButton = styled(Button)`
+    ${tw`sticky bottom-10 z-index[150] width[90%] mx-auto text-lg
+    2xl:text-xl`}
+    border-radius: 4px;
+
+    &:hover {
+        ${tw`bg-accents-9 text-secondary shadow-md`}
+    }
+
+    &:active {
+        ${tw`bg-accents-9`}
+    }
 `;

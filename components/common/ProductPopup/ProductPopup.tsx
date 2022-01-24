@@ -33,7 +33,7 @@ const ProductPopup: FC = () => {
         <Root>
             <Overlay onClick={closeProductPopup} />
             <Container>
-                <CloseWrapper>
+                <CloseWrapper onClick={closeProductPopup}>
                     <Close />
                 </CloseWrapper>
 

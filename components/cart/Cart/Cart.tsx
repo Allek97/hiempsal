@@ -56,6 +56,13 @@ const Cart: FC = () => {
                         <CartArticle />
                         <CartArticle />
                         <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
+                        <CartArticle />
                     </div>
 
                     <CartPaymentContainer>

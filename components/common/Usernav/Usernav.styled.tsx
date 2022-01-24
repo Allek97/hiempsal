@@ -15,18 +15,19 @@ const opaqueAnimation = keyframes`
 `;
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full overflow-hidden overflow-y-auto bg-accents-2`}
+    ${tw`fixed inset-0 z-40 h-full bg-accents-2 overflow-y-auto
+    lg:(overflow-visible)`}
 
     ${customScroll}
 `;
 
 export const Container = styled.div`
-    ${tw`flex flex-1 flex-col max-w-8xl mx-auto lg:flex-row overflow-hidden`}
+    ${tw`flex flex-1 flex-col h-full max-w-8xl mx-auto lg:flex-row`}
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
     ${tw`font-size[26px] pt-20 text-primary bg-primary
-      lg:(width[34%] pt-40 bg-accents-2)`}
+      lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)`}
 
     padding-left: 4vw;
     padding-right: 4vw;
@@ -81,8 +82,10 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full min-h-screen opacity-0 bg-primary outline-none 
-      lg:(width[66%] pt-40)`}
+    ${tw`max-w-full min-h-screen opacity-0 bg-primary outline-none
+      lg:(overflow-y-auto width[66%] pt-40)`}
+
+    ${customScroll}
 
     animation: ${opaqueAnimation} 2s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
 `;

@@ -48,7 +48,7 @@ const Usernav: FC = () => {
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {isUsernavOpen && (
-                <Root ref={ref} onScroll={listenScrollEvent}>
+                <Root>
                     <Container>
                         <Navigation>
                             <nav>
@@ -99,7 +99,7 @@ const Usernav: FC = () => {
                             )}
                         </Navigation>
 
-                        <Content>
+                        <Content ref={ref} onScroll={listenScrollEvent}>
                             {isCartOpen && <Cart />}
                             {isWishListOpen && <Wishlist />}
                             {isViewedProductsOpen && <ViewedProduct />}

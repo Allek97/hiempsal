@@ -15,7 +15,8 @@ import { HelpCard } from "../HelpCard";
 import { Container, Content, NavBtn, Navigation, Root } from "./Usernav.styled";
 
 const Usernav: FC = () => {
-    const ref = useRef() as MutableRefObject<HTMLDivElement>;
+    const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
+    const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
     const isScreenLarge = useMediaQueryNext("lg");
 
@@ -32,15 +33,27 @@ const Usernav: FC = () => {
     } = useUsernavUI();
 
     useEffect(() => {
-        if (ref.current) {
+        if (rootRef.current || contentRef.current) {
             setUsernavScrollStatus(0);
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUsernavOpen]);
 
+    useEffect(() => {
+        if (rootRef.current) rootRef.current.scrollTo(0, 0);
+        if (contentRef.current) contentRef.current.scrollTo(0, 0);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isCartOpen, isWishListOpen, isViewedProductsOpen]);
+
     const listenScrollEvent = () => {
-        if (ref.current) {
-            setUsernavScrollStatus(ref.current.scrollTop);
+        if (rootRef.current) {
+            setUsernavScrollStatus(rootRef.current.scrollTop);
+        }
+
+        if (contentRef.current && isScreenLarge) {
+            setUsernavScrollStatus(contentRef.current.scrollTop);
         }
     };
 
@@ -48,7 +61,7 @@ const Usernav: FC = () => {
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {isUsernavOpen && (
-                <Root>
+                <Root ref={rootRef} onScroll={listenScrollEvent}>
                     <Container>
                         <Navigation>
                             <nav>
@@ -99,7 +112,7 @@ const Usernav: FC = () => {
                             )}
                         </Navigation>
 
-                        <Content ref={ref} onScroll={listenScrollEvent}>
+                        <Content ref={contentRef} onScroll={listenScrollEvent}>
                             {isCartOpen && <Cart />}
                             {isWishListOpen && <Wishlist />}
                             {isViewedProductsOpen && <ViewedProduct />}

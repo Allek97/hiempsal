@@ -52,15 +52,26 @@ const Navbar: FC = () => {
                 <Container
                     isUsernavOpen={isUsernavOpen}
                     isScrolled={isScrolled}
+                    isUsernavScrolled={isUsernavScrolled}
+                    isMobileMenuOpen={isMobileMenuOpen}
                 >
                     <Navigation>
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref scroll={false}>
-                                <Wrapper isUsernavOpen={isUsernavOpen}>
+                                <Wrapper
+                                    isUsernavOpen={isUsernavOpen}
+                                    onClick={closeUsernav}
+                                    onKeyPress={closeUsernav}
+                                    role="button"
+                                    // tabIndex={0}
+                                >
                                     {isUsernavOpen &&
                                     !isMobileMenuOpen &&
                                     !isScreenLarge ? (
-                                        <IoCloseSharp onClick={closeUsernav} />
+                                        <IoCloseSharp
+                                            onClick={closeUsernav}
+                                            role="button"
+                                        />
                                     ) : (
                                         <Logo />
                                     )}
@@ -111,13 +122,16 @@ const Navbar: FC = () => {
                                 </nav>
                             )}
                         </div>
-
-                        <HiemsalWrapper
-                            isUsernavOpen={isUsernavOpen}
-                            isScrolled={isScrolled}
-                        >
-                            <Hiempsal />
-                        </HiemsalWrapper>
+                        <Link href="/" passHref scroll={false}>
+                            <HiemsalWrapper
+                                isUsernavOpen={isUsernavOpen}
+                                isScrolled={isScrolled}
+                                onClick={closeUsernav}
+                                role="button"
+                            >
+                                <Hiempsal />
+                            </HiemsalWrapper>
+                        </Link>
                         {isScreenLarge && (
                             <UtilWrapper>
                                 <button

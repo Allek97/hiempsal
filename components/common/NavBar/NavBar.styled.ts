@@ -12,6 +12,8 @@ interface RootProps {
 interface WrapperProps {
     isUsernavOpen: boolean;
     isScrolled?: boolean;
+    isUsernavScrolled?: boolean;
+    isMobileMenuOpen?: boolean;
 }
 interface NavbarItemProps {
     isUsernavOpen: boolean;
@@ -35,7 +37,7 @@ export const NavbarRoot = styled.div<RootProps>`
         props.isProductPopupOpen &&
         !props.isMobileMenuOpen &&
         css`
-            transform: translateY(-100%);
+            pointer-events: none;
         `}
 
     &:before {
@@ -43,7 +45,7 @@ export const NavbarRoot = styled.div<RootProps>`
 
         ${tw`absolute left-0 right-0 h-full bg-white`}
 
-        transition: transform .5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+        transition: transform .5s cubic-bezier(0.19, 1, 0.22, 1);
         transform-origin: top;
 
         transform: scaleY(0);
@@ -51,7 +53,7 @@ export const NavbarRoot = styled.div<RootProps>`
 
         ${(props) =>
             (props.isScrolled && !props.isUsernavOpen) ||
-            props.isUsernavScrolled ||
+            (props.isUsernavScrolled && props.isUsernavOpen) ||
             props.isMobileMenuOpen
                 ? css`
                       transform: scaleY(1);
@@ -68,13 +70,13 @@ export const NavbarRoot = styled.div<RootProps>`
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 
-        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
         transform-origin: left;
 
         ${(props) =>
             (props.isScrolled && !props.isUsernavOpen) ||
-            props.isUsernavScrolled ||
+            (props.isUsernavScrolled && props.isUsernavOpen) ||
             props.isMobileMenuOpen
                 ? css`
                       transform: scaleX(1);
@@ -94,6 +96,32 @@ export const Container = styled.div<WrapperProps>`
         css`
             padding: 1.25rem 2.66666666666667vw;
         `}
+
+
+    &:before {
+        content: "";
+
+        ${tw`absolute top-0 left-4 right-4 height[3px]`}
+        box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
+        background-color: #e00b25;
+
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+        transform-origin: left;
+
+        ${(props) =>
+            (!props.isScrolled && !props.isUsernavOpen) ||
+            (!props.isUsernavScrolled &&
+                props.isUsernavOpen &&
+                !props.isMobileMenuOpen)
+                ? css`
+                      transform: scaleX(1);
+                  `
+                : css`
+                      transform: scaleX(0);
+                      transform-origin: right;
+                  `}
+    }
 `;
 
 export const Navigation = styled.nav`

@@ -82,7 +82,7 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full min-h-screen opacity-0 bg-primary outline-none
+    ${tw`max-w-full opacity-0 bg-primary outline-none
       lg:(overflow-y-auto width[66%] pt-40)`}
 
     ${customScroll}

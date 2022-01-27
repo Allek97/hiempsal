@@ -60,7 +60,6 @@ const HeroCloth: FC = () => {
                             <h1>Shirt</h1>
                         </HeroBtn>
                     </Link>
-
                     <DecorationTop />
                     <DecorationBottom />
                 </div>

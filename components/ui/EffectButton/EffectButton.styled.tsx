@@ -6,7 +6,7 @@ interface Props {
     isSelected: boolean;
 }
 
-export const Root = styled.button<Props>`
+export const EffectBtnRoot = styled.button<Props>`
     ${tw`relative inline-flex items-center`}
 
     svg {

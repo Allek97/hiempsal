@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ElementType, FC, ReactNode } from "react";
-import { Root } from "./EffectButton.styled";
+import { EffectBtnRoot } from "./EffectButton.styled";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode | ReactNode[];
@@ -16,9 +16,14 @@ const EffectButton: FC<Props> = ({
     ...rest
 }) => {
     return (
-        <Root type="button" as={Component} isSelected={isSelected} {...rest}>
+        <EffectBtnRoot
+            type="button"
+            as={Component}
+            isSelected={isSelected}
+            {...rest}
+        >
             {children}
-        </Root>
+        </EffectBtnRoot>
     );
 };
 

@@ -4,6 +4,7 @@ import { getAllProducts } from "@framework/product";
 import Layout from "@components/common/Layout";
 import { ProductCard } from "@components/product/ProductCard";
 import { Grid } from "@components/ui";
+import { HeroCloth } from "@components/ui/Hero";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -20,7 +21,8 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home = ({ products }: Props) => {
     return (
-        <>
+        <main>
+            <HeroCloth />
             <Grid>
                 {products.slice(0, 3).map((product) => (
                     <ProductCard
@@ -31,7 +33,7 @@ const Home = ({ products }: Props) => {
                 ))}
             </Grid>
             {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
-        </>
+        </main>
     );
 };
 

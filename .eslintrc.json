@@ -1,9 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/* npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb 
-  eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react 
-  @emotion/eslint-plugin eslint-plugin-styled-components-a11y --save--dev */
-// NOTE: Nextjs + TS = @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-next
+/*  npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb 
+    eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react 
+    @emotion/eslint-plugin eslint-plugin-styled-components-a11y eslint-plugin-react-hooks
+    @next/eslint-plugin-next --save--dev */
+// NOTE: Nextjs + TS = @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-next @next/eslint-plugin-next
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,6 +18,7 @@
         "next",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
         "plugin:styled-components-a11y/strict"
     ],
     "plugins": [

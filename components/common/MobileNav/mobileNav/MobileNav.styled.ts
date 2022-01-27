@@ -6,6 +6,7 @@ interface BtnProps {
     isMobileMenuOpen: boolean;
     isUsernavOpen: boolean;
     isProfileOpen: boolean;
+    isProductPopupOpen?: boolean;
 }
 
 ////////////////////////////////////////////
@@ -38,7 +39,7 @@ export const MobileNavRoot = styled.nav`
     opacity: 0;
     transform: translateY(100%) translateX(-50%);
 
-    animation: ${expandVerticalCenter} 0.5s cubic-bezier(0.19, 1, 0.22, 1) 1s
+    animation: ${expandVerticalCenter} 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.3s
         forwards;
 `;
 
@@ -50,7 +51,7 @@ export const MenuBtn = styled.button<BtnProps>`
 
     svg {
         ${(props) =>
-            props.isMobileMenuOpen
+            props.isMobileMenuOpen || props.isProductPopupOpen
                 ? css`
                       ${tw`h-5 w-5`}
                   `
@@ -71,6 +72,12 @@ export const MenuBtn = styled.button<BtnProps>`
                 animation: ${smallRotate} 1s cubic-bezier(0.19, 1, 0.22, 1) 1
                     forwards;
             `}
+
+            ${(props) =>
+            props.isProductPopupOpen &&
+            css`
+                fill: black;
+            `}
     }
 `;
 
@@ -89,7 +96,7 @@ export const Cart = styled.div<BtnProps>`
     box-shadow: var(--shadow-1);
 
     transform: translateX(-50%);
-    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 1.2s
+    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.6s
         forwards;
 
     button {
@@ -120,7 +127,7 @@ export const Profile = styled.div<BtnProps>`
     /* transform: translateX(-100%); */
     
     transform: translateX(50%);
-    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 1.2s
+    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.6s
         forwards;
 
     box-shadow: var(--shadow-1);

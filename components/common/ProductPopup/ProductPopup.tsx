@@ -1,7 +1,11 @@
 import { FC } from "react";
 import Image from "next/image";
+
 import { useProductUI } from "@components/ui/productContext";
+import { useMediaQueryNext } from "lib/customHooks";
+
 import Close from "@components/icons/Close";
+
 import {
     CartButton,
     CloseWrapper,
@@ -29,13 +33,17 @@ const ProductPopup: FC = () => {
         return contentCut;
     };
 
+    const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <Root>
             <Overlay onClick={closeProductPopup} />
             <Container>
-                <CloseWrapper onClick={closeProductPopup}>
-                    <Close />
-                </CloseWrapper>
+                {isScreenLarge && (
+                    <CloseWrapper onClick={closeProductPopup}>
+                        <Close />
+                    </CloseWrapper>
+                )}
 
                 <Content>
                     <ProductInfo>

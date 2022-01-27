@@ -1,6 +1,8 @@
 import { FC } from "react";
 
 import { useUsernavUI } from "@components/ui/usernavContext";
+import { useProductUI } from "@components/ui/productContext";
+
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -19,6 +21,13 @@ const MobileNav: FC = () => {
     const { openCart, isUsernavOpen, isMobileMenuOpen, toggleMobileMenu } =
         useUsernavUI();
 
+    const { isProductPopupOpen, closeProductPopup } = useProductUI();
+
+    const toggleMenu = () => {
+        if (isProductPopupOpen) closeProductPopup();
+        else toggleMobileMenu();
+    };
+
     return (
         <>
             <MobileMenu />
@@ -26,36 +35,45 @@ const MobileNav: FC = () => {
                 <MenuBtn
                     aria-label="Menu"
                     type="button"
-                    onClick={toggleMobileMenu}
+                    onClick={toggleMenu}
                     isMobileMenuOpen={isMobileMenuOpen}
                     isUsernavOpen={isUsernavOpen}
                     isProfileOpen={false}
+                    isProductPopupOpen={isProductPopupOpen}
                 >
-                    {isMobileMenuOpen ? <Close /> : <HiOutlineMenuAlt3 />}
+                    {isMobileMenuOpen || isProductPopupOpen ? (
+                        <Close />
+                    ) : (
+                        <HiOutlineMenuAlt3 />
+                    )}
                 </MenuBtn>
                 <Navigation>
-                    <Cart
-                        isUsernavOpen={isUsernavOpen}
-                        isMobileMenuOpen={isMobileMenuOpen}
-                        isProfileOpen={false}
-                    >
-                        <button
-                            aria-label="Cart"
-                            type="button"
-                            onClick={openCart}
-                        >
-                            <Bag />
-                        </button>
-                    </Cart>
-                    <Profile
-                        isProfileOpen={false}
-                        isMobileMenuOpen={isMobileMenuOpen}
-                        isUsernavOpen={isUsernavOpen}
-                    >
-                        <button aria-label="Profile" type="button">
-                            <BsPerson />
-                        </button>
-                    </Profile>
+                    {!isProductPopupOpen && (
+                        <>
+                            <Cart
+                                isUsernavOpen={isUsernavOpen}
+                                isMobileMenuOpen={isMobileMenuOpen}
+                                isProfileOpen={false}
+                            >
+                                <button
+                                    aria-label="Cart"
+                                    type="button"
+                                    onClick={openCart}
+                                >
+                                    <Bag />
+                                </button>
+                            </Cart>
+                            <Profile
+                                isProfileOpen={false}
+                                isMobileMenuOpen={isMobileMenuOpen}
+                                isUsernavOpen={isUsernavOpen}
+                            >
+                                <button aria-label="Profile" type="button">
+                                    <BsPerson />
+                                </button>
+                            </Profile>
+                        </>
+                    )}
                 </Navigation>
             </MobileNavRoot>
         </>

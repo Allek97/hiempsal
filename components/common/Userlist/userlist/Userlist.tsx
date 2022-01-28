@@ -15,7 +15,7 @@ import {
 import { UserlistArticle } from "..";
 
 interface Props {
-    variant: "wishlist" | "viewed-products";
+    variant: "wishlist" | "products";
 }
 
 const Userlist: FC<Props> = ({ variant }) => {

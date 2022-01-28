@@ -20,7 +20,7 @@ import {
 } from "./UserlistArticle.styled";
 
 interface Props {
-    variant: "wishlist" | "viewed-products";
+    variant: "wishlist" | "products";
 }
 
 const UserlistArticle: FC<Props> = ({ variant }) => {
@@ -43,7 +43,7 @@ const UserlistArticle: FC<Props> = ({ variant }) => {
             case "wishlist":
                 alert("Remove Item");
                 break;
-            case "viewed-products":
+            case "products":
                 viewedProductAction();
                 break;
 

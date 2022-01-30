@@ -66,7 +66,7 @@ export const NavbarRoot = styled.div<RootProps>`
     &:after {
         content: "";
 
-        ${tw`absolute left-4 right-4 h-1`}
+        ${tw`absolute left-11 right-11 h-1`}
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 
@@ -89,7 +89,7 @@ export const NavbarRoot = styled.div<RootProps>`
 `;
 
 export const Container = styled.div<WrapperProps>`
-    ${tw`relative px-4 py-5 mx-auto max-w-8xl`}
+    ${tw`relative px-11 py-5 mx-auto max-w-8xl`}
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -101,7 +101,7 @@ export const Container = styled.div<WrapperProps>`
     &:before {
         content: "";
 
-        ${tw`absolute top-0 left-4 right-4 height[3px]`}
+        ${tw`absolute top-0 left-11 right-11 height[3px]`}
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 

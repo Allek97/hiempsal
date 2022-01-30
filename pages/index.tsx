@@ -26,11 +26,12 @@ const Home = ({ products }: Props) => {
         <main>
             <HeroCloth />
             <ProductGrid>
-                {products.slice(0, 3).map((product) => (
+                {products.slice(0, 3).map((product, idx) => (
                     <ProductArticle
                         key={product.id}
                         variant="product"
                         layout="B"
+                        onDisplay={idx % 2 === 0 && idx !== 0}
                     />
                 ))}
             </ProductGrid>

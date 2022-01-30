@@ -30,7 +30,7 @@ interface Props {
 const ProductArticle: FC<Props> = ({
     variant,
     layout = "A",
-    onDisplay = "false",
+    onDisplay = false,
 }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
@@ -66,10 +66,13 @@ const ProductArticle: FC<Props> = ({
     return (
         <Root>
             {isProductPopupOpen && <ProductPopup />}
-            <Product>
+            <Product onDisplay={onDisplay}>
                 <Link href="/" passHref>
-                    <ImageContainer>
-                        <ProductImageWrapper imageSize={layout}>
+                    <ImageContainer onDisplay={onDisplay}>
+                        <ProductImageWrapper
+                            imageSize={layout}
+                            onDisplay={onDisplay}
+                        >
                             <div>
                                 <Image
                                     src="/images/Women-TShirt-Peach-Front.png"
@@ -123,7 +126,7 @@ const ProductArticle: FC<Props> = ({
                         <AddToCartBtn onClick={openProductPopup}>
                             {variant === "wishlist"
                                 ? "Add to Cart"
-                                : "Learn About It"}
+                                : "Get it now"}
                         </AddToCartBtn>
                     )}
                 </ProductInfo>

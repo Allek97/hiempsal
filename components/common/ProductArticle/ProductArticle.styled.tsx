@@ -3,6 +3,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
+interface Props {
+    onDisplay: boolean;
+}
+
 interface ProductBtnProps {
     isWishlist: boolean;
     isAddedToWishlist: boolean;
@@ -10,6 +14,7 @@ interface ProductBtnProps {
 
 interface ImageProps {
     imageSize: "A" | "B";
+    onDisplay: boolean;
 }
 
 interface InfoProps {
@@ -27,14 +32,14 @@ const ImageSizeB = css`
         lg:height[35vw]
         3xl:height[36.8vw]`}
 `;
+const imageSizeDisplay = css`
+    ${tw`height[90vw]
+        md:height[75vw]
+        lg:height[65vw]
+        3xl:height[55vw]`}
+`;
 
 const textSizeA = css`
-    h6 {
-        ${tw`lg:font-size[10px]
-        xl:font-size[11px]
-        3xl:(font-size[12px])`}
-    }
-
     h3 {
         ${tw`font-size[12.5px] 
         lg:font-size[18.5px]
@@ -51,12 +56,6 @@ const textSizeA = css`
 `;
 
 const textSizeB = css`
-    h6 {
-        ${tw`lg:font-size[10px]
-        xl:font-size[11px]
-        3xl:(font-size[12px])`}
-    }
-
     h3 {
         ${tw`font-size[18px] 
         lg:font-size[18.5px]
@@ -86,14 +85,23 @@ export const Root = styled.li`
     ${tw`list-none`}
 `;
 
-export const Product = styled.article`
+export const Product = styled.article<Props>`
     ${tw`flex flex-col`}
+    ${(props) =>
+        props.onDisplay &&
+        css`
+            ${tw`lg:(flex flex-row items-center)`}
+        `}
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<Props>`
     ${tw`flex justify-center items-center w-full bg-accents-1 cursor-pointer`}
 
-    background-image: linear-gradient()
+    ${(props) =>
+        props.onDisplay &&
+        css`
+            ${tw`lg:(width[62.6666666667vw] mr-12)`}
+        `}
 `;
 
 export const ProductImageWrapper = styled.div<ImageProps>`
@@ -106,7 +114,8 @@ export const ProductImageWrapper = styled.div<ImageProps>`
         xs:mx-8
       `}
 
-        ${(props) => imageSizeObj[props.imageSize]}
+        ${(props) =>
+            props.onDisplay ? imageSizeDisplay : imageSizeObj[props.imageSize]}
     }
 `;
 
@@ -119,7 +128,11 @@ export const ProductInfo = styled.div<InfoProps>`
     lg:p-0`}
 
     h6 {
-        ${tw`text-accents-6 mt-4 mb-2`}
+        ${tw`text-accents-6 mt-4 mb-1.5`}
+
+        ${tw`lg:font-size[10px]
+        xl:font-size[11px]
+        3xl:(font-size[12px])`}
     }
 
     h3 {

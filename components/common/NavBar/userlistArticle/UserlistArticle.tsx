@@ -17,7 +17,7 @@ import {
     UserlistInfo,
     UserlistProduct,
     UserlistBtn,
-} from "./UserlistArticle.styled";
+} from "../../ProductArticle/ProductArticle.styled";
 
 interface Props {
     variant: "wishlist" | "products";

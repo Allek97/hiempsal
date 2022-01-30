@@ -12,10 +12,10 @@ import {
     UserlistBox,
     UserlistFull,
 } from "./Userlist.styled";
-import { UserlistArticle } from "..";
+import { ProductArticle } from "../ProductArticle";
 
 interface Props {
-    variant: "wishlist" | "products";
+    variant: "wishlist" | "product-viewed";
 }
 
 const Userlist: FC<Props> = ({ variant }) => {
@@ -51,9 +51,11 @@ const Userlist: FC<Props> = ({ variant }) => {
                             : "Recently Viewed"}
                     </h1>
                     <UserlistBox>
-                        <UserlistArticle variant={variant} />
-                        <UserlistArticle variant={variant} />
-                        <UserlistArticle variant={variant} />
+                        <ProductArticle variant={variant} />
+                        <ProductArticle variant={variant} />
+                        <ProductArticle variant={variant} />
+                        <ProductArticle variant={variant} />
+                        <ProductArticle variant={variant} />
                     </UserlistBox>
                 </UserlistFull>
             )}

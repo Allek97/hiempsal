@@ -141,7 +141,7 @@ export const PaymentVendors = styled.ul`
 
 export const ShopPolicy = styled.div`
     ${tw`flex items-center justify-center flex-col w-full
-    lg:(flex-row justify-between margin-top[6vw] w-full font-size[1.15vw])
+    lg:(flex-row justify-between margin-top[8vw] w-full font-size[1.15vw])
     xl:(font-size[1vw] w-4/5)
     2xl:(font-size[0.95vw])
     3xl:(font-size[16.5px])`}

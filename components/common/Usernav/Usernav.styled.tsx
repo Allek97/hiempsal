@@ -15,7 +15,7 @@ const opaqueAnimation = keyframes`
 `;
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full bg-accents-2 overflow-y-auto
+    ${tw`fixed inset-0 z-40 h-full bg-white overflow-y-auto
     lg:(overflow-visible)`}
 
     ${customScroll}
@@ -26,14 +26,15 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`font-size[26px] pt-20 text-primary bg-primary
-      lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)`}
+    ${tw`font-size[26px] pt-20 text-primary bg-primary 
+      lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)
+      3xl:width[25%]`}
 
     padding-left: 4vw;
-    padding-right: 4vw;
+    padding-right: 0vw;
 
     nav {
-        ${tw`flex lg:flex-col`}
+        ${tw`flex overflow-hidden lg:flex-col`}
     }
 
     @media only screen and (min-width: ${theme`screens.lg`}) {
@@ -83,7 +84,8 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 
 export const Content = styled.section<Record<string, unknown>>`
     ${tw`max-w-full opacity-0 bg-primary outline-none
-      lg:(overflow-y-auto width[66%] pt-40)`}
+      lg:(overflow-y-auto width[66%] pt-40)
+      3xl:width[75%]`}
 
     ${customScroll}
 

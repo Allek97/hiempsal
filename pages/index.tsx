@@ -5,6 +5,8 @@ import Layout from "@components/common/Layout";
 import { ProductCard } from "@components/product/ProductCard";
 import { Grid } from "@components/ui";
 import { HeroCloth } from "@components/ui/Hero";
+import { ProductGrid } from "@components/ui/Grid";
+import { ProductArticle } from "@components/common/ProductArticle";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -23,15 +25,16 @@ const Home = ({ products }: Props) => {
     return (
         <main>
             <HeroCloth />
-            <Grid>
+            <ProductGrid>
                 {products.slice(0, 3).map((product) => (
-                    <ProductCard
+                    <ProductArticle
                         key={product.id}
-                        product={product}
-                        variant="simple"
+                        variant="product"
+                        layout="B"
                     />
                 ))}
-            </Grid>
+            </ProductGrid>
+
             {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
         </main>
     );

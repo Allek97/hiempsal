@@ -22,6 +22,10 @@ export const HeroImageWrapper = styled.div`
     ${tw`relative height[55%]
     md:height[50%]
     lg:(h-full w-2/3)`}
+
+    & > span {
+        filter: brightness(0.85);
+    }
 `;
 
 export const HeroInfo = styled.div`
@@ -73,8 +77,8 @@ const primaryFontSize = css`
 `;
 
 export const HeroMessage = styled.div`
-    ${tw`flex flex-col items-center padding[5rem 0 5vw]
-    lg:padding[8rem 0 4vw]`}
+    ${tw`flex flex-col items-center padding[5rem 0 8vw]
+    lg:padding[8rem 0 6vw]`}
 
     span {
         ${tw`margin-bottom[2vw] text-lg

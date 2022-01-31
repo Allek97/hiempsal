@@ -95,7 +95,7 @@ export const Product = styled.article<Props>`
 `;
 
 export const ImageContainer = styled.div<Props>`
-    ${tw`flex justify-center items-center w-full bg-accents-1 cursor-pointer`}
+    ${tw`relative flex justify-center items-center w-full bg-accents-1 cursor-pointer`}
 
     ${(props) =>
         props.onDisplay &&
@@ -105,7 +105,7 @@ export const ImageContainer = styled.div<Props>`
 `;
 
 export const ProductImageWrapper = styled.div<ImageProps>`
-    ${tw`relative flex justify-center items-center mx-3`}
+    ${tw`flex justify-center items-center mx-3`}
 
     width: 70%;
 

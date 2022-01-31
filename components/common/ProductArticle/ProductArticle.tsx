@@ -20,6 +20,7 @@ import {
     ProductBtn,
     ImageContainer,
 } from "./ProductArticle.styled";
+import ImageSlider from "../ImageSlider/ImageSlider";
 
 interface Props {
     variant: "product" | "wishlist" | "product-viewed";
@@ -74,13 +75,14 @@ const ProductArticle: FC<Props> = ({
                             onDisplay={onDisplay}
                         >
                             <div>
-                                <Image
+                                {/* <Image
                                     src="/images/Women-TShirt-Peach-Front.png"
                                     alt="Black hoodie"
                                     quality="50"
                                     layout="fill"
                                     objectFit="contain"
-                                />
+                                /> */}
+                                <ImageSlider />
                             </div>
                         </ProductImageWrapper>
                     </ImageContainer>

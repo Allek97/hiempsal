@@ -66,7 +66,8 @@ export const NavbarRoot = styled.div<RootProps>`
     &:after {
         content: "";
 
-        ${tw`absolute left-11 right-11 h-1`}
+        ${tw`absolute left[2.67vw] right[2.67vw] h-1
+        lg:(left-11 right-11)`}
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 
@@ -89,7 +90,8 @@ export const NavbarRoot = styled.div<RootProps>`
 `;
 
 export const Container = styled.div<WrapperProps>`
-    ${tw`relative px-11 py-5 mx-auto max-w-8xl`}
+    ${tw`relative padding-left[2.67vw] padding-right[2.67vw] py-5 mx-auto max-w-8xl
+    lg:px-11`}
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -101,7 +103,8 @@ export const Container = styled.div<WrapperProps>`
     &:before {
         content: "";
 
-        ${tw`absolute top-0 left-11 right-11 height[3px]`}
+        ${tw`absolute top-0 left[2.67vw] right[2.67vw] height[3px]
+        lg:(left-11 right-11)`}
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 

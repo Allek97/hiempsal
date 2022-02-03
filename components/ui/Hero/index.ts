@@ -1,1 +1,1 @@
-export { default as HeroCloth } from "./heroCloth";
+export { default as Hero } from "./Hero";

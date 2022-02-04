@@ -54,7 +54,7 @@ const Hero: FC<Props> = ({ variant }) => {
                         />
                     )}
                 </HeroImageWrapper>
-                <HeroInfo>
+                <HeroInfo variant={variant}>
                     <h1>
                         {variant === "clothing"
                             ? "Powerful Clothes"
@@ -63,11 +63,15 @@ const Hero: FC<Props> = ({ variant }) => {
                     <span>
                         {variant === "clothing"
                             ? "Our clothing collection. Challenge the impossible."
-                            : "Trusted in the industry. Delivering the best quality devices in the market !"}
+                            : "Trusted in the industry. Delivering the best quality devices in the market!"}
                     </span>
                     <div className="flex space-x-10">
                         <Link href="/jacket" passHref>
-                            <HeroBtn type="button" aria-label="Cart">
+                            <HeroBtn
+                                type="button"
+                                aria-label="jacket"
+                                isSelected={!isScreenLarge}
+                            >
                                 <HiOutlineArrowNarrowRight />
                                 <h1>
                                     {variant === "clothing"
@@ -78,7 +82,11 @@ const Hero: FC<Props> = ({ variant }) => {
                         </Link>
 
                         <Link href="/hoodie" passHref>
-                            <HeroBtn type="button">
+                            <HeroBtn
+                                type="button"
+                                aria-label="hoodie"
+                                isSelected={!isScreenLarge}
+                            >
                                 <HiOutlineArrowNarrowRight />
                                 <h1>
                                     {variant === "clothing"
@@ -88,7 +96,11 @@ const Hero: FC<Props> = ({ variant }) => {
                             </HeroBtn>
                         </Link>
                         <Link href="/shirt" passHref>
-                            <HeroBtn aria-label="Cart">
+                            <HeroBtn
+                                type="button"
+                                aria-label="shirt"
+                                isSelected={!isScreenLarge}
+                            >
                                 <HiOutlineArrowNarrowRight />
                                 <h1>
                                     {variant === "clothing"
@@ -97,8 +109,8 @@ const Hero: FC<Props> = ({ variant }) => {
                                 </h1>
                             </HeroBtn>
                         </Link>
-                        <DecorationTop />
-                        <DecorationBottom />
+                        <DecorationTop variant={variant} />
+                        <DecorationBottom variant={variant} />
                     </div>
                 </HeroInfo>
             </HeroContainer>

@@ -28,7 +28,7 @@ const Home = ({ products }: Props) => {
                     <ProductCard
                         product={product}
                         key={product.id}
-                        variant="complex"
+                        variant="slim"
                         onDisplay={idx % 2 === 0 && idx !== 0}
                     />
                 ))}

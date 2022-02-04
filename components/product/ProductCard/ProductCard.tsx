@@ -16,7 +16,7 @@ import {
 
 interface Props {
     product: Product;
-    variant?: "simple" | "complex";
+    variant?: "slim" | "simple" | "complex";
     onDisplay?: boolean;
 }
 
@@ -29,49 +29,82 @@ const ProductCard: FC<Props> = ({ product, variant = "simple", onDisplay }) => {
     const placeholderImage = "/product-image-placeholder.svg";
     const currencySymbol = currency === "EUR" ? "€" : "$";
     return (
-        <Link href={`/${product.slug}`} passHref>
-            {variant === "simple" ? (
-                <Root className="product-card" id="product-card">
-                    <ProductBg />
-                    <ProductTag>
-                        <ProductName>
-                            <span>{name}</span>
-                        </ProductName>
-                        <ProductPrice>
-                            {`${currencySymbol}${productPrice} ${currency}`}
-                        </ProductPrice>
-                    </ProductTag>
-                    <ProductImageWrapper>
+        <>
+            {variant === "slim" && (
+                <Link href={`/${product.slug}`} passHref>
+                    <>
+                        <div className="absolute inset-0 z-20 flex items-center justify-center ">
+                            <span className="bg-black text-white p-3 font-bold text-xl">
+                                {product.name}
+                            </span>
+                        </div>
                         {product.images && (
-                            <Image
-                                src={thumbnailUrl ?? placeholderImage}
-                                alt={alt ?? "Product image"}
-                                height={540}
-                                width={540}
-                                quality="100"
-                                layout="responsive"
-                                objectFit="contain"
-                            />
+                            <ProductImageWrapper>
+                                <Image
+                                    alt={product.name ?? "Product image"}
+                                    src={
+                                        product.images[0].url ??
+                                        placeholderImage
+                                    }
+                                    height={320}
+                                    width={320}
+                                    quality="85"
+                                    layout="fixed"
+                                />
+                            </ProductImageWrapper>
                         )}
-                    </ProductImageWrapper>
-                    <ProductFavorite
-                        aria-label="Add to wishlist"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            alert("added to wishlist");
-                        }}
-                    >
-                        <Heart />
-                    </ProductFavorite>
-                </Root>
-            ) : (
-                <ProductArticle
-                    variant="product"
-                    onDisplay={onDisplay}
-                    layout="B"
-                />
+                    </>
+                </Link>
             )}
-        </Link>
+
+            {variant === "simple" && (
+                <Link href={`/${product.slug}`} passHref>
+                    <Root className="product-card" id="product-card">
+                        <ProductBg />
+                        <ProductTag>
+                            <ProductName>
+                                <span>{name}</span>
+                            </ProductName>
+                            <ProductPrice>
+                                {`${currencySymbol}${productPrice} ${currency}`}
+                            </ProductPrice>
+                        </ProductTag>
+                        <ProductImageWrapper>
+                            {product.images && (
+                                <Image
+                                    src={thumbnailUrl ?? placeholderImage}
+                                    alt={alt ?? "Product image"}
+                                    height={540}
+                                    width={540}
+                                    quality="100"
+                                    layout="responsive"
+                                    objectFit="contain"
+                                />
+                            )}
+                        </ProductImageWrapper>
+                        <ProductFavorite
+                            aria-label="Add to wishlist"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                alert("added to wishlist");
+                            }}
+                        >
+                            <Heart />
+                        </ProductFavorite>
+                    </Root>
+                </Link>
+            )}
+
+            {variant === "complex" && (
+                <Link href={`/${product.slug}`} passHref>
+                    <ProductArticle
+                        variant="product"
+                        onDisplay={onDisplay}
+                        layout="B"
+                    />
+                </Link>
+            )}
+        </>
     );
 };
 

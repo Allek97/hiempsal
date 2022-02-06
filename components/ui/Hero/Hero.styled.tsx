@@ -46,6 +46,7 @@ export const HeroInfo = styled.div<Props>`
 
     & > h1 {
         ${tw`mb-1 font-family["Whyte Inktrap"] font-size[45px] leading-tight
+        break-words hyphens[auto]
         lg:(mr-10 mb-3 font-size[56px] line-height[1.05])
         xl:(font-size[75px])
         2xl:(font-size[5.2vw])`}

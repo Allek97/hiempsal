@@ -19,6 +19,7 @@ interface ImageProps {
 
 interface InfoProps {
     textLayout: "A" | "B";
+    onDisplay: boolean;
 }
 
 const ImageSizeA = css`
@@ -68,6 +69,15 @@ const textSizeB = css`
         lg:font-size[13px]
         xl:font-size[1.1vw]
         3xl:font-size[17.5px]`}
+    }
+`;
+
+const textSizeOnDisplay = css`
+    h3 {
+        ${tw`font-size[18px]
+        lg:(font-size[2.5vw] width[75%] leading-tight)
+        xl:(font-size[2.8vw] width[70%])
+        3xl:(font-size[40px] width[55%])`}
     }
 `;
 
@@ -124,7 +134,7 @@ export const ProductImageWrapper = styled.div<ImageProps>`
 /////////////////////////////////////////////
 
 export const ProductInfo = styled.div<InfoProps>`
-    ${tw`relative flex flex-col padding[2vw 2vw 0]
+    ${tw`relative flex flex-col padding[2vw 2vw 0] capitalize
     lg:p-0`}
 
     h6 {
@@ -150,7 +160,8 @@ export const ProductInfo = styled.div<InfoProps>`
         3xl:(font-size[17.5px])`}
     }
 
-    ${(props) => textSizeObj[props.textLayout]}
+    ${(props) =>
+        props.onDisplay ? textSizeOnDisplay : textSizeObj[props.textLayout]}
 `;
 
 export const ProductBtn = styled.button<ProductBtnProps>`

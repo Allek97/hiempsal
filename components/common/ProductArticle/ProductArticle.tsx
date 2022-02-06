@@ -86,7 +86,7 @@ const ProductArticle: FC<Props> = ({
                     </ImageContainer>
                 </Link>
 
-                <ProductInfo textLayout={layout}>
+                <ProductInfo textLayout={layout} onDisplay={onDisplay}>
                     <div className="flex items-start justify-between sm:items-center">
                         <div>
                             {isScreenLarge && (

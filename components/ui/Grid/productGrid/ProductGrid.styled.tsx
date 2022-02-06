@@ -9,7 +9,11 @@ export const GridRoot = styled.div`
         ${tw`margin[1vw 0 10vw]
         lg:(width[calc(100% - 1.5rem)] margin[1vw 0 5.5vw])`}
 
-        &:nth-of-type(3n+3) {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        &:nth-of-type(3n + 3) {
             ${tw`lg:(col-span-2 row-span-2)`}
         }
     }

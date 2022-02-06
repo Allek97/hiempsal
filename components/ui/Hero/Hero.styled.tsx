@@ -113,7 +113,7 @@ const primaryFontSize = css`
 
 export const HeroMessage = styled.div`
     ${tw`flex flex-col items-center padding[5rem 0 8vw]
-    lg:padding[8rem 0 6vw]`}
+    lg:padding[7rem 0 2.5vw]`}
 
     span {
         ${tw`margin-bottom[2vw] text-lg

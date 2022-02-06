@@ -211,9 +211,9 @@ export const ProductBonus = styled.div`
 `;
 
 export const AddToCartBtn = styled(Button)`
-    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0] border border-accents-1 bg-white capitalize
+    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-1 bg-white capitalize
     text-primary font-size[14px] tracking-tighter
-    lg:(my-7 py-7 font-size[15px])
+    lg:(mt-7 mb-0 py-12 font-size[15px])
     xl:font-size[1.15vw]
     3xl:(font-size[20px])`}
 

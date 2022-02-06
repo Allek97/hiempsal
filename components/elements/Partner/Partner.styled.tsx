@@ -29,7 +29,7 @@ const flashAnimation = keyframes`
 `;
 
 export const Root = styled.div`
-    ${tw`flex flex-col items-center px-2 py-12 font-family[Whyte Inktrap] overflow-hidden
+    ${tw`flex flex-col items-center px-2 py-16 font-family[Whyte Inktrap] overflow-hidden
     sm:(padding-left[2.67vw] padding-right[2.67vw])
     lg:(px-11 py-32)`}
 

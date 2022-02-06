@@ -6,7 +6,7 @@ export const GridRoot = styled.div`
     lg:(grid grid-cols-2 content-center px-12)`}
 
     & > li {
-        ${tw`margin[1vw 0 10vw]
+        ${tw`margin[1vw 0 14vw]
         lg:(width[calc(100% - 1.5rem)] margin[1vw 0 5.5vw])`}
 
         &:last-of-type {

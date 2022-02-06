@@ -11,6 +11,7 @@ import { Marquee } from "@components/ui";
 
 import sponsors from "@lib/const/sponsors/clothBrands";
 import { Partner } from "@components/elements";
+import { TechArticle } from "@components/elements/TechArticle";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -54,6 +55,7 @@ const Home = ({ products }: Props) => {
                 ))}
             </Marquee> */}
             <Hero variant="technology" />
+            <TechArticle />
 
             {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
         </main>

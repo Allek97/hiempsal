@@ -58,7 +58,7 @@ const Hero: FC<Props> = ({ variant }) => {
                     <h1>
                         {variant === "clothing"
                             ? "Powerful Clothes"
-                            : "Latest Technologies"}
+                            : "cutting edge tech"}
                     </h1>
                     <span>
                         {variant === "clothing"

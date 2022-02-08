@@ -1,6 +1,7 @@
-import { FC } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { ImageWrapper, Root } from "./TechArticle.styled";
+import { FC } from "react";
+import { DeviceInfo, ImageWrapper, Root } from "./TechArticle.styled";
 
 const TechArticle: FC = () => {
     return (
@@ -13,8 +14,16 @@ const TechArticle: FC = () => {
                     objectFit="contain"
                 />
             </ImageWrapper>
-            <h1>iPad Pro 12.9 Case (5th Gen) 2021</h1>
-            <h2>$69.99</h2>
+            <DeviceInfo>
+                <Link href="/" passHref>
+                    <h3>iPad Pro 12.9 2021</h3>
+                </Link>
+
+                <p>CAD $69.99</p>
+                <span className="w-max mb-5 text-sm border-b border-accents-7 border-dashed cursor-default">
+                    Free Shipping
+                </span>
+            </DeviceInfo>
         </Root>
     );
 };

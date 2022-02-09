@@ -63,7 +63,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Men-TShirt-Black-Side.png"
+                        src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -72,7 +72,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Women-TShirt-Peach-Front.png"
+                        src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -81,7 +81,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Men-Hoodie-Black-Front.png"
+                        src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -90,7 +90,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Men-Sweatshirt-Aqua-Front.png"
+                        src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -99,7 +99,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Men-Sweatshirt-Black-Front.png"
+                        src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"

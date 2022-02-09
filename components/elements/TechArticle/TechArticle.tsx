@@ -39,7 +39,7 @@ const TechArticle: FC = () => {
                 <ReviewWrapper>
                     <Rating
                         name="half-rating-read"
-                        defaultValue={3.5}
+                        defaultValue={4.3}
                         precision={0.1}
                         readOnly
                         color="red"
@@ -85,7 +85,7 @@ const TechArticle: FC = () => {
                 <div className="flex space-x-2">
                     <Color />
                     <Color color="black" />
-                    <Color color="blue" />
+                    <Color color="#006bbd" />
                     <Color color="white" />
                 </div>
             </div>

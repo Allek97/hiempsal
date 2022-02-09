@@ -8,7 +8,12 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 
-import { ArrowSvg, ImageContainer, Wrapper } from "./ImageSlider.styled";
+import {
+    ArrowSvgLeft,
+    ArrowSvgRight,
+    ImageContainer,
+    Wrapper,
+} from "./ImageSlider.styled";
 
 interface Props {
     direction: "left" | "right";
@@ -19,20 +24,13 @@ interface Props {
 function Arrow(props: Props) {
     const { disabled, direction } = props;
     return (
-        <ArrowSvg
-            onClick={props.onClick}
-            direction={direction}
-            disabled={disabled}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-        >
-            {direction === "left" && (
-                <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+        <div>
+            {direction === "left" ? (
+                <ArrowSvgLeft onClick={props.onClick} disabled={disabled} />
+            ) : (
+                <ArrowSvgRight onClick={props.onClick} disabled={disabled} />
             )}
-            {direction === "right" && (
-                <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-            )}
-        </ArrowSvg>
+        </div>
     );
 }
 
@@ -54,15 +52,6 @@ const ImageSlider: FC = () => {
             <div ref={sliderRef} className="keen-slider h-full w-full">
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/Women-TShirt-Peach-Front.png"
-                        alt="Black hoodie"
-                        quality="100"
-                        layout="fill"
-                        objectFit="contain"
-                    />
-                </ImageContainer>
-                <ImageContainer className="keen-slider__slide">
-                    <Image
                         src="/images/macbook-pro.png"
                         alt="Black hoodie"
                         quality="100"
@@ -72,7 +61,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/macbook-pro.png"
+                        src="/images/macbook-pro-2.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -81,7 +70,7 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/macbook-pro.png"
+                        src="/images/macbook-pro-3.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"
@@ -90,7 +79,16 @@ const ImageSlider: FC = () => {
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
                     <Image
-                        src="/images/macbook-pro.png"
+                        src="/images/macbook-pro-4.png"
+                        alt="Black hoodie"
+                        quality="100"
+                        layout="fill"
+                        objectFit="contain"
+                    />
+                </ImageContainer>
+                <ImageContainer className="keen-slider__slide">
+                    <Image
+                        src="/images/macbook-pro-5.png"
                         alt="Black hoodie"
                         quality="100"
                         layout="fill"

@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 interface ArrowProps {
     disabled: boolean;
+    isScreenLarge: boolean;
 }
 
 const arrowCss = css`
@@ -18,7 +19,6 @@ const arrowCss = css`
     -webkit-transform: translateY(-50%);
     fill: #006bbd;
     cursor: pointer;
-    opacity: 0;
     transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 `;
 
@@ -26,11 +26,13 @@ export const ArrowSvgLeft = styled(MdKeyboardArrowLeft)<ArrowProps>`
     ${arrowCss}
     left: 0px;
 
+    opacity: ${(props) => (props.isScreenLarge ? 0 : 1)};
+
     ${(props) =>
         props.disabled &&
         css`
             fill: grey;
-        `}
+        `};
 `;
 
 export const ArrowSvgRight = styled(MdKeyboardArrowRight)<ArrowProps>`
@@ -38,11 +40,13 @@ export const ArrowSvgRight = styled(MdKeyboardArrowRight)<ArrowProps>`
     left: auto;
     right: 0px;
 
+    opacity: ${(props) => (props.isScreenLarge ? 0 : 1)};
+
     ${(props) =>
         props.disabled &&
         css`
             fill: grey;
-        `}
+        `};
 `;
 
 export const Wrapper = styled.div`

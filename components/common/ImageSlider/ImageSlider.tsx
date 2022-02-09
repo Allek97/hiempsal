@@ -8,6 +8,8 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 
+import { useMediaQueryNext } from "@lib/customHooks";
+
 import {
     ArrowSvgLeft,
     ArrowSvgRight,
@@ -19,16 +21,25 @@ interface Props {
     direction: "left" | "right";
     disabled: boolean;
     onClick: (e: any) => void;
+    isScreenLarge: boolean;
 }
 
 function Arrow(props: Props) {
-    const { disabled, direction } = props;
+    const { disabled, direction, isScreenLarge } = props;
     return (
         <div>
             {direction === "left" ? (
-                <ArrowSvgLeft onClick={props.onClick} disabled={disabled} />
+                <ArrowSvgLeft
+                    onClick={props.onClick}
+                    disabled={disabled}
+                    isScreenLarge={isScreenLarge}
+                />
             ) : (
-                <ArrowSvgRight onClick={props.onClick} disabled={disabled} />
+                <ArrowSvgRight
+                    onClick={props.onClick}
+                    disabled={disabled}
+                    isScreenLarge={isScreenLarge}
+                />
             )}
         </div>
     );
@@ -47,6 +58,8 @@ const ImageSlider: FC = () => {
         },
     });
 
+    const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <Wrapper>
             <div ref={sliderRef} className="keen-slider h-full w-full">
@@ -54,7 +67,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -63,7 +76,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro-2.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -72,7 +85,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro-3.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -81,7 +94,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro-4.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -90,7 +103,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro-5.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -99,7 +112,7 @@ const ImageSlider: FC = () => {
                     <Image
                         src="/images/macbook-pro.png"
                         alt="Black hoodie"
-                        quality="100"
+                        quality="80"
                         layout="fill"
                         objectFit="contain"
                     />
@@ -113,6 +126,7 @@ const ImageSlider: FC = () => {
                             e.stopPropagation() || instanceRef.current?.prev()
                         }
                         disabled={currentSlide === 0}
+                        isScreenLarge={isScreenLarge}
                     />
 
                     <Arrow
@@ -124,6 +138,7 @@ const ImageSlider: FC = () => {
                             currentSlide ===
                             instanceRef.current.track.details.slides.length - 1
                         }
+                        isScreenLarge={isScreenLarge}
                     />
                 </>
             )}

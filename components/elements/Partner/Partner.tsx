@@ -1,12 +1,15 @@
 import { FC } from "react";
 import Image from "next/image";
 import Tilt from "react-tilt";
+import { useMediaQueryNext } from "@lib/customHooks";
 
 import clothBrands from "@lib/const/sponsors/clothBrands";
 
 import { Dot, PartnerList, PartnerSvgWrapper, Root } from "./Partner.styled";
 
 const Partner: FC = () => {
+    const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <Root>
             <h1>
@@ -17,8 +20,28 @@ const Partner: FC = () => {
             <PartnerList>
                 {clothBrands.map(({ link, id, title }) => (
                     <div key={id}>
-                        <Tilt className="Tilt cursor-pointer" key={id}>
-                            <PartnerSvgWrapper key={id} name={title}>
+                        {isScreenLarge ? (
+                            <Tilt className="Tilt cursor-pointer" key={id}>
+                                <PartnerSvgWrapper
+                                    isScreenLarge={isScreenLarge}
+                                    key={id}
+                                    name={title}
+                                >
+                                    <Image
+                                        src={link}
+                                        alt={title}
+                                        quality="100"
+                                        layout="fill"
+                                        objectFit="contain"
+                                    />
+                                </PartnerSvgWrapper>
+                            </Tilt>
+                        ) : (
+                            <PartnerSvgWrapper
+                                isScreenLarge={isScreenLarge}
+                                key={id}
+                                name={title}
+                            >
                                 <Image
                                     src={link}
                                     alt={title}
@@ -27,7 +50,7 @@ const Partner: FC = () => {
                                     objectFit="contain"
                                 />
                             </PartnerSvgWrapper>
-                        </Tilt>
+                        )}
                     </div>
                 ))}
             </PartnerList>

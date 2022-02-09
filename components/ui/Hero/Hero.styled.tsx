@@ -29,8 +29,7 @@ export const HeroImageWrapper = styled.div`
 `;
 
 export const HeroInfo = styled.div<Props>`
-    ${tw`relative flex flex-col height[45%] padding[8vw 4vw 16vw] tracking-tighter
-    md:height[50%]
+    ${tw`relative flex flex-col padding[8vw 4vw 16vw] tracking-tighter
     lg:(h-full w-1/3 padding[13vw 2vw 5vw] whitespace-pre-line)`}
 
     ${(props) =>
@@ -113,7 +112,7 @@ const primaryFontSize = css`
 `;
 
 export const HeroMessage = styled.div`
-    ${tw`flex flex-col items-center padding[5rem 0 8vw]
+    ${tw`flex flex-col items-center padding[3rem 0 8vw]
     lg:padding[7rem 0 2.5vw]`}
 
     span {

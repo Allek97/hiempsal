@@ -2,12 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { FC } from "react";
 import Rating from "@mui/material/Rating";
-import { BsCpu } from "react-icons/bs";
+
+import { BsCpu, BsCheck2Square, BsCheckAll } from "react-icons/bs";
 import { GrSystem } from "react-icons/gr";
-import { GiComputerFan, GiWeightCrush } from "react-icons/gi";
+import { GiComputerFan, GiWeightCrush, GiDeliveryDrone } from "react-icons/gi";
 import { CgDrive } from "react-icons/cg";
 import { FiHardDrive } from "react-icons/fi";
 import { FaLaptopCode } from "react-icons/fa";
+import { RiCalendarCheckLine } from "react-icons/ri";
+
 import ImageSlider from "@components/common/ImageSlider/ImageSlider";
 
 import {
@@ -81,13 +84,23 @@ const TechArticle: FC = () => {
                 </li>
             </DeviceSpecs>
             <div className="flex items-center mb-8 text-sm">
-                <h4 className="mr-3 tracking-tight">Colours:</h4>
+                <h4 className="pl-0.5 mr-3 tracking-tight">Colours:</h4>
                 <div className="flex space-x-2">
                     <Color />
                     <Color color="black" />
                     <Color color="#006bbd" />
                     <Color color="white" />
                 </div>
+            </div>
+            <div
+                className="flex items-center mb-5 cursor-default"
+                style={{ fontSize: "13.5px", color: "#ba4e0d" }}
+            >
+                <RiCalendarCheckLine
+                    className="mr-2 tracking-tighter"
+                    style={{ fill: "#408001", fontSize: "17px" }}
+                />
+                Ready to Ship
             </div>
             <Link href="/" passHref>
                 <DeviceButton>Customize & Buy</DeviceButton>

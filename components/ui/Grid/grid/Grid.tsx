@@ -1,17 +1,17 @@
 import { FC, ReactNode } from "react";
-import { RootGrid } from "./Grid.styled";
+import { GridRoot } from "./Grid.styled";
 
 interface Props {
     children: ReactNode | ReactNode[];
-    layout?: "A" | "B";
+    layout?: "clothing" | "technology";
 }
 
-const Grid: FC<Props> = ({ children, layout = "A" }) => {
-    return <RootGrid layout={layout}>{children}</RootGrid>;
+const Grid: FC<Props> = ({ children, layout = "clothing" }) => {
+    return <GridRoot layout={layout}>{children}</GridRoot>;
 };
 
 Grid.defaultProps = {
-    layout: "A",
+    layout: "clothing",
 };
 
 export default Grid;

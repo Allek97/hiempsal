@@ -1,15 +1,11 @@
-import Image from "next/image";
-
 import { getConfig } from "@framework/api/config";
 import type { InferGetStaticPropsType } from "next";
 import { getAllProducts } from "@framework/product";
 import Layout from "@components/common/Layout";
-import { ProductGrid } from "@components/ui/Grid";
 import Hero from "@components/ui/Hero/Hero";
 import { ProductCard } from "@components/product/ProductCard";
-import { Marquee } from "@components/ui";
+import { Grid } from "@components/ui";
 
-import sponsors from "@lib/const/sponsors/clothBrands";
 import { Partner } from "@components/elements";
 import { TechArticle } from "@components/elements/TechArticle";
 
@@ -30,7 +26,7 @@ const Home = ({ products }: Props) => {
     return (
         <main>
             <Hero variant="clothing" />
-            <ProductGrid>
+            <Grid layout="clothing">
                 {products.slice(0, 3).map((product, idx) => (
                     <ProductCard
                         product={product}
@@ -39,7 +35,7 @@ const Home = ({ products }: Props) => {
                         onDisplay={idx % 2 === 0 && idx !== 0}
                     />
                 ))}
-            </ProductGrid>
+            </Grid>
             <Partner />
             {/* <Marquee variant="clothing" direction="toLeft">
                 {sponsors.map(({ icon: link, id, title }) => (

@@ -1,17 +1,16 @@
 import Link from "next/link";
-import Image from "next/image";
 import { FC } from "react";
 import Rating from "@mui/material/Rating";
 
-import { BsCpu, BsCheck2Square, BsCheckAll } from "react-icons/bs";
+import { BsCpu } from "react-icons/bs";
 import { GrSystem } from "react-icons/gr";
-import { GiComputerFan, GiWeightCrush, GiDeliveryDrone } from "react-icons/gi";
+import { GiComputerFan, GiWeightCrush } from "react-icons/gi";
 import { CgDrive } from "react-icons/cg";
 import { FiHardDrive } from "react-icons/fi";
 import { FaLaptopCode } from "react-icons/fa";
 import { RiCalendarCheckLine } from "react-icons/ri";
 
-import ImageSlider from "@components/common/ImageSlider/ImageSlider";
+import ImageSlider from "@components/elements/ImageSlider/ImageSlider";
 
 import {
     Color,

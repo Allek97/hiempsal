@@ -26,6 +26,8 @@ interface Props {
     isScreenLarge: boolean;
 }
 
+type Direction = "left" | "right" | "center";
+
 function Arrow(props: Props) {
     const { disabled, direction, isScreenLarge } = props;
     return (
@@ -50,6 +52,7 @@ function Arrow(props: Props) {
 const ImageSlider: FC = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loaded, setLoaded] = useState(false);
+    const [direction, setDirection] = useState<Direction>("left");
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
         slideChanged(slider) {
@@ -58,19 +61,26 @@ const ImageSlider: FC = () => {
         created() {
             setLoaded(true);
         },
+        dragged() {
+            setDirection("center");
+        },
     });
 
     const isScreenLarge = useMediaQueryNext("lg");
 
     const totalNbImages = instanceRef.current?.track.details.slides.length;
 
-    console.log(instanceRef.current?.track.details.slides);
+    // console.log(instanceRef.current?.track.details.slides);
 
     return (
         <Wrapper>
             <Indicator>
                 {Array.from(Array(totalNbImages ?? 0).keys()).map((el) => (
-                    <IndicatorSlide key={el} isActive={currentSlide === el} />
+                    <IndicatorSlide
+                        direction={direction}
+                        key={el}
+                        isActive={currentSlide === el}
+                    />
                 ))}
             </Indicator>
             <div ref={sliderRef} className="keen-slider h-full w-full">
@@ -139,18 +149,22 @@ const ImageSlider: FC = () => {
                 <>
                     <Arrow
                         direction="left"
-                        onClick={(e: any) =>
-                            e.stopPropagation() || instanceRef.current?.prev()
-                        }
+                        onClick={(e: any) => {
+                            setDirection("left");
+                            e.stopPropagation();
+                            instanceRef.current?.prev();
+                        }}
                         disabled={currentSlide === 0}
                         isScreenLarge={isScreenLarge}
                     />
 
                     <Arrow
                         direction="right"
-                        onClick={(e: any) =>
-                            e.stopPropagation() || instanceRef.current?.next()
-                        }
+                        onClick={(e: any) => {
+                            setDirection("right");
+                            e.stopPropagation();
+                            instanceRef.current?.next();
+                        }}
                         disabled={
                             currentSlide ===
                             instanceRef.current.track.details.slides.length - 1

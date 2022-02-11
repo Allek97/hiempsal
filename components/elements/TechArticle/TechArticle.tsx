@@ -26,12 +26,6 @@ const TechArticle: FC = () => {
     return (
         <Root>
             <ImageWrapper>
-                {/* <Image
-                    src="/images/macbook-pro.png"
-                    alt="mcbook"
-                    layout="fill"
-                    objectFit="contain"
-                /> */}
                 <ImageSlider />
             </ImageWrapper>
             <DeviceInfo>

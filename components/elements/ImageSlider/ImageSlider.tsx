@@ -14,6 +14,8 @@ import {
     ArrowSvgLeft,
     ArrowSvgRight,
     ImageContainer,
+    Indicator,
+    IndicatorSlide,
     Wrapper,
 } from "./ImageSlider.styled";
 
@@ -60,8 +62,17 @@ const ImageSlider: FC = () => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
+    const totalNbImages = instanceRef.current?.track.details.slides.length;
+
+    console.log(instanceRef.current?.track.details.slides);
+
     return (
         <Wrapper>
+            <Indicator>
+                {Array.from(Array(totalNbImages ?? 0).keys()).map((el) => (
+                    <IndicatorSlide key={el} isActive={currentSlide === el} />
+                ))}
+            </Indicator>
             <div ref={sliderRef} className="keen-slider h-full w-full">
                 <ImageContainer className="keen-slider__slide">
                     <Image
@@ -70,6 +81,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
@@ -79,6 +91,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
@@ -88,6 +101,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
@@ -97,6 +111,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
@@ -106,6 +121,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
                 <ImageContainer className="keen-slider__slide">
@@ -115,6 +131,7 @@ const ImageSlider: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="contain"
+                        priority
                     />
                 </ImageContainer>
             </div>

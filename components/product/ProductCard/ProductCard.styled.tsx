@@ -45,7 +45,7 @@ export const ProductFavorite = styled.button`
     }
 `;
 
-export const Root = styled.article`
+export const Root = styled.li`
     ${tw`relative transition duration-500 cursor-pointer`}
     max-height: 100%;
 

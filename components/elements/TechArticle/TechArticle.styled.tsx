@@ -5,17 +5,18 @@ interface ColorProps {
     color?: string;
 }
 
-export const Root = styled.div`
-    ${tw`flex flex-col margin-left[2.67vw] margin-right[2.67vw]  mb-40 px-4 pb-6
+export const Root = styled.li`
+    ${tw`flex flex-col px-4 pb-6
     border-radius[6px] bg-primary`}
 
     box-shadow:0 2px 7px 2px rgb(0 0 0 / 12%);
 `;
 
 export const ImageWrapper = styled.div`
-    ${tw`relative flex justify-center items-center w-full my-9 mx-auto`}
-
-    height: 40vw;
+    ${tw`relative flex justify-center items-center w-full height[56vw] mx-auto
+    md:(height[28vw])
+    lg:(height[21vw])
+    2xl:(height[21.5rem])`}
 
     span {
         ${tw`w-full h-full`}

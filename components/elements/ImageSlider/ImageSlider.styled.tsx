@@ -10,6 +10,10 @@ interface ArrowProps {
     isScreenLarge: boolean;
 }
 
+interface IndicatorSlideProps {
+    isActive: boolean;
+}
+
 const arrowCss = css`
     width: 30px;
     height: 30px;
@@ -49,12 +53,30 @@ export const ArrowSvgRight = styled(MdKeyboardArrowRight)<ArrowProps>`
         `};
 `;
 
+export const Indicator = styled.div`
+    ${tw`absolute top-0 flex w-full opacity-0`}
+
+    transition: opacity .5s cubic-bezier(1,0,0,1);
+`;
+
+export const IndicatorSlide = styled.div<IndicatorSlideProps>`
+    ${tw`height[3px] w-full background-color[#191919]`}
+
+    background-color: ${(props) =>
+        props.isActive ? "#191919" : "var(--accents-3)"};
+
+    &:not(:last-of-type) {
+        ${tw`mr-1`}
+    }
+`;
+
 export const Wrapper = styled.div`
-    ${tw`w-full h-full`}
+    ${tw`relative w-full h-full py-9`}
 
     &:hover {
-        ${ArrowSvgLeft},${ArrowSvgRight} {
-            transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        ${ArrowSvgLeft},${ArrowSvgRight},${Indicator} {
+            /* transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1); */
+            transition: opacity 0.5s cubic-bezier(1, 0, 0, 1);
             opacity: 1;
         }
     }

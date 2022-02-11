@@ -51,7 +51,13 @@ const Home = ({ products }: Props) => {
                 ))}
             </Marquee> */}
             <Hero variant="technology" />
-            <TechArticle />
+
+            <Grid layout="technology">
+                <TechArticle />
+                <TechArticle />
+                <TechArticle />
+                <TechArticle />
+            </Grid>
 
             {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
         </main>

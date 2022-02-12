@@ -37,19 +37,6 @@ const Home = ({ products }: Props) => {
                 ))}
             </Grid>
             <Partner />
-            {/* <Marquee variant="clothing" direction="toLeft">
-                {sponsors.map(({ icon: link, id, title }) => (
-                    <Image
-                        src={link}
-                        alt={title}
-                        quality="80"
-                        width={200}
-                        height={200}
-                        layout="fixed"
-                        key={id}
-                    />
-                ))}
-            </Marquee> */}
             <Hero variant="technology" />
 
             <Grid layout="technology">
@@ -58,8 +45,6 @@ const Home = ({ products }: Props) => {
                 <TechArticle />
                 <TechArticle />
             </Grid>
-
-            {/* <Grid>{JSON.stringify(products, null, 2)}</Grid> */}
         </main>
     );
 };

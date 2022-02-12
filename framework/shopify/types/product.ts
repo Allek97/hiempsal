@@ -1,3 +1,5 @@
+import { CurrencyCode } from "@framework/schema";
+
 export interface ProductImage {
     url: string;
     alt?: string;
@@ -5,7 +7,7 @@ export interface ProductImage {
 
 export interface ProductPrice {
     value: number;
-    currencyCode: "USD" | "CAD" | "EUR";
+    currencyCode: CurrencyCode;
 }
 
 export interface Product {

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 
 interface ArrowProps {
     disabled: boolean;
@@ -16,8 +16,8 @@ interface IndicatorSlideProps {
 }
 
 const arrowCss = css`
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -27,7 +27,7 @@ const arrowCss = css`
     transition: opacity 0.5s cubic-bezier(1, 0, 0, 1);
 `;
 
-export const ArrowSvgLeft = styled(MdKeyboardArrowLeft)<ArrowProps>`
+export const ArrowSvgLeft = styled(HiArrowNarrowLeft)<ArrowProps>`
     ${arrowCss}
     left: 0px;
 
@@ -40,7 +40,7 @@ export const ArrowSvgLeft = styled(MdKeyboardArrowLeft)<ArrowProps>`
         `};
 `;
 
-export const ArrowSvgRight = styled(MdKeyboardArrowRight)<ArrowProps>`
+export const ArrowSvgRight = styled(HiArrowNarrowRight)<ArrowProps>`
     ${arrowCss}
     left: auto;
     right: 0px;
@@ -55,7 +55,7 @@ export const ArrowSvgRight = styled(MdKeyboardArrowRight)<ArrowProps>`
 `;
 
 export const Indicator = styled.div`
-    ${tw`absolute top-0 flex w-full opacity-100`}
+    ${tw`absolute top-0 flex w-full opacity-0`}
 
     transition: opacity .5s cubic-bezier(1,0,0,1);
 `;
@@ -98,7 +98,7 @@ export const IndicatorSlide = styled.div<IndicatorSlideProps>`
 `;
 
 export const Wrapper = styled.div`
-    ${tw`relative w-full h-full py-9`}
+    ${tw`relative w-full h-full py-9 user-select[none]`}
 
     &:hover {
         ${ArrowSvgLeft},${ArrowSvgRight},${Indicator} {

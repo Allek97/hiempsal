@@ -123,7 +123,14 @@ const ProductArticle: FC<Props> = ({
                     </ProductBonus>
 
                     {(variant === "wishlist" || variant === "product") && (
-                        <AddToCartBtn onClick={openProductPopup}>
+                        <AddToCartBtn
+                            onClick={
+                                variant === "wishlist"
+                                    ? openProductPopup
+                                    : // eslint-disable-next-line @typescript-eslint/no-empty-function
+                                      () => {}
+                            }
+                        >
                             {variant === "wishlist"
                                 ? "Add to Cart"
                                 : "Get it now"}

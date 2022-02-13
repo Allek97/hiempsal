@@ -1,37 +1,27 @@
-// NOTE:  Add effects after you scroll window a certain scrollY
+// NOTE Add effects after you scroll window a certain scrollY
+// BUG https://dev.to/adrien/creating-a-custom-react-hook-to-get-the-window-s-dimensions-in-next-js-135k
 
 import { useState, useEffect } from "react";
 
-const useScroll = (scrollY: number, bounceTime: number) => {
+const useScroll = (scrollY: number): boolean => {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
-    function debounce(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        method: { (): void; (): void; (): void; _tId?: any },
-        delay: number
-    ) {
-        clearTimeout(method._tId);
-        method._tId = setTimeout(() => method(), delay);
-    }
-
     useEffect(() => {
-        const listenScrollEvent = () => {
+        const listenScrollEvent = (): void => {
             if (window.scrollY > scrollY) {
-                return setIsScrolled(true);
-            }
-            return setIsScrolled(false);
+                setIsScrolled(true);
+            } else setIsScrolled(false);
         };
 
-        window.addEventListener("scroll", () =>
-            debounce(listenScrollEvent, bounceTime)
-        );
+        listenScrollEvent();
 
-        return () => {
-            window.removeEventListener("scroll", () =>
-                debounce(listenScrollEvent, bounceTime)
-            );
+        window.addEventListener("scroll", listenScrollEvent);
+
+        return (): void => {
+            window.removeEventListener("scroll", listenScrollEvent);
         };
-    }, [bounceTime, scrollY]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // NOTE Empty array ensures that effect is only run on mount
 
     return isScrolled;
 };

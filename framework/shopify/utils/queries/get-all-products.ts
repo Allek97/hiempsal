@@ -35,7 +35,7 @@ const productConnection = `
 `;
 
 const getAllProductsQuery = `
-    query getAllProducts($first: Int = 250) {
+    query getAllProducts($first: Int = 50) {
         products(first: $first) {
             ${productConnection}
         }

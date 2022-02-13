@@ -1,5 +1,5 @@
 const getProductQuery = `
-    query productByHandle($slug: String!) {
+    query product($slug: String!) {
         productByHandle(handle: $slug) {
         id
         handle
@@ -32,6 +32,7 @@ const getProductQuery = `
                 id
                 title
                 sku
+                requiresShipping
                 selectedOptions {
                 name
                 value
@@ -64,3 +65,5 @@ const getProductQuery = `
         }
     }
 `;
+
+export default getProductQuery;

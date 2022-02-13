@@ -98,6 +98,7 @@ const ProductCard: FC<Props> = ({ product, variant = "simple", onDisplay }) => {
             {variant === "complex" && (
                 <Link href={`/${product.slug}`} passHref>
                     <ProductArticle
+                        product={product}
                         variant="product"
                         onDisplay={onDisplay}
                         layout="B"

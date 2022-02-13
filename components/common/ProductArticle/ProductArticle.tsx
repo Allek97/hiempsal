@@ -10,28 +10,36 @@ import { ProductPopup } from "@components/common/ProductPopup";
 import { useProductUI } from "@components/ui/productContext";
 
 import { useMediaQueryNext } from "lib/customHooks";
+
+import { Product } from "@framework/types/product";
+
 import {
     AddToCartBtn,
     Root,
     ProductBonus,
     ProductImageWrapper,
     ProductInfo,
-    Product,
+    ProductWrapper,
     ProductBtn,
     ImageContainer,
 } from "./ProductArticle.styled";
 
 interface Props {
+    product: Product;
     variant: "product" | "wishlist" | "product-viewed";
     layout?: "A" | "B";
     onDisplay?: boolean;
 }
 
 const ProductArticle: FC<Props> = ({
+    product,
     variant,
     layout = "A",
     onDisplay = false,
 }) => {
+    const { name, slug, images, price } = product;
+    const placeHolder = "/product-image-placeholder.svg";
+
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
     const { isProductPopupOpen, openProductPopup } = useProductUI();
@@ -66,8 +74,8 @@ const ProductArticle: FC<Props> = ({
     return (
         <Root>
             {isProductPopupOpen && <ProductPopup />}
-            <Product onDisplay={onDisplay}>
-                <Link href="/" passHref>
+            <ProductWrapper onDisplay={onDisplay}>
+                <Link href={`/products/${slug}`} passHref>
                     <ImageContainer onDisplay={onDisplay}>
                         <ProductImageWrapper
                             imageSize={layout}
@@ -75,7 +83,7 @@ const ProductArticle: FC<Props> = ({
                         >
                             <div>
                                 <Image
-                                    src="/images/Women-TShirt-Peach-Front.png"
+                                    src={images[0].url ?? placeHolder}
                                     alt="Black hoodie"
                                     quality="80"
                                     layout="fill"
@@ -96,7 +104,7 @@ const ProductArticle: FC<Props> = ({
                                 </h6>
                             )}
                             <Link href="/" passHref>
-                                <h3>Black radiant classic hoodie for men</h3>
+                                <h3>{name}</h3>
                             </Link>
                         </div>
 
@@ -115,7 +123,9 @@ const ProductArticle: FC<Props> = ({
                         </ProductBtn>
                     </div>
 
-                    <span>$300</span>
+                    <span>
+                        {price.currencyCode} ${price.value}
+                    </span>
 
                     <ProductBonus>
                         <MdCardGiftcard />
@@ -137,7 +147,7 @@ const ProductArticle: FC<Props> = ({
                         </AddToCartBtn>
                     )}
                 </ProductInfo>
-            </Product>
+            </ProductWrapper>
         </Root>
     );
 };

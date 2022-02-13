@@ -95,7 +95,7 @@ export const Root = styled.li`
     ${tw`list-none`}
 `;
 
-export const Product = styled.article<Props>`
+export const ProductWrapper = styled.article<Props>`
     ${tw`flex flex-col`}
     ${(props) =>
         props.onDisplay &&

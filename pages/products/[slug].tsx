@@ -1,3 +1,5 @@
+// NOTE https://nextjs.org/learn/basics/dynamic-routes
+
 import { getConfig } from "@framework/api/config";
 import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";

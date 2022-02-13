@@ -1,6 +1,6 @@
 const getProductQuery = `
     query product($slug: String!) {
-        productByHandle(handle: $slug) {
+        product(handle: $slug) {
         id
         handle
         title

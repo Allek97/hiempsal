@@ -68,7 +68,6 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             name: title,
             sku: sku || id,
             price: +priceV2.amount,
-
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
             requiresShipping, // NOTE Verify with shopify when shipping is required for variants,
             options: selectedOptions.map(({ name, value }) => {

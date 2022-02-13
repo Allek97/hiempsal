@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import payments from "lib/const/payments/payments";
+import payments from "@lib/const/payments";
 import { useMediaQueryNext } from "lib/customHooks";
 
 import {

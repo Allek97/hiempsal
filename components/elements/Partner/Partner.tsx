@@ -3,7 +3,7 @@ import Image from "next/image";
 import Tilt from "react-tilt";
 import { useMediaQueryNext } from "@lib/customHooks";
 
-import clothBrands from "@lib/const/sponsors/clothBrands";
+import clothBrands from "@lib/const/clothBrands";
 
 import { Dot, PartnerList, PartnerSvgWrapper, Root } from "./Partner.styled";
 

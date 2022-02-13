@@ -1,5 +1,5 @@
-// NOTE Add effects after you scroll window a certain scrollY
-// BUG https://dev.to/adrien/creating-a-custom-react-hook-to-get-the-window-s-dimensions-in-next-js-135k
+// BUG Expected server HTML to contain a matching <div> in <div>
+// FIX https://dev.to/adrien/creating-a-custom-react-hook-to-get-the-window-s-dimensions-in-next-js-135k
 
 import { useState, useEffect } from "react";
 

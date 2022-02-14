@@ -28,26 +28,26 @@ interface Props {
 
 type Direction = "left" | "right" | "center";
 
-function Arrow(props: Props) {
-    const { disabled, direction, isScreenLarge } = props;
+const Arrow = (props: Props): JSX.Element => {
+    const { disabled, direction, isScreenLarge, onClick } = props;
     return (
         <div>
             {direction === "left" ? (
                 <ArrowSvgLeft
-                    onClick={props.onClick}
+                    onClick={onClick}
                     disabled={disabled}
                     isScreenLarge={isScreenLarge}
                 />
             ) : (
                 <ArrowSvgRight
-                    onClick={props.onClick}
+                    onClick={onClick}
                     disabled={disabled}
                     isScreenLarge={isScreenLarge}
                 />
             )}
         </div>
     );
-}
+};
 
 const ImageSlider: FC = () => {
     const [currentSlide, setCurrentSlide] = useState(0);

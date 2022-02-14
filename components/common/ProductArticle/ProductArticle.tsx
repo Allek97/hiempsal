@@ -28,14 +28,14 @@ interface Props {
     product: Product;
     variant: "product" | "wishlist" | "product-viewed";
     layout?: "A" | "B";
-    onDisplay?: boolean;
+    isDisplayed?: boolean;
 }
 
 const ProductArticle: FC<Props> = ({
     product,
     variant,
     layout = "A",
-    onDisplay = false,
+    isDisplayed = false,
 }) => {
     const { name, slug, images, price } = product;
     const placeHolder = "/product-image-placeholder.svg";
@@ -74,12 +74,12 @@ const ProductArticle: FC<Props> = ({
     return (
         <Root>
             {isProductPopupOpen && <ProductPopup />}
-            <ProductWrapper onDisplay={onDisplay}>
+            <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
-                    <ImageContainer onDisplay={onDisplay}>
+                    <ImageContainer isDisplayed={isDisplayed}>
                         <ProductImageWrapper
                             imageSize={layout}
-                            onDisplay={onDisplay}
+                            isDisplayed={isDisplayed}
                         >
                             <div>
                                 <Image
@@ -94,7 +94,7 @@ const ProductArticle: FC<Props> = ({
                     </ImageContainer>
                 </Link>
 
-                <ProductInfo textLayout={layout} onDisplay={onDisplay}>
+                <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
                     <div className="flex items-start justify-between sm:items-center">
                         <div>
                             {isScreenLarge && (
@@ -153,7 +153,7 @@ const ProductArticle: FC<Props> = ({
 };
 
 ProductArticle.defaultProps = {
-    onDisplay: false,
+    isDisplayed: false,
     layout: "A",
 };
 

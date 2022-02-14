@@ -17,10 +17,14 @@ import {
 interface Props {
     product: Product;
     variant?: "slim" | "simple" | "complex";
-    onDisplay?: boolean;
+    isDisplayed?: boolean;
 }
 
-const ProductCard: FC<Props> = ({ product, variant = "simple", onDisplay }) => {
+const ProductCard: FC<Props> = ({
+    product,
+    variant = "simple",
+    isDisplayed,
+}) => {
     const { images, name, price } = product;
     const { url: thumbnailUrl, alt } = images[0];
 
@@ -100,7 +104,7 @@ const ProductCard: FC<Props> = ({ product, variant = "simple", onDisplay }) => {
                     <ProductArticle
                         product={product}
                         variant="product"
-                        onDisplay={onDisplay}
+                        isDisplayed={isDisplayed}
                         layout="B"
                     />
                 </Link>
@@ -111,7 +115,7 @@ const ProductCard: FC<Props> = ({ product, variant = "simple", onDisplay }) => {
 
 ProductCard.defaultProps = {
     variant: "simple",
-    onDisplay: false,
+    isDisplayed: false,
 };
 
 export default ProductCard;

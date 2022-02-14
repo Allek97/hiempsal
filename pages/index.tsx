@@ -32,7 +32,7 @@ const Home = ({ products }: Props) => {
                         product={product}
                         key={product.id}
                         variant="complex"
-                        onDisplay={idx % 2 === 0 && idx !== 0}
+                        isDisplayed={idx % 2 === 0 && idx !== 0}
                     />
                 ))}
             </Grid>

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface Props {
-    onDisplay: boolean;
+    isDisplayed: boolean;
 }
 
 interface ProductBtnProps {
@@ -14,12 +14,12 @@ interface ProductBtnProps {
 
 interface ImageProps {
     imageSize: "A" | "B";
-    onDisplay: boolean;
+    isDisplayed: boolean;
 }
 
 interface InfoProps {
     textLayout: "A" | "B";
-    onDisplay: boolean;
+    isDisplayed: boolean;
 }
 
 const ImageSizeA = css`
@@ -72,7 +72,7 @@ const textSizeB = css`
     }
 `;
 
-const textSizeOnDisplay = css`
+const textSizeisDisplayed = css`
     h3 {
         ${tw`font-size[18px]
         lg:(font-size[2.5vw] width[75%] leading-tight)
@@ -98,7 +98,7 @@ export const Root = styled.li`
 export const ProductWrapper = styled.article<Props>`
     ${tw`flex flex-col`}
     ${(props) =>
-        props.onDisplay &&
+        props.isDisplayed &&
         css`
             ${tw`lg:(flex flex-row items-center)`}
         `}
@@ -108,7 +108,7 @@ export const ImageContainer = styled.div<Props>`
     ${tw`relative flex justify-center items-center w-full bg-accents-1 cursor-pointer`}
 
     ${(props) =>
-        props.onDisplay &&
+        props.isDisplayed &&
         css`
             ${tw`lg:(width[62.6666666667vw] mr-12)`}
         `}
@@ -125,7 +125,9 @@ export const ProductImageWrapper = styled.div<ImageProps>`
       `}
 
         ${(props) =>
-            props.onDisplay ? imageSizeDisplay : imageSizeObj[props.imageSize]}
+            props.isDisplayed
+                ? imageSizeDisplay
+                : imageSizeObj[props.imageSize]}
     }
 `;
 
@@ -161,7 +163,7 @@ export const ProductInfo = styled.div<InfoProps>`
     }
 
     ${(props) =>
-        props.onDisplay ? textSizeOnDisplay : textSizeObj[props.textLayout]}
+        props.isDisplayed ? textSizeisDisplayed : textSizeObj[props.textLayout]}
 `;
 
 export const ProductBtn = styled.button<ProductBtnProps>`

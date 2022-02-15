@@ -14,13 +14,12 @@ interface Props {
 export const Root = styled.div``;
 
 export const HeroContainer = styled.div`
-    ${tw`flex flex-col height[92vh]
+    ${tw`flex flex-col height[calc(100vh - 70px)]
     lg:(flex-row max-height[75vw])`}
 `;
 
 export const HeroImageWrapper = styled.div`
-    ${tw`relative height[55%]
-    md:height[50%]
+    ${tw`relative flex-1
     lg:(h-full w-2/3)`}
 
     & > span {
@@ -112,8 +111,8 @@ const primaryFontSize = css`
 `;
 
 export const HeroMessage = styled.div`
-    ${tw`flex flex-col items-center padding[3rem 0 8vw]
-    lg:padding[7rem 0 2.5vw]`}
+    ${tw`flex flex-col items-center padding[12vw 0 8vw]
+    lg:padding[10rem 0 2.5vw]`}
 
     span {
         ${tw`margin-bottom[2vw] text-lg

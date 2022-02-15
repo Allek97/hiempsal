@@ -4,10 +4,10 @@ import { getAllProducts } from "@framework/product";
 import Layout from "@components/common/Layout";
 import Hero from "@components/ui/Hero/Hero";
 import { ProductCard } from "@components/product/ProductCard";
-import { Grid } from "@components/ui";
 
 import { Partner } from "@components/elements";
 import { TechArticle } from "@components/elements/TechArticle";
+import { Grid } from "@components/ui/Grid";
 
 export async function getStaticProps() {
     const config = getConfig();

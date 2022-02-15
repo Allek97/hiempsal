@@ -11,8 +11,8 @@ const layoutA = css`
     lg:(grid-cols-2 column-gap[1.5rem] px-11)`}
 
     & > li {
-        ${tw`margin[1vw 0 14vw]
-        lg:(margin[1vw 0 5.5vw])`}
+        ${tw`margin[0 0 15vw]
+        lg:(margin[0 0 6.5vw])`}
 
         &:last-of-type {
             margin-bottom: 0;

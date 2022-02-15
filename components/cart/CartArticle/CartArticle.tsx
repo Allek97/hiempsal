@@ -31,6 +31,7 @@ const CartArticle: FC = () => {
                             quality="80"
                             layout="responsive"
                             objectFit="contain"
+                            priority
                         />
                     </div>
                 </ProductImage>

@@ -11,7 +11,11 @@ export type ApiFetcherOptions = {
     query: string;
     variables?: Variables;
 };
+export type ApiFetcher<T> = (
+    options: ApiFetcherOptions
+) => Promise<ApiFetcherResults<T>>;
 
 export interface ApiConfig {
     fetch<T>(options: ApiFetcherOptions): Promise<ApiFetcherResults<T>>;
+    checkoutCookie: string;
 }

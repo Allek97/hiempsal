@@ -15,6 +15,7 @@ import {
     HeroContainer,
     HeroMessage,
 } from "./Hero.styled";
+import { AMAZON_S3_DOMAIN } from "@framework/const";
 
 interface Props {
     variant: "clothing" | "technology";
@@ -31,7 +32,7 @@ const Hero: FC<Props> = ({ variant }) => {
                 <HeroImageWrapper>
                     {variant === "clothing" ? (
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_AMAZON_S3_DOMAIN}/hero-cloth.jpg`}
+                            src={`${AMAZON_S3_DOMAIN}/hero-cloth.jpg`}
                             alt="Model"
                             layout="fill"
                             objectFit="cover"

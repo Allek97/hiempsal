@@ -1,10 +1,14 @@
 import {
+    Checkout,
+    CheckoutLineItemEdge,
     ImageConnection,
     Product as ShopifyProduct,
     ProductOption,
     ProductPriceRange,
     ProductVariantConnection,
+    SelectedOption,
 } from "@framework/schema";
+import { Cart, LineItem } from "@framework/types/cart";
 import { Product, ProductImage, ProductPrice } from "@framework/types/product";
 
 type OptionValues = {
@@ -81,6 +85,70 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             }),
         };
     });
+};
+
+const normalizeLineItem = ({
+    node: { id, title, variant, ...rest },
+}: CheckoutLineItemEdge): LineItem => {
+    return {
+        id,
+        variantId: String(variant?.id),
+        productId: String(variant?.id),
+        name: title,
+        path: variant?.product?.handle ?? "",
+        discounts: [],
+        options: variant?.selectedOptions.map(
+            ({ name, value }: SelectedOption) => {
+                const option = normalizeProductOption({
+                    id,
+                    name,
+                    values: [value],
+                });
+
+                return option;
+            }
+        ),
+        variant: {
+            id: String(variant?.id),
+            sku: variant?.sku ?? "",
+            name: variant?.title,
+            image: {
+                url:
+                    variant?.image?.originalSrc ?? "/product-image-placeholder",
+                alt: variant?.image?.altText ?? "",
+            },
+            requiresShipping: variant?.requiresShipping ?? false,
+            price: variant?.priceV2.amount,
+            listPrice: variant?.compareAtPriceV2?.amount,
+        },
+        ...rest,
+    };
+};
+
+export const normalizeCart = (checkout: Checkout): Cart => {
+    const {
+        id,
+        createdAt,
+        completedAt,
+        totalPriceV2: { currencyCode, amount: totalAmount },
+        subtotalPriceV2: { amount: subTotalAmount },
+        taxesIncluded,
+        lineItems,
+    } = checkout;
+
+    return {
+        id,
+        createdAt,
+        completedAt,
+        currency: {
+            code: currencyCode,
+        },
+        taxesIncluded,
+        lineItemsSubtotalPrice: +subTotalAmount,
+        totalPrice: totalAmount,
+        lineItems: lineItems.edges.map(normalizeLineItem),
+        discounts: [],
+    };
 };
 
 export const normalizeProduct = (productNode: ShopifyProduct): Product => {

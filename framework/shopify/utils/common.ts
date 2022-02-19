@@ -47,7 +47,7 @@ export const checkoutDetailFragment = `
             amount
             currencyCode
           }
-          product {
+          product { 
             handle
           }
         }

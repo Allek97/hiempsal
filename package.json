@@ -35,7 +35,7 @@
         "react-tilt": "^0.1.4",
         "sass": "^1.45.1",
         "styled-components": "^5.3.3",
-        "swr": "^1.2.1",
+        "swr": "^1.2.2",
         "twin.macro": "^2.8.1"
     },
     "devDependencies": {

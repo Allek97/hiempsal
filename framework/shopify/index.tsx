@@ -25,5 +25,5 @@ export const ApiProvider = ({ children }: ShopifyApiProviderProps) => {
 };
 
 export const useApiProvider = () => {
-    return useContext(ShopifyApiContext);
+    return useContext(ShopifyApiContext) as ApiProviderContext;
 };

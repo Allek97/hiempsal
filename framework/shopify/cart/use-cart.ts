@@ -4,9 +4,9 @@ import { getConfig } from "@framework/api/config";
 import { checkoutToCart } from "@framework/utils";
 import createCheckout from "@framework/utils/create-checkout";
 import { getCheckoutQuery } from "@framework/utils/queries";
+import { useSWRHook } from "@framework/utils/use-hooks";
 import Cookies from "js-cookie";
 import { useMemo } from "react";
-import { resourceLimits } from "worker_threads";
 
 export const handler = {
     fetcherOptions: {
@@ -54,3 +54,16 @@ export const handler = {
             }, [result]);
         },
 };
+
+const useCart = () => {
+    const { checkoutCookie } = getConfig();
+
+    const fetcherWrapper: typeof handler.fetcher = (context) => {
+        context.input.checkoutId = Cookies.get(checkoutCookie);
+        return handler.fetcher(context);
+    };
+
+    return useSWRHook({ ...handler, fetcher: fetcherWrapper });
+};
+
+export default useCart;

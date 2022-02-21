@@ -1,4 +1,4 @@
-import { useApiProvider } from "@framework";
+import { getConfig } from "@framework/api/config";
 import { ApiFetcher } from "@framework/types/api";
 import useSWR from "swr";
 
@@ -22,7 +22,7 @@ const useData = (hook: any, fetcher: ApiFetcher, ctx: any) => {
 };
 
 export const useSWRHook = (hook: any) => {
-    const { fetcher } = useApiProvider();
+    const { fetch: fetcher } = getConfig();
     return hook.useHook({
         useData(ctx: any) {
             const data = useData(hook, fetcher, ctx);

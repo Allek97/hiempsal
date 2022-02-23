@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useMediaQueryNext } from "lib/customHooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
+import { LineItem } from "@framework/types/cart";
+import { CurrencyCode } from "@framework/schema";
+
 import { CartQuantity } from "..";
 
 import {
@@ -16,22 +19,29 @@ import {
     RemoveBtn,
 } from "./CartArticle.styled";
 
-const CartArticle: FC = () => {
+interface Props {
+    cartItem: LineItem;
+    currencyCode: CurrencyCode;
+}
+
+const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <Article className="article-item">
             <Link href="/" passHref>
                 <ProductImage>
                     <div>
                         <Image
-                            src="/images/Men-Hoodie-Black-Front.png"
-                            alt="Black hoodie"
+                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                            src={cartItem.variant.image!.url ?? ""}
+                            alt={cartItem.variant.image?.alt}
                             width={2}
                             height={3}
                             quality="80"
                             layout="responsive"
                             objectFit="contain"
-                            priority
+                            unoptimized
                         />
                     </div>
                 </ProductImage>
@@ -46,7 +56,7 @@ const CartArticle: FC = () => {
                 )}
                 <div>
                     <h2>
-                        <span>Black Hoodie Men</span>
+                        <span>{cartItem.name}</span>
                     </h2>
                     <p>
                         <span>Dark radiant</span>

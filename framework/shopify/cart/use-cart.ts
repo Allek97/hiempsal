@@ -48,7 +48,7 @@ export const handler: SWRHook<UseCartDescriptor> = {
         return cart;
     },
     useHook:
-        ({ useData }: any) =>
+        ({ useData }) =>
         () => {
             const { checkoutCookie } = getConfig();
             const result = useData({
@@ -78,7 +78,7 @@ const useCart: UseCart<typeof handler> = () => {
         return handler.fetcher(context);
     };
 
-    return useSWRHook({ ...handler, fetcher: fetcherWrapper });
+    return useSWRHook({ ...handler, fetcher: fetcherWrapper })();
 };
 
 export default useCart;

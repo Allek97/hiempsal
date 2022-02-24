@@ -6,7 +6,7 @@ import { useMediaQueryNext } from "lib/customHooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
-import { CurrencyCode } from "@framework/schema";
+import { colorKeys } from "@lib/option";
 
 import { CartQuantity } from "..";
 
@@ -21,11 +21,18 @@ import {
 
 interface Props {
     cartItem: LineItem;
-    currencyCode: CurrencyCode;
+    currencyCode: string;
 }
 
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const isScreenLarge = useMediaQueryNext("lg");
+
+    const selectedColor = cartItem.options?.filter(
+        (option) => option.displayName === "color"
+    )[0].values[0].hexColor;
+    const selectedSize = cartItem.options?.filter(
+        (option) => option.displayName === "size"
+    )[0].values[0].label;
 
     return (
         <Article className="article-item">
@@ -59,13 +66,16 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                         <span>{cartItem.name}</span>
                     </h2>
                     <p>
-                        <span>Dark radiant</span>
-                        <span>M</span>
+                        <span>{colorKeys[`${selectedColor}`]}</span>
+                        <span>{selectedSize?.toUpperCase ?? "N.D"}</span>
                     </p>
                 </div>
 
                 <div>
-                    <span>$150.0</span>
+                    <span>
+                        {currencyCode}
+                        {cartItem.variant.price}
+                    </span>
                     {/* <span>CAD</span> */}
                 </div>
 
@@ -81,7 +91,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                 </div>
 
                 <div>
-                    <CartQuantity />
+                    <CartQuantity quantity={cartItem.quantity} />
                 </div>
             </ProductDetails>
         </Article>

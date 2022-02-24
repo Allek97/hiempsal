@@ -95,7 +95,8 @@ export const ProductDetails = styled.div`
             3xl:(font-size[22px])`}
 
             span:first-of-type {
-                ${tw`lg:(margin-right[4vw])
+                ${tw`uppercase
+                lg:(margin-right[4vw])
                 2xl:(margin-right[6vw])`}
             }
 

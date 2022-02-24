@@ -1,6 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import payments from "@lib/const/payments";
 import { useMediaQueryNext } from "lib/customHooks";
+
+import { useCart } from "@framework/cart";
+
+import { currencyKeys } from "@lib/option";
 
 import {
     CartPaymentContainer,
@@ -22,7 +26,9 @@ import { CartArticle } from "../CartArticle";
 const Cart: FC = () => {
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const [isCartEmpty, _] = useState<boolean>(false);
+    const { data, isEmpty } = useCart();
+
+    console.log(data);
 
     return (
         <Root>
@@ -35,12 +41,12 @@ const Cart: FC = () => {
                     <div>Price</div>
                 </ItemsHeader>
             )}
-            {isCartEmpty ? (
+            {!isEmpty ? (
                 <EmptyCartRoot>
                     <EmptyCartBox>
                         <h1>
-                            Are you equipped for modern society ? We have all
-                            you need !
+                            Are you equipped for modern society ? We provide
+                            that for you !
                         </h1>
                     </EmptyCartBox>
                     <ShoppingWrapper>
@@ -52,17 +58,13 @@ const Cart: FC = () => {
             ) : (
                 <>
                     <div className="flex flex-col">
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
-                        <CartArticle />
+                        {data?.lineItems.map((item) => (
+                            <CartArticle
+                                cartItem={item}
+                                currencyCode={data.currency.code}
+                                key={item.id}
+                            />
+                        ))}
                     </div>
 
                     <CartPaymentContainer>
@@ -74,9 +76,19 @@ const Cart: FC = () => {
                         <TotalBox>
                             <div>
                                 <h1>Total</h1>
-                                <p>(Includes $45.5 VAT)</p>
+                                <p>
+                                    (Includes{" "}
+                                    {currencyKeys[`${data?.currency.code}`]}
+                                    {(data?.totalPrice ?? 0) -
+                                        (data?.lineItemsSubtotalPrice ??
+                                            0)}{" "}
+                                    VAT)
+                                </p>
                             </div>
-                            <span>$150.0</span>
+                            <span>
+                                {currencyKeys[`${data?.currency.code}`] ?? "$"}
+                                {data?.totalPrice}
+                            </span>
                         </TotalBox>
 
                         <CheckoutWrapper>

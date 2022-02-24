@@ -1,11 +1,15 @@
 import { FC } from "react";
 import { Root } from "./CartQuantity.styled";
 
-const CartQuantity: FC = () => {
+interface Props {
+    quantity: number;
+}
+
+const CartQuantity: FC<Props> = ({ quantity }) => {
     return (
         <Root>
             <span>-</span>
-            <span>2</span>
+            <span>{quantity ?? 0}</span>
             <span>+</span>
         </Root>
     );

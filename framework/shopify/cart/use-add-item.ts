@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { CheckoutLineItemsAddPayload } from "@framework/schema";
 import { Cart } from "@framework/types/cart";
+import { MutationHook } from "@framework/types/hooks";
 import { checkoutToCart, getCheckoutId } from "@framework/utils";
 import { checkoutLineItemsAddMutation } from "@framework/utils/mutations";
 import { useCart } from ".";
@@ -16,7 +17,7 @@ type AddItemHookDescriptor = {
     data: Cart;
 };
 
-const handler: any = {
+const handler: MutationHook<AddItemHookDescriptor> = {
     fetcherOptions: {
         query: checkoutLineItemsAddMutation,
     },
@@ -32,7 +33,10 @@ const handler: any = {
             ],
         };
 
-        const { data } = fetch({ ...options, variables });
+        const { data } = await fetch({
+            ...options,
+            variables,
+        });
 
         const cart = checkoutToCart(data.checkoutLineItemsAdd.checkout);
         return cart;
@@ -49,3 +53,7 @@ const handler: any = {
             };
         },
 };
+
+const useAddItem = () => {};
+
+export default useAddItem;

@@ -28,8 +28,6 @@ const Cart: FC = () => {
 
     const { data, isEmpty } = useCart();
 
-    console.log(data);
-
     return (
         <Root>
             {isScreenLarge && (
@@ -41,7 +39,7 @@ const Cart: FC = () => {
                     <div>Price</div>
                 </ItemsHeader>
             )}
-            {!isEmpty ? (
+            {isEmpty ? (
                 <EmptyCartRoot>
                     <EmptyCartBox>
                         <h1>

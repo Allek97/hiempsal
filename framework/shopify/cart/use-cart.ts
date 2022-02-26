@@ -11,7 +11,7 @@ import { useSWRHook } from "@framework/utils/use-hooks";
 import Cookies from "js-cookie";
 import { useMemo } from "react";
 
-export type UseCartDescriptor = {
+type UseCartHookDescriptor = {
     fetcherInput: {
         checkoutId: string;
     };
@@ -21,9 +21,9 @@ export type UseCartDescriptor = {
     data: Cart;
 };
 
-export type UseCart<H extends SWRHook> = ReturnType<H["useHook"]>;
+type UseCart<H extends SWRHook> = ReturnType<H["useHook"]>;
 
-export const handler: SWRHook<UseCartDescriptor> = {
+const handler: SWRHook<UseCartHookDescriptor> = {
     fetcherOptions: {
         query: getCheckoutQuery,
     },

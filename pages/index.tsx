@@ -3,11 +3,11 @@ import type { InferGetStaticPropsType } from "next";
 import { getAllProducts } from "@framework/product";
 import Layout from "@components/common/Layout";
 import Hero from "@components/ui/Hero/Hero";
-import { ProductCard } from "@components/product/ProductCard";
 
 import { Partner } from "@components/elements";
 import { TechArticle } from "@components/elements/TechArticle";
 import { Grid } from "@components/ui/Grid";
+import { ProductCard } from "@components/product";
 
 export async function getStaticProps() {
     const config = getConfig();

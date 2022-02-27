@@ -1,5 +1,7 @@
 // NOTE https://nextjs.org/learn/basics/dynamic-routes
 
+import Layout from "@components/common/Layout";
+import { ProductView } from "@components/product";
 import { getConfig } from "@framework/api/config";
 import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";
@@ -29,7 +31,7 @@ export const getStaticProps = async ({
     slug: string;
 }>) => {
     const config = getConfig();
-    const product = await getProduct({
+    const { product } = await getProduct({
         config,
         variables: { slug: params?.slug },
     });
@@ -44,5 +46,7 @@ export const getStaticProps = async ({
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 export default function ProductSlug({ product }: Props) {
-    return <div>{JSON.stringify(product, null, 2)}</div>;
+    return <div>{product && <ProductView product={product} />}</div>;
 }
+
+ProductSlug.Layout = Layout;

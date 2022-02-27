@@ -30,3 +30,16 @@ export const useSWRHook = (hook: any) => {
         },
     });
 };
+
+export const useMutationHook = (hook: any) => {
+    const { fetch: fetcher } = getConfig();
+    return hook.useHook({
+        fetch: (input: any) => {
+            return hook.fetcher({
+                fetch: fetcher,
+                options: hook.fetcherOptions,
+                input,
+            });
+        },
+    });
+};

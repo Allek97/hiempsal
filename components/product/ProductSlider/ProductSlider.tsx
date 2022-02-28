@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useKeenSlider } from "keen-slider/react";
 import {
     Children,
     FC,
     isValidElement,
     useCallback,
+    useEffect,
     useRef,
     useState,
 } from "react";
@@ -24,6 +26,35 @@ const ProductSlider: FC = ({ children }) => {
             setCurrentSlide(slideNumber);
         },
     });
+
+    useEffect(() => {
+        const preventNavigation = (event: TouchEvent) => {
+            // Center point of the touch area
+            const touchXPosition = event.touches[0].pageX;
+            // Size of the touch area
+            const touchXRadius = event.touches[0].radiusX || 0;
+
+            // We set a threshold (10px) on both sizes of the screen,
+            // if the touch area overlaps with the screen edges
+            // it's likely to trigger the navigation. We prevent the
+            // touchstart event in that case.
+            if (
+                touchXPosition - touchXRadius < 10 ||
+                touchXPosition + touchXRadius > window.innerWidth - 10
+            )
+                event.preventDefault();
+        };
+
+        const mySlider = sliderContainerRef.current!;
+
+        mySlider.addEventListener("touchstart", preventNavigation);
+
+        return () => {
+            if (mySlider) {
+                mySlider.removeEventListener("touchstart", preventNavigation);
+            }
+        };
+    }, []);
 
     const onPrev = useCallback(() => slider.current?.prev(), [slider]);
     const onNext = useCallback(() => slider.current?.next(), [slider]);

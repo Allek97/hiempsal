@@ -7,16 +7,25 @@ interface ControlBtnProps {
 }
 
 export const Control = styled.div`
-    ${tw`bg-accents-5 absolute bottom-10 right-10 flex flex-row
-    border-accents-8 border text-accents-0 z-30 shadow-xl select-none
+    ${tw`shadow-xl border-accents-8 border bg-primary text-accents-9 select-none
     height[38px]
     xs:(height[40px])`}
 
     ${tw`sm:(height[48px])`}
+
+    transform: translateY(-50%);
 `;
 
 export const ControlBtn = styled.button<ControlBtnProps>`
-    ${tw`px-6 cursor-pointer
+    ${tw`shadow-xl border-accents-8 border bg-primary text-accents-9 select-none
+    height[38px]
+    xs:(height[40px])`}
+
+    ${tw`sm:(height[48px])`}
+
+    transform: translateY(-50%);
+
+    ${tw`absolute top-1/2 z-30 px-6 cursor-pointer
     xs:(px-7)`}
     ${tw`sm:(px-9)`}
     transition: background-color 0.2s ease;
@@ -24,14 +33,15 @@ export const ControlBtn = styled.button<ControlBtnProps>`
     ${(props) =>
         props.direction === "right"
             ? css`
-                  ${tw`border-l border-accents-8`}
+                  ${tw`right-10 border-l border-accents-8`}
               `
             : css`
+                  ${tw`left-10`}
                   margin-right: -1px;
               `}
 
     &:hover {
-        ${tw`bg-accents-6`}
+        ${tw`bg-accents-3`}
     }
 
     &:focus {

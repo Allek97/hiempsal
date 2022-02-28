@@ -1,6 +1,8 @@
 import { FC, MouseEventHandler } from "react";
-import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
-import { ControlBtn, Root } from "./ProductSliderControl.styled";
+
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
+import { Control, ControlBtn } from "./ProductSliderControl.styled";
 
 interface Props {
     onPrev: MouseEventHandler<HTMLButtonElement>;
@@ -9,22 +11,22 @@ interface Props {
 
 const ProductSliderControl: FC<Props> = ({ onPrev, onNext }) => {
     return (
-        <Root>
+        <Control>
             <ControlBtn
                 direction="left"
                 onClick={onPrev}
                 aria-label="Previous Product Image"
             >
-                <HiOutlineArrowLeft />
+                <FaArrowLeft />
             </ControlBtn>
             <ControlBtn
-                direction="left"
+                direction="right"
                 onClick={onNext}
                 aria-label="Previous Product Image"
             >
-                <HiOutlineArrowRight />
+                <FaArrowRight />
             </ControlBtn>
-        </Root>
+        </Control>
     );
 };
 

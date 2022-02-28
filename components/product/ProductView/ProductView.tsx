@@ -19,8 +19,8 @@ const ProductView: FC<Props> = ({ product }) => {
                             <Image
                                 src={image.url}
                                 alt={image.alt || `${product.name} Image`}
-                                width={600}
-                                height={600}
+                                layout="fill"
+                                objectFit="contain"
                                 quality="85"
                                 priority={idx === 0}
                             />

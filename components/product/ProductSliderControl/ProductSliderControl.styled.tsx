@@ -25,9 +25,9 @@ export const ControlBtn = styled.button<ControlBtnProps>`
 
     transform: translateY(-50%);
 
-    ${tw`absolute top-1/2 z-30 px-6 cursor-pointer
-    xs:(px-7)`}
-    ${tw`sm:(px-9)`}
+    ${tw`absolute top-1/2 z-30 px-3 text-lg cursor-pointer
+    xs:(px-4)`}
+    ${tw`sm:(px-4 font-size[24px])`}
     transition: background-color 0.2s ease;
 
     ${(props) =>

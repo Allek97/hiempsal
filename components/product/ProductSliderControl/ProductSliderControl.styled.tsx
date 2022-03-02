@@ -6,6 +6,7 @@ import Ripples from "react-ripples";
 
 interface RippleProps {
     direction: "left" | "right";
+    isRippleActive: boolean;
 }
 
 interface ControlBtnProps {
@@ -27,6 +28,16 @@ export const Ripple = styled(Ripples)<RippleProps>`
             : css`
                   ${tw`left-10`}
               `}
+
+    // Deactivate the ripple effct
+    ${(props) =>
+        !props.isRippleActive &&
+        css`
+            & > s {
+                height: 0 !important;
+                width: 0 !important;
+            }
+        `}
 `;
 
 const control = css`

@@ -22,6 +22,7 @@ import {
     Album,
     ImageControlView,
     ImageControlZoom,
+    Ripple,
     Root,
     Slider,
     Thumb,
@@ -99,29 +100,39 @@ const ProductSlider: FC = ({ children }) => {
                         <>
                             <ImageControlView>
                                 <ImageControlZoom>
-                                    <button
-                                        onClick={() => zoomIn()}
-                                        type="button"
-                                    >
-                                        <BiPlus />
-                                    </button>
-                                    <button
-                                        onClick={() => zoomOut()}
-                                        type="button"
-                                    >
-                                        <BiMinus />
-                                    </button>
+                                    <Ripple isRippleActive={!isScreenLg}>
+                                        <button
+                                            onClick={() => zoomIn()}
+                                            type="button"
+                                        >
+                                            <BiPlus />
+                                        </button>
+                                    </Ripple>
+
+                                    <Ripple isRippleActive={!isScreenLg}>
+                                        <button
+                                            onClick={() => zoomOut()}
+                                            type="button"
+                                        >
+                                            <BiMinus />
+                                        </button>
+                                    </Ripple>
                                 </ImageControlZoom>
 
-                                <button
-                                    onClick={() => resetTransform()}
-                                    type="button"
-                                >
-                                    <CgArrowsExpandRight />
-                                </button>
-                                <button onClick={onFirst} type="button">
-                                    <BiReset />
-                                </button>
+                                <Ripple isRippleActive={!isScreenLg}>
+                                    <button
+                                        onClick={() => resetTransform()}
+                                        type="button"
+                                    >
+                                        <CgArrowsExpandRight />
+                                    </button>
+                                </Ripple>
+
+                                <Ripple isRippleActive={!isScreenLg}>
+                                    <button onClick={onFirst} type="button">
+                                        <BiReset />
+                                    </button>
+                                </Ripple>
                             </ImageControlView>
                             {slider && (
                                 <ProductSliderControl

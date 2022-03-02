@@ -1,3 +1,4 @@
+import { useMediaQueryNext } from "@lib/customHooks";
 import { FC, MouseEventHandler } from "react";
 
 import {
@@ -20,9 +21,11 @@ const ProductSliderControl: FC<Props> = ({
     totalSlides,
     currentSlide,
 }) => {
+    const isScreenLarge = useMediaQueryNext("lg");
+
     return (
         <>
-            <Ripple direction="left">
+            <Ripple direction="left" isRippleActive={!isScreenLarge}>
                 <ControlBtn
                     onClick={onPrev}
                     aria-label="Previous Product Image"
@@ -32,7 +35,7 @@ const ProductSliderControl: FC<Props> = ({
                 </ControlBtn>
             </Ripple>
 
-            <Ripple direction="right">
+            <Ripple direction="right" isRippleActive={!isScreenLarge}>
                 <ControlBtn
                     onClick={onNext}
                     aria-label="Previous Product Image"

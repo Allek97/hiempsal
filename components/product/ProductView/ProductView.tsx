@@ -17,7 +17,7 @@ const ProductView: FC<Props> = ({ product }) => {
             <SliderContainer>
                 <ProductSlider>
                     {product.images
-                        .filter((image, idx) => idx < 7)
+                        .filter((image, idx) => idx > -1)
                         .map((image, idx) => (
                             <ImageContainer key={image.url}>
                                 <Image

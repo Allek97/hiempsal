@@ -4,6 +4,7 @@ import tw from "twin.macro";
 
 interface ControlBtnProps {
     direction: "left" | "right";
+    isExtremity: boolean;
 }
 
 export const Control = styled.div`
@@ -39,6 +40,12 @@ export const ControlBtn = styled.button<ControlBtnProps>`
                   ${tw`left-10`}
                   margin-right: -1px;
               `}
+
+    ${(props) =>
+        props.isExtremity &&
+        css`
+            ${tw`bg-orange-red`}
+        `}
 
     &:hover {
         ${tw`bg-accents-3`}

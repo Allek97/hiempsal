@@ -1,6 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import { useMediaQueryNext } from "@lib/customHooks";
 import { useKeenSlider } from "keen-slider/react";
 import {
     Children,
@@ -15,6 +16,7 @@ import { BiMinus, BiPlus, BiReset } from "react-icons/bi";
 import { CgArrowsExpandRight } from "react-icons/cg";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { ProductSliderControl } from "..";
+import ThumbnailPlugin from "../ThumbnailPlugin";
 
 import {
     Album,
@@ -29,10 +31,10 @@ const ProductSlider: FC = ({ children }) => {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
     const [isMounted, setIsMounted] = useState<boolean>(false);
     const sliderContainerRef = useRef<HTMLDivElement>(null);
-    const thumbsContainerRef = useRef<HTMLDivElement>(null);
+
+    const isScreenLg = useMediaQueryNext("lg");
 
     const [ref, slider] = useKeenSlider<HTMLDivElement>({
-        loop: true,
         slides: { perView: 1 },
         created: () => setIsMounted(true),
         slideChanged(e) {
@@ -40,6 +42,16 @@ const ProductSlider: FC = ({ children }) => {
             setCurrentSlide(slideNumber);
         },
     });
+
+    const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
+        {
+            initial: 0,
+            slides: {
+                perView: isScreenLg ? 4 : 3,
+            },
+        },
+        [ThumbnailPlugin(slider)]
+    );
 
     useEffect(() => {
         const preventNavigation = (event: TouchEvent) => {
@@ -68,6 +80,8 @@ const ProductSlider: FC = ({ children }) => {
 
     const onPrev = useCallback(() => slider.current?.prev(), [slider]);
     const onNext = useCallback(() => slider.current?.next(), [slider]);
+
+    const totalSlides = slider.current?.track.details.slides.length;
 
     const onFirst = useCallback(() => slider.current?.moveToIdx(0), [slider]);
 
@@ -113,6 +127,8 @@ const ProductSlider: FC = ({ children }) => {
                                 <ProductSliderControl
                                     onPrev={onPrev}
                                     onNext={onNext}
+                                    totalSlides={totalSlides ?? 0}
+                                    currentSlide={currentSlide}
                                 />
                             )}
                             <Slider
@@ -129,29 +145,25 @@ const ProductSlider: FC = ({ children }) => {
                                     contentStyle={{ height: "100%" }}
                                 >
                                     <div className="relative flex flex-row h-full w-full">
-                                        {Children.map(
-                                            children,
-                                            (child, idx) => {
-                                                // Add the keen-slider__slide className to children
+                                        {Children.map(children, (child) => {
+                                            // Add the keen-slider__slide className to children
 
-                                                if (isValidElement(child)) {
-                                                    return {
-                                                        ...child,
-                                                        props: {
-                                                            ...child.props,
-                                                            className: `${
-                                                                child.props
-                                                                    .className
-                                                                    ? `${child.props.className} `
-                                                                    : ""
-                                                            }keen-slider__slide`,
-                                                            id: `thumb-${idx}`,
-                                                        },
-                                                    };
-                                                }
-                                                return child;
+                                            if (isValidElement(child)) {
+                                                return {
+                                                    ...child,
+                                                    props: {
+                                                        ...child.props,
+                                                        className: `${
+                                                            child.props
+                                                                .className
+                                                                ? `${child.props.className} `
+                                                                : ""
+                                                        }keen-slider__slide`,
+                                                    },
+                                                };
                                             }
-                                        )}
+                                            return child;
+                                        })}
                                     </div>
                                 </TransformComponent>
                             </Slider>
@@ -160,23 +172,21 @@ const ProductSlider: FC = ({ children }) => {
                 </TransformWrapper>
             </div>
 
-            <Album ref={thumbsContainerRef}>
+            <Album ref={thumbnailRef} className="keen-slider thumbnail">
                 {slider &&
                     Children.map(children, (child, idx) => {
                         return (
                             <Thumb
                                 isSelected={currentSlide === idx}
-                                onClick={() => {
-                                    slider.current?.moveToIdx(idx, true, {
-                                        duration: 0,
-                                    });
-                                }}
                                 type="button"
+                                className="keen-slider__slide"
                             >
                                 {child}
                             </Thumb>
                         );
                     })}
+                <div className="keen-slider__slide" />
+                <div className="keen-slider__slide" />
             </Album>
         </Root>
     );

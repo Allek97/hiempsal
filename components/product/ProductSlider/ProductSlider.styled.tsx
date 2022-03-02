@@ -86,11 +86,11 @@ export const ImageControlZoom = styled.div`
 `;
 
 export const Album = styled.div`
-    ${tw`w-full height[230px] bg-accents-5 whitespace-nowrap overflow-x-hidden overflow-y-hidden`}
+    ${tw`relative w-full height[230px] bg-accents-5 whitespace-nowrap overflow-x-hidden overflow-y-hidden`}
 `;
 
 export const Thumb = styled.button<ThumbProps>`
-    ${tw`overflow-auto inline-block cursor-pointer h-full width[235px]`}
+    ${tw`overflow-auto inline-block cursor-pointer h-full`}
 
     ${(props) =>
         props.isSelected &&

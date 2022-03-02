@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import customScroll from "@styles/customScroll.styled";
 import tw from "twin.macro";
 
 interface SliderProps {
@@ -52,6 +51,7 @@ export const ImageControlView = styled.div`
 
     & > button:nth-of-type(2) {
         ${tw`bottom-10 left-10`}
+
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 ${tw`transition-transform`}
@@ -86,11 +86,12 @@ export const ImageControlZoom = styled.div`
 `;
 
 export const Album = styled.div`
-    ${tw`relative w-full height[230px] bg-accents-5 whitespace-nowrap overflow-x-hidden overflow-y-hidden`}
+    ${tw`relative w-full height[230px] bg-accents-5 whitespace-nowrap 
+    overflow-x-hidden overflow-y-hidden`}
 `;
 
 export const Thumb = styled.button<ThumbProps>`
-    ${tw`overflow-auto inline-block cursor-pointer h-full`}
+    ${tw`h-full inline-block overflow-auto cursor-pointer`}
 
     ${(props) =>
         props.isSelected &&

@@ -6,8 +6,8 @@ export const Root = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-    ${tw`flex items-center justify-center height[95vh] overflow-x-hidden bg-accents-1`}
-    max-height: 650px;
+    ${tw`flex items-center justify-center height[82vh] overflow-x-hidden bg-accents-1`}
+    max-height: 775px;
 `;
 
 export const ImageContainer = styled.div`

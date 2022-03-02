@@ -5,7 +5,7 @@ import {
     HiOutlineArrowNarrowRight,
 } from "react-icons/hi";
 
-import { ControlBtn } from "./ProductSliderControl.styled";
+import { ControlBtn, Ripple } from "./ProductSliderControl.styled";
 
 interface Props {
     onPrev: MouseEventHandler<HTMLButtonElement>;
@@ -22,22 +22,25 @@ const ProductSliderControl: FC<Props> = ({
 }) => {
     return (
         <>
-            <ControlBtn
-                direction="left"
-                onClick={onPrev}
-                aria-label="Previous Product Image"
-                isExtremity={currentSlide === 0}
-            >
-                <HiOutlineArrowNarrowLeft />
-            </ControlBtn>
-            <ControlBtn
-                direction="right"
-                onClick={onNext}
-                aria-label="Previous Product Image"
-                isExtremity={currentSlide === totalSlides - 1}
-            >
-                <HiOutlineArrowNarrowRight />
-            </ControlBtn>
+            <Ripple direction="left">
+                <ControlBtn
+                    onClick={onPrev}
+                    aria-label="Previous Product Image"
+                    isExtremity={currentSlide === 0}
+                >
+                    <HiOutlineArrowNarrowLeft />
+                </ControlBtn>
+            </Ripple>
+
+            <Ripple direction="right">
+                <ControlBtn
+                    onClick={onNext}
+                    aria-label="Previous Product Image"
+                    isExtremity={currentSlide === totalSlides - 1}
+                >
+                    <HiOutlineArrowNarrowRight />
+                </ControlBtn>
+            </Ripple>
         </>
     );
 };

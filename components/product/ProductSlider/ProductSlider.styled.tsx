@@ -1,16 +1,21 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import customScroll from "@styles/customScroll.styled";
 import tw from "twin.macro";
 
-interface SliderRef {
+interface SliderProps {
     isMounted: boolean;
 }
 
+interface ThumbProps {
+    isSelected: boolean;
+}
+
 export const Root = styled.div`
-    ${tw`relative h-full w-full select-none overflow-hidden`}
+    ${tw`relative flex flex-col h-full w-full select-none overflow-hidden`}
 `;
 
-export const Slider = styled.div<SliderRef>`
+export const Slider = styled.div<SliderProps>`
     ${tw`relative flex h-full transition-opacity duration-150`}
 
     ${(props) =>
@@ -78,4 +83,18 @@ export const ImageControlZoom = styled.div`
             outline: none;
         }
     }
+`;
+
+export const Album = styled.div`
+    ${tw`w-full height[230px] bg-accents-5 whitespace-nowrap overflow-x-hidden overflow-y-hidden`}
+`;
+
+export const Thumb = styled.button<ThumbProps>`
+    ${tw`overflow-auto inline-block cursor-pointer h-full width[235px]`}
+
+    ${(props) =>
+        props.isSelected &&
+        css`
+            ${tw`bg-accents-9`}
+        `}
 `;

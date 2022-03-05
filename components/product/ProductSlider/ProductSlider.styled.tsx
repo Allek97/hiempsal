@@ -38,10 +38,11 @@ export const ImageControlView = styled.div`
         position: absolute !important;
         z-index: 30;
 
+        box-shadow: var(--shadow-2);
+
         button {
             ${tw`transition-transform`}
-            ${tw`p-1.5 shadow-xl border-accents-8 border   
-            bg-primary text-primary text-xl select-none
+            ${tw`p-1.5 border-radius[5px] bg-primary text-primary text-xl select-none
             md:font-size[22px]
             lg:(p-2.5 text-2xl)`}
         }
@@ -69,22 +70,28 @@ export const ImageControlView = styled.div`
 `;
 
 export const ImageControlZoom = styled.div`
-    ${tw`absolute top-5 right-5 z-30 flex flex-col shadow-xl
+    ${tw`absolute top-5 right-5 z-30 flex flex-col 
       bg-transparent text-accents-9 font-size[17px] select-none
       lg:(top-10 right-10)`}
+
+    & > div {
+        box-shadow: var(--shadow-2);
+    }
 
     & > div:first-of-type {
         ${tw`mb-2`}
     }
 
     button {
-        ${tw`p-2 text-lg border-accents-8 border bg-primary cursor-pointer
+        ${tw`p-2 border-radius[5px] bg-primary 
+        text-lg overflow-hidden cursor-pointer 
         md:text-xl
         lg:(p-3)`}
         transition: background-color 0.2s ease;
-
-        &:hover {
-            ${tw`bg-accents-3`}
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                ${tw`bg-accents-5`}
+            }
         }
 
         &:focus {

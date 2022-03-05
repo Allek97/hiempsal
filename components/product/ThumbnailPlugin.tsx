@@ -1,7 +1,7 @@
 import { KeenSliderInstance, KeenSliderPlugin } from "keen-slider/react";
 import { MutableRefObject } from "react";
 
-export default function ThumbnailPlugin(
+export default function thumbnailPlugin(
     mainRef: MutableRefObject<KeenSliderInstance | null>
 ): KeenSliderPlugin {
     return (slider) => {

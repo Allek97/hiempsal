@@ -17,7 +17,7 @@ import { BiMinus, BiPlus, BiReset } from "react-icons/bi";
 import { CgArrowsExpandRight } from "react-icons/cg";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { ProductSliderControl } from "..";
-import ThumbnailPlugin from "../ThumbnailPlugin";
+import thumbnailPlugin from "../thumbnailPlugin";
 
 import {
     Album,
@@ -51,7 +51,7 @@ const ProductSlider: FC = ({ children }) => {
                 perView: isScreenLg ? 4 : 3,
             },
         },
-        [ThumbnailPlugin(slider)]
+        [thumbnailPlugin(slider)]
     );
 
     useEffect(() => {

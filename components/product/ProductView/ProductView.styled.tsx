@@ -15,7 +15,7 @@ export const ProductOverviewContainer = styled.div`
 export const SliderContainer = styled.div`
     ${tw`flex items-center justify-center w-full height[calc(100vh - 165px)] max-w-7xl mr-6
     bg-accents-1 overflow-x-hidden
-    lg:(height[calc(100vh - 82px)])`}
+    lg:(height[calc(100vh - 100px)])`}
 `;
 
 export const ImageContainer = styled.div`

@@ -11,7 +11,11 @@ interface ThumbProps {
 }
 
 export const Root = styled.div`
-    ${tw`relative flex flex-col h-full w-full select-none overflow-hidden`}
+    ${tw`relative flex flex-col h-full w-full select-none overflow-hidden cursor[grab]`}
+
+    &:focus,&:active {
+        ${tw`cursor[grabbing]`}
+    }
 `;
 
 export const Slider = styled.div<SliderProps>`

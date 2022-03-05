@@ -1,3 +1,4 @@
+import { Ripple } from "@components/ui";
 import { useMediaQueryNext } from "@lib/customHooks";
 import { FC, MouseEventHandler } from "react";
 
@@ -6,7 +7,7 @@ import {
     HiOutlineArrowNarrowRight,
 } from "react-icons/hi";
 
-import { ControlBtn, Ripple } from "./ProductSliderControl.styled";
+import { Control, ControlBtn } from "./ProductSliderControl.styled";
 
 interface Props {
     onPrev: MouseEventHandler<HTMLButtonElement>;
@@ -25,25 +26,29 @@ const ProductSliderControl: FC<Props> = ({
 
     return (
         <>
-            <Ripple direction="left" isRippleActive={!isScreenLarge}>
-                <ControlBtn
-                    onClick={onPrev}
-                    aria-label="Previous Product Image"
-                    isExtremity={currentSlide === 0}
-                >
-                    <HiOutlineArrowNarrowLeft />
-                </ControlBtn>
-            </Ripple>
+            <Control direction="left">
+                <Ripple isRippleActive={!isScreenLarge}>
+                    <ControlBtn
+                        onClick={onPrev}
+                        aria-label="Previous Product Image"
+                        isExtremity={currentSlide === 0}
+                    >
+                        <HiOutlineArrowNarrowLeft />
+                    </ControlBtn>
+                </Ripple>
+            </Control>
 
-            <Ripple direction="right" isRippleActive={!isScreenLarge}>
-                <ControlBtn
-                    onClick={onNext}
-                    aria-label="Previous Product Image"
-                    isExtremity={currentSlide === totalSlides - 1}
-                >
-                    <HiOutlineArrowNarrowRight />
-                </ControlBtn>
-            </Ripple>
+            <Control direction="right">
+                <Ripple isRippleActive={!isScreenLarge}>
+                    <ControlBtn
+                        onClick={onNext}
+                        aria-label="Previous Product Image"
+                        isExtremity={currentSlide === totalSlides - 1}
+                    >
+                        <HiOutlineArrowNarrowRight />
+                    </ControlBtn>
+                </Ripple>
+            </Control>
         </>
     );
 };

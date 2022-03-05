@@ -7,23 +7,28 @@ interface Props {
 }
 
 export const Root = styled.button<Props>`
-    ${tw`flex items-center justify-center w-full p-3.5 
-    shadow-lg rounded-sm bg-secondary 
+    ${tw`flex items-center justify-center w-full 
+    shadow-lg rounded-sm bg-secondary  
     text-accents-1 text-center leading-6 capitalize cursor-pointer`}
 
-    transition: background .5s cubic-bezier(.19,1,.22,1),
-                color .5s cubic-bezier(.19,1,.22,1);
+    transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+        color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
-    &:hover {
-        ${tw`bg-accents-0 text-primary`}
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            ${tw`text-primary`}
+            background-color: white;
+        }
     }
 
     &:focus {
         ${tw`outline-none`}
     }
 
-    &:active {
-        ${tw`bg-accents-2`}
+    @media (hover: hover) and (pointer: fine) {
+        &:active {
+            ${tw`bg-accents-2 text-primary`}
+        }
     }
 
     ${(props) =>

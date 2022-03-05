@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ElementType, FC, ReactNode } from "react";
+import { Ripple } from "..";
 import { Root } from "./Button.styled";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,25 +8,34 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     Component?: ElementType<any> | undefined;
     isLoading?: boolean;
     href?: string;
+    color?: string;
+    during?: number;
 }
 
 const Button: FC<Props> = ({
     children,
     Component = "button",
     isLoading = false,
+    color = "var(--accents-2)",
+    during = 2000,
     ...rest
 }) => {
     return (
-        <Root type="button" as={Component} isLoading={isLoading} {...rest}>
-            {children}
-        </Root>
+        <Ripple color={color} during={during} className="w-full">
+            <Root type="button" as={Component} isLoading={isLoading} {...rest}>
+                {children}
+            </Root>
+        </Ripple>
     );
 };
 
+// NOTE defaultProps soon to be depreciated
 Button.defaultProps = {
     Component: "button",
     isLoading: false,
     href: "/",
+    color: "var(--accents-2)",
+    during: 2000,
 };
 
 export default Button;

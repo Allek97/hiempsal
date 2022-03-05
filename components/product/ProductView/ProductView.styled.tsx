@@ -1,3 +1,4 @@
+import { Button } from "@components/ui";
 import styled from "@emotion/styled";
 
 import tw from "twin.macro";
@@ -29,26 +30,32 @@ export const CartContainer = styled.div`
 export const CertificationBox = styled.div`
     ${tw`flex`}
 
-    div {
+    a {
+        ${tw`transition-transform`}
+
         &:not(:last-of-type) {
-            ${tw`mr-0.5`}
+            ${tw`mr-1.5`}
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                ${tw`transition-transform`}
+                transform : scale(1.1);
+            }
         }
     }
 `;
 
-export const CartButton = styled.button`
-    ${tw`block py-3.5 mr-2 background-color[#0076ce] border-radius[3px]
-    font-size[16px] text-center leading-3 cursor-pointer text-secondary`}
+export const VariantButton = styled(Button)`
+    ${tw`height[50px] w-full mr-2 font-size[15px] text-white tracking-tighter border-radius[3px] lg:(font-size[18px])`}
 
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            ${tw`background-color[#00447c]`}
-        }
-    }
+    box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
 `;
 
 export const WishlistBtn = styled.button`
-    ${tw`width[18.5px]`}
+    ${tw`width[22px]`}
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);

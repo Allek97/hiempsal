@@ -70,10 +70,16 @@ export const EmptyCartBox = styled.div`
 
 export const ShoppingWrapper = styled.div`
     ${tw`w-full ml-auto lg:w-1/2`}
+
+    & > div {
+        ${tw`w-full`}
+    }
 `;
 
 export const ShoppingButton = styled(Button)`
     ${tw`font-size[15px] py-4 text-white tracking-tighter lg:(py-5 font-size[15px])`}
+    border: 1px solid rgb(245, 245, 245);
+    box-shadow: rgb(0 0 0 / 10%) 1px 1px 3px;
 `;
 
 ////////////////////////////////////////////////////////

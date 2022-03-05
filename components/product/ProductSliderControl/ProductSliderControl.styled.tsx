@@ -2,18 +2,15 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-import Ripples from "react-ripples";
-
-interface RippleProps {
+interface ControlProps {
     direction: "left" | "right";
-    isRippleActive: boolean;
 }
 
 interface ControlBtnProps {
     isExtremity: boolean;
 }
 
-export const Ripple = styled(Ripples)<RippleProps>`
+export const Control = styled.div<ControlProps>`
     position: absolute !important;
 
     ${tw`top-1/2 z-30`}
@@ -28,16 +25,6 @@ export const Ripple = styled(Ripples)<RippleProps>`
             : css`
                   ${tw`left-5 lg:left-10`}
               `}
-
-    // Deactivate the ripple effct
-    ${(props) =>
-        !props.isRippleActive &&
-        css`
-            & > s {
-                height: 0 !important;
-                width: 0 !important;
-            }
-        `}
 `;
 
 const control = css`

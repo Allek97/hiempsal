@@ -48,7 +48,10 @@ const Cart: FC = () => {
                         </h1>
                     </EmptyCartBox>
                     <ShoppingWrapper>
-                        <ShoppingButton Component="button">
+                        <ShoppingButton
+                            Component="button"
+                            color="var(--accents-2)"
+                        >
                             Go Shopping
                         </ShoppingButton>
                     </ShoppingWrapper>

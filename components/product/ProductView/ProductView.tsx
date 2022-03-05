@@ -9,13 +9,13 @@ import { ethicalCertifications } from "@lib/const";
 import { ProductSlider } from "..";
 
 import {
-    CartButton,
     CartContainer,
     CertificationBox,
     ImageContainer,
     ProductOverviewContainer,
     Root,
     SliderContainer,
+    VariantButton,
     WishlistBtn,
 } from "./ProductView.styled";
 
@@ -71,8 +71,14 @@ const ProductView: FC<Props> = ({ product }) => {
                     <div className="flex justify-between items-center w-full mt-28">
                         <CertificationBox>
                             {ethicalCertifications.map(
-                                ({ id, link, title }) => (
-                                    <div key={id}>
+                                ({ id, link, title, website }) => (
+                                    <a
+                                        href={website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title={title}
+                                        key={id}
+                                    >
                                         <Image
                                             src={link}
                                             alt={title}
@@ -82,13 +88,13 @@ const ProductView: FC<Props> = ({ product }) => {
                                             quality="85"
                                             priority
                                         />
-                                    </div>
+                                    </a>
                                 )
                             )}
                         </CertificationBox>
 
-                        <div className="flex">
-                            <CartButton>Add to cart</CartButton>
+                        <div className="flex items-center w-2/3">
+                            <VariantButton>Select Variant</VariantButton>
                             <WishlistBtn>
                                 <FaRegHeart className="w-full h-full" />
                             </WishlistBtn>

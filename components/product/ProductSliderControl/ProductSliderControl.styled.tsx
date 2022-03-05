@@ -23,10 +23,10 @@ export const Ripple = styled(Ripples)<RippleProps>`
     ${(props) =>
         props.direction === "right"
             ? css`
-                  ${tw`right-10`}
+                  ${tw`right-5 lg:right-10`}
               `
             : css`
-                  ${tw`left-10`}
+                  ${tw`left-5 lg:left-10`}
               `}
 
     // Deactivate the ripple effct
@@ -42,18 +42,16 @@ export const Ripple = styled(Ripples)<RippleProps>`
 
 const control = css`
     ${tw`shadow-xl border-accents-8 border bg-primary text-accents-9 select-none
-    height[38px]
-    xs:(height[40px])`}
+    height[38px]`}
 
-    ${tw`sm:(height[48px])`}
+    ${tw`sm:height[40px] md:font-size[20px] lg:(height[48px] text-2xl)`}
 `;
 
 export const ControlBtn = styled.button<ControlBtnProps>`
     ${control}
 
-    ${tw`px-3 text-lg cursor-pointer
-    xs:(px-4)`}
-    ${tw`sm:(px-4 font-size[24px])`}
+    ${tw`px-3 text-lg cursor-pointer sm:(px-4)`}
+ 
 
     transition: background-color 0.2s ease;
 

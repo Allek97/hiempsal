@@ -1,6 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import { Ripple } from "@components/ui";
 import { useMediaQueryNext } from "@lib/customHooks";
 import { useKeenSlider } from "keen-slider/react";
 import {
@@ -22,7 +23,6 @@ import {
     Album,
     ImageControlView,
     ImageControlZoom,
-    Ripple,
     Root,
     Slider,
     Thumb,

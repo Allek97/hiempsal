@@ -2,18 +2,12 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-import Ripples from "react-ripples";
-
 interface SliderProps {
     isMounted: boolean;
 }
 
 interface ThumbProps {
     isSelected: boolean;
-}
-
-interface RippleProps {
-    isRippleActive: boolean;
 }
 
 export const Root = styled.div`
@@ -33,17 +27,6 @@ export const Slider = styled.div<SliderProps>`
               `}
 `;
 
-export const Ripple = styled(Ripples)<RippleProps>`
-    ${(props) =>
-        !props.isRippleActive &&
-        css`
-            & > s {
-                height: 0 !important;
-                width: 0 !important;
-            }
-        `}
-`;
-
 export const ImageControlView = styled.div`
     ${tw`user-select[contain]`}
 
@@ -54,14 +37,14 @@ export const ImageControlView = styled.div`
         button {
             ${tw`transition-transform`}
             ${tw`p-1.5 shadow-xl border-accents-8 border   
-        bg-primary text-primary text-xl select-none
-        sm:p-2.5
-        md:text-2xl`}
+            bg-primary text-primary text-xl select-none
+            md:font-size[22px]
+            lg:(p-2.5 text-2xl)`}
         }
     }
 
     & > div:nth-of-type(2) {
-        ${tw`top-10 left-10`}
+        ${tw`top-5 left-5 lg:(top-10 left-10)`}
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 ${tw`transition-transform`}
@@ -71,7 +54,7 @@ export const ImageControlView = styled.div`
     }
 
     div:nth-of-type(3) {
-        ${tw`bottom-10 left-10`}
+        ${tw`bottom-5 left-5 lg:(bottom-10 left-10)`}
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 ${tw`transition-transform`}
@@ -82,8 +65,9 @@ export const ImageControlView = styled.div`
 `;
 
 export const ImageControlZoom = styled.div`
-    ${tw`absolute top-10 right-10 z-30 flex flex-col shadow-xl
-      bg-transparent text-accents-9 font-size[17px] select-none`}
+    ${tw`absolute top-5 right-5 z-30 flex flex-col shadow-xl
+      bg-transparent text-accents-9 font-size[17px] select-none
+      lg:(top-10 right-10)`}
 
     & > div:first-of-type {
         ${tw`mb-2`}
@@ -91,8 +75,8 @@ export const ImageControlZoom = styled.div`
 
     button {
         ${tw`p-2 text-lg border-accents-8 border bg-primary cursor-pointer
-        sm:p-3
-        md:text-xl`}
+        md:text-xl
+        lg:(p-3)`}
         transition: background-color 0.2s ease;
 
         &:hover {

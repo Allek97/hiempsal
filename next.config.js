@@ -10,7 +10,11 @@ module.exports = {
         defaultLocale: "en-US",
     },
     images: {
-        domains: ["cdn.shopify.com", "hiempsal.s3.amazonaws.com"],
+        domains: [
+            "cdn.shopify.com",
+            "hiempsal.s3.amazonaws.com",
+            "upload.wikimedia.org",
+        ],
     },
     sassOptions: {
         includePaths: [path.join(__dirname, "styles")],

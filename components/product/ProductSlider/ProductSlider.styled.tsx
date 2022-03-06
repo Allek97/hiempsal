@@ -88,6 +88,7 @@ export const ImageControlZoom = styled.div`
         md:text-xl
         lg:(p-3)`}
         transition: background-color 0.2s ease;
+
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 ${tw`bg-accents-5`}

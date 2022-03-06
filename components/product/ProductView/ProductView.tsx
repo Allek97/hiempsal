@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Image from "next/image";
+
 import { FaRegHeart } from "react-icons/fa";
+import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
 
@@ -11,11 +13,14 @@ import { ProductSlider } from "..";
 import {
     CartContainer,
     CertificationBox,
+    FeatureContainer,
     ImageContainer,
+    ProductInfo,
     ProductOverviewContainer,
     Root,
     SliderContainer,
     VariantButton,
+    VariantContainer,
     WishlistBtn,
 } from "./ProductView.styled";
 
@@ -49,57 +54,69 @@ const ProductView: FC<Props> = ({ product }) => {
                     </ProductSlider>
                 </SliderContainer>
 
+                <FeatureContainer>
+                    <Image
+                        src="/images/tshirt-34.jpg"
+                        alt="Thumbnail"
+                        layout="responsive"
+                        objectFit="cover"
+                        width="100%"
+                        height="100%"
+                        objectPosition="top"
+                        quality="85"
+                        priority
+                    />
+                </FeatureContainer>
+
                 <CartContainer>
-                    <div
-                        className="relative w-full"
-                        style={{
-                            height: "calc(100% - 220px)",
-                            borderRadius: "10px",
-                            overflow: "hidden",
-                        }}
-                    >
-                        <Image
-                            src="/images/tshirt-34.jpg"
-                            alt="Thumbnail"
-                            layout="fill"
-                            objectFit="cover"
-                            objectPosition="top"
-                            quality="85"
-                            priority
-                        />
-                    </div>
-                    <div className="flex justify-between items-center w-full mt-28">
-                        <CertificationBox>
+                    <ProductInfo>
+                        <div>
+                            <span>Clothing</span>
+                            <span className="text-accents-7">
+                                <RiArrowRightSLine />
+                            </span>
+                            <span>Hoodies</span>
+                        </div>
+                        <div>
+                            <h1>Pro Protection Airbag 3.0</h1>
+                            <h3>$150</h3>
+                        </div>
+                    </ProductInfo>
+
+                    <CertificationBox>
+                        <p>Using ethical ressources</p>
+                        <ul className="flex">
                             {ethicalCertifications.map(
                                 ({ id, link, title, website }) => (
-                                    <a
-                                        href={website}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        title={title}
-                                        key={id}
-                                    >
-                                        <Image
-                                            src={link}
-                                            alt={title}
-                                            layout="fixed"
-                                            width={30}
-                                            height={30}
-                                            quality="85"
-                                            priority
-                                        />
-                                    </a>
+                                    <li key={id}>
+                                        <a
+                                            href={website}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            title={title}
+                                        >
+                                            <Image
+                                                src={link}
+                                                alt={title}
+                                                layout="fixed"
+                                                width={30}
+                                                height={30}
+                                                quality="85"
+                                                priority
+                                            />
+                                        </a>
+                                    </li>
                                 )
                             )}
-                        </CertificationBox>
+                        </ul>
+                    </CertificationBox>
 
-                        <div className="flex items-center w-2/3">
-                            <VariantButton>Select Variant</VariantButton>
-                            <WishlistBtn>
-                                <FaRegHeart className="w-full h-full" />
-                            </WishlistBtn>
-                        </div>
-                    </div>
+                    <VariantContainer>
+                        <VariantButton>Select Variant</VariantButton>
+                        <WishlistBtn>
+                            <FaRegHeart className="w-full h-full" />
+                        </WishlistBtn>
+                    </VariantContainer>
                 </CartContainer>
             </ProductOverviewContainer>
         </Root>

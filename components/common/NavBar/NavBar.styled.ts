@@ -30,6 +30,17 @@ const fadeIn = keyframes`
     }
 `;
 
+const navBarPseudoPadding = css`
+    ${tw`left[4vw] right[4vw]
+    md:(left-8 right-8)
+    lg:(left-11 right-11)`}
+`;
+const navBarPadding = css`
+    ${tw`padding-left[4vw] padding-right[4vw]
+    md:px-8
+    lg:px-11`}
+`;
+
 export const NavbarRoot = styled.div<RootProps>`
     ${tw`sticky top-0 z-50 bg-transparent`}
 
@@ -66,8 +77,10 @@ export const NavbarRoot = styled.div<RootProps>`
     &:after {
         content: "";
 
-        ${tw`absolute left[2.67vw] right[2.67vw] h-1
-        lg:(left-11 right-11)`}
+        ${tw`absolute h-1`}
+
+        ${navBarPseudoPadding}
+
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 
@@ -90,8 +103,9 @@ export const NavbarRoot = styled.div<RootProps>`
 `;
 
 export const Container = styled.div<WrapperProps>`
-    ${tw`relative padding-left[2.67vw] padding-right[2.67vw] py-5 mx-auto max-w-8xl
-    lg:px-11`}
+    ${tw`relative py-5 mx-auto `}
+
+    ${navBarPadding}
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -103,8 +117,10 @@ export const Container = styled.div<WrapperProps>`
     &:before {
         content: "";
 
-        ${tw`absolute top-0 left[2.67vw] right[2.67vw] height[3px]
-        lg:(left-11 right-11)`}
+        ${tw`absolute top-0 height[3px]`}
+
+        ${navBarPseudoPadding}
+
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
 

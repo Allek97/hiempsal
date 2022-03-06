@@ -22,7 +22,7 @@ export const Root = styled.main`
 `;
 
 export const Container = styled.div`
-    ${tw`flex flex-1 flex-col h-full max-w-8xl mx-auto lg:flex-row`}
+    ${tw`flex flex-1 flex-col h-full mx-auto lg:flex-row`}
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`

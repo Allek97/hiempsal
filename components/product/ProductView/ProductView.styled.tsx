@@ -8,7 +8,7 @@ export const Root = styled.div`
 `;
 
 export const ProductOverviewContainer = styled.div`
-    ${tw`relative flex flex-col w-full min-height[auto]
+    ${tw`relative grid grid-cols-1 gap-2.5 w-full min-height[auto]
     lg:(flex-row pr-11)`}
 `;
 
@@ -22,16 +22,52 @@ export const ImageContainer = styled.div`
     ${tw`relative w-full h-full text-center`}
 `;
 
+export const FeatureContainer = styled.div`
+    ${tw`relative grid-row[3/4] margin-bottom[100rem]  overflow-hidden 
+    lg:border-radius[10px] `}
+`;
+
+////////////////////////////////////////////////
+// NOTE Adding variant to cart
+////////////////////////////////////////////////
+
 export const CartContainer = styled.div`
-    ${tw`flex flex-col items-start flex-1
-    overflow-hidden`}
+    ${tw`grid grid-cols-1 flex-1 order-1
+    padding[1rem 4vw] overflow-hidden 
+    md:px-8`}
+`;
+
+export const ProductInfo = styled.header`
+    ${tw`flex flex-col margin-bottom[10vw]`}
+
+    & > div:first-of-type {
+        ${tw`flex flex-row items-center -mb-0.5
+        font-size[9.5px] color[#676767] uppercase tracking-tight`}
+
+        span {
+            ${tw`leading-none`}
+        }
+    }
+
+    & > div:nth-of-type(2) {
+        ${tw`flex flex-row justify-between items-center 
+        font-size[17px] tracking-tight`}
+
+        h1 {
+            ${tw`width[60%]`}
+        }
+    }
 `;
 
 export const CertificationBox = styled.div`
-    ${tw`flex`}
+    ${tw`flex flex-col mb-1`}
 
-    a {
-        ${tw`transition-transform`}
+    p {
+        ${tw`font-size[10px] color[#676767] pb-1`}
+    }
+
+    li {
+        ${tw`transition-transform list-none`}
 
         &:not(:last-of-type) {
             ${tw`mr-1.5`}
@@ -46,14 +82,21 @@ export const CertificationBox = styled.div`
     }
 `;
 
-export const VariantButton = styled(Button)`
-    ${tw`height[50px] w-full mr-2 font-size[15px] text-white tracking-tighter border-radius[3px] lg:(font-size[18px])`}
+export const VariantContainer = styled.div`
+    ${tw`flex justify-between items-center`}
 
-    box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
+    & > div:first-of-type {
+        ${tw`mr-2`}
+    }
+`;
+
+export const VariantButton = styled(Button)`
+    ${tw`height[50px] w-full font-size[15px] text-white tracking-tighter border-radius[3px] 
+    lg:(box-shadow[rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px] font-size[18px])`}
 `;
 
 export const WishlistBtn = styled.button`
-    ${tw`width[22px]`}
+    ${tw`width[22px] mr-2`}
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
     @media (hover: hover) and (pointer: fine) {
@@ -63,3 +106,6 @@ export const WishlistBtn = styled.button`
         }
     }
 `;
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////

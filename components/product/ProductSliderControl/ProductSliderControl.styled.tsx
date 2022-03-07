@@ -18,6 +18,9 @@ export const Control = styled.div<ControlProps>`
     transform: translateY(-50%);
 
     box-shadow: var(--shadow-2);
+    border-radius: 5px;
+
+    overflow: hidden;
 
     ${(props) =>
         props.direction === "right"
@@ -27,10 +30,14 @@ export const Control = styled.div<ControlProps>`
             : css`
                   ${tw`left-5 lg:left-10`}
               `}
+
+    & > div {
+        border-radius: 5px;
+    }
 `;
 
 const common = css`
-    ${tw`border-radius[5px] bg-primary text-accents-9 select-none
+    ${tw`bg-primary text-accents-9 select-none overflow-hidden
     height[38px]`}
 
     ${tw`sm:height[40px] md:font-size[20px] lg:(height[48px] text-2xl)`}

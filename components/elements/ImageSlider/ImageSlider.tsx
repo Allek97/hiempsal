@@ -94,6 +94,7 @@ const ImageSlider: FC = () => {
                         priority
                     />
                 </ImageContainer>
+
                 <ImageContainer className="keen-slider__slide">
                     <Image
                         src="/images/macbook-pro-2.png"

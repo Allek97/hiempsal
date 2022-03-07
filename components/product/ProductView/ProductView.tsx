@@ -54,20 +54,6 @@ const ProductView: FC<Props> = ({ product }) => {
                     </ProductSlider>
                 </SliderContainer>
 
-                <FeatureContainer>
-                    <Image
-                        src="/images/tshirt-34.jpg"
-                        alt="Thumbnail"
-                        layout="responsive"
-                        objectFit="cover"
-                        width="100%"
-                        height="100%"
-                        objectPosition="top"
-                        quality="85"
-                        priority
-                    />
-                </FeatureContainer>
-
                 <CartContainer>
                     <ProductInfo>
                         <div>
@@ -118,6 +104,34 @@ const ProductView: FC<Props> = ({ product }) => {
                         </WishlistBtn>
                     </VariantContainer>
                 </CartContainer>
+
+                <FeatureContainer>
+                    <div>
+                        <Image
+                            src="/images/testing.png"
+                            alt="Thumbnail"
+                            layout="responsive"
+                            height={2}
+                            width={1}
+                            objectFit="cover"
+                            quality="85"
+                            priority
+                        />
+                    </div>
+
+                    <div>
+                        <Image
+                            src="/images/Men-TShirt-Black-Side.png"
+                            alt="Thumbnail"
+                            layout="responsive"
+                            height={2}
+                            width={1}
+                            objectFit="cover"
+                            quality="85"
+                            priority
+                        />
+                    </div>
+                </FeatureContainer>
             </ProductOverviewContainer>
         </Root>
     );

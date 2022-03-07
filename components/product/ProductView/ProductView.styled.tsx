@@ -4,41 +4,46 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 export const Root = styled.div`
-    ${tw`relative`}
+    ${tw`relative padding-bottom[45rem]`}
 `;
 
+////////////////////////////////////////////////
+// NOTE Product Overview
+////////////////////////////////////////////////
 export const ProductOverviewContainer = styled.div`
-    ${tw`relative grid grid-cols-1 gap-2.5 w-full min-height[auto]
-    lg:(flex-row pr-11)`}
-`;
-
-export const SliderContainer = styled.div`
-    ${tw`flex items-center justify-center w-full height[calc(100vh - 165px)] max-w-7xl mr-6
-    bg-accents-1 overflow-x-hidden
-    lg:(height[calc(100vh - 100px)])`}
+    ${tw`relative grid grid-cols-1 gap-2.5 w-full 
+    min-height[auto] height[calc(100vh - 165px)] px-0
+    lg:(grid-cols-2 grid-rows-3 pr-11 height[calc(100vh - 100px)])`}
 `;
 
 export const ImageContainer = styled.div`
     ${tw`relative w-full h-full text-center`}
 `;
 
-export const FeatureContainer = styled.div`
-    ${tw`relative grid-row[3/4] margin-bottom[100rem]  overflow-hidden 
-    lg:border-radius[10px] `}
+export const SliderContainer = styled.div`
+    ${tw`flex items-center justify-center w-full h-full max-w-7xl mr-6
+    bg-accents-1 overflow-x-hidden
+    lg:(grid-area[1/1/-1/2])`}
 `;
 
-////////////////////////////////////////////////
-// NOTE Adding variant to cart
-////////////////////////////////////////////////
+export const FeatureContainer = styled.div`
+    ${tw`relative flex gap-x-2 h-full w-full
+    overflow-hidden 
+    lg:(grid-area[1/2/3/-1])`}
+
+    div {
+        ${tw`w-full h-full bg-accents-8`}
+    }
+`;
 
 export const CartContainer = styled.div`
-    ${tw`grid grid-cols-1 flex-1 order-1
-    padding[1rem 4vw] overflow-hidden 
-    md:px-8`}
+    ${tw`grid grid-cols-1 flex-1 
+    padding[2vw 4vw 4vw] overflow-hidden
+    lg:(grid-area[3/2/-1/-1])`}
 `;
 
 export const ProductInfo = styled.header`
-    ${tw`flex flex-col margin-bottom[10vw]`}
+    ${tw`flex flex-col margin-bottom[12vw]`}
 
     & > div:first-of-type {
         ${tw`flex flex-row items-center -mb-0.5
@@ -86,7 +91,7 @@ export const VariantContainer = styled.div`
     ${tw`flex justify-between items-center`}
 
     & > div:first-of-type {
-        ${tw`mr-2`}
+        ${tw``}
     }
 `;
 
@@ -96,7 +101,7 @@ export const VariantButton = styled(Button)`
 `;
 
 export const WishlistBtn = styled.button`
-    ${tw`width[22px] mr-2`}
+    ${tw`width[20px] margin-left[6vw] mr-3`}
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
     @media (hover: hover) and (pointer: fine) {

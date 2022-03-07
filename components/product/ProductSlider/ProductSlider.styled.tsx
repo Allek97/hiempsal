@@ -105,7 +105,9 @@ export const ImageControlZoom = styled.div`
 
 export const Album = styled.div`
     ${tw`relative w-full height[230px] bg-accents-5 whitespace-nowrap 
-    overflow-x-hidden overflow-y-hidden`}
+    overflow-x-hidden overflow-y-hidden
+    sm:height[40%]
+    lg:height[46%]`}
 `;
 
 export const Thumb = styled.button<ThumbProps>`

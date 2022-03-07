@@ -1,7 +1,12 @@
 import { Button } from "@components/ui";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import tw from "twin.macro";
+
+interface FeatureProps {
+    isFirst?: boolean;
+}
 
 export const Root = styled.div`
     ${tw`relative padding-bottom[45rem]`}
@@ -11,9 +16,11 @@ export const Root = styled.div`
 // NOTE Product Overview
 ////////////////////////////////////////////////
 export const ProductOverviewContainer = styled.div`
-    ${tw`relative grid grid-cols-1 gap-2.5 w-full 
+    ${tw`relative grid grid-cols-2 gap-2.5 w-full 
     min-height[auto] px-0
-    lg:(grid-cols-2 grid-rows-3 pr-11 )`}
+    lg:(grid-template-columns[2fr 1fr] grid-template-rows[34.5% 1fr 34.5%] column-gap[1.3333333333vw] row-gap[0.8vw] pr-11)
+    2xl:(grid-template-columns[5fr 2fr])
+    3xl:(grid-template-columns[3fr 1fr])`}
 `;
 
 export const ImageContainer = styled.div`
@@ -21,29 +28,43 @@ export const ImageContainer = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-    ${tw`flex items-center justify-center w-full height[calc(100vh - 165px)] max-w-7xl mr-6
+    ${tw`grid-column[1/-1] flex items-center justify-center 
+    w-full height[calc(100vh - 165px)]
     bg-accents-1 overflow-x-hidden
-    lg:(grid-area[1/1/-1/2] height[calc(100vh - 100px)])`}
+    sm:(height[calc(100vh - 100px)])
+    lg:(height[calc(100vh - 82.2px)])`}
+
+    ${tw`lg:(grid-area[1/1/-1/2])`}
 `;
 
-export const FeatureContainer = styled.div`
-    ${tw`relative flex gap-x-2 h-full w-full
-    overflow-hidden 
-    lg:(grid-area[1/2/3/-1])`}
+export const FeatureContainer = styled.div<FeatureProps>`
+    ${tw`relative height[52vw] w-full overflow-hidden
+    lg:height[100%]`}
 
     div {
-        ${tw`w-full h-full bg-accents-8`}
+        ${tw`relative w-full h-full bg-accents-8`}
     }
+
+    ${(props) =>
+        props.isFirst
+            ? css`
+                  ${tw`lg:(grid-area[1/2/2/-1])`}
+              `
+            : css`
+                  ${tw`lg:(grid-area[3/2/-1/-1])`}
+              `}
 `;
 
 export const CartContainer = styled.div`
-    ${tw`grid grid-cols-1 flex-1 
-    padding[2vw 4vw 4vw] overflow-hidden
-    lg:(grid-area[3/2/-1/-1])`}
+    ${tw`flex flex-col grid-column[1/-1] flex-1 
+    padding[2vw 4vw 4vw] overflow-hidden`}
+
+    ${tw`lg:(grid-area[2/2/3/-1] p-0)`}
 `;
 
 export const ProductInfo = styled.header`
-    ${tw`flex flex-col margin-bottom[12vw]`}
+    ${tw`flex flex-col margin-bottom[12vw]
+    lg:mb-auto`}
 
     & > div:first-of-type {
         ${tw`flex flex-row items-center -mb-0.5
@@ -65,7 +86,7 @@ export const ProductInfo = styled.header`
 `;
 
 export const CertificationBox = styled.div`
-    ${tw`flex flex-col mb-1`}
+    ${tw`flex flex-col mb-1 mt-auto`}
 
     p {
         ${tw`font-size[10px] color[#676767] pb-1`}
@@ -88,7 +109,7 @@ export const CertificationBox = styled.div`
 `;
 
 export const VariantContainer = styled.div`
-    ${tw`flex justify-between items-center`}
+    ${tw`flex justify-between items-center height[max-content]`}
 
     & > div:first-of-type {
         ${tw``}

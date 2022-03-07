@@ -105,27 +105,25 @@ const ProductView: FC<Props> = ({ product }) => {
                     </VariantContainer>
                 </CartContainer>
 
-                <FeatureContainer>
+                <FeatureContainer isFirst>
                     <div>
                         <Image
                             src="/images/testing.png"
                             alt="Thumbnail"
-                            layout="responsive"
-                            height={1}
-                            width={1}
+                            layout="fill"
                             objectFit="contain"
                             quality="85"
                             priority
                         />
                     </div>
+                </FeatureContainer>
 
+                <FeatureContainer>
                     <div>
                         <Image
                             src="/images/Men-TShirt-Black-Side.png"
                             alt="Thumbnail"
-                            layout="responsive"
-                            height={1}
-                            width={1}
+                            layout="fill"
                             objectFit="contain"
                             quality="85"
                             priority

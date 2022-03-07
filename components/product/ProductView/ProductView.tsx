@@ -111,9 +111,9 @@ const ProductView: FC<Props> = ({ product }) => {
                             src="/images/testing.png"
                             alt="Thumbnail"
                             layout="responsive"
-                            height={2}
+                            height={1}
                             width={1}
-                            objectFit="cover"
+                            objectFit="contain"
                             quality="85"
                             priority
                         />
@@ -124,9 +124,9 @@ const ProductView: FC<Props> = ({ product }) => {
                             src="/images/Men-TShirt-Black-Side.png"
                             alt="Thumbnail"
                             layout="responsive"
-                            height={2}
+                            height={1}
                             width={1}
-                            objectFit="cover"
+                            objectFit="contain"
                             quality="85"
                             priority
                         />

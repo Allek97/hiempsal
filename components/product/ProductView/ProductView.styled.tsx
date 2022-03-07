@@ -12,8 +12,8 @@ export const Root = styled.div`
 ////////////////////////////////////////////////
 export const ProductOverviewContainer = styled.div`
     ${tw`relative grid grid-cols-1 gap-2.5 w-full 
-    min-height[auto] height[calc(100vh - 165px)] px-0
-    lg:(grid-cols-2 grid-rows-3 pr-11 height[calc(100vh - 100px)])`}
+    min-height[auto] px-0
+    lg:(grid-cols-2 grid-rows-3 pr-11 )`}
 `;
 
 export const ImageContainer = styled.div`
@@ -21,9 +21,9 @@ export const ImageContainer = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-    ${tw`flex items-center justify-center w-full h-full max-w-7xl mr-6
+    ${tw`flex items-center justify-center w-full height[calc(100vh - 165px)] max-w-7xl mr-6
     bg-accents-1 overflow-x-hidden
-    lg:(grid-area[1/1/-1/2])`}
+    lg:(grid-area[1/1/-1/2] height[calc(100vh - 100px)])`}
 `;
 
 export const FeatureContainer = styled.div`

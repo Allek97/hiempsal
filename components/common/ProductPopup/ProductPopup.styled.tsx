@@ -41,7 +41,7 @@ export const Container = styled.section`
     filter: drop-shadow(rgba(0, 0, 0, 0.15) 1px 1px 3px);
     /* border-top-left-radius: 1.5rem; */
 
-    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%, 0 5%);
+    clip-path: polygon(7% 0, 100% 0, 100% 100%, 0 100%, 0 4%);
 
     ${customScroll}
 `;
@@ -50,10 +50,12 @@ export const CloseWrapper = styled.div`
     ${tw`absolute top-3 right-3 w-4 cursor-pointer z-10
     xl:(py-11 top-0 right-8)`}
 
-    &:hover svg {
-        transition: fill 0.3s;
-        fill: #e00b25;
-        cursor: pointer;
+    @media (hover:hover) and (pointer: fine) {
+        &:hover svg {
+            transition: fill 0.3s;
+            fill: #e00b25;
+            cursor: pointer;
+        }
     }
 `;
 
@@ -113,14 +115,35 @@ export const ProductVariantColor = styled.article<ProductVariantColorProps>`
 
     ${(props) =>
         props.isSelected &&
-        css`
-            background-color: #f0f0f0;
-            box-shadow: inset 0 0 0 2px #676767be;
-            cursor: auto;
-        `}
+        (props.isPride
+            ? css`
+                  background: linear-gradient(
+                      120deg,
+                      rgba(255, 0, 0, 0.75) 0%,
+                      rgba(255, 154, 0, 0.75) 10%,
+                      rgba(208, 222, 33, 0.75) 20%,
+                      rgba(79, 220, 74, 0.75) 30%,
+                      rgba(63, 218, 216, 0.75) 40%,
+                      rgba(47, 201, 226, 0.75) 50%,
+                      rgba(28, 127, 238, 0.75) 60%,
+                      rgba(95, 21, 242, 0.75) 70%,
+                      rgba(186, 12, 248, 0.75) 80%,
+                      rgba(251, 7, 217, 0.75) 90%,
+                      rgba(255, 0, 0, 0.75) 100%
+                  );
+                  box-shadow: inset 0 0 0 2px #676767be;
+                  cursor: auto;
+              `
+            : css`
+                  background-color: #f0f0f0;
+                  box-shadow: inset 0 0 0 2px #676767be;
+                  cursor: auto;
+              `)}
 
-    &:hover {
-        background-color: #f0f0f0;
+    @media (hover:hover) and (pointer: fine) {
+        &:hover {
+            background-color: #f0f0f0;
+        }
     }
 
     &:active {
@@ -162,8 +185,10 @@ export const CartButton = styled(Button)`
     2xl:text-xl`}
     border-radius: 4px;
 
-    &:hover {
-        ${tw`bg-accents-9 text-secondary shadow-md`}
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            ${tw`bg-accents-9 text-secondary shadow-md`}
+        }
     }
 
     &:active {

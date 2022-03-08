@@ -140,7 +140,7 @@ const ProductPopup: FC = () => {
                                     <VariantSizeGender>
                                         <h2>S</h2>
                                     </VariantSizeGender>
-                                    <VariantSizeGender isSelected>
+                                    <VariantSizeGender>
                                         <h2>M</h2>
                                     </VariantSizeGender>
                                     <VariantSizeGender>
@@ -149,7 +149,7 @@ const ProductPopup: FC = () => {
                                     <VariantSizeGender>
                                         <h2>XL</h2>
                                     </VariantSizeGender>
-                                    <VariantSizeGender>
+                                    <VariantSizeGender isSelected>
                                         <h2>XXL</h2>
                                     </VariantSizeGender>
                                 </ProductVariantList>
@@ -158,13 +158,13 @@ const ProductPopup: FC = () => {
                             <VariantOptionContainer>
                                 <h3>Select gender</h3>
                                 <ProductVariantList>
-                                    <VariantSizeGender isSelected>
+                                    <VariantSizeGender>
                                         <h2>Man</h2>
                                     </VariantSizeGender>
                                     <VariantSizeGender>
                                         <h2>Woman</h2>
                                     </VariantSizeGender>
-                                    <VariantSizeGender isPride>
+                                    <VariantSizeGender isPride isSelected>
                                         <h2>Genderqueer</h2>
                                     </VariantSizeGender>
                                     <VariantSizeGender isPride>

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { FaRegHeart } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
@@ -57,11 +58,16 @@ const ProductView: FC<Props> = ({ product }) => {
                 <CartContainer>
                     <ProductInfo>
                         <div>
-                            <span>Clothing</span>
-                            <span className="text-accents-7">
+                            <Link href="/clothing" passHref>
+                                <span>Clothing</span>
+                            </Link>
+
+                            <span className="text-accents-8">
                                 <RiArrowRightSLine />
                             </span>
-                            <span>Hoodies</span>
+                            <Link href="/products/lightweight-hoodie" passHref>
+                                <span>Hoodies</span>
+                            </Link>
                         </div>
                         <div>
                             <h1>Pro Protection Airbag 3.0</h1>

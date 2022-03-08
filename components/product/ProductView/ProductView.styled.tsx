@@ -77,7 +77,7 @@ export const CartContainer = styled.div`
 `;
 
 export const ProductInfo = styled.header`
-    ${tw`flex flex-col margin-bottom[12vw]
+    ${tw`flex flex-col margin-bottom[13vw]
     lg:mb-auto`}
 
     & > div:first-of-type {
@@ -118,7 +118,7 @@ export const ProductInfo = styled.header`
         ${mainTextSize}
 
         h1 {
-            ${tw`width[60%]`}
+            ${tw`width[80%]`}
         }
     }
 `;

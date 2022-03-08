@@ -4,7 +4,15 @@ import tailwindConfig from "../../tailwind.config";
 type Screen = "sm" | "md" | "lg" | "xl" | "2xl";
 
 const useMediaQueryNext = (screenSize: Screen | number): boolean => {
-    const twScreens: (string | number)[] = ["sm", "md", "lg", "xl", "2xl", "3xl"];
+    const twScreens: (string | number)[] = [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+    ];
 
     const { screens } = tailwindConfig.theme.extend;
 

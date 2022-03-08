@@ -34,6 +34,7 @@ const ProductSlider: FC = ({ children }) => {
     const sliderContainerRef = useRef<HTMLDivElement>(null);
 
     const isScreenLg = useMediaQueryNext("lg");
+    const isScreen2XL = useMediaQueryNext("2xl");
 
     const [ref, slider] = useKeenSlider<HTMLDivElement>({
         slides: { perView: 1 },
@@ -48,7 +49,7 @@ const ProductSlider: FC = ({ children }) => {
         {
             initial: 0,
             slides: {
-                perView: isScreenLg ? 4 : 3,
+                perView: isScreen2XL ? 4 : 3,
             },
         },
         [thumbnailPlugin(slider)]

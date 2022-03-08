@@ -6,6 +6,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
+import { ProductPopup } from "@components/common/ProductPopup";
+import { useProductUI } from "@components/ui/productContext";
 
 import { ethicalCertifications } from "@lib/const";
 
@@ -30,8 +32,10 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+    const { openProductPopup } = useProductUI();
     return (
         <Root>
+            <ProductPopup />
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider>
@@ -70,7 +74,7 @@ const ProductView: FC<Props> = ({ product }) => {
                             </Link>
                         </div>
                         <div>
-                            <h1>Pro Protection Airbag 3.0</h1>
+                            <h1>{product.name}</h1>
                             <h3>$150</h3>
                         </div>
                     </ProductInfo>
@@ -104,7 +108,9 @@ const ProductView: FC<Props> = ({ product }) => {
                     </CertificationBox>
 
                     <VariantContainer>
-                        <VariantButton>Select Variant</VariantButton>
+                        <VariantButton onClick={openProductPopup}>
+                            Select Variant
+                        </VariantButton>
                         <WishlistBtn>
                             <FaRegHeart className="w-full h-full" />
                         </WishlistBtn>

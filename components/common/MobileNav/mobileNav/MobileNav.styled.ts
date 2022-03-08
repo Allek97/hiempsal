@@ -35,7 +35,7 @@ const smallRotate = keyframes`
 ///////////////////////////////////////////
 
 export const MobileNavRoot = styled.nav`
-    ${tw`fixed bottom-4 left-1/2 z-50 w-12 h-12`}
+    ${tw`fixed bottom-4 left-1/2 z-index[200] w-12 h-12`}
     opacity: 0;
     transform: translateY(100%) translateX(-50%);
 

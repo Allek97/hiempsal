@@ -6,6 +6,7 @@ import tw from "twin.macro";
 
 interface ProductVariantColorProps {
     isSelected?: boolean;
+    isPride?: boolean;
 }
 
 const riseAnimation = keyframes`
@@ -81,7 +82,7 @@ export const ProductInfo = styled.div`
 /// NOTE Product color variants
 ///////////////////////////////////////////////////
 
-export const ProductColor = styled.section`
+export const VariantOptionContainer = styled.section`
     ${tw`text-xs tracking-tighter text-accents-7
     xl:font-size[13px]`}
 
@@ -134,9 +135,8 @@ export const ImageVariantWrapper = styled.div`
 /// NOTE Product size variants
 ///////////////////////////////////////////////////
 
-export const ProductSize = styled(ProductColor)``;
-export const ProductVariantSize = styled(ProductVariantColor)`
-    ${tw`justify-center min-height[15vw]
+export const VariantSizeGender = styled(ProductVariantColor)`
+    ${tw`relative justify-center min-height[15vw]
     md:min-height[5.5rem]`}
 `;
 
@@ -153,8 +153,12 @@ export const ProductPolicy = styled.div`
     }
 `;
 
+export const CartBtnWrapper = styled.div`
+    ${tw`sticky bottom-10 z-index[150] width[90%] mx-auto`}
+`;
+
 export const CartButton = styled(Button)`
-    ${tw`sticky bottom-10 z-index[150] width[90%] mx-auto text-lg
+    ${tw`height[50px] mx-auto overflow-hidden text-lg
     2xl:text-xl`}
     border-radius: 4px;
 

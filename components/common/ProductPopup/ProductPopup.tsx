@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, MutableRefObject, useRef } from "react";
 import Image from "next/image";
 
 import { useProductUI } from "@components/ui/productContext";
-import { useMediaQueryNext } from "lib/customHooks";
+import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
 
 import Close from "@components/icons/Close";
 
@@ -13,18 +13,20 @@ import {
     Content,
     ImageVariantWrapper,
     Overlay,
-    ProductColor,
+    VariantOptionContainer,
     ProductInfo,
     ProductPolicy,
-    ProductSize,
     ProductVariantColor,
     ProductVariantList,
-    ProductVariantSize,
+    VariantSizeGender,
     Root,
+    CartBtnWrapper,
 } from "./ProductPopup.styled";
 
 const ProductPopup: FC = () => {
     const { closeProductPopup, isProductPopupOpen } = useProductUI();
+
+    const ref = useRef() as MutableRefObject<HTMLDivElement>;
 
     const maximumLength = (content: string, maxLength = 29): string => {
         const contentCut = content.substring(0, maxLength);
@@ -35,10 +37,12 @@ const ProductPopup: FC = () => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
+    useBodyScroll(ref, isProductPopupOpen);
+
     return (
-        <>
+        <Root ref={ref}>
             {isProductPopupOpen && (
-                <Root>
+                <>
                     <Overlay onClick={closeProductPopup} />
                     <Container>
                         {isScreenLarge && (
@@ -56,7 +60,7 @@ const ProductPopup: FC = () => {
                                 </h1>
                                 <span>$230</span>
                             </ProductInfo>
-                            <ProductColor>
+                            <VariantOptionContainer>
                                 <h3>Select color</h3>
                                 <ProductVariantList>
                                     <ProductVariantColor isSelected>
@@ -125,31 +129,49 @@ const ProductPopup: FC = () => {
                                         <h2>Azoul</h2>
                                     </ProductVariantColor>
                                 </ProductVariantList>
-                            </ProductColor>
+                            </VariantOptionContainer>
 
-                            <ProductSize>
+                            <VariantOptionContainer>
                                 <h3>Select color</h3>
                                 <ProductVariantList>
-                                    <ProductVariantSize>
+                                    <VariantSizeGender>
                                         <h2>XS</h2>
-                                    </ProductVariantSize>
-                                    <ProductVariantSize>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender>
                                         <h2>S</h2>
-                                    </ProductVariantSize>
-                                    <ProductVariantSize isSelected>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender isSelected>
                                         <h2>M</h2>
-                                    </ProductVariantSize>
-                                    <ProductVariantSize>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender>
                                         <h2>L</h2>
-                                    </ProductVariantSize>
-                                    <ProductVariantSize>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender>
                                         <h2>XL</h2>
-                                    </ProductVariantSize>
-                                    <ProductVariantSize>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender>
                                         <h2>XXL</h2>
-                                    </ProductVariantSize>
+                                    </VariantSizeGender>
                                 </ProductVariantList>
-                            </ProductSize>
+                            </VariantOptionContainer>
+
+                            <VariantOptionContainer>
+                                <h3>Select gender</h3>
+                                <ProductVariantList>
+                                    <VariantSizeGender isSelected>
+                                        <h2>Man</h2>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender>
+                                        <h2>Woman</h2>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender isPride>
+                                        <h2>Genderqueer</h2>
+                                    </VariantSizeGender>
+                                    <VariantSizeGender isPride>
+                                        <h2>Non-Binary</h2>
+                                    </VariantSizeGender>
+                                </ProductVariantList>
+                            </VariantOptionContainer>
                         </Content>
                         <ProductPolicy>
                             <span>Delivery time: 5-7 business days</span>
@@ -157,11 +179,13 @@ const ProductPopup: FC = () => {
                             <span>Free returns</span>
                             <span>FREE SHIPPING FROM $50.00 CAD</span>
                         </ProductPolicy>
-                        <CartButton>Add To Cart</CartButton>
+                        <CartBtnWrapper>
+                            <CartButton>Add To Cart</CartButton>
+                        </CartBtnWrapper>
                     </Container>
-                </Root>
+                </>
             )}
-        </>
+        </Root>
     );
 };
 

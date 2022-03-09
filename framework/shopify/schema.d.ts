@@ -2677,7 +2677,7 @@ export type Image = {
      *
      * If there are any existing transformations in the original source URL, they will remain and not be stripped.
      */
-    originalSrc: Scalars["URL"];
+    url: Scalars["URL"];
     /**
      * The location of the image as a URL.
      * @deprecated Previously an image had a single `src` field. This could either return the original image
@@ -2685,9 +2685,9 @@ export type Image = {
      *
      * These transformations were specified by arguments on the parent field.
      *
-     * Now an image has two distinct URL fields: `originalSrc` and `transformedSrc`.
+     * Now an image has two distinct URL fields: `url` and `transformedSrc`.
      *
-     * * `originalSrc` - the original unmodified image URL
+     * * `url` - the original unmodified image URL
      * * `transformedSrc` - the image URL with the specified transformations included
      *
      * To migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.
@@ -5321,10 +5321,7 @@ export type ProductConnectionFragment = { __typename?: "ProductConnection" } & {
                             { __typename?: "ImageEdge" } & {
                                 node: { __typename?: "Image" } & Pick<
                                     Image,
-                                    | "originalSrc"
-                                    | "altText"
-                                    | "width"
-                                    | "height"
+                                    "url" | "altText" | "width" | "height"
                                 >;
                             }
                         >;
@@ -5380,7 +5377,7 @@ export type CheckoutDetailsFragment = { __typename?: "Checkout" } & Pick<
                                         image?: Maybe<
                                             { __typename?: "Image" } & Pick<
                                                 Image,
-                                                | "originalSrc"
+                                                | "url"
                                                 | "altText"
                                                 | "width"
                                                 | "height"
@@ -5609,7 +5606,7 @@ export type GetProductBySlugQuery = { __typename?: "QueryRoot" } & {
                         { __typename?: "ImageEdge" } & {
                             node: { __typename?: "Image" } & Pick<
                                 Image,
-                                "originalSrc" | "altText" | "width" | "height"
+                                "url" | "altText" | "width" | "height"
                             >;
                         }
                     >;

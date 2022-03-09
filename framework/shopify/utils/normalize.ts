@@ -17,8 +17,8 @@ type OptionValues = {
 };
 
 const normalizeProductImages = ({ edges }: ImageConnection): ProductImage[] =>
-    edges.map(({ node: { originalSrc, altText, ...rest } }) => ({
-        url: originalSrc ?? "/product-image-placeholder",
+    edges.map(({ node: { url, altText, ...rest } }) => ({
+        url: url ?? "/product-image-placeholder",
         alt: altText ?? "",
         ...rest,
     }));
@@ -113,8 +113,7 @@ const normalizeLineItem = ({
             sku: variant?.sku ?? "",
             name: variant?.title,
             image: {
-                url:
-                    variant?.image?.originalSrc ?? "/product-image-placeholder",
+                url: variant?.image?.url ?? "/product-image-placeholder",
                 alt: variant?.image?.altText ?? "",
             },
             requiresShipping: variant?.requiresShipping ?? false,

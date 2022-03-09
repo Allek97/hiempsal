@@ -10,6 +10,7 @@ import { ProductPopup } from "@components/common/ProductPopup";
 import { useProductUI } from "@components/ui/productContext";
 
 import { ethicalCertifications } from "@lib/const";
+import { currencyKeys } from "@lib/option";
 
 import { ProductSlider } from "..";
 
@@ -75,7 +76,10 @@ const ProductView: FC<Props> = ({ product }) => {
                         </div>
                         <div>
                             <h1>{product.name}</h1>
-                            <h3>$150</h3>
+                            <h3>
+                                {currencyKeys[`${product.price.currencyCode}`]}
+                                {product.price.value}
+                            </h3>
                         </div>
                     </ProductInfo>
 

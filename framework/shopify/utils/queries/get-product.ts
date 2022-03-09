@@ -1,69 +1,119 @@
 const getProductQuery = `
-    query product($slug: String!) {
-        product(handle: $slug) {
+query product($slug: String!) {
+    product(handle: $slug) {
+      id
+      handle
+      title
+      vendor
+      description
+      descriptionHtml
+      options {
         id
-        handle
-        title
-        vendor
-        description
-        descriptionHtml
-        options {
+        name
+        values
+      }
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      variants(first: 250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          node {
             id
-            name
-            values
+            title
+            sku
+            requiresShipping
+            selectedOptions {
+              name
+              value
+            }
+            priceV2 {
+              amount
+              currencyCode
+            }
+            compareAtPriceV2 {
+              amount
+              currencyCode
+            }
+          }
         }
-        priceRange {
-            minVariantPrice {
-            amount
-            currencyCode
-            }
-            maxVariantPrice {
-            amount
-            currencyCode
-            }
+      }
+      images(first: 250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
         }
-        variants(first: 250) {
-            pageInfo {
-            hasNextPage
-            hasPreviousPage
-            }
-            edges {
-            node {
-                id
-                title
-                sku
-                requiresShipping
-                selectedOptions {
-                name
-                value
-                }
-                priceV2 {
-                amount
-                currencyCode
-                }
-                compareAtPriceV2 {
-                amount
-                currencyCode
-                }
-            }
-            }
+        edges {
+          node {
+            url
+            altText
+            width
+            height
+          }
         }
-        images(first: 250) {
-            pageInfo {
-            hasNextPage
-            hasPreviousPage
+      }
+      category: metafield(namespace: "my_fields", key: "product_category") {
+        value
+        type
+      }
+      additionalImage1: metafield(namespace: "my_fields", key: "additional_image_1") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
             }
-            edges {
-            node {
-                originalSrc
-                altText
-                width
-                height
-            }
-            }
+          }
         }
+      }
+      additionalImage2: metafield(namespace: "my_fields", key: "additional_image_2") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
         }
+      }
+      featureImage1: metafield(namespace: "my_fields", key: "feature_image_1") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+      featureImage2: metafield(namespace: "my_fields", key: "feature_image_2") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+      featureName: metafield(namespace: "my_fields", key: "feature_name") {
+        value
+      }
+      productClothInfo: metafield(namespace: "my_fields", key: "product_cloth_info") {
+        value
+      }
+      productTechInfo: metafield(namespace: "my_fields", key: "product_tech_info") {
+        value
+      }
     }
+  }
+
 `;
 
 export default getProductQuery;

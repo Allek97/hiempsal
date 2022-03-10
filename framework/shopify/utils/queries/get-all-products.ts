@@ -23,7 +23,7 @@ const productConnection = `
                 }
                 edges {
                 node {
-                    originalSrc
+                    url
                     altText
                     width
                     height

@@ -32,6 +32,7 @@ const ProductCard: FC<Props> = ({
 
     const placeholderImage = "/product-image-placeholder.svg";
     const currencySymbol = currency === "EUR" ? "€" : "$";
+
     return (
         <>
             {variant === "slim" && (

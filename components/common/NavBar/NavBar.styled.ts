@@ -148,10 +148,12 @@ export const Navigation = styled.nav`
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-    ${tw`transition-transform h-9 w-9 cursor-pointer`}
+    ${tw`transition-transform h-8 w-8 cursor-pointer
+    lg:(h-9 w-9)`}
 
     svg {
-        ${tw`w-full h-full`}
+        ${tw`w-full h-full text-accents-8
+        lg:(text-transparent)`}
     }
 
     ${(props) =>

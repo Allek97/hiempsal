@@ -22,6 +22,7 @@ import {
     UtilWrapper,
     Container,
 } from "./NavBar.styled";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const Navbar: FC = () => {
     const {
@@ -69,7 +70,7 @@ const Navbar: FC = () => {
                                     {isUsernavOpen &&
                                     !isMobileMenuOpen &&
                                     !isScreenLarge ? (
-                                        <IoCloseSharp
+                                        <BsArrowLeftCircleFill
                                             onClick={closeUsernav}
                                             role="button"
                                         />

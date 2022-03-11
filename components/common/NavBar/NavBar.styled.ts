@@ -158,15 +158,17 @@ export const Wrapper = styled.div<WrapperProps>`
                 0.3s 1 forwards;
         `};
 
-    &:hover {
-        ${(props) =>
-            props.isUsernavOpen
-                ? css`
-                      transform: scale(0.95);
-                  `
-                : css`
-                      transform: scale(1.05);
-                  `};
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            ${(props) =>
+                props.isUsernavOpen
+                    ? css`
+                          transform: scale(0.95);
+                      `
+                    : css`
+                          transform: scale(1.05);
+                      `};
+        }
     }
 `;
 

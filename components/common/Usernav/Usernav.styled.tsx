@@ -26,7 +26,7 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`pt-20 text-primary bg-primary 
+    ${tw`padding-top[72.5px] text-primary bg-primary 
       lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)
       3xl:width[25%]`}
 
@@ -38,8 +38,8 @@ export const Navigation = styled.section<Record<string, unknown>>`
     }
 
     @media only screen and (min-width: ${theme`screens.md`}) {
-        padding-left: 2vw;
-        padding-right: 2vw;
+        padding-left: 3.75vw;
+        padding-right: 3.75vw;
     }
     @media only screen and (min-width: ${theme`screens.lg`}) {
         padding-left: 2.66666666667vw;

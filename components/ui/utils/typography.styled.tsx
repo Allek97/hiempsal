@@ -15,7 +15,7 @@ export const textSizeMain1 = css`
 `;
 
 export const textSizeHeader = css`
-    ${tw`font-size[26px] line-height[1.1em] tracking-tighter text-primary
+    ${tw`font-size[26px] line-height[1.1em] letter-spacing[-0.2em] text-primary
     lg:font-size[17.25px]
     2lg:font-size[1.2vw]
     2xl:font-size[23px]`}

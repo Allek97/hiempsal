@@ -43,8 +43,8 @@ const Cart: FC = () => {
                 <EmptyCartRoot>
                     <EmptyCartBox>
                         <h1>
-                            Are you equipped for modern society ? We provide
-                            that for you !
+                            Self-confidence is the best outfit,rock it and own
+                            it !
                         </h1>
                     </EmptyCartBox>
                     <ShoppingWrapper>

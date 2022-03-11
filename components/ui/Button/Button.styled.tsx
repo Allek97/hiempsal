@@ -9,7 +9,7 @@ interface Props {
 export const Root = styled.button<Props>`
     ${tw`flex items-center justify-center w-full 
     shadow-lg rounded-sm bg-secondary  
-    text-accents-1 text-center leading-6 capitalize cursor-pointer`}
+    text-accents-1 text-center capitalize cursor-pointer`}
 
     transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),
         color 0.5s cubic-bezier(0.19, 1, 0.22, 1);

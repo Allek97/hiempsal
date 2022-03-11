@@ -58,8 +58,7 @@ export const EmptyCartRoot = styled.div`
 export const EmptyCartBox = styled.div`
     ${tw`flex items-center mt-6 min-height[11.25rem] margin-bottom[1em]
     border-b border-b-accents-5 border-t-2 border-t-secondary
-    font-family["Whyte Inktrap"] tracking-tighter
-    lg:font-size[20px]`}
+    line-height[1.3em]`}
 `;
 
 export const ShoppingWrapper = styled.div`
@@ -71,7 +70,8 @@ export const ShoppingWrapper = styled.div`
 `;
 
 export const ShoppingButton = styled(Button)`
-    ${tw`font-size[15px] py-4 text-white tracking-tighter lg:(py-5 font-size[15px])`}
+    ${tw`font-size[16px] py-4 text-white tracking-tighter
+    lg:line-height[1.5em]`}
     border: 1px solid rgb(245, 245, 245);
     box-shadow: rgb(0 0 0 / 10%) 1px 1px 3px;
 `;

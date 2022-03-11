@@ -1,3 +1,4 @@
+import { textSizeMain1, mainPadding } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
@@ -32,13 +33,8 @@ const fadeIn = keyframes`
 
 const navBarPseudoPadding = css`
     ${tw`left[4vw] right[4vw]
-    md:(left-8 right-8)
-    lg:(left-11 right-11)`}
-`;
-const navBarPadding = css`
-    ${tw`padding-left[4vw] padding-right[4vw]
-    md:px-8
-    lg:px-11`}
+    md:(left[3.75vw] right[3.75vw])
+    lg:(left[2.6666666667vw] right[2.6666666667vw])`}
 `;
 
 export const NavbarRoot = styled.div<RootProps>`
@@ -103,15 +99,9 @@ export const NavbarRoot = styled.div<RootProps>`
 `;
 
 export const Container = styled.div<WrapperProps>`
-    ${tw`relative py-5 mx-auto `}
+    ${tw`relative padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
 
-    ${navBarPadding}
-
-    ${(props) =>
-        props.isUsernavOpen &&
-        css`
-            padding: 1.25rem 2.66666666666667vw;
-        `}
+    ${mainPadding}
 
 
     &:before {
@@ -145,14 +135,18 @@ export const Container = styled.div<WrapperProps>`
 
 export const Navigation = styled.nav`
     ${tw`flex`}
+
+    nav {
+        ${textSizeMain1}
+    }
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-    ${tw`transition-transform h-8 w-8 cursor-pointer
-    lg:(h-9 w-9)`}
+    ${tw`transition-transform w-7 cursor-pointer
+    2xl:(w-8)`}
 
     svg {
-        ${tw`w-full h-full text-accents-8
+        ${tw`w-full h-full text-accents-9
         lg:(text-transparent)`}
     }
 
@@ -176,8 +170,11 @@ export const Wrapper = styled.div<WrapperProps>`
     }
 `;
 
-export const NavbarItem = styled.span<NavbarItemProps>`
-    ${tw`transition-colors text-lg text-accents-6 cursor-pointer`}
+export const NavbarItem = styled.button<NavbarItemProps>`
+    ${tw`transition-colors text-accents-7 cursor-pointer`}
+
+    transform-origin: center bottom;
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -185,21 +182,23 @@ export const NavbarItem = styled.span<NavbarItemProps>`
         css`
             ${tw`text-primary`}
         `}
-
-    &:hover {
-        ${tw`text-accents-9`}
-
-        ${(props) =>
-            props.isUsernavOpen &&
-            !props.isUsernavScrolled &&
-            css`
-                ${tw`text-accents-7`}
-            `}
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            ${tw`text-accents-9`}
+            transform: skew(-10deg);
+            ${(props) =>
+                props.isUsernavOpen &&
+                !props.isUsernavScrolled &&
+                css`
+                    ${tw`text-accents-7`}
+                `}
+        }
     }
 `;
 
 export const HiemsalWrapper = styled.div<HiemsalProps>`
-    ${tw`transition-transform w-52 m-auto cursor-pointer`}
+    ${tw`transition-transform w-full max-width[140px] m-auto cursor-pointer
+    xl:max-width[180px]`}
 
     ${(props) =>
         props.isUsernavOpen &&
@@ -211,7 +210,7 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
         `};
 
     svg {
-        ${tw`w-3/4 h-3/4 lg:(w-full h-full)`}
+        ${tw`w-full h-full`}
     }
 `;
 
@@ -219,12 +218,20 @@ export const UtilWrapper = styled.div`
     ${tw`flex items-center space-x-6`}
 
     svg {
-        ${tw`cursor-pointer transition-colors hover:text-accents-7`}
+        ${tw`width[19px] transition-colors cursor-pointer hover:text-accents-7`}
+    }
+
+    & > button {
+        &:first-of-type {
+            svg {
+                ${tw`width[21px]`}
+            }
+        }
     }
 `;
 
 export const Profile = styled.div`
-    ${tw`inline-block h-8 w-8 rounded-full border-2 border-primary 
+    ${tw`inline-block height[28px] width[28px] rounded-full border-2 border-primary 
     hover:border-secondary 
     focus:border-secondary transition-colors ease-linear`}
 

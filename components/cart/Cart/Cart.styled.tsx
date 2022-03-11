@@ -1,8 +1,8 @@
-import { Button } from "@components/ui";
+import { Button, mainPadding } from "@components/ui";
 import { keyframes } from "@emotion/react";
 
 import styled from "@emotion/styled";
-import tw, { theme } from "twin.macro";
+import tw from "twin.macro";
 
 const opaqueAnimation = keyframes`
     100% {
@@ -13,16 +13,10 @@ const opaqueAnimation = keyframes`
 export const Root = styled.div<any>`
     ${tw`relative flex flex-col min-h-screen opacity-0`}
 
-    padding-left: 4vw;
-    padding-right: 4vw;
+    ${mainPadding}
 
     animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1
         forwards;
-
-    @media only screen and (min-width: ${theme`screens.lg`}) {
-        padding-left: 2.66666666667vw;
-        padding-right: 2.66666666667vw;
-    }
 `;
 
 export const ItemsHeader = styled.div`
@@ -62,7 +56,7 @@ export const EmptyCartRoot = styled.div`
 `;
 
 export const EmptyCartBox = styled.div`
-    ${tw`flex items-center mt-4 min-height[11.25rem] margin-bottom[1em]
+    ${tw`flex items-center mt-6 min-height[11.25rem] margin-bottom[1em]
     border-b border-b-accents-5 border-t-2 border-t-secondary
     font-family["Whyte Inktrap"] tracking-tighter
     lg:font-size[20px]`}

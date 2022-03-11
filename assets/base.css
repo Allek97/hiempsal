@@ -1,12 +1,12 @@
 :root {
     --primary: #ffffff;
     --primary-2: #f1f3f5;
-    --secondary: #000000;
+    --secondary: #191919;
     --secondary-2: #111;
     --selection: var(--cyan);
 
-    --text-base: #000000;
-    --text-primary: #000000;
+    --text-base: #191919;
+    --text-primary: #191919;
     --text-secondary: white;
 
     --hover: rgba(0, 0, 0, 0.075);

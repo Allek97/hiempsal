@@ -1,6 +1,5 @@
 import { FC } from "react";
 import Link from "next/link";
-import { IoCloseSharp } from "react-icons/io5";
 
 import { useUsernavUI } from "@components/ui/usernavContext";
 import { useProductUI } from "@components/ui/productContext";
@@ -9,6 +8,7 @@ import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
 
 import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 import { MobileNav } from "..";
 
@@ -22,7 +22,6 @@ import {
     UtilWrapper,
     Container,
 } from "./NavBar.styled";
-import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const Navbar: FC = () => {
     const {
@@ -38,7 +37,7 @@ const Navbar: FC = () => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const scrollThreshold = isScreenLarge ? 70 : 10;
+    const scrollThreshold = isScreenLarge ? 70 : 0;
     const isScrolled = useScroll(scrollThreshold);
 
     return (
@@ -87,6 +86,8 @@ const Navbar: FC = () => {
                                             isUsernavScrolled={
                                                 isUsernavScrolled
                                             }
+                                            type="button"
+                                            aria-label="All"
                                         >
                                             All
                                         </NavbarItem>
@@ -97,6 +98,8 @@ const Navbar: FC = () => {
                                             isUsernavScrolled={
                                                 isUsernavScrolled
                                             }
+                                            type="button"
+                                            aria-label="Clothes"
                                         >
                                             Clothes
                                         </NavbarItem>
@@ -107,6 +110,8 @@ const Navbar: FC = () => {
                                             isUsernavScrolled={
                                                 isUsernavScrolled
                                             }
+                                            type="button"
+                                            aria-label="Technologies"
                                         >
                                             Technologies
                                         </NavbarItem>
@@ -117,6 +122,8 @@ const Navbar: FC = () => {
                                             isUsernavScrolled={
                                                 isUsernavScrolled
                                             }
+                                            type="button"
+                                            aria-label="More"
                                         >
                                             More
                                         </NavbarItem>

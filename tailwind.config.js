@@ -55,11 +55,14 @@ module.exports = {
                 lg: "64em",
                 // => @media (min-width: 1024px) { ... }
 
+                "2lg": "70.3125em",
+                // => @media (min-width: 1125px) { ... }
+
                 xl: "80em",
                 // => @media (min-width: 1280px) { ... }
 
-                "2xl": "96em",
-                // => @media (min-width: 1536px) { ... }
+                "2xl": "93.75em",
+                // => @media (min-width: 1500px) { ... }
 
                 "3xl": "105em",
                 // => @media (min-width: 1680px) { ... }

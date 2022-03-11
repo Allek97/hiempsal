@@ -114,8 +114,8 @@ const Usernav: FC = () => {
 
                         <Content ref={contentRef} onScroll={listenScrollEvent}>
                             {isCartOpen && <Cart />}
-                            {isWishListOpen && <Wishlist />}
-                            {isViewedProductsOpen && <ViewedProduct />}
+                            {/* {isWishListOpen && <Wishlist />}
+                            {isViewedProductsOpen && <ViewedProduct />} */}
                         </Content>
                     </Container>
                 </Root>

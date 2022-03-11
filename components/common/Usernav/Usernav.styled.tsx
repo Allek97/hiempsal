@@ -1,5 +1,5 @@
 import customScroll from "@styles/customScroll.styled";
-import { EffectButton } from "@components/ui";
+import { EffectButton, textSizeHeader } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme } from "twin.macro";
@@ -26,7 +26,7 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`font-size[26px] pt-20 text-primary bg-primary 
+    ${tw`pt-20 text-primary bg-primary 
       lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)
       3xl:width[25%]`}
 
@@ -37,6 +37,10 @@ export const Navigation = styled.section<Record<string, unknown>>`
         ${tw`flex overflow-hidden lg:flex-col`}
     }
 
+    @media only screen and (min-width: ${theme`screens.md`}) {
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
     @media only screen and (min-width: ${theme`screens.lg`}) {
         padding-left: 2.66666666667vw;
         padding-right: 2.66666666667vw;
@@ -44,9 +48,10 @@ export const Navigation = styled.section<Record<string, unknown>>`
 `;
 
 export const NavBtn = styled(EffectButton)<NavBtnProps>`
-    ${tw`lg:(py-3 border-b-2 border-secondary border-solid font-size[1.25rem] text-primary)
-    xl:(font-size[1.6vw] py-4)
-    2xl:(font-size[1.27vw])`}
+    ${tw`lg:(py-3 border-b-2 border-secondary border-solid text-primary)
+    xl:py-4`}
+
+    ${textSizeHeader}
 
     @media only screen and (min-width: ${theme`screens.lg`}) {
         &:first-of-type {

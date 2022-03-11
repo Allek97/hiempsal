@@ -9,9 +9,11 @@ const useMediaQueryNext = (screenSize: Screen | number): boolean => {
         "sm",
         "md",
         "lg",
+        "2lg",
         "xl",
         "2xl",
         "3xl",
+        "4xl",
     ];
 
     const { screens } = tailwindConfig.theme.extend;

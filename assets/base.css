@@ -38,8 +38,6 @@
     --shadow-1: 1px 1px 3px rgb(0 0 0 / 17%);
     --shadow-2: 1px 1px 7px rgb(0 0 0 / 10%);
     --shadow-3: 0 2rem 5rem rgba(0, 0, 0, 0.6);
-
-    --vh: 7.29px;
 }
 
 html {

@@ -41,7 +41,11 @@ export const Root = styled.div``;
 
 export const HeroContainer = styled.div`
     ${tw`flex flex-col
-    lg:(flex-row height[calc(var(--vh, 1vh)*100 - 40px)])`}
+    lg:flex-row`}
+
+    @media (min-width: 64em) {
+        height: calc(100vh - 40px);
+    }
 `;
 
 export const HeroImageWrapper = styled.div`
@@ -134,9 +138,16 @@ export const DecorationTop = styled(DecorationBottom)`
               `}
 `;
 
+const heroMessageLayout = css`
+    ${tw`padding[28vw 0 8vw]
+    md:padding[16vw 0 8vw]
+    lg:padding[8.4vw 0 4.6666666667vw]`}
+`;
+
 export const HeroMessage = styled.div`
-    ${tw`flex flex-col items-center padding[12vw 0 8vw]
-    lg:padding[10rem 0 2.5vw]`}
+    ${tw`flex flex-col items-center`}
+
+    ${heroMessageLayout}
 
     span {
         ${tw`margin-bottom[2vw] text-lg

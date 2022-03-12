@@ -1,17 +1,20 @@
 import { css } from "@emotion/react";
 import tw from "twin.macro";
 
+// NOTE #__next
 export const textSizeDefault = css`
     ${tw`font-size[15px] line-height[1.3em] tracking-tighter 
     lg:font-size[13.5px]
-    2lg:font-size[1.2vw]
-    2xl:font-size[18px]`}
+    2lg:font-size[1.2vw]`}
+
+    ${tw`2xl:font-size[18px]`}
 `;
 
-export const textSizeMain1 = css`
+// NOTE Hero(HeroBtn)
+export const textSizeMain = css`
     ${textSizeDefault}
-    ${tw`line-height[1.1em]
-    2xl:font-size[18px]`}
+    ${tw`font-size[13px]
+    lg:letter-spacing[-0.06em]`}
 `;
 
 export const textSizeMedium = css`
@@ -30,6 +33,7 @@ export const textSizeSmall = css`
     ${tw`2xl:font-size[15px]`}
 `;
 
+// NOTE Uernav(Navbtn)
 export const textSizeHeader = css`
     ${tw`font-size[26px] line-height[1.1em] letter-spacing[-0.2em] 
         lg:font-size[17.25px]

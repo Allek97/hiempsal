@@ -67,7 +67,10 @@ module.exports = {
                 "3xl": "105em",
                 // => @media (min-width: 1680px) { ... }
 
-                "4xl": "120em",
+                "4xl": "112.5em",
+                // => @media (min-width: 1800px) { ... }
+
+                "5xl": "120em",
                 // => @media (min-width: 1920px) { ... }
             },
         },

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useMediaQueryNext } from "lib/customHooks";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
+import { AMAZON_S3_DOMAIN } from "@framework/const";
+
 import {
     Root,
     HeroImageWrapper,
@@ -15,7 +17,6 @@ import {
     HeroContainer,
     HeroMessage,
 } from "./Hero.styled";
-import { AMAZON_S3_DOMAIN } from "@framework/const";
 
 interface Props {
     variant: "clothing" | "technology";
@@ -58,12 +59,12 @@ const Hero: FC<Props> = ({ variant }) => {
                 <HeroInfo variant={variant}>
                     <h1>
                         {variant === "clothing"
-                            ? "Powerful Clothes"
-                            : "cutting edge tech"}
+                            ? "The new collection is here"
+                            : "Cutting edge fast technology"}
                     </h1>
                     <span>
                         {variant === "clothing"
-                            ? "Our clothing collection. Challenge the impossible."
+                            ? "When the sun shines, the new collection emerges. Gear up for the next season with our new products."
                             : "Trusted in the industry. Delivering the best quality devices in the market!"}
                     </span>
                     <div className="flex space-x-10">
@@ -110,8 +111,8 @@ const Hero: FC<Props> = ({ variant }) => {
                                 </h1>
                             </HeroBtn>
                         </Link>
-                        <DecorationTop variant={variant} />
                         <DecorationBottom variant={variant} />
+                        <DecorationTop variant={variant} />
                     </div>
                 </HeroInfo>
             </HeroContainer>

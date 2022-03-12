@@ -1,4 +1,4 @@
-import { textSizeMain1, mainPadding } from "@components/ui";
+import { textSizeMain, mainPadding } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
@@ -134,10 +134,10 @@ export const Container = styled.div<WrapperProps>`
 `;
 
 export const Navigation = styled.nav`
-    ${tw`flex`}
+    ${tw`flex items-center`}
 
     nav {
-        ${textSizeMain1}
+        ${textSizeMain}
     }
 `;
 

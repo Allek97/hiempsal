@@ -6,30 +6,58 @@ import tw from "twin.macro";
 //      re-exporting is creating an error where EffectButton is not defined
 import EffectButton from "@components/ui/EffectButton/EffectButton";
 import { css } from "@emotion/react";
+import { mainRightAbsolute, textSizeMain } from "..";
 
 interface Props {
     variant: "clothing" | "technology";
 }
 
+const mainTextSize = css`
+    ${tw`font-size[45px] line-height[0.95em] letter-spacing[-0.06em] 
+    lg:(font-size[52px] letter-spacing[-0.03em])
+    xl:font-size[75px]`}
+
+    ${tw`2xl:font-size[5vw]
+    4xl:font-size[5.3333333333vw]`}
+`;
+
+export const secondaryTextSize = css`
+    ${tw`font-size[16px] line-height[1.3em] tracking-tighter 
+    lg:font-size[13.5px]
+    2lg:font-size[1.2vw]`}
+
+    ${tw`2xl:font-size[19px]`}
+`;
+
+const primaryFontSize = css`
+    ${tw`font-family[Whyte Inktrap] font-size[14vw] letter-spacing[-0.05em]
+    sm:font-size[5.5rem]
+    md:font-size[6.5rem]
+    lg:(font-size[10vw])
+    3xl:font-size[10.5rem]`}
+`;
+
 export const Root = styled.div``;
 
 export const HeroContainer = styled.div`
-    ${tw`flex flex-col height[calc(100vh - 70px)]
-    lg:(flex-row max-height[75vw])`}
+    ${tw`flex flex-col
+    lg:(flex-row height[calc(var(--vh, 1vh)*100 - 40px)])`}
 `;
 
 export const HeroImageWrapper = styled.div`
-    ${tw`relative flex-1
+    ${tw`relative height[98vw]
+    md:height[73vw]
     lg:(h-full w-2/3)`}
 
-    & > span {
+    span,img {
         filter: brightness(0.85);
     }
 `;
 
 export const HeroInfo = styled.div<Props>`
     ${tw`relative flex flex-col padding[8vw 4vw 16vw] tracking-tighter
-    lg:(h-full w-1/3 padding[13vw 2vw 5vw] whitespace-pre-line)`}
+    md:(padding[8vw 3.75vw 16vw])
+    lg:(h-full w-1/3 padding[calc(16vw - 27px) 2.6666666667vw 5.0666666667vw] whitespace-pre-line)`}
 
     ${(props) =>
         props.variant === "clothing"
@@ -43,31 +71,35 @@ export const HeroInfo = styled.div<Props>`
               `}  
 
     & > h1 {
-        ${tw`mb-1 font-family["Whyte Inktrap"] font-size[45px] leading-tight
-        break-words hyphens[auto] capitalize
-        lg:(mr-10 mb-3 font-size[56px] line-height[1.05])
-        xl:(font-size[75px])
-        2xl:(font-size[5.2vw])`}
+        ${tw`mb-3 font-family["Whyte Inktrap"]
+        break-words hyphens[auto]
+        lg:(mr-6 mb-4)`}
+
+        ${mainTextSize}
     }
 
     & > span {
-        ${tw`mb-auto max-width[60vw]
-        xl:(font-size[18px])`}
+        ${tw`mb-7 max-width[60vw]`}
+
+        ${secondaryTextSize}
     }
 `;
 
 export const HeroBtn = styled(EffectButton)`
-    ${tw`margin-top[10vw] md:margin-top[5.5vw]
-    xl:(font-size[18px])`}
+    ${tw``}
+
+    ${textSizeMain}
 `;
 
-export const DecorationTop = styled.span<Props>`
-    ${tw`absolute block bottom[10vw] right[4vw] 
+export const DecorationBottom = styled.span<Props>`
+    ${tw`absolute block bottom[10vw] 
     height[6vw] width[25vw] p-0 
     xs:height[5vw]`}
 
     ${tw`md:(height[2rem] width[21vw] bottom[4.5rem])
-    lg:(width[10rem] top[3.5rem] right[2vw])`}
+    lg:(width[10rem] top[3.5rem])`}
+
+    ${mainRightAbsolute}
 
     transform: skewY(-10deg);
 
@@ -81,10 +113,10 @@ export const DecorationTop = styled.span<Props>`
               `}
 `;
 
-export const DecorationBottom = styled(DecorationTop)`
-    ${tw`bottom[6.5vw] right[6vw]
-    md:bottom[3rem]
-    lg:(top[3rem] right[4vw])`}
+export const DecorationTop = styled(DecorationBottom)`
+    ${tw`bottom[6.5vw] right[7vw]
+    md:(bottom[3rem] right[6.75vw])
+    lg:(top[3rem] right[5vw])`}
 
     ${(props) =>
         props.variant === "clothing"
@@ -100,14 +132,6 @@ export const DecorationBottom = styled(DecorationTop)`
 
                   opacity: 85%;
               `}
-`;
-
-const primaryFontSize = css`
-    ${tw`font-family[Whyte Inktrap] font-size[14vw] letter-spacing[-0.05em]
-    sm:font-size[5.5rem]
-    md:font-size[6.5rem]
-    lg:(font-size[10vw])
-    3xl:font-size[10.5rem]`}
 `;
 
 export const HeroMessage = styled.div`

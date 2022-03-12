@@ -40,7 +40,14 @@ const imageSizeDisplay = css`
         3xl:height[55vw]`}
 `;
 
-const textSizeA = css`
+const productInfoTypoA = css`
+    h6 {
+        ${tw`lg:font-size[9px]
+        2lg:font-size[0.8vw]`}
+
+        ${tw`2xl:(font-size[12px])`}
+    }
+
     h3 {
         ${tw`font-size[12.5px] 
         lg:font-size[18.5px]
@@ -56,7 +63,14 @@ const textSizeA = css`
     }
 `;
 
-const textSizeB = css`
+const productInfoTypoB = css`
+    h6 {
+        ${tw`lg:font-size[9px]
+        2lg:font-size[0.8vw]`}
+
+        ${tw`2xl:(font-size[12px])`}
+    }
+
     h3 {
         ${tw`font-size[18px] 
         lg:font-size[18.5px]
@@ -65,19 +79,20 @@ const textSizeB = css`
     }
 
     span {
-        ${tw`font-size[12px]
-        lg:font-size[13px]
-        xl:font-size[1.1vw]
-        3xl:font-size[17.5px]`}
+        ${tw`font-size[13px] letter-spacing[-0.04em] line-height[1.3em]
+        lg:font-size[11.25px]
+        2lg:font-size[1vw]`}
+
+        ${tw`2xl:font-size[15px] `}
     }
 `;
 
-const textSizeisDisplayed = css`
+const productInfoTypoisDisplayed = css`
     h3 {
-        ${tw`font-size[18px]
-        lg:(font-size[2.5vw] width[75%] leading-tight)
-        xl:(font-size[2.8vw] width[70%])
-        3xl:(font-size[40px] width[55%])`}
+        ${tw`lg:(font-size[22.5px] width[calc(100% - 4vw)] line-height[1.1em] tracking-tighter)
+        2lg:font-size[2vw]`}
+
+        ${tw`2xl:font-size[30px] `}
     }
 `;
 
@@ -86,9 +101,9 @@ const imageSizeObj = {
     B: ImageSizeB,
 };
 
-const textSizeObj = {
-    A: textSizeA,
-    B: textSizeB,
+const productInfoTypoObj = {
+    A: productInfoTypoA,
+    B: productInfoTypoB,
 };
 
 export const Root = styled.li`
@@ -139,31 +154,56 @@ export const ProductInfo = styled.div<InfoProps>`
     ${tw`relative flex flex-col padding[2vw 2vw 0] capitalize
     lg:p-0`}
 
-    h6 {
-        ${tw`text-accents-6 mt-4 mb-1.5`}
+    ${(props) => productInfoTypoObj[props.textLayout]}
 
-        ${tw`lg:font-size[10px]
-        xl:font-size[11px]
-        3xl:(font-size[12px])`}
+    ${(props) =>
+        props.isDisplayed
+            ? css`
+                  ${productInfoTypoisDisplayed}
+
+                  h3 {
+                      ${tw`margin[6px 0]
+                    lg:(margin[0.25rem 0] w-max mr-16 -ml-0.5)`}
+                  }
+
+                  span {
+                      ${tw`margin-bottom[3vw]
+                    lg:mb-8`}
+                  }
+              `
+            : css`
+                  h3 {
+                      ${tw`margin[6px 0] 
+                    lg:(margin[0.35em 0 0.5em] w-max mr-16)`}
+                  }
+
+                  span {
+                      ${tw`margin-bottom[3vw]
+                    lg:mb-8`}
+                  }
+              `}
+
+    h6 {
+        ${tw`text-accents-6 mt-5`}
     }
 
     h3 {
-        ${tw`margin[0.8vw 0 0] pr-2 
-        font-family[Whyte Inktrap] text-accents-9 tracking-tighter cursor-pointer
-        lg:(font-size[18.5px] w-full mr-16 mt-1 mb-4 leading-5)
-        xl:font-size[1.45vw]
-        3xl:(font-size[23px])`}
+        transform-origin: center bottom;
+        transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+        ${tw`pr-2 
+        text-accents-9 tracking-tighter cursor-pointer 
+        lg:(w-max mr-16)`}
     }
 
-    span {
-        ${tw`margin-bottom[3vw] font-size[11px] tracking-tighter
-        lg:(mb-8 font-size[13px])
-        xl:font-size[1.1vw]
-        3xl:(font-size[17.5px])`}
-    }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover h3 {
+            transform-origin: center bottom;
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
-    ${(props) =>
-        props.isDisplayed ? textSizeisDisplayed : textSizeObj[props.textLayout]}
+            transform: skew(-10deg);
+        }
+    }
 `;
 
 export const ProductBtn = styled.button<ProductBtnProps>`
@@ -192,15 +232,12 @@ export const ProductBtn = styled.button<ProductBtnProps>`
 `;
 
 export const ProductBonus = styled.div`
-    ${tw`flex items-center font-size[12px] cursor-pointer
-    lg:(font-size[13px])
-    xl:font-size[1.1vw]
-    3xl:(font-size[17.5px])`}
+    ${tw`flex items-center cursor-pointer w-max`}
 
     svg {
-        ${tw`ml-1 mr-2 font-size[15px]
-        xl:font-size[1.2vw]
-        3xl:(font-size[21px])`}
+        ${tw`mr-2 font-size[15px]
+        lg:font-size[1.7vw]
+        2xl:(font-size[24px])`}
     }
 
     p {
@@ -213,11 +250,9 @@ export const ProductBonus = styled.div`
 `;
 
 export const AddToCartBtn = styled(Button)`
-    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-1 bg-white capitalize
-    text-primary font-size[14px] tracking-tighter
-    lg:(mt-7 mb-0 py-12 font-size[15px])
-    xl:font-size[1.15vw]
-    3xl:(font-size[20px])`}
+    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-1 
+    bg-white capitalize text-primary tracking-tighter
+    lg:(mt-7 mb-0 py-12)`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
 `;

@@ -1,3 +1,4 @@
+import { useMediaQueryNext } from "@lib/customHooks";
 import { ButtonHTMLAttributes, ElementType, FC, ReactNode } from "react";
 import { Ripple } from "..";
 import { Root } from "./Button.styled";
@@ -10,6 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     href?: string;
     color?: string;
     during?: number;
+    isRippleActive?: boolean | undefined;
 }
 
 const Button: FC<Props> = ({
@@ -18,10 +20,17 @@ const Button: FC<Props> = ({
     isLoading = false,
     color = "var(--accents-2)",
     during = 2000,
+    isRippleActive = undefined,
     ...rest
 }) => {
+    const isScreenLg = useMediaQueryNext("lg");
     return (
-        <Ripple color={color} during={during} className="w-full">
+        <Ripple
+            color={color}
+            during={during}
+            className="w-full"
+            isRippleActive={isRippleActive ?? !isScreenLg}
+        >
             <Root type="button" as={Component} isLoading={isLoading} {...rest}>
                 {children}
             </Root>
@@ -36,6 +45,7 @@ Button.defaultProps = {
     href: "/",
     color: "var(--accents-2)",
     during: 2000,
+    isRippleActive: undefined,
 };
 
 export default Button;

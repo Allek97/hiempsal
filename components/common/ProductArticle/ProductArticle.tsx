@@ -88,6 +88,7 @@ const ProductArticle: FC<Props> = ({
                                     quality="80"
                                     layout="fill"
                                     objectFit="contain"
+                                    priority
                                 />
                             </div>
                         </ProductImageWrapper>
@@ -123,9 +124,7 @@ const ProductArticle: FC<Props> = ({
                         </ProductBtn>
                     </div>
 
-                    <span>
-                        {price.currencyCode} ${price.value}
-                    </span>
+                    <span>${price.value}</span>
 
                     <ProductBonus>
                         <MdCardGiftcard />
@@ -140,6 +139,7 @@ const ProductArticle: FC<Props> = ({
                                     : // eslint-disable-next-line @typescript-eslint/no-empty-function
                                       () => {}
                             }
+                            isRippleActive={false}
                         >
                             {variant === "wishlist"
                                 ? "Add to Cart"

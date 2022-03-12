@@ -30,11 +30,19 @@ export const secondaryTextSize = css`
 `;
 
 const primaryFontSize = css`
-    ${tw`font-family[Whyte Inktrap] font-size[14vw] letter-spacing[-0.05em]
-    sm:font-size[5.5rem]
-    md:font-size[6.5rem]
-    lg:(font-size[10vw])
-    3xl:font-size[10.5rem]`}
+    ${tw`font-family[Whyte Inktrap] font-size[55px] letter-spacing[-0.06em] line-height[0.9em]
+    md:font-size[120px]
+    lg:line-height[0.85em]
+    xl:font-size[10.5rem]
+    2xl:font-size[8vw]`}
+`;
+
+export const tertiaryFontSize = css`
+    ${tw`font-size[17px] line-height[1.15em] tracking-tighter 
+    lg:(font-size[15px] letter-spacing[-0.04em])
+    2lg:(font-size[1.33333333333vw] line-height[1.3em])`}
+
+    ${tw`2xl:font-size[25px]`}
 `;
 
 export const Root = styled.div``;
@@ -150,10 +158,10 @@ export const HeroMessage = styled.div`
     ${heroMessageLayout}
 
     span {
-        ${tw`margin-bottom[2vw] text-lg
-        md:text-xl
-        lg:(margin-bottom[0vw] text-2xl)
-        3xl:font-size[1.5rem]`}
+        ${tw`margin-bottom[8vw]
+        lg:margin-bottom[2vw]`}
+
+        ${tertiaryFontSize}
     }
 
     h1 {

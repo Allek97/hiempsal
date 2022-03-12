@@ -31,9 +31,9 @@ export const secondaryTextSize = css`
 
 const primaryFontSize = css`
     ${tw`font-family[Whyte Inktrap] font-size[55px] letter-spacing[-0.06em] line-height[0.9em]
-    md:font-size[120px]
+    md:font-size[90px]
     lg:line-height[0.85em]
-    xl:font-size[10.5rem]
+    xl:font-size[120px]
     2xl:font-size[8vw]`}
 `;
 
@@ -53,6 +53,7 @@ export const HeroContainer = styled.div`
 
     @media (min-width: 64em) {
         height: calc(100vh - 40px);
+        min-height: calc(45vw);
     }
 `;
 

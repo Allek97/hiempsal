@@ -1,4 +1,4 @@
-import { Button, mainPadding } from "@components/ui";
+import { Button, mainPadding, textSizeSmall } from "@components/ui";
 import { keyframes } from "@emotion/react";
 
 import styled from "@emotion/styled";
@@ -11,7 +11,8 @@ const opaqueAnimation = keyframes`
 `;
 
 export const Root = styled.div<any>`
-    ${tw`relative flex flex-col min-h-screen opacity-0`}
+    ${tw`relative flex flex-col padding-bottom[4vw] min-height[calc(100vh - 7.5vw)] opacity-0
+    lg:padding-bottom[2.6666666667vw]`}
 
     ${mainPadding}
 
@@ -20,8 +21,8 @@ export const Root = styled.div<any>`
 `;
 
 export const ItemsHeader = styled.div`
-    ${tw`flex font-size[14px] text-accents-7
-    xl:(font-size[16px])`}
+    ${tw`flex text-accents-7 font-size[13px] line-height[1em] tracking-tighter 
+    lg:(font-size[14px] line-height[1.5em] letter-spacing[-0.06em])`}
 
     & > div:first-of-type {
         ${tw`margin-right[26vw]
@@ -58,7 +59,8 @@ export const EmptyCartRoot = styled.div`
 export const EmptyCartBox = styled.div`
     ${tw`flex items-center mt-6 min-height[11.25rem] margin-bottom[1em]
     border-b border-b-accents-5 border-t-2 border-t-secondary
-    line-height[1.3em]`}
+    line-height[1.3em]
+    lg:(margin-top[1vw])`}
 `;
 
 export const ShoppingWrapper = styled.div`
@@ -141,17 +143,13 @@ export const PaymentVendors = styled.ul`
 
 export const ShopPolicy = styled.div`
     ${tw`flex items-center justify-center flex-col w-full
-    lg:(flex-row justify-between margin-top[8vw] w-full font-size[1.15vw])
-    xl:(font-size[1vw] w-4/5)
-    2xl:(font-size[0.95vw])
-    3xl:(font-size[16.5px])`}
+    lg:(flex-row justify-between w-full mt-auto)
+    xl:w-4/5`}
 
     margin-top: 8vw;
-    margin-bottom: 5rem;
+    /* margin-bottom: 5rem; */
 
-    line-height: 1.2em;
-    letter-spacing: -0.05em;
-    font-size: 12px;
+    ${textSizeSmall}
 
     span {
         margin-bottom: 0.5rem;

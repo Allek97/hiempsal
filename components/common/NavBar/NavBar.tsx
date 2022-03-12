@@ -79,7 +79,7 @@ const Navbar: FC = () => {
                                 </Wrapper>
                             </Link>
                             {isScreenLarge && (
-                                <nav className="space-x-5">
+                                <nav className="space-x-6">
                                     <Link href="/" passHref>
                                         <NavbarItem
                                             isUsernavOpen={isUsernavOpen}

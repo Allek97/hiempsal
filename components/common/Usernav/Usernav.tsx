@@ -12,7 +12,14 @@ import { useMediaQueryNext } from "lib/customHooks";
 
 import { HelpCard } from "../HelpCard";
 
-import { Container, Content, NavBtn, Navigation, Root } from "./Usernav.styled";
+import {
+    Container,
+    Content,
+    HelpCardWrapper,
+    NavBtn,
+    Navigation,
+    Root,
+} from "./Usernav.styled";
 
 const Usernav: FC = () => {
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -106,9 +113,9 @@ const Usernav: FC = () => {
                             </nav>
 
                             {isScreenLarge && (
-                                <div className="fixed bottom-16">
+                                <HelpCardWrapper>
                                     <HelpCard />
-                                </div>
+                                </HelpCardWrapper>
                             )}
                         </Navigation>
 

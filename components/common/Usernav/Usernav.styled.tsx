@@ -27,7 +27,7 @@ export const Container = styled.div`
 
 export const Navigation = styled.section<Record<string, unknown>>`
     ${tw`padding-top[72.5px] text-primary bg-primary 
-      lg:(sticky top-0 left-0 width[34%] pt-40 bg-accents-2)
+      lg:(sticky top-0 left-0 width[34%] padding-top[9.55vw] bg-accents-2)
       3xl:width[25%]`}
 
     padding-left: 4vw;
@@ -48,8 +48,7 @@ export const Navigation = styled.section<Record<string, unknown>>`
 `;
 
 export const NavBtn = styled(EffectButton)<NavBtnProps>`
-    ${tw`lg:(py-3 border-b-2 border-secondary border-solid text-primary)
-    xl:py-4`}
+    ${tw`lg:(py-4 border-b-2 border-secondary border-solid text-primary)`}
 
     ${textSizeHeader}
 
@@ -89,10 +88,14 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 
 export const Content = styled.section<Record<string, unknown>>`
     ${tw`max-w-full opacity-0 bg-primary outline-none
-      lg:(overflow-y-auto width[66%] pt-40)
+      lg:(overflow-y-auto width[66%] padding-top[7.5vw])
       3xl:width[75%]`}
 
     ${customScroll}
 
     animation: ${opaqueAnimation} 2s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
+`;
+
+export const HelpCardWrapper = styled.div`
+    ${tw`fixed bottom[2.6666666667vw]`}
 `;

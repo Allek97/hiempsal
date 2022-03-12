@@ -142,11 +142,11 @@ export const Navigation = styled.nav`
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-    ${tw`transition-transform w-7 cursor-pointer
-    2xl:(w-8)`}
+    ${tw`transition-transform width[25px] cursor-pointer
+    2xl:(width[34px])`}
 
     svg {
-        ${tw`w-full h-full text-accents-9
+        ${tw`w-full h-full text-primary
         lg:(text-transparent)`}
     }
 

@@ -1,8 +1,10 @@
 import { FC } from "react";
+import Link from "next/link";
 import payments from "@lib/const/payments";
 import { useMediaQueryNext } from "lib/customHooks";
 
 import { useCart } from "@framework/cart";
+import { useUsernavUI } from "@components/ui/usernavContext";
 
 import { currencyKeys } from "@lib/option";
 
@@ -24,6 +26,8 @@ import {
 import { CartArticle } from "../CartArticle";
 
 const Cart: FC = () => {
+    const { closeUsernav } = useUsernavUI();
+
     const isScreenLarge = useMediaQueryNext("lg");
 
     const { data, isEmpty } = useCart();
@@ -48,12 +52,15 @@ const Cart: FC = () => {
                         </h1>
                     </EmptyCartBox>
                     <ShoppingWrapper>
-                        <ShoppingButton
-                            Component="button"
-                            color="var(--accents-2)"
-                        >
-                            Go Shopping
-                        </ShoppingButton>
+                        <Link href="/" passHref>
+                            <ShoppingButton
+                                Component="button"
+                                color="var(--accents-2)"
+                                aria-label="Go Shopping"
+                            >
+                                Go Shopping
+                            </ShoppingButton>
+                        </Link>
                     </ShoppingWrapper>
                 </EmptyCartRoot>
             ) : (

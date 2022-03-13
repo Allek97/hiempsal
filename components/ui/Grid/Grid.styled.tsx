@@ -1,17 +1,15 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import { mainPadding } from "..";
 
 interface Props {
     layout: "clothing" | "technology";
+    defaultSidePaddings?: SerializedStyles;
 }
 
 const layoutA = css`
     ${tw`grid grid-cols-1
     lg:(grid-cols-2 column-gap[1.5rem])`}
-
-    ${mainPadding}
 
     & > li {
         ${tw`margin[0 0 15vw]
@@ -39,5 +37,6 @@ const layoutB = css`
 `;
 
 export const GridRoot = styled.ul<Props>`
+    ${({ theme }) => theme.layout.mainPadding}
     ${(props) => (props.layout === "clothing" ? layoutA : layoutB)}
 `;

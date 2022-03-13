@@ -1,4 +1,3 @@
-import { textSizeMain, mainPadding } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
@@ -16,6 +15,7 @@ interface WrapperProps {
     isUsernavScrolled?: boolean;
     isMobileMenuOpen?: boolean;
 }
+
 interface NavbarItemProps {
     isUsernavOpen: boolean;
     isUsernavScrolled: boolean;
@@ -29,12 +29,6 @@ const fadeIn = keyframes`
     to {
         opacity: 1;
     }
-`;
-
-const navBarPseudoPadding = css`
-    ${tw`left[4vw] right[4vw]
-    md:(left[3.75vw] right[3.75vw])
-    lg:(left[2.6666666667vw] right[2.6666666667vw])`}
 `;
 
 export const NavbarRoot = styled.div<RootProps>`
@@ -75,7 +69,7 @@ export const NavbarRoot = styled.div<RootProps>`
 
         ${tw`absolute h-1`}
 
-        ${navBarPseudoPadding}
+        ${({ theme }) => theme.layout.mainAbsoluteSides}
 
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
@@ -101,7 +95,7 @@ export const NavbarRoot = styled.div<RootProps>`
 export const Container = styled.div<WrapperProps>`
     ${tw`relative padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
 
-    ${mainPadding}
+    ${({ theme }) => theme.layout.mainPadding}
 
 
     &:before {
@@ -109,7 +103,7 @@ export const Container = styled.div<WrapperProps>`
 
         ${tw`absolute top-0 height[3px]`}
 
-        ${navBarPseudoPadding}
+        ${({ theme }) => theme.layout.mainAbsoluteSides}
 
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
         background-color: #e00b25;
@@ -137,7 +131,7 @@ export const Navigation = styled.nav`
     ${tw`flex items-center`}
 
     nav {
-        ${textSizeMain}
+        ${({ theme }) => theme.textSize.textSizeMain}
     }
 `;
 

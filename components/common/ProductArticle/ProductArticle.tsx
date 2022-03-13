@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MdCardGiftcard } from "react-icons/md";
+import { MdCardGiftcard, MdOutlineReviews } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
 import { RiHeartAddLine } from "react-icons/ri";
 
@@ -22,6 +22,7 @@ import {
     ProductWrapper,
     ProductBtn,
     ImageContainer,
+    QuickViewBtn,
 } from "./ProductArticle.styled";
 
 interface Props {
@@ -131,21 +132,24 @@ const ProductArticle: FC<Props> = ({
                         <p>Winter Offer</p>
                     </ProductBonus>
 
-                    {(variant === "wishlist" || variant === "product") && (
-                        <AddToCartBtn
-                            onClick={
-                                variant === "wishlist"
-                                    ? openProductPopup
-                                    : // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                      () => {}
-                            }
-                            isRippleActive={false}
-                        >
-                            {variant === "wishlist"
-                                ? "Add to Cart"
-                                : "Get it now"}
-                        </AddToCartBtn>
-                    )}
+                    {(variant === "wishlist" || variant === "product") &&
+                        (variant === "wishlist" ? (
+                            <AddToCartBtn
+                                onClick={
+                                    variant === "wishlist"
+                                        ? openProductPopup
+                                        : // eslint-disable-next-line @typescript-eslint/no-empty-function
+                                          () => {}
+                                }
+                                isRippleActive={false}
+                            >
+                                Add To Cart
+                            </AddToCartBtn>
+                        ) : (
+                            <QuickViewBtn type="button">
+                                <MdOutlineReviews /> <span>Quick View</span>
+                            </QuickViewBtn>
+                        ))}
                 </ProductInfo>
             </ProductWrapper>
         </Root>

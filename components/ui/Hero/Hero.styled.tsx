@@ -6,7 +6,6 @@ import tw from "twin.macro";
 //      re-exporting is creating an error where EffectButton is not defined
 import EffectButton from "@components/ui/EffectButton/EffectButton";
 import { css } from "@emotion/react";
-import { textSizeMain } from "..";
 
 interface Props {
     variant: "clothing" | "technology";
@@ -101,18 +100,19 @@ export const HeroInfo = styled.div<Props>`
 export const HeroBtn = styled(EffectButton)`
     ${tw``}
 
-    ${textSizeMain}
+    ${({ theme }) => theme.textSize.textSizeMain}
 `;
 
 export const DecorationBottom = styled.span<Props>`
-    ${tw`absolute block bottom[10vw] right[4vw]
+    ${tw`absolute block bottom[10vw]
     height[6vw] width[25vw] p-0 
     xs:height[5vw]`}
 
-    ${tw`md:(height[2rem] width[21vw] bottom[4.5rem] right[3.75vw])
-    lg:(width[10rem] top[3.5rem] right[2.6666666667vw])`}
+    ${tw`md:(height[2rem] width[21vw] bottom[4.5rem])
+    lg:(width[10rem] top[3.5rem])`}
 
 
+    ${({ theme }) => theme.layout.mainRightAbsolute}
 
     transform: skewY(-10deg);
 

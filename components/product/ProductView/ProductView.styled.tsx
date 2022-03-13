@@ -16,8 +16,8 @@ export const Root = styled.div`
 // NOTE Product Overview
 ////////////////////////////////////////////////
 const mainTextSize = css`
-    ${tw`text-lg tracking-tighter line-height[1.15em]
-    lg:(text-sm line-height[1.1em])
+    ${tw`font-size[18px] tracking-tighter line-height[1.15em]
+    lg:(font-size[14px] line-height[1.1em])
     xl:font-size[1.2vw]
     2xl:font-size[18px]`}
 `;

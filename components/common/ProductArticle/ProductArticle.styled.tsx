@@ -163,12 +163,11 @@ export const ProductInfo = styled.div<InfoProps>`
 
                   h3 {
                       ${tw`margin[6px 0]
-                    lg:(margin[0.25rem 0] w-max mr-16 -ml-0.5)`}
+                    lg:(margin[0.25rem 0 0.3rem] w-max mr-16 -ml-0.5)`}
                   }
 
-                  span {
-                      ${tw`margin-bottom[3vw]
-                    lg:mb-8`}
+                  & > span {
+                      ${tw`margin-bottom[0.5em]`}
                   }
               `
             : css`
@@ -177,9 +176,8 @@ export const ProductInfo = styled.div<InfoProps>`
                     lg:(margin[0.35em 0 0.5em] w-max mr-16)`}
                   }
 
-                  span {
-                      ${tw`margin-bottom[3vw]
-                    lg:mb-8`}
+                  & > span {
+                      ${tw`margin-bottom[0.5em]`}
                   }
               `}
 
@@ -194,6 +192,10 @@ export const ProductInfo = styled.div<InfoProps>`
         ${tw`pr-2 
         text-accents-9 tracking-tighter cursor-pointer 
         lg:(w-max mr-16)`}
+    }
+
+    & > span {
+        color: black;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -255,4 +257,8 @@ export const AddToCartBtn = styled(Button)`
     lg:(mt-7 mb-0 py-12)`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
+`;
+
+export const QuickViewBtn = styled.button`
+    ${tw`flex items-center space-x-2 w-max`}
 `;

@@ -1,2 +1,1 @@
-export * from "./typography.styled";
-export * from "./layout.styled";
+export { default as theme } from "./theme";

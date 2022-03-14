@@ -1,8 +1,8 @@
 import customScroll from "@styles/customScroll.styled";
-import { EffectButton, textSizeHeader } from "@components/ui";
+import { EffectButton } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import tw, { theme } from "twin.macro";
+import tw, { theme as TwTheme } from "twin.macro";
 
 interface NavBtnProps {
     isSelected: boolean;
@@ -37,11 +37,11 @@ export const Navigation = styled.section<Record<string, unknown>>`
         ${tw`flex overflow-hidden lg:flex-col`}
     }
 
-    @media only screen and (min-width: ${theme`screens.md`}) {
+    @media only screen and (min-width: ${TwTheme`screens.md`}) {
         padding-left: 3.75vw;
         padding-right: 3.75vw;
     }
-    @media only screen and (min-width: ${theme`screens.lg`}) {
+    @media only screen and (min-width: ${TwTheme`screens.lg`}) {
         padding-left: 2.66666666667vw;
         padding-right: 2.66666666667vw;
     }
@@ -50,9 +50,9 @@ export const Navigation = styled.section<Record<string, unknown>>`
 export const NavBtn = styled(EffectButton)<NavBtnProps>`
     ${tw`lg:(py-4 border-b-2 border-secondary border-solid text-primary)`}
 
-    ${textSizeHeader}
+    ${({ theme }) => theme.textSize.textSizeHeader}
 
-    @media only screen and (min-width: ${theme`screens.lg`}) {
+    @media only screen and (min-width: ${TwTheme`screens.lg`}) {
         &:first-of-type {
             ${tw`border-t-2 border-black border-solid`}
         }

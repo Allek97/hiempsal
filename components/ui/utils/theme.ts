@@ -7,7 +7,11 @@ import {
     mainLeftAbsolute,
     mainRightAbsolute,
 } from "./layout.styled";
-import { textSizeMain } from "./typography.styled";
+import {
+    textSizeHeader,
+    textSizeMain,
+    textSizeSmall,
+} from "./typography.styled";
 
 const theme = createTheme({
     layout: {
@@ -20,6 +24,8 @@ const theme = createTheme({
     },
     textSize: {
         textSizeMain,
+        textSizeHeader,
+        textSizeSmall,
     },
 });
 

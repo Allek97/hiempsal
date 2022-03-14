@@ -15,6 +15,8 @@ declare module "@emotion/react" {
         };
         textSize: {
             textSizeMain: SerializedStyles;
+            textSizeHeader: SerializedStyles;
+            textSizeSmall: SerializedStyles;
         };
     }
 }

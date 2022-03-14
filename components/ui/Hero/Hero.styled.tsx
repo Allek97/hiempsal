@@ -148,8 +148,8 @@ export const DecorationTop = styled(DecorationBottom)`
 `;
 
 const heroMessageLayout = css`
-    ${tw`padding[28vw 0 8vw]
-    md:padding[16vw 0 8vw]
+    ${tw`padding[20vw 0 8vw]
+    md:padding[10vw 0 8vw]
     lg:padding[8.4vw 0 4.6666666667vw]`}
 `;
 

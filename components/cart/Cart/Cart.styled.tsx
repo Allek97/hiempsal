@@ -1,4 +1,4 @@
-import { Button, mainPadding, textSizeSmall } from "@components/ui";
+import { Button } from "@components/ui";
 import { keyframes } from "@emotion/react";
 
 import styled from "@emotion/styled";
@@ -10,11 +10,11 @@ const opaqueAnimation = keyframes`
     }
 `;
 
-export const Root = styled.div<any>`
+export const Root = styled.div`
     ${tw`relative flex flex-col padding-bottom[4vw] min-height[calc(100vh - 7.5vw)] opacity-0
     lg:padding-bottom[2.6666666667vw]`}
 
-    ${mainPadding}
+    ${({ theme }) => theme.layout.mainPadding}
 
     animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1
         forwards;
@@ -149,7 +149,7 @@ export const ShopPolicy = styled.div`
     margin-top: 8vw;
     /* margin-bottom: 5rem; */
 
-    ${textSizeSmall}
+    ${({ theme }) => theme.textSize.textSizeSmall}
 
     span {
         margin-bottom: 0.5rem;

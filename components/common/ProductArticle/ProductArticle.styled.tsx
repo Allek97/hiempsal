@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -40,6 +41,20 @@ const imageSizeDisplay = css`
         3xl:height[55vw]`}
 `;
 
+const commonTypoSmall = css`
+    ${tw`font-size[11px] letter-spacing[-0.04em] line-height[1.3em]
+        lg:font-size[12px]
+        2lg:font-size[1vw]`}
+
+    ${tw`2xl:font-size[15px] `}
+`;
+const commonTypoLarge = css`
+    ${tw`font-size[18px] 
+        lg:font-size[18.5px]
+        xl:font-size[1.45vw]
+        3xl:font-size[23px]`}
+`;
+
 const productInfoTypoA = css`
     h6 {
         ${tw`lg:font-size[9px]
@@ -56,7 +71,7 @@ const productInfoTypoA = css`
     }
 
     span {
-        ${tw`font-size[11px]
+        ${tw`font-size[11px] letter-spacing[-0.04em] line-height[1.3em]
         lg:font-size[13px]
         xl:font-size[1.1vw]
         3xl:font-size[17.5px]`}
@@ -72,27 +87,21 @@ const productInfoTypoB = css`
     }
 
     h3 {
-        ${tw`font-size[18px] 
-        lg:font-size[18.5px]
-        xl:font-size[1.45vw]
-        3xl:font-size[23px]`}
+        ${commonTypoLarge}
     }
 
     span {
-        ${tw`font-size[13px] letter-spacing[-0.04em] line-height[1.3em]
-        lg:font-size[11.25px]
-        2lg:font-size[1vw]`}
-
-        ${tw`2xl:font-size[15px] `}
+        ${commonTypoSmall}
     }
 `;
 
-const productInfoTypoisDisplayed = css`
+const productInfoTypoIsDisplayed = css`
     h3 {
         ${tw`lg:(font-size[22.5px] width[calc(100% - 4vw)] line-height[1.1em] tracking-tighter)
         2lg:font-size[2vw]`}
 
-        ${tw`2xl:font-size[30px] `}
+        ${tw`2xl:font-size[30px]
+        3xl:font-size[40px]`}
     }
 `;
 
@@ -106,8 +115,63 @@ const productInfoTypoObj = {
     B: productInfoTypoB,
 };
 
+export const ProductBtn = styled.button<ProductBtnProps>`
+    ${tw`padding-top[1vw] margin-top[0.8vw]cursor-pointer
+    lg:(mt-4 pt-1 opacity-0 pointer-events-none)`}
+
+    ${commonTypoLarge}
+
+    transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+    svg {
+        ${(props) =>
+            props.isWishlist &&
+            css`
+                fill: red;
+            `}
+
+        ${(props) =>
+            !props.isWishlist &&
+            css`
+                fill: ${props.isAddedToWishlist ? "red" : "currentColor"};
+            `}
+        transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    &:hover svg {
+        transform: scale(0.9);
+    }
+`;
+
+export const QuickViewBtn = styled.button`
+    ${tw`flex items-center w-max padding-left[1.3vw]
+    lg:(padding-left[0] opacity-0 pointer-events-none)`}
+
+    transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+    svg {
+        ${tw`width[1.2em] margin-right[0.4em]
+        lg:width[1.3em]
+        2xl:width[1.2em]`}
+    }
+
+    h5 {
+        ${tw`mr-2 font-size[14px] text-accents-9
+        lg:font-size[1.25vw]
+        2xl:(font-size[18px])`}
+    }
+`;
+
 export const Root = styled.li`
     ${tw`list-none`}
+
+    &:hover {
+        ${ProductBtn},${QuickViewBtn} {
+            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
 `;
 
 export const ProductWrapper = styled.article<Props>`
@@ -125,7 +189,7 @@ export const ImageContainer = styled.div<Props>`
     ${(props) =>
         props.isDisplayed &&
         css`
-            ${tw`lg:(width[62.6666666667vw] mr-12)`}
+            ${tw`lg:(width[62.6666666667vw] margin-right[2.666666667vw])`}
         `}
 `;
 
@@ -152,34 +216,9 @@ export const ProductImageWrapper = styled.div<ImageProps>`
 
 export const ProductInfo = styled.div<InfoProps>`
     ${tw`relative flex flex-col padding[2vw 2vw 0] capitalize
-    lg:p-0`}
+    lg:(p-0 flex-1)`}
 
     ${(props) => productInfoTypoObj[props.textLayout]}
-
-    ${(props) =>
-        props.isDisplayed
-            ? css`
-                  ${productInfoTypoisDisplayed}
-
-                  h3 {
-                      ${tw`margin[6px 0]
-                    lg:(margin[0.25rem 0 0.3rem] w-max mr-16 -ml-0.5)`}
-                  }
-
-                  & > span {
-                      ${tw`margin-bottom[0.5em]`}
-                  }
-              `
-            : css`
-                  h3 {
-                      ${tw`margin[6px 0] 
-                    lg:(margin[0.35em 0 0.5em] w-max mr-16)`}
-                  }
-
-                  & > span {
-                      ${tw`margin-bottom[0.5em]`}
-                  }
-              `}
 
     h6 {
         ${tw`text-accents-6 mt-5`}
@@ -189,57 +228,44 @@ export const ProductInfo = styled.div<InfoProps>`
         transform-origin: center bottom;
         transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
-        ${tw`pr-2 
+        ${tw`pr-2 margin[6px 0 8px] 
         text-accents-9 tracking-tighter cursor-pointer 
-        lg:(w-max mr-16)`}
+        lg:(margin[0.35em 0 0.65em] w-max mr-auto)`}
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                transform-origin: center bottom;
+                transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+                transform: skew(-10deg);
+            }
+        }
     }
 
     & > span {
         color: black;
+
+        ${tw`margin-bottom[1em]`}
     }
 
-    @media (hover: hover) and (pointer: fine) {
-        &:hover h3 {
-            transform-origin: center bottom;
-            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    ${(props) =>
+        props.isDisplayed &&
+        css`
+            ${productInfoTypoIsDisplayed}
 
-            transform: skew(-10deg);
-        }
-    }
-`;
-
-export const ProductBtn = styled.button<ProductBtnProps>`
-    ${tw`padding-top[1vw] margin-top[0.8vw] font-size[1.15em] cursor-pointer
-    lg:(mt-4 pt-1)
-    3xl:(font-size[1.8rem])`}
-
-    svg {
-        ${(props) =>
-            props.isWishlist &&
-            css`
-                fill: red;
-            `}
-
-        ${(props) =>
-            !props.isWishlist &&
-            css`
-                fill: ${props.isAddedToWishlist ? "red" : "currentColor"};
-            `}
-        transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    &:hover svg {
-        transform: scale(0.9);
-    }
+            h3 {
+                ${tw`lg:(margin[0.2em 0] mr-auto -ml-0.5)`}
+            }
+        `}
 `;
 
 export const ProductBonus = styled.div`
-    ${tw`flex items-center cursor-pointer w-max`}
+    ${tw`flex items-center cursor-pointer w-max mb-9`}
+
+    ${commonTypoSmall}
 
     svg {
-        ${tw`mr-2 font-size[15px]
-        lg:font-size[1.7vw]
-        2xl:(font-size[24px])`}
+        ${tw`margin-right[0.2em]`}
     }
 
     p {
@@ -257,8 +283,4 @@ export const AddToCartBtn = styled(Button)`
     lg:(mt-7 mb-0 py-12)`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
-`;
-
-export const QuickViewBtn = styled.button`
-    ${tw`flex items-center space-x-2 w-max`}
 `;

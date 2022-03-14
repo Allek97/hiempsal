@@ -28,6 +28,8 @@ declare module "@mui/material/styles" {
         };
         textSize: {
             textSizeMain: SerializedStyles;
+            textSizeHeader: SerializedStyles;
+            textSizeSmall: SerializedStyles;
         };
     }
     // eslint-disable-next-line no-unused-vars

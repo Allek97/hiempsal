@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MdCardGiftcard, MdOutlineReviews } from "react-icons/md";
+import { MdLocalOffer } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
-import { RiHeartAddLine } from "react-icons/ri";
+import { RiHeartAddFill, RiHeartAddLine } from "react-icons/ri";
 
 import { ProductPopup } from "@components/common/ProductPopup";
 
@@ -12,6 +12,8 @@ import { useProductUI } from "@components/ui/productContext";
 import { useMediaQueryNext } from "lib/customHooks";
 
 import { Product } from "@framework/types/product";
+
+import { Plus } from "@components/icons";
 
 import {
     AddToCartBtn,
@@ -118,7 +120,7 @@ const ProductArticle: FC<Props> = ({
                         >
                             {variant === "product" ||
                             variant === "product-viewed" ? (
-                                <RiHeartAddLine />
+                                <RiHeartAddFill />
                             ) : (
                                 <FaHeartBroken />
                             )}
@@ -128,7 +130,7 @@ const ProductArticle: FC<Props> = ({
                     <span>${price.value}</span>
 
                     <ProductBonus>
-                        <MdCardGiftcard />
+                        <MdLocalOffer />
                         <p>Winter Offer</p>
                     </ProductBonus>
 
@@ -146,8 +148,11 @@ const ProductArticle: FC<Props> = ({
                                 Add To Cart
                             </AddToCartBtn>
                         ) : (
-                            <QuickViewBtn type="button">
-                                <MdOutlineReviews /> <span>Quick View</span>
+                            <QuickViewBtn
+                                type="button"
+                                onClick={openProductPopup}
+                            >
+                                <Plus /> <h5>Quick View</h5>
                             </QuickViewBtn>
                         ))}
                 </ProductInfo>

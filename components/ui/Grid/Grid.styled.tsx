@@ -4,12 +4,16 @@ import tw from "twin.macro";
 
 interface Props {
     layout: "clothing" | "technology";
-    defaultSidePaddings?: SerializedStyles;
 }
 
 const layoutA = css`
     ${tw`grid grid-cols-1
     lg:(grid-cols-2 column-gap[1.5rem])`}
+
+    @media (max-width: 1023px) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
     & > li {
         ${tw`margin[0 0 15vw]
@@ -26,7 +30,7 @@ const layoutA = css`
 `;
 
 const layoutB = css`
-    ${tw`grid grid-cols-1 padding-left[2.67vw] padding-right[2.67vw]
+    ${tw`grid grid-cols-1
     md:(grid-cols-2 column-gap[1.5rem])
     lg:(grid-cols-3 px-11)
     2xl:(grid-cols-3)`}

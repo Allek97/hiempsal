@@ -37,7 +37,7 @@ const Navbar: FC = () => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const scrollThreshold = isScreenLarge ? 70 : 0;
+    const scrollThreshold = isScreenLarge ? 20 : 0;
     const isScrolled = useScroll(scrollThreshold);
 
     return (

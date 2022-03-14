@@ -3,11 +3,10 @@ import { FC } from "react";
 
 import UsernavUIProvider from "@components/ui/usernavContext";
 import ProductUIProvider from "@components/ui/productContext";
+import ThemeUIProvider from "@components/ui/themeContext";
 
 import "../styles/globals.scss";
 import "../assets/base.css";
-
-import ThemeUIProvider from "@components/ui/themeContext";
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
 const Noop: FC = ({ children }) => <>{children}</>;

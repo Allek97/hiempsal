@@ -117,11 +117,20 @@ const productInfoTypoObj = {
 
 export const ProductBtn = styled.button<ProductBtnProps>`
     ${tw`padding-top[1vw] margin-top[0.8vw] cursor-pointer
-    lg:(mt-4 pt-1 opacity-0 pointer-events-none)`}
+    lg:(mt-4 pt-1)`}
 
     ${commonTypoLarge}
 
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+    ${({ theme }) =>
+        theme.device.isTouch
+            ? css`
+                  ${tw`opacity-100 pointer-events-auto`}
+              `
+            : css`
+                  ${tw`opacity-0 pointer-events-none`}
+              `}
 
     svg {
         ${(props) =>
@@ -147,9 +156,18 @@ export const ProductBtn = styled.button<ProductBtnProps>`
 
 export const QuickViewBtn = styled.button`
     ${tw`flex items-center w-max padding-left[1.3vw]
-    lg:(padding-left[0] opacity-0 pointer-events-none)`}
+    lg:(padding-left[0])`}
 
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+    ${({ theme }) =>
+        theme.device.isTouch
+            ? css`
+                  ${tw`opacity-100 pointer-events-auto`}
+              `
+            : css`
+                  ${tw`opacity-0 pointer-events-none`}
+              `}
 
     svg {
         ${tw`width[1.2em] margin-right[0.4em]

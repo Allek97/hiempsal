@@ -50,8 +50,6 @@ const ProductArticle: FC<Props> = ({
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    console.log("Is the device touch screened : " + isTouchDevice());
-
     function addToWishlist() {
         if (isAddedToWishlist) {
             setIsAddedToWishlist(false);

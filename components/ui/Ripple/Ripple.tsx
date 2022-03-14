@@ -17,10 +17,12 @@ const RippleStyle = styled(Ripples)<RippleProps>`
     ${(props) =>
         !props.isRippleActive &&
         css`
-            overflow: visible !important;
-            & > s {
-                height: 0 !important;
-                width: 0 !important;
+            @media (hover: hover) and (pointer: fine) {
+                overflow: visible !important;
+                & > s {
+                    height: 0 !important;
+                    width: 0 !important;
+                }
             }
         `}
 `;

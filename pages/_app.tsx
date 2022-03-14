@@ -6,8 +6,8 @@ import ProductUIProvider from "@components/ui/productContext";
 
 import "../styles/globals.scss";
 import "../assets/base.css";
-import { theme } from "@components/ui";
-import { ThemeProvider } from "@mui/material";
+
+import ThemeUIProvider from "@components/ui/themeContext";
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
 const Noop: FC = ({ children }) => <>{children}</>;
@@ -21,11 +21,11 @@ function MyApp({
     return (
         <UsernavUIProvider>
             <ProductUIProvider>
-                <ThemeProvider theme={theme}>
+                <ThemeUIProvider>
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
-                </ThemeProvider>
+                </ThemeUIProvider>
             </ProductUIProvider>
         </UsernavUIProvider>
     );

@@ -15,6 +15,9 @@ declare module "@mui/material/styles" {
         textSize: {
             textSizeMain: SerializedStyles;
         };
+        device: {
+            isTouch: boolean;
+        };
     }
     // allow configuration using `createTheme`
     interface CustomThemeOptions extends ThemeOptions {
@@ -30,6 +33,9 @@ declare module "@mui/material/styles" {
             textSizeMain: SerializedStyles;
             textSizeHeader: SerializedStyles;
             textSizeSmall: SerializedStyles;
+        };
+        device: {
+            isTouch: boolean;
         };
     }
     // eslint-disable-next-line no-unused-vars

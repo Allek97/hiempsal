@@ -116,7 +116,7 @@ const productInfoTypoObj = {
 };
 
 export const ProductBtn = styled.button<ProductBtnProps>`
-    ${tw`padding-top[1vw] margin-top[0.8vw]cursor-pointer
+    ${tw`padding-top[1vw] margin-top[0.8vw] cursor-pointer
     lg:(mt-4 pt-1 opacity-0 pointer-events-none)`}
 
     ${commonTypoLarge}
@@ -138,8 +138,10 @@ export const ProductBtn = styled.button<ProductBtnProps>`
         transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    &:hover svg {
-        transform: scale(0.9);
+    @media (hover: hover) and (pointer: fine) {
+        &:hover svg {
+            transform: scale(0.9);
+        }
     }
 `;
 

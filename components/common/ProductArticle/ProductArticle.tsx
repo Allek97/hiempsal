@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdLocalOffer } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
-import { RiHeartAddFill, RiHeartAddLine } from "react-icons/ri";
+import { RiHeartAddFill } from "react-icons/ri";
 
 import { ProductPopup } from "@components/common/ProductPopup";
 
@@ -15,6 +15,7 @@ import { Product } from "@framework/types/product";
 
 import { Plus } from "@components/icons";
 
+import { isTouchDevice } from "@lib/isTouchDevice";
 import {
     AddToCartBtn,
     Root,
@@ -48,6 +49,8 @@ const ProductArticle: FC<Props> = ({
     const { isProductPopupOpen, openProductPopup } = useProductUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
+
+    console.log("Is the device touch screened : " + isTouchDevice());
 
     function addToWishlist() {
         if (isAddedToWishlist) {

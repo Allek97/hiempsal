@@ -18,7 +18,7 @@ const ProductPopup: FC<Props> = ({ children }) => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    useBodyScroll(ref, isProductPopupOpen);
+    useBodyScroll(ref, isProductPopupOpen, !isScreenLarge);
 
     return (
         <Root ref={ref}>

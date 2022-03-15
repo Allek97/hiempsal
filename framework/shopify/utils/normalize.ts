@@ -1,7 +1,9 @@
 import {
     Checkout,
     CheckoutLineItemEdge,
+    Image,
     ImageConnection,
+    Maybe,
     Product as ShopifyProduct,
     ProductOption,
     ProductPriceRange,
@@ -22,6 +24,13 @@ const normalizeProductImages = ({ edges }: ImageConnection): ProductImage[] =>
         alt: altText ?? "",
         ...rest,
     }));
+
+const normalizeProductImage = (
+    image: Maybe<Image> | undefined
+): ProductImage => ({
+    url: image?.url ?? "/product-image-placeholder",
+    alt: image?.altText ?? "",
+});
 
 const normalizeProductPrice = ({
     minVariantPrice: { amount, currencyCode },
@@ -62,6 +71,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             selectedOptions,
             sku,
             title,
+            image: variantImage,
             priceV2,
             compareAtPriceV2,
             requiresShipping,
@@ -71,6 +81,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             id,
             name: title,
             sku: sku || id,
+            image: normalizeProductImage(variantImage),
             price: +priceV2.amount,
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
             requiresShipping, // NOTE Verify with shopify when shipping is required for variants,

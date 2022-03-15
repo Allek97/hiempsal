@@ -45,6 +45,12 @@ query product($slug: String!) {
               amount
               currencyCode
             }
+            image {
+              url
+              altText
+              width
+              height
+            }
           }
         }
       }

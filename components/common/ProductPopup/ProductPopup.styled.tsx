@@ -58,7 +58,7 @@ export const ProductVariantColor = styled.article<ProductVariantColorProps>`
     // width: calc(33.333333333%);
 
     h2 {
-        ${tw`mx-2 font-size[13px] text-accents-8
+        ${tw`mx-2 font-size[13px] text-accents-8 capitalize
         xl:font-size[14px]
         2xl:font-size[16px]`}
     }

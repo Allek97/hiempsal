@@ -136,7 +136,7 @@ export const Navigation = styled.nav`
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-    ${tw`transition-transform width[25px] cursor-pointer
+    ${tw`transition-transform width[28px] cursor-pointer
     2xl:(width[34px])`}
 
     svg {

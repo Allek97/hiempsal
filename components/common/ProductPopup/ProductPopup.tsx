@@ -3,6 +3,12 @@ import Image from "next/image";
 
 import { Popup } from "@components/ui";
 
+import { Product } from "@framework/types/product";
+
+import { getVariantImage } from "@components/product/helpers";
+
+import { colorKeys, currencyKeys } from "@lib/option";
+
 import {
     CartButton,
     Content,
@@ -16,9 +22,13 @@ import {
     CartBtnWrapper,
 } from "./ProductPopup.styled";
 
-const ProductPopup: FC = () => {
+interface Props {
+    product: Product;
+}
+
+const ProductPopup: FC<Props> = ({ product }) => {
     const maximumLength = (content: string, maxLength = 29): string => {
-        const contentCut = content.substring(0, maxLength);
+        const contentCut = content.substring(0, maxLength - 1);
 
         if (content.length > maxLength) return `${contentCut}...`;
         return contentCut;
@@ -28,15 +38,53 @@ const ProductPopup: FC = () => {
         <Popup>
             <Content>
                 <ProductInfo>
-                    <h1>
-                        {maximumLength("Lightweight Hoodie Fedoza IN Edition")}
-                    </h1>
-                    <span>$230</span>
+                    <h1>{maximumLength(product.name)}</h1>
+                    <span>
+                        {currencyKeys[`${product.price.currencyCode}`]}
+                        {product.price.value}
+                    </span>
                 </ProductInfo>
                 <VariantOptionContainer>
                     <h3>Select color</h3>
                     <ProductVariantList>
-                        <ProductVariantColor isSelected>
+                        {product.options
+                            .find((option) =>
+                                option.displayName
+                                    .toLowerCase()
+                                    .match(/colou?r/gi)
+                            )
+                            ?.values.map((value, idx) => {
+                                const variantImg = getVariantImage(
+                                    product,
+                                    value.label
+                                );
+                                return (
+                                    <ProductVariantColor
+                                        isSelected={idx === 0}
+                                        key={value.label}
+                                    >
+                                        <ImageVariantWrapper>
+                                            <Image
+                                                src={
+                                                    variantImg?.url ??
+                                                    "/product-pattern-bg.svg"
+                                                }
+                                                alt={
+                                                    variantImg?.alt ??
+                                                    "Item variant color"
+                                                }
+                                                width={3}
+                                                height={5}
+                                                layout="responsive"
+                                                objectFit="contain"
+                                                priority
+                                            />
+                                        </ImageVariantWrapper>
+                                        <h2>{colorKeys[value.label]}</h2>
+                                    </ProductVariantColor>
+                                );
+                            })}
+                        {/* <ProductVariantColor isSelected>
                             <ImageVariantWrapper>
                                 <Image
                                     src="/images/Men-Hoodie-White-Front.png"
@@ -100,7 +148,7 @@ const ProductPopup: FC = () => {
                                 />
                             </ImageVariantWrapper>
                             <h2>Azoul</h2>
-                        </ProductVariantColor>
+                        </ProductVariantColor> */}
                     </ProductVariantList>
                 </VariantOptionContainer>
 

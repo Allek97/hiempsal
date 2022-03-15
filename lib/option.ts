@@ -6,7 +6,8 @@ export const colorKeys: Variable = {
     "#FFFFFF": "White Smoke",
     "#000000": "Roseman Black",
     "#00eaff": "Electric blue",
-    "#asdfasd": "Peach Puff",
+    "#f7cf95": "Peach Puff",
+    "#af021a": "Candy Apple Red",
 };
 
 export const currencyKeys: Variable = {

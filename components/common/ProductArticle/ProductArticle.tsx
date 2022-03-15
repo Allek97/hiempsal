@@ -76,7 +76,7 @@ const ProductArticle: FC<Props> = ({
 
     return (
         <Root>
-            {isProductPopupOpen && <ProductPopup />}
+            {isProductPopupOpen && <ProductPopup product={product} />}
             <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
                     <ImageContainer isDisplayed={isDisplayed}>

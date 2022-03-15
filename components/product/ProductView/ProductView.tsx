@@ -36,7 +36,7 @@ const ProductView: FC<Props> = ({ product }) => {
     const { openProductPopup } = useProductUI();
     return (
         <Root>
-            <ProductPopup />
+            <ProductPopup product={product} />
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider>

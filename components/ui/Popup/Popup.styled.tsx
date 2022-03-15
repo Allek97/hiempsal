@@ -25,7 +25,7 @@ export const Overlay = styled.div`
 
 export const Container = styled.section`
     ${tw`fixed z-index[95] bottom-9 right[4vw] width[94vw] height[80%] bg-primary
-     overflow-y-scroll
+     overflow-y-scroll 
     md:(width[55vw] right[0] left[0] mx-auto)
     lg:(bottom-4 height[85%] width[33vw] ml-auto mr-10)
     2xl:(width[32rem])`}

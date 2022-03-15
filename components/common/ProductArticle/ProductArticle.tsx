@@ -15,7 +15,6 @@ import { Product } from "@framework/types/product";
 
 import { Plus } from "@components/icons";
 
-import { isTouchDevice } from "@lib/isTouchDevice";
 import {
     AddToCartBtn,
     Root,

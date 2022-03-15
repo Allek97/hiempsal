@@ -46,7 +46,7 @@ export const SliderContainer = styled.div`
     w-full height[calc(100vh - 165px)]
     bg-accents-1 overflow-x-hidden
     sm:(height[calc(100vh - 100px)])
-    lg:(min-height[650px] height[calc(100vh - 82.2px)])`}
+    lg:(min-height[650px] height[calc(100vh - 30px)])`}
 
     ${tw`lg:grid-area[1/1/-1/2]`}
 `;

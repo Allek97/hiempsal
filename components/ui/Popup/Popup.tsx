@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
-import { useProductUI } from "@components/ui/productContext";
+import { usePopupUI } from "@components/ui/popupContext";
 import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
 
 import Close from "@components/icons/Close";
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ProductPopup: FC<Props> = ({ children }) => {
-    const { closeProductPopup, isProductPopupOpen } = useProductUI();
+    const { closeProductPopup, isProductPopupOpen } = usePopupUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import payments from "@lib/const/payments";
 import { useMediaQueryNext } from "lib/customHooks";
 
-import { useCart } from "@framework/cart";
+import useCart from "@framework/cart/use-cart";
 import { useUsernavUI } from "@components/ui/usernavContext";
 
 import { currencyKeys } from "@lib/option";
@@ -30,7 +30,7 @@ const Cart: FC = () => {
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const { data, isEmpty } = useCart();
+    // const { data, isEmpty } = useCart();
 
     return (
         <Root>

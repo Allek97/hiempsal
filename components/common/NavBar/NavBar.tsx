@@ -2,7 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 
 import { useUsernavUI } from "@components/ui/usernavContext";
-import { useProductUI } from "@components/ui/productContext";
+import { usePopupUI } from "@components/ui/popupContext";
 
 import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
@@ -33,7 +33,7 @@ const Navbar: FC = () => {
         openWishList,
     } = useUsernavUI();
 
-    const { isProductPopupOpen } = useProductUI();
+    const { isProductPopupOpen } = usePopupUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 

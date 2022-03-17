@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { useUsernavUI } from "@components/ui/usernavContext";
-import { useProductUI } from "@components/ui/productContext";
+import { usePopupUI } from "@components/ui/popupContext";
 
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
@@ -21,7 +21,7 @@ const MobileNav: FC = () => {
     const { openCart, isUsernavOpen, isMobileMenuOpen, toggleMobileMenu } =
         useUsernavUI();
 
-    const { isProductPopupOpen, closeProductPopup } = useProductUI();
+    const { isProductPopupOpen, closeProductPopup } = usePopupUI();
 
     const toggleMenu = () => {
         if (isProductPopupOpen) closeProductPopup();

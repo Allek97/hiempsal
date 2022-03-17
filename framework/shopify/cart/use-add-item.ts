@@ -5,7 +5,7 @@ import { MutationHook } from "@framework/types/hooks";
 import { checkoutToCart, getCheckoutId } from "@framework/utils";
 import { checkoutLineItemsAddMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
-import { useCart } from ".";
+import useCart from "./use-cart";
 
 type AddItemHookDescriptor = {
     fetcherInput: {
@@ -41,8 +41,12 @@ const handler: MutationHook<AddItemHookDescriptor> = {
             variables,
         });
 
+        debugger;
+
         const cart = checkoutToCart(data.checkoutLineItemsAdd.checkout);
         return cart;
+
+        debugger;
     },
     useHook:
         ({ fetch }) =>

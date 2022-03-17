@@ -7,7 +7,7 @@ import { RiHeartAddLine } from "react-icons/ri";
 
 import { ProductPopup } from "@components/common/ProductPopup";
 
-import { useProductUI } from "@components/ui/productContext";
+import { usePopupUI } from "@components/ui/popupContext";
 
 import {
     AddToCartBtn,
@@ -26,7 +26,7 @@ interface Props {
 const UserlistArticle: FC<Props> = ({ variant }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
-    const { isProductPopupOpen, openProductPopup } = useProductUI();
+    const { isProductPopupOpen, openProductPopup } = usePopupUI();
 
     function viewedProductAction() {
         if (isAddedToWishlist) {

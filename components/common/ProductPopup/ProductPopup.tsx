@@ -1,11 +1,18 @@
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 
 import { Popup } from "@components/ui";
 import { Swatch } from "@components/product";
 
 import { Product } from "@framework/types/product";
 
-import { Choices, getVariantImage } from "@components/product/helpers";
+import useAddItem from "@framework/cart/use-add-item";
+import useCart from "@framework/cart/use-cart";
+
+import {
+    Choices,
+    getVariant,
+    getVariantImage,
+} from "@components/product/helpers";
 import { currencyKeys } from "@lib/option";
 
 import {
@@ -25,6 +32,24 @@ interface Props {
 const ProductPopup: FC<Props> = ({ product }) => {
     const [choices, setChoices] = useState<Choices>({});
 
+    const { data } = useCart();
+
+    const addItem = useAddItem();
+    const addToCart = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const variant = getVariant(product, choices);
+        const input = {
+            variantId: variant ? variant.id : product.variants[0].id,
+            quantity: 1,
+        };
+
+        console.log(variant);
+
+        await addItem(input);
+    };
+
+    console.log(data);
+
     const maximumLength = (content: string, maxLength = 29): string => {
         const contentCut = content.substring(0, maxLength - 1);
 
@@ -34,7 +59,7 @@ const ProductPopup: FC<Props> = ({ product }) => {
 
     return (
         <Popup>
-            <form>
+            <form onSubmit={addToCart}>
                 <Content>
                     <ProductInfo>
                         <h1>{maximumLength(product.name)}</h1>
@@ -48,7 +73,7 @@ const ProductPopup: FC<Props> = ({ product }) => {
                             const optionName = option.displayName.toLowerCase();
 
                             return (
-                                <>
+                                <div key={option.id}>
                                     <h3>Select {optionName}</h3>
                                     <ProductVariantList>
                                         {option.values.map((optValue) => {
@@ -84,7 +109,7 @@ const ProductPopup: FC<Props> = ({ product }) => {
                                             );
                                         })}
                                     </ProductVariantList>
-                                </>
+                                </div>
                             );
                         })}
                     </VariantOptionContainer>

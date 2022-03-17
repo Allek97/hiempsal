@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { FC } from "react";
 
 import UsernavUIProvider from "@components/ui/usernavContext";
-import ProductUIProvider from "@components/ui/productContext";
+import PopupUIProvider from "@components/ui/popupContext";
 import ThemeUIProvider from "@components/ui/themeContext";
 
 import "../styles/globals.scss";
@@ -19,13 +19,13 @@ function MyApp({
 
     return (
         <UsernavUIProvider>
-            <ProductUIProvider>
+            <PopupUIProvider>
                 <ThemeUIProvider>
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
                 </ThemeUIProvider>
-            </ProductUIProvider>
+            </PopupUIProvider>
         </UsernavUIProvider>
     );
 }

@@ -21,7 +21,7 @@ const stateModifiers: StateModifiers = {
     closeProductPopup: () => {},
 };
 
-const ProductUIContext = createContext<State>({
+const PopupUIContext = createContext<State>({
     ...initialState,
     ...stateModifiers,
 });
@@ -42,7 +42,7 @@ function uiReducer(state: StateValues, action: Action) {
     }
 }
 
-const ProductUIProvider: FC = ({ children }) => {
+const PopupUIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);
 
     const openProductPopup = () => dispatch({ type: "OPEN_PRODUCT_POPUP" });
@@ -57,15 +57,15 @@ const ProductUIProvider: FC = ({ children }) => {
     }, [state]);
 
     return (
-        <ProductUIContext.Provider value={value}>
+        <PopupUIContext.Provider value={value}>
             {children}
-        </ProductUIContext.Provider>
+        </PopupUIContext.Provider>
     );
 };
 
-export const useProductUI = () => {
-    const context = useContext(ProductUIContext);
+export const usePopupUI = () => {
+    const context = useContext(PopupUIContext);
     return context;
 };
 
-export default ProductUIProvider;
+export default PopupUIProvider;

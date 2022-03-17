@@ -7,7 +7,7 @@ import { RiHeartAddFill } from "react-icons/ri";
 
 import { ProductPopup } from "@components/common/ProductPopup";
 
-import { useProductUI } from "@components/ui/productContext";
+import { usePopupUI } from "@components/ui/popupContext";
 
 import { useMediaQueryNext } from "lib/customHooks";
 
@@ -45,7 +45,7 @@ const ProductArticle: FC<Props> = ({
 
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
-    const { isProductPopupOpen, openProductPopup } = useProductUI();
+    const { isProductPopupOpen, openProductPopup } = usePopupUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 

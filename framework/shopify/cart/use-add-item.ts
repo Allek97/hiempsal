@@ -41,12 +41,8 @@ const handler: MutationHook<AddItemHookDescriptor> = {
             variables,
         });
 
-        debugger;
-
         const cart = checkoutToCart(data.checkoutLineItemsAdd.checkout);
         return cart;
-
-        debugger;
     },
     useHook:
         ({ fetch }) =>

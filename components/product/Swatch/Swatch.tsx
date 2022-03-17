@@ -56,6 +56,7 @@ const Swatch: FC<Props> = ({
             ) : (
                 <VariantSizeGender
                     isSelected={isActive}
+                    isPride={isActive && value.toLowerCase() === "genderfluid"}
                     key={value}
                     className={option === "size" ? "uppercase" : "capitalize"}
                     htmlFor={value}

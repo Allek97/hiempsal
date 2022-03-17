@@ -4,7 +4,6 @@ import payments from "@lib/const/payments";
 import { useMediaQueryNext } from "lib/customHooks";
 
 import useCart from "@framework/cart/use-cart";
-import { useUsernavUI } from "@components/ui/usernavContext";
 
 import { currencyKeys } from "@lib/option";
 
@@ -26,11 +25,9 @@ import {
 import { CartArticle } from "../CartArticle";
 
 const Cart: FC = () => {
-    const { closeUsernav } = useUsernavUI();
-
     const isScreenLarge = useMediaQueryNext("lg");
 
-    // const { data, isEmpty } = useCart();
+    const { data, isEmpty } = useCart();
 
     return (
         <Root>

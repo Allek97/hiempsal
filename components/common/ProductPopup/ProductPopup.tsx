@@ -6,13 +6,7 @@ import { Swatch } from "@components/product";
 import { Product } from "@framework/types/product";
 
 import useAddItem from "@framework/cart/use-add-item";
-import useCart from "@framework/cart/use-cart";
 
-import {
-    Choices,
-    getVariant,
-    getVariantImage,
-} from "@components/product/helpers";
 import { currencyKeys } from "@lib/option";
 
 import {
@@ -24,6 +18,7 @@ import {
     ProductVariantList,
     CartBtnWrapper,
 } from "./ProductPopup.styled";
+import { Choices, getVariant, getVariantImage } from "./helpers";
 
 interface Props {
     product: Product;
@@ -32,23 +27,21 @@ interface Props {
 const ProductPopup: FC<Props> = ({ product }) => {
     const [choices, setChoices] = useState<Choices>({});
 
-    const { data } = useCart();
-
     const addItem = useAddItem();
     const addToCart = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const variant = getVariant(product, choices);
-        const input = {
-            variantId: variant ? variant.id : product.variants[0].id,
-            quantity: 1,
-        };
+        try {
+            e.preventDefault();
+            const variant = getVariant(product, choices);
+            const input = {
+                variantId: variant ? variant.id : product.variants[0].id,
+                quantity: 1,
+            };
 
-        console.log(variant);
-
-        await addItem(input);
+            await addItem(input);
+        } catch (err) {
+            console.log(err);
+        }
     };
-
-    console.log(data);
 
     const maximumLength = (content: string, maxLength = 29): string => {
         const contentCut = content.substring(0, maxLength - 1);

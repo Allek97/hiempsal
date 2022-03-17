@@ -27,8 +27,12 @@ interface Props {
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const selectedColor = cartItem.options?.filter(
-        (option) => option.displayName === "color"
+    console.log(cartItem);
+
+    debugger;
+
+    const selectedColor = cartItem.options?.filter((option) =>
+        option.displayName.toLowerCase().match(/colou?r/gi)
     )[0].values[0].hexColor;
     const selectedSize = cartItem.options?.filter(
         (option) => option.displayName === "size"

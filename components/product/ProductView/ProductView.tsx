@@ -40,23 +40,19 @@ const ProductView: FC<Props> = ({ product }) => {
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider>
-                        {product.images
-                            .filter((image, idx) => idx > -1)
-                            .map((image, idx) => (
-                                <ImageContainer key={image.url}>
-                                    <Image
-                                        src={image.url}
-                                        alt={
-                                            image.alt || `${product.name} Image`
-                                        }
-                                        layout="fill"
-                                        objectFit="contain"
-                                        quality="85"
-                                        priority={idx === 0}
-                                        key={image.url}
-                                    />
-                                </ImageContainer>
-                            ))}
+                        {product.images.map((image, idx) => (
+                            <ImageContainer key={image.url}>
+                                <Image
+                                    src={image.url}
+                                    alt={image.alt || `${product.name} Image`}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    quality="85"
+                                    priority={idx === 0}
+                                    key={image.url}
+                                />
+                            </ImageContainer>
+                        ))}
                     </ProductSlider>
                 </SliderContainer>
 

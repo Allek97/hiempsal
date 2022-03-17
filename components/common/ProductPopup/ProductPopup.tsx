@@ -32,8 +32,6 @@ const ProductPopup: FC<Props> = ({ product }) => {
         return contentCut;
     };
 
-    console.log(choices);
-
     return (
         <Popup>
             <form>

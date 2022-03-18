@@ -1,7 +1,11 @@
 import { FC, useState } from "react";
 
 import { AiTwotoneFire } from "react-icons/ai";
+
 import { useUsernavUI } from "@components/ui/usernavContext";
+
+import { Product } from "@framework/types/product";
+
 import {
     BrowsingBtn,
     ContainerEmpty,
@@ -16,9 +20,10 @@ import { ProductArticle } from "../ProductArticle";
 
 interface Props {
     variant: "wishlist" | "product-viewed";
+    products: Product[];
 }
 
-const Userlist: FC<Props> = ({ variant }) => {
+const Userlist: FC<Props> = ({ products, variant }) => {
     const { closeUsernav } = useUsernavUI();
 
     const [isWishlistEmpty, _] = useState<boolean>(false);
@@ -51,11 +56,13 @@ const Userlist: FC<Props> = ({ variant }) => {
                             : "Recently Viewed"}
                     </h1>
                     <UserlistBox>
-                        <ProductArticle variant={variant} />
-                        <ProductArticle variant={variant} />
-                        <ProductArticle variant={variant} />
-                        <ProductArticle variant={variant} />
-                        <ProductArticle variant={variant} />
+                        {products.map((product) => (
+                            <ProductArticle
+                                key={product.id}
+                                variant={variant}
+                                product={product}
+                            />
+                        ))}
                     </UserlistBox>
                 </UserlistFull>
             )}

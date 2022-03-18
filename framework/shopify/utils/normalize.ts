@@ -75,6 +75,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             priceV2,
             compareAtPriceV2,
             requiresShipping,
+            availableForSale,
         } = node;
 
         return {
@@ -85,6 +86,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             price: +priceV2.amount,
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
             requiresShipping, // NOTE Verify with shopify when shipping is required for variants,
+            availableForSale,
             options: selectedOptions.map(({ name, value }) => {
                 const option = normalizeProductOption({
                     id,
@@ -172,6 +174,7 @@ export const normalizeProduct = (productNode: ShopifyProduct): Product => {
         images: imageConnection,
         options,
         variants,
+        availableForSale,
         ...rest
     } = productNode;
 
@@ -184,6 +187,7 @@ export const normalizeProduct = (productNode: ShopifyProduct): Product => {
         slug: handle.replace(/^\/+|\/+$/g, ""),
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange),
+        availableForSale,
         options: options
             ? options
                   .filter((o) => o.name !== "Title")

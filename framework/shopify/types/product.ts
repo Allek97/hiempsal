@@ -27,6 +27,7 @@ export interface ProductVariant {
     price: number;
     listPrice: number;
     requiresShipping: boolean;
+    availableForSale: boolean;
     options: ProductOption[];
 }
 
@@ -39,6 +40,7 @@ export interface Product {
     slug: string;
     images: ProductImage[];
     price: ProductPrice;
+    availableForSale: boolean;
     options: ProductOption[];
     variants: ProductVariant[];
 }

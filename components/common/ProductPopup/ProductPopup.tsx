@@ -3,7 +3,7 @@ import { FC, FormEvent, useState } from "react";
 import { Popup } from "@components/ui";
 import { Swatch } from "@components/product";
 
-import { Product } from "@framework/types/product";
+import { Product, ProductVariant } from "@framework/types/product";
 
 import useAddItem from "@framework/cart/use-add-item";
 
@@ -25,6 +25,9 @@ interface Props {
 }
 
 const ProductPopup: FC<Props> = ({ product }) => {
+    const [variants, setVariants] = useState<ProductVariant[]>(
+        product.variants
+    );
     const [choices, setChoices] = useState<Choices>({});
 
     const addItem = useAddItem();

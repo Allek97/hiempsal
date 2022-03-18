@@ -10,7 +10,7 @@ import { ViewedProduct } from "@components/viewedProduct";
 import { useUsernavUI } from "@components/ui/usernavContext";
 import { useMediaQueryNext } from "lib/customHooks";
 
-import { HelpCard } from "../HelpCard";
+import { HelpCard } from "../../elements/helpCard";
 
 import {
     Container,

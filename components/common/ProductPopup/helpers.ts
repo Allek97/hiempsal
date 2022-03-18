@@ -11,6 +11,8 @@ export type Choices = {
     [P in AvailableChoices]: string;
 };
 
+export const getAvailableVaraints = (variants) => {};
+
 export const getVariant = (
     product: Product,
     choices: Choices

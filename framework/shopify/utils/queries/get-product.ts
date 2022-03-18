@@ -7,6 +7,7 @@ query product($slug: String!) {
       vendor
       description
       descriptionHtml
+      availableForSale
       options {
         id
         name
@@ -33,6 +34,7 @@ query product($slug: String!) {
             title
             sku
             requiresShipping
+            availableForSale
             selectedOptions {
               name
               value

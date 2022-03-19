@@ -15,6 +15,7 @@ interface Props {
     // eslint-disable-next-line no-unused-vars
     clickHandler: (e: MouseEvent<HTMLInputElement>) => void;
     isAvailable: boolean;
+    isOutOfStock: boolean;
 }
 
 const placeHolder = "/product-image-placeholder.svg";
@@ -30,14 +31,15 @@ const Swatch: FC<Props> = ({
     image = defaultImage,
     clickHandler,
     isAvailable,
+    isOutOfStock,
 }) => {
-    console.log(isAvailable);
     return option === "color" ? (
         <ProductVariantColor
             // isSelected={isSelected}
             className="capitalize"
-            isAvailable={isAvailable}
             htmlFor={value}
+            isAvailable={isAvailable}
+            isOutOfStock={isOutOfStock}
         >
             <input
                 id={value}
@@ -59,14 +61,16 @@ const Swatch: FC<Props> = ({
                 />
             </ImageVariantWrapper>
             <span>{colorKeys[value]}</span>
+            {isOutOfStock && <button type="button">OUT OF STOCK</button>}
         </ProductVariantColor>
     ) : (
         <VariantSizeGender
             // isSelected={isSelected}
-            isPride={value.toLowerCase() === "genderfluid"}
             className={option === "size" ? "uppercase" : "capitalize"}
             htmlFor={value}
             isAvailable={isAvailable}
+            isOutOfStock={isOutOfStock}
+            isPride={value.toLowerCase() === "genderfluid"}
         >
             <input
                 id={value}
@@ -78,6 +82,7 @@ const Swatch: FC<Props> = ({
             <span />
 
             <span>{value}</span>
+            {isOutOfStock && <button type="button">OUT OF STOCK</button>}
         </VariantSizeGender>
     );
 };

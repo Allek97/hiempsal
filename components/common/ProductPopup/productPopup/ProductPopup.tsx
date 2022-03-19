@@ -53,12 +53,12 @@ const ProductPopup: FC<Props> = ({ product }) => {
     };
 
     const handleSwatchClick = (optionName: AvailableChoices, value: string) => {
-        setVariants((previous) => getVariants(previous, optionName, value));
-
         setChoices((previous) => ({
             ...previous,
             [optionName]: value,
         }));
+
+        setVariants(getVariants(product.variants, Object.keys(choices), value));
     };
 
     const maximumLength = (content: string, maxLength = 29): string => {
@@ -67,8 +67,6 @@ const ProductPopup: FC<Props> = ({ product }) => {
         if (content.length > maxLength) return `${contentCut}...`;
         return contentCut;
     };
-
-    console.log(variants);
 
     return (
         <Popup>
@@ -100,21 +98,34 @@ const ProductPopup: FC<Props> = ({ product }) => {
 
                                             const value = optValue.label;
 
+                                            const isGloballyAvailable =
+                                                hasVariants(
+                                                    product.variants,
+                                                    optionName,
+                                                    optValue.label
+                                                );
+
+                                            const isAvailable = hasVariants(
+                                                variants,
+                                                optionName,
+                                                optValue.label
+                                            );
+
                                             return (
                                                 <Swatch
                                                     key={optValue.label}
                                                     value={value}
                                                     option={optionName}
                                                     image={variantImg}
-                                                    isAvailable={hasVariants(
+                                                    isOutOfStock={
+                                                        !isGloballyAvailable
+                                                    }
+                                                    isAvailable={
                                                         Object.prototype.hasOwnProperty.call(
                                                             choices,
                                                             optionName
-                                                        ),
-                                                        variants,
-                                                        optionName,
-                                                        optValue.label
-                                                    )}
+                                                        ) || isAvailable
+                                                    }
                                                     // eslint-disable-next-line no-unused-vars
                                                     clickHandler={(_e) =>
                                                         handleSwatchClick(

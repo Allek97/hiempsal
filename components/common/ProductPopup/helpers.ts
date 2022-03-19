@@ -12,12 +12,10 @@ export type Choices = {
 };
 
 export const hasVariants = (
-    isChosen: boolean,
     variants: ProductVariant[],
     choice: AvailableChoices,
     value: string
 ): boolean =>
-    isChosen &&
     variants.some((variant) =>
         variant.options.find(
             (option) =>
@@ -31,14 +29,16 @@ export const hasVariants = (
 
 export const getVariants = (
     variants: ProductVariant[],
-    choice: AvailableChoices,
+    choices: AvailableChoices[],
     value: string
 ): ProductVariant[] =>
     variants.filter((variant) =>
-        variant.options.find(
-            (option) =>
-                option.displayName.toLowerCase() === choice &&
-                option.values[0].label === value
+        choices.every((choice) =>
+            variant.options.find(
+                (option) =>
+                    option.displayName.toLowerCase() === choice &&
+                    option.values[0].label === value
+            )
         )
     );
 

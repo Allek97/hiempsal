@@ -6,6 +6,7 @@ interface ProductVariantProps {
     isSelected?: boolean;
     isPride?: boolean;
     isAvailable: boolean;
+    isOutOfStock: boolean;
 }
 
 const rainbow = css`
@@ -42,7 +43,7 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
     box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
 
     input {
-        ${tw`absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
+        ${tw`absolute z-30 top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
 
         &:checked {
             background-color: red;

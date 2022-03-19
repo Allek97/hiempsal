@@ -1,5 +1,5 @@
-import type { AppProps } from "next/app";
 import { FC } from "react";
+import type { AppProps } from "next/app";
 
 import UsernavUIProvider from "@components/ui/usernavContext";
 import PopupUIProvider from "@components/ui/popupContext";

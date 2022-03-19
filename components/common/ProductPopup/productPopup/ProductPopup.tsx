@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, FormEvent, useState } from "react";
 
-import { Popup } from "@components/ui";
-import { Swatch } from "@components/product";
-
 import { Product, ProductVariant } from "@framework/types/product";
-
 import useAddItem from "@framework/cart/use-add-item";
-
 import { currencyKeys } from "@lib/option";
+
+import { Popup } from "@components/ui";
+import { Swatch } from "..";
 
 import {
     CartButton,
@@ -18,7 +17,14 @@ import {
     ProductVariantList,
     CartBtnWrapper,
 } from "./ProductPopup.styled";
-import { Choices, getVariant, getVariantImage } from "./helpers";
+import {
+    AvailableChoices,
+    Choices,
+    getVariant,
+    getVariantImage,
+    getVariants,
+    hasVariants,
+} from "../helpers";
 
 interface Props {
     product: Product;
@@ -46,12 +52,23 @@ const ProductPopup: FC<Props> = ({ product }) => {
         }
     };
 
+    const handleSwatchClick = (optionName: AvailableChoices, value: string) => {
+        setVariants((previous) => getVariants(previous, optionName, value));
+
+        setChoices((previous) => ({
+            ...previous,
+            [optionName]: value,
+        }));
+    };
+
     const maximumLength = (content: string, maxLength = 29): string => {
         const contentCut = content.substring(0, maxLength - 1);
 
         if (content.length > maxLength) return `${contentCut}...`;
         return contentCut;
     };
+
+    console.log(variants);
 
     return (
         <Popup>
@@ -67,14 +84,13 @@ const ProductPopup: FC<Props> = ({ product }) => {
                     <VariantOptionContainer>
                         {product.options.map((option) => {
                             const optionName = option.displayName.toLowerCase();
-
                             return (
                                 <div key={option.id}>
                                     <h3>Select {optionName}</h3>
                                     <ProductVariantList>
                                         {option.values.map((optValue) => {
                                             const variantImg = optionName.match(
-                                                /colou?r/s
+                                                /colou?r/gi
                                             )
                                                 ? getVariantImage(
                                                       product,
@@ -82,25 +98,30 @@ const ProductPopup: FC<Props> = ({ product }) => {
                                                   )
                                                 : undefined;
 
+                                            const value = optValue.label;
+
                                             return (
                                                 <Swatch
                                                     key={optValue.label}
-                                                    value={optValue.label}
+                                                    value={value}
                                                     option={optionName}
                                                     image={variantImg}
-                                                    isActive={
-                                                        choices[optionName] ===
+                                                    isAvailable={hasVariants(
+                                                        Object.prototype.hasOwnProperty.call(
+                                                            choices,
+                                                            optionName
+                                                        ),
+                                                        variants,
+                                                        optionName,
                                                         optValue.label
+                                                    )}
+                                                    // eslint-disable-next-line no-unused-vars
+                                                    clickHandler={(_e) =>
+                                                        handleSwatchClick(
+                                                            optionName,
+                                                            value
+                                                        )
                                                     }
-                                                    onClick={() => {
-                                                        setChoices(
-                                                            (previous) => ({
-                                                                ...previous,
-                                                                [optionName]:
-                                                                    optValue.label,
-                                                            })
-                                                        );
-                                                    }}
                                                 />
                                             );
                                         })}

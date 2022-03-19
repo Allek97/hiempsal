@@ -6,12 +6,13 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
-import { ProductPopup } from "@components/common/ProductPopup";
+
 import { usePopupUI } from "@components/ui/popupContext";
 
 import { ethicalCertifications } from "@lib/const";
 import { currencyKeys } from "@lib/option";
 
+import { ProductPopup } from "@components/common";
 import { ProductSlider } from "..";
 
 import {

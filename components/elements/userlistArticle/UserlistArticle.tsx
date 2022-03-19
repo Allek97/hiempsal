@@ -5,7 +5,7 @@ import { MdCardGiftcard } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
 import { RiHeartAddLine } from "react-icons/ri";
 
-import { ProductPopup } from "@components/common/ProductPopup";
+import { ProductPopup } from "@components/common/ProductPopup/productPopup";
 
 import { usePopupUI } from "@components/ui/popupContext";
 

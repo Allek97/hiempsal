@@ -1,13 +1,14 @@
 import { getConfig } from "@framework/api/config";
 import type { InferGetStaticPropsType } from "next";
 import { getAllProducts } from "@framework/product";
-import Layout from "@components/common/Layout";
+
 import Hero from "@components/ui/Hero/Hero";
 
 import { Partner } from "@components/elements";
 import { TechArticle } from "@components/elements/TechArticle";
 import { Grid } from "@components/ui/Grid";
 import { ProductCard } from "@components/product";
+// import { Layout } from "@components/common";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -49,6 +50,6 @@ const Home = ({ products }: Props) => {
     );
 };
 
-Home.Layout = Layout;
+// Home.Layout = Layout;
 
 export default Home;

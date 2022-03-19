@@ -4,14 +4,43 @@ import {
     ProductVariant,
 } from "@framework/types/product";
 
-type AvailableChoices = "color" | "size" | "gender" | string;
+export type AvailableChoices = "color" | "size" | "gender" | string;
 
 export type Choices = {
     // eslint-disable-next-line no-unused-vars
     [P in AvailableChoices]: string;
 };
 
-export const getAvailableVaraints = (variants) => {};
+export const hasVariants = (
+    isChosen: boolean,
+    variants: ProductVariant[],
+    choice: AvailableChoices,
+    value: string
+): boolean =>
+    isChosen &&
+    variants.some((variant) =>
+        variant.options.find(
+            (option) =>
+                option.displayName
+                    .toLowerCase()
+                    .match(choice.match(/colou?r/gi) ? /colou?r/gi : choice) &&
+                option.values[0].label === value &&
+                variant.availableForSale
+        )
+    );
+
+export const getVariants = (
+    variants: ProductVariant[],
+    choice: AvailableChoices,
+    value: string
+): ProductVariant[] =>
+    variants.filter((variant) =>
+        variant.options.find(
+            (option) =>
+                option.displayName.toLowerCase() === choice &&
+                option.values[0].label === value
+        )
+    );
 
 export const getVariant = (
     product: Product,

@@ -1,1 +1,2 @@
-export { default as ProductPopup } from "./ProductPopup";
+export { ProductPopup } from "./productPopup";
+export { Swatch } from "./swatch";

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Userlist } from "@components/common/Userlist/userlist";
+import { Userlist } from "@components/common";
 
 const Wishlist: FC = () => {
     return <Userlist variant="wishlist" />;

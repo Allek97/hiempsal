@@ -5,7 +5,25 @@ import tw from "twin.macro";
 interface ProductVariantProps {
     isSelected?: boolean;
     isPride?: boolean;
+    isAvailable: boolean;
 }
+
+const rainbow = css`
+    background: linear-gradient(
+        120deg,
+        rgba(255, 0, 0, 0.75) 0%,
+        rgba(255, 154, 0, 0.75) 10%,
+        rgba(208, 222, 33, 0.75) 20%,
+        rgba(79, 220, 74, 0.75) 30%,
+        rgba(63, 218, 216, 0.75) 40%,
+        rgba(47, 201, 226, 0.75) 50%,
+        rgba(28, 127, 238, 0.75) 60%,
+        rgba(95, 21, 242, 0.75) 70%,
+        rgba(186, 12, 248, 0.75) 80%,
+        rgba(251, 7, 217, 0.75) 90%,
+        rgba(255, 0, 0, 0.75) 100%
+    );
+`;
 
 export const ProductVariantColor = styled.label<ProductVariantProps>`
     ${tw`relative flex flex-col items-center justify-start text-center flex-1 
@@ -25,38 +43,48 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
 
     input {
         ${tw`absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
+
+        &:checked {
+            background-color: red;
+        }
+
+        &:checked + span {
+            ${({ isPride, isAvailable }) =>
+                isAvailable &&
+                css`
+                    ${isPride
+                        ? css`
+                              ${rainbow}
+                          `
+                        : css`
+                              background-color: #f0f0f0;
+                          `}
+                    box-shadow: inset 0 0 0 2px #676767be;
+                    cursor: auto;
+                `}
+        }
     }
 
-    & > span:nth-of-type(2) {
-        ${tw`mx-2`}
+    & > span:first-of-type {
+        ${tw`absolute z-10 top-0 left-0 
+         w-full h-full opacity-100 cursor-pointer`}
+    }
+    & > span:nth-of-type(2),
+    & > span:last-of-type {
+        ${tw`relative z-20 mx-3.5`}
     }
 
-    ${(props) =>
-        props.isSelected &&
-        (props.isPride
-            ? css`
-                  background: linear-gradient(
-                      120deg,
-                      rgba(255, 0, 0, 0.75) 0%,
-                      rgba(255, 154, 0, 0.75) 10%,
-                      rgba(208, 222, 33, 0.75) 20%,
-                      rgba(79, 220, 74, 0.75) 30%,
-                      rgba(63, 218, 216, 0.75) 40%,
-                      rgba(47, 201, 226, 0.75) 50%,
-                      rgba(28, 127, 238, 0.75) 60%,
-                      rgba(95, 21, 242, 0.75) 70%,
-                      rgba(186, 12, 248, 0.75) 80%,
-                      rgba(251, 7, 217, 0.75) 90%,
-                      rgba(255, 0, 0, 0.75) 100%
-                  );
-                  box-shadow: inset 0 0 0 2px #676767be;
-                  cursor: auto;
-              `
-            : css`
-                  background-color: #f0f0f0;
-                  box-shadow: inset 0 0 0 2px #676767be;
-                  cursor: auto;
-              `)}
+    ${({ isAvailable }) =>
+        !isAvailable &&
+        css`
+            pointer-events: none;
+            background: #f0f0f0;
+            border: 1px solid #e4e4e4;
+            box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+            color: #676767;
+            display: flex;
+            flex-direction: column;
+        `}
 
     @media (hover:hover) and (pointer: fine) {
         &:hover {
@@ -72,10 +100,6 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
 export const VariantSizeGender = styled(ProductVariantColor)`
     ${tw`relative justify-center min-height[15vw]
     md:min-height[5.5rem]`}
-
-    input {
-        ${tw`absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
-    }
 `;
 
 export const ImageVariantWrapper = styled.span`

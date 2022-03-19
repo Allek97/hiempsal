@@ -10,6 +10,7 @@ const productConnection = `
             vendor
             handle
             description
+            availableForSale
             priceRange {
                 minVariantPrice {
                 amount

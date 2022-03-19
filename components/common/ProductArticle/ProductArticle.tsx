@@ -5,7 +5,7 @@ import { MdLocalOffer } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
 import { RiHeartAddFill } from "react-icons/ri";
 
-import { ProductPopup } from "@components/common/ProductPopup";
+import { ProductPopup } from "@components/common";
 
 import { usePopupUI } from "@components/ui/popupContext";
 

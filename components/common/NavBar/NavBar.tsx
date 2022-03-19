@@ -10,8 +10,6 @@ import useScroll from "lib/customHooks/useScroll";
 import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 
-import { MobileNav } from "..";
-
 import {
     Wrapper,
     HiemsalWrapper,
@@ -22,6 +20,7 @@ import {
     UtilWrapper,
     Container,
 } from "./NavBar.styled";
+import { MobileNav } from "..";
 
 const Navbar: FC = () => {
     const {

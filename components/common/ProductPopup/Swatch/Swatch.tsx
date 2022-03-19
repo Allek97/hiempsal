@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC } from "react";
+import { FC, MouseEvent } from "react";
 import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
 import { colorKeys } from "@lib/option";
@@ -8,11 +8,13 @@ import {
     VariantSizeGender,
 } from "./Swatch.styled";
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props {
     value: string;
     option: "size" | "color" | "gender" | string;
     image?: ProductImage | undefined;
-    isActive?: boolean;
+    // eslint-disable-next-line no-unused-vars
+    clickHandler: (e: MouseEvent<HTMLInputElement>) => void;
+    isAvailable: boolean;
 }
 
 const placeHolder = "/product-image-placeholder.svg";
@@ -26,52 +28,62 @@ const Swatch: FC<Props> = ({
     value,
     option,
     image = defaultImage,
-    isActive = false,
-    ...rest
+    clickHandler,
+    isAvailable,
 }) => {
-    return (
-        <button type="button" {...rest}>
-            {option === "color" ? (
-                <ProductVariantColor
-                    isSelected={isActive}
-                    key={value}
-                    className="capitalize"
-                >
-                    <input id={value} type="radio" name="color" required />
+    console.log(isAvailable);
+    return option === "color" ? (
+        <ProductVariantColor
+            // isSelected={isSelected}
+            className="capitalize"
+            isAvailable={isAvailable}
+            htmlFor={value}
+        >
+            <input
+                id={value}
+                type="radio"
+                name="color"
+                required
+                onClick={clickHandler}
+            />
+            <span />
+            <ImageVariantWrapper>
+                <Image
+                    src={image?.url ?? "/product-pattern-bg.svg"}
+                    alt={image?.alt ?? "Item variant color"}
+                    width={3}
+                    height={5}
+                    layout="responsive"
+                    objectFit="contain"
+                    priority
+                />
+            </ImageVariantWrapper>
+            <span>{colorKeys[value]}</span>
+        </ProductVariantColor>
+    ) : (
+        <VariantSizeGender
+            // isSelected={isSelected}
+            isPride={value.toLowerCase() === "genderfluid"}
+            className={option === "size" ? "uppercase" : "capitalize"}
+            htmlFor={value}
+            isAvailable={isAvailable}
+        >
+            <input
+                id={value}
+                type="radio"
+                name={option}
+                required
+                onClick={clickHandler}
+            />
+            <span />
 
-                    <ImageVariantWrapper>
-                        <Image
-                            src={image?.url ?? "/product-pattern-bg.svg"}
-                            alt={image?.alt ?? "Item variant color"}
-                            width={3}
-                            height={5}
-                            layout="responsive"
-                            objectFit="contain"
-                            priority
-                        />
-                    </ImageVariantWrapper>
-
-                    <span>{colorKeys[value]}</span>
-                </ProductVariantColor>
-            ) : (
-                <VariantSizeGender
-                    isSelected={isActive}
-                    isPride={isActive && value.toLowerCase() === "genderfluid"}
-                    key={value}
-                    className={option === "size" ? "uppercase" : "capitalize"}
-                    htmlFor={value}
-                >
-                    <input id={value} type="radio" name="size" required />
-                    {value}
-                </VariantSizeGender>
-            )}
-        </button>
+            <span>{value}</span>
+        </VariantSizeGender>
     );
 };
 
 Swatch.defaultProps = {
     image: defaultImage,
-    isActive: false,
 };
 
 export default Swatch;

@@ -16,6 +16,7 @@ interface Props {
     clickHandler: (e: MouseEvent<HTMLInputElement>) => void;
     isAvailable: boolean;
     isOutOfStock: boolean;
+    isSelected: boolean;
 }
 
 const placeHolder = "/product-image-placeholder.svg";
@@ -32,10 +33,10 @@ const Swatch: FC<Props> = ({
     clickHandler,
     isAvailable,
     isOutOfStock,
+    isSelected,
 }) => {
     return option === "color" ? (
         <ProductVariantColor
-            // isSelected={isSelected}
             className="capitalize"
             htmlFor={value}
             isAvailable={isAvailable}
@@ -47,6 +48,7 @@ const Swatch: FC<Props> = ({
                 name="color"
                 required
                 onClick={clickHandler}
+                checked={isSelected}
             />
             <span />
             <ImageVariantWrapper>
@@ -65,7 +67,6 @@ const Swatch: FC<Props> = ({
         </ProductVariantColor>
     ) : (
         <VariantSizeGender
-            // isSelected={isSelected}
             className={option === "size" ? "uppercase" : "capitalize"}
             htmlFor={value}
             isAvailable={isAvailable}
@@ -78,6 +79,7 @@ const Swatch: FC<Props> = ({
                 name={option}
                 required
                 onClick={clickHandler}
+                checked={isSelected}
             />
             <span />
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, FormEvent, useState } from "react";
 
-import { Product, ProductVariant } from "@framework/types/product";
+import { Product } from "@framework/types/product";
 import useAddItem from "@framework/cart/use-add-item";
 import { currencyKeys } from "@lib/option";
 
@@ -20,10 +20,10 @@ import {
 import {
     AvailableChoices,
     Choices,
-    getVariant,
     getVariantImage,
-    getVariants,
-    hasVariants,
+    getVariant,
+    hasAllVariantsForSale,
+    isOptionAvailable,
 } from "../helpers";
 
 interface Props {
@@ -31,9 +31,6 @@ interface Props {
 }
 
 const ProductPopup: FC<Props> = ({ product }) => {
-    const [variants, setVariants] = useState<ProductVariant[]>(
-        product.variants
-    );
     const [choices, setChoices] = useState<Choices>({});
 
     const addItem = useAddItem();
@@ -52,13 +49,14 @@ const ProductPopup: FC<Props> = ({ product }) => {
         }
     };
 
-    const handleSwatchClick = (optionName: AvailableChoices, value: string) => {
+    const handleSwatchClick = async (
+        optionName: AvailableChoices,
+        value: string
+    ) => {
         setChoices((previous) => ({
             ...previous,
             [optionName]: value,
         }));
-
-        setVariants(getVariants(product.variants, Object.keys(choices), value));
     };
 
     const maximumLength = (content: string, maxLength = 29): string => {
@@ -99,17 +97,20 @@ const ProductPopup: FC<Props> = ({ product }) => {
                                             const value = optValue.label;
 
                                             const isGloballyAvailable =
-                                                hasVariants(
+                                                isOptionAvailable(
                                                     product.variants,
                                                     optionName,
-                                                    optValue.label
+                                                    value
                                                 );
 
-                                            const isAvailable = hasVariants(
-                                                variants,
-                                                optionName,
-                                                optValue.label
-                                            );
+                                            const isAvailable =
+                                                hasAllVariantsForSale(
+                                                    product.variants,
+                                                    {
+                                                        ...choices,
+                                                        [optionName]: value,
+                                                    }
+                                                );
 
                                             return (
                                                 <Swatch
@@ -120,18 +121,18 @@ const ProductPopup: FC<Props> = ({ product }) => {
                                                     isOutOfStock={
                                                         !isGloballyAvailable
                                                     }
-                                                    isAvailable={
-                                                        Object.prototype.hasOwnProperty.call(
-                                                            choices,
-                                                            optionName
-                                                        ) || isAvailable
-                                                    }
+                                                    isAvailable={isAvailable}
                                                     // eslint-disable-next-line no-unused-vars
                                                     clickHandler={(_e) =>
                                                         handleSwatchClick(
                                                             optionName,
                                                             value
                                                         )
+                                                    }
+                                                    isSelected={
+                                                        optionName in choices &&
+                                                        choices[optionName] ===
+                                                            value
                                                     }
                                                 />
                                             );

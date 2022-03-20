@@ -11,7 +11,7 @@ export type Choices = {
     [P in AvailableChoices]: string;
 };
 
-export const hasVariants = (
+export const isOptionAvailable = (
     variants: ProductVariant[],
     choice: AvailableChoices,
     value: string
@@ -29,18 +29,39 @@ export const hasVariants = (
 
 export const getVariants = (
     variants: ProductVariant[],
-    choices: AvailableChoices[],
-    value: string
+    choices: Choices
 ): ProductVariant[] =>
-    variants.filter((variant) =>
-        choices.every((choice) =>
+    variants.filter((variant) => {
+        return Object.entries(choices).every((choice) =>
             variant.options.find(
                 (option) =>
-                    option.displayName.toLowerCase() === choice &&
-                    option.values[0].label === value
+                    option.displayName.toLowerCase() === choice[0] &&
+                    option.values[0].label === choice[1]
             )
-        )
-    );
+        );
+    });
+
+export const hasAllVariantsForSale = (
+    variants: ProductVariant[],
+    choices: Choices
+): boolean =>
+    variants.some((variant) => {
+        return (
+            variant.availableForSale &&
+            Object.entries(choices).every((choice) =>
+                variant.options.find(
+                    (option) =>
+                        option.displayName
+                            .toLowerCase()
+                            .match(
+                                choice[0].match(/colou?r/gi)
+                                    ? /colou?r/gi
+                                    : choice[0]
+                            ) && option.values[0].label === choice[1]
+                )
+            )
+        );
+    });
 
 export const getVariant = (
     product: Product,

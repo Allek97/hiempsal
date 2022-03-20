@@ -86,6 +86,17 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
             display: flex;
             flex-direction: column;
         `}
+    ${({ isOutOfStock }) =>
+        isOutOfStock &&
+        css`
+            pointer-events: none;
+            background: #f0f0f0;
+            border: 1px solid #e4e4e4;
+            box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+            color: red;
+            display: flex;
+            flex-direction: column;
+        `}
 
     @media (hover:hover) and (pointer: fine) {
         &:hover {

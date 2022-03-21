@@ -126,7 +126,7 @@ const normalizeLineItem = ({
             sku: variant?.sku ?? "",
             name: variant?.title,
             image: {
-                url: variant?.image?.url ?? "/product-image-placeholder",
+                url: variant?.image?.url ?? "/product-image-placeholder.svg",
                 alt: variant?.image?.altText ?? "",
             },
             requiresShipping: variant?.requiresShipping ?? false,

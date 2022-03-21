@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Root } from "./CartQuantity.styled";
+import { Root, UtilityBtn } from "./CartQuantity.styled";
 
 interface Props {
     quantity: number;
@@ -8,9 +8,11 @@ interface Props {
 const CartQuantity: FC<Props> = ({ quantity }) => {
     return (
         <Root>
-            <span>-</span>
+            <UtilityBtn isDisabled={quantity === 1} type="button">
+                -
+            </UtilityBtn>
             <span>{quantity ?? 0}</span>
-            <span>+</span>
+            <UtilityBtn type="button">+</UtilityBtn>
         </Root>
     );
 };

@@ -6,7 +6,7 @@ import { useMediaQueryNext } from "lib/customHooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
-import { colorKeys } from "@lib/option";
+import { colorKeys, currencyKeys } from "@lib/option";
 
 import { CartQuantity } from "..";
 
@@ -14,8 +14,8 @@ import {
     Article,
     DecorationBottom,
     DecorationTop,
+    ImageContainer,
     ProductDetails,
-    ProductImage,
     RemoveBtn,
 } from "./CartArticle.styled";
 
@@ -27,35 +27,27 @@ interface Props {
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const isScreenLarge = useMediaQueryNext("lg");
 
-    console.log(cartItem);
-
-    debugger;
-
-    const selectedColor = cartItem.options?.filter((option) =>
+    const selectedColor = cartItem.options?.find((option) =>
         option.displayName.toLowerCase().match(/colou?r/gi)
-    )[0].values[0].hexColor;
-    const selectedSize = cartItem.options?.filter(
-        (option) => option.displayName === "size"
-    )[0].values[0].label;
+    )?.values[0].hexColor;
+    const selectedSize = cartItem.options?.find(
+        (option) => option.displayName.toLowerCase() === "size"
+    )?.values[0].label;
 
     return (
         <Article className="article-item">
             <Link href="/" passHref>
-                <ProductImage>
-                    <div>
-                        <Image
-                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                            src={cartItem.variant.image!.url ?? ""}
-                            alt={cartItem.variant.image?.alt}
-                            width={2}
-                            height={3}
-                            quality="80"
-                            layout="responsive"
-                            objectFit="contain"
-                            unoptimized
-                        />
-                    </div>
-                </ProductImage>
+                <ImageContainer>
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        src={cartItem.variant.image!.url ?? ""}
+                        alt={cartItem.variant.image?.alt}
+                        quality="85"
+                        layout="fill"
+                        objectFit="contain"
+                        priority
+                    />
+                </ImageContainer>
             </Link>
 
             <ProductDetails>
@@ -66,19 +58,21 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                     </>
                 )}
                 <div>
-                    <h2>
-                        <span>{cartItem.name}</span>
-                    </h2>
-                    <p>
-                        <span>{colorKeys[`${selectedColor}`]}</span>
-                        <span>{selectedSize?.toUpperCase ?? "N.D"}</span>
-                    </p>
+                    <h2>{cartItem.name}</h2>
+                    <article>
+                        <span className="capitalize">
+                            {colorKeys[`${selectedColor}`]}
+                        </span>
+                        <span className="uppercase">
+                            {selectedSize ?? "N.D"}
+                        </span>
+                    </article>
                 </div>
 
                 <div>
                     <span>
-                        {currencyCode}
-                        {cartItem.variant.price}
+                        {currencyKeys[currencyCode]}
+                        {Number(cartItem.variant.price)?.toFixed(0)}
                     </span>
                     {/* <span>CAD</span> */}
                 </div>

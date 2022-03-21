@@ -45,6 +45,8 @@ a {
 ::before,
 ::after {
     box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 #__next {

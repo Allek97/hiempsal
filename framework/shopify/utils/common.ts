@@ -34,7 +34,7 @@ export const checkoutDetailFragment = `
               value
           }
           image {
-            originalSrc
+            url
             altText
             width
             height

@@ -31,19 +31,45 @@ const decorationVariant = (variant: DecorationColor = "medium") => {
     }
 };
 
+const fontSizeMain = css`
+    ${tw`font-size[15px] line-height[1.3em] tracking-tighter
+        lg:(font-size[16.5px] line-height[1em] letter-spacing[-0.06em])
+        2lg:(font-size[1.4666667vw])`}
+
+    ${tw`2xl:font-size[22px]`}
+`;
+const fontSizeSecondary = css`
+    ${tw`font-size[15px] line-height[1.3em] tracking-tighter
+        lg:(font-size[13.5px] line-height[1em] letter-spacing[-0.06em])
+        2lg:(font-size[1.2vw])`}
+
+    ${tw`2xl:font-size[18px]`}
+`;
+const fontSizeTertiary = css`
+    ${fontSizeSecondary}
+    ${tw`font-size[13px]`}
+`;
+const fontSizeTiny = css`
+    ${tw`font-size[10px] line-height[1] tracking-tighter
+        lg:(font-size[9px] line-height[1.2em])
+        2lg:(font-size[0.8vw])`}
+
+    ${tw`2xl:font-size[12px]`}
+`;
+
 ////////////////////////////////////////////////////////
 // TODO: Product Display
 ////////////////////////////////////////////////////////
 
 export const Article = styled.article`
-    ${tw`flex h-full w-full mt-4 text-base overflow-y-hidden tracking-tighter
-        pt-4 border-t-accents-7`}
+    ${tw`flex h-full w-full padding-bottom[1em] overflow-y-hidden tracking-tighter
+        pt-4 border-t-accents-9 text-base`}
 
     &:first-of-type {
-        ${tw`border-t-2`}
+        ${tw`mt-4 border-t-2`}
     }
 
-    border-bottom: 2px solid var(--accents-3);
+    border-bottom: 1px solid var(--accents-2);
 `;
 
 export const Separator = styled.hr`
@@ -55,16 +81,13 @@ export const Separator = styled.hr`
 // TODO: Product Display
 ////////////////////////////////////////////////////////
 
-export const ProductImage = styled.div`
-    ${tw`flex justify-center items-center mr-3 
-    border-t-8 border-accents-0 cursor-pointer
-    lg:width[35%]`}
+export const ImageContainer = styled.div`
+    ${tw`relative flex justify-center items-center 
+    cursor-pointer width[40vw] padding[0.7em 0 33%]`}
 
-    width: 70%;
-    max-width: 14rem;
-
-    & > div:first-of-type {
-        ${tw`w-full mx-4 xs:mx-8`}
+    span,
+    img {
+        ${tw`w-full h-full`}
     }
 `;
 
@@ -73,30 +96,26 @@ export const ProductImage = styled.div`
 ////////////////////////////////////////////////////////
 
 export const ProductDetails = styled.div`
-    ${tw`relative w-full text-primary 
+    ${tw`relative w-full text-primary margin-left[1em] 
     lg:(flex justify-between)`}
 
     & > div:first-of-type {
-        ${tw`absolute top-0 left-0 flex flex-col mr-20
+        ${tw`absolute top-0 left-0 flex flex-col max-width[65%] 
         lg:(static flex-row items-start height[max-content] mr-0 order-1)`}
 
         h2 {
-            ${tw`pb-2 cursor-pointer font-size[17px] line-height[1.15em]
-            lg:(width[35%] margin-right[4vw] pb-0)
-            xl:(margin-right[6vw] font-size[1.4vw] letter-spacing[-.06em])
-            3xl:(font-size[24px])`}
+            ${fontSizeMain}
+            ${tw`margin-bottom[0.5em] text-primary`}
         }
 
-        p {
-            ${tw`w-max text-sm text-accents-7 space-x-3
-            lg:(flex justify-between items-center mt-0.5 width[20%] font-size[16px] letter-spacing[-.06em] text-accents-8)
-            xl:(font-size[1.25vw])
-            2xl:(font-size[1.15vw])
-            3xl:(font-size[22px])`}
+        article {
+            ${tw`w-max text-accents-6 space-x-3
+            lg:(flex justify-between items-center mt-0.5 width[20%] text-accents-8)`}
+
+            ${fontSizeTertiary}
 
             span:first-of-type {
-                ${tw`uppercase
-                lg:(margin-right[4vw])
+                ${tw`lg:(margin-right[4vw])
                 2xl:(margin-right[6vw])`}
             }
 
@@ -109,28 +128,39 @@ export const ProductDetails = styled.div`
     }
     & > div:nth-of-type(2) {
         ${tw`absolute top-0 right-0 flex flex-col items-end leading-5 
-        lg:(static order-4 mt-2 font-size[16px])
-        xl:(font-size[1.25vw])
-        2xl:(font-size[1.1vw])
-        3xl:(font-size[20px])`}
+        lg:(static order-4 mt-2)`}
     }
     & > div:nth-of-type(3) {
-        ${tw`absolute bottom-0 left-0 mb-5 w-full leading-3 cursor-pointer
+        ${tw`absolute bottom-0 left-0 w-full leading-3 cursor-pointer
         lg:(w-max)`}
     }
     & > div:nth-of-type(4) {
-        ${tw`absolute bottom-0 right-0 mb-5 cursor-pointer
+        ${tw`absolute bottom-0 right-0 cursor-pointer
         lg:(static height[max-content] margin-right[2.5vw] mb-0 mt-1 order-2)`}
     }
 `;
 
 export const RemoveBtn = styled.button`
-    ${tw`flex items-center justify-center transition-opacity 
-    font-size[0.85rem] text-red font-medium opacity-80 hover:(opacity-100 font-size[0.9rem])`}
-    letter-spacing: -.05em;
+    ${tw`flex items-center justify-center w-max transition-opacity
+    text-red`}
+
+    ${fontSizeTiny}
+
+    ${({ theme }) =>
+        theme.device.isTouch
+            ? css`
+                  ${tw`opacity-100`}
+              `
+            : css`
+                  ${tw`opacity-80`}
+              `}
+
+    @media (hover:hover) and (pointer:fine) {
+        opacity: 100;
+    }
 
     svg {
-        ${tw`mr-1`}
+        ${tw`mr-0.5`}
     }
 
     &:after {
@@ -145,10 +175,11 @@ export const RemoveBtn = styled.button`
         transform: scaleX(0);
         transform-origin: 100% 100%;
     }
-
-    &:hover:after {
-        transform: scaleX(1);
-        transform-origin: 0;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:after {
+            transform: scaleX(1);
+            transform-origin: 0;
+        }
     }
 `;
 

@@ -1,13 +1,22 @@
 import { Button } from "@components/ui";
-import { keyframes } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import { fontSizeSecondary, fontSizeTiny } from "../utils/typography.styled";
 
 const opaqueAnimation = keyframes`
     100% {
         opacity: 1;
     }
+`;
+
+const priceTextSize = css`
+    ${tw`font-size[15px] line-height[1.3em] tracking-tighter
+        lg:(line-height[1.1em] letter-spacing[-0.06em])
+        2lg:(font-size[1.333333333333vw])`}
+
+    ${tw`2xl:font-size[20px]`}
 `;
 
 export const Root = styled.div`
@@ -87,40 +96,23 @@ export const CartPaymentContainer = styled.div`
 `;
 
 export const ShippingBox = styled.div`
-    ${tw`flex justify-between items-center py-6 border-b text-base tracking-tighter
-    lg:(font-size[16px])
-    xl:(font-size[1.25vw])
-    2xl:(font-size[1.1vw])
-    3xl:(font-size[20px])`}
+    ${tw`flex justify-between items-center padding[4vw 0] border-b`}
+    ${fontSizeSecondary}
 `;
 
 export const TotalBox = styled.div`
-    ${tw`flex justify-between items-start py-6 text-base leading-5 tracking-tighter
-    lg:(font-size[16px])
-    xl:(font-size[1.25vw])
-    2xl:(font-size[1.1vw])
-    3xl:(font-size[20px])`}
+    ${tw`flex justify-between items-start padding-top[1em]`}
+    ${fontSizeSecondary}
 
     p {
-        font-size: 0.7rem;
-        font-weight: 500;
-        color: var(--accents-7);
-        letter-spacing: -0.5px;
+        ${tw`text-accents-7 margin-top[0.8vw] lg:(margin-top[0.27vw])`}
 
-        ${tw`lg:(margin-top[0.27vw])
-        xl:(font-size[1.1vw])
-        2xl:(font-size[1.1vw])
-        3xl:(font-size[14px])`}
+        ${fontSizeTiny}
     }
 
     span {
-        font-size: 16px;
         font-weight: 600;
-
-        ${tw`lg:(font-size[16px])
-        xl:(font-size[1.25vw])
-        2xl:(font-size[1.1vw])
-        3xl:(font-size[20px])`}
+        ${priceTextSize}
     }
 `;
 
@@ -130,7 +122,7 @@ export const CheckoutWrapper = styled.div`
 `;
 
 export const CheckoutButton = styled(Button)`
-    font-size: 17px;
+    ${tw`padding[1em]`}
 `;
 
 export const PaymentVendors = styled.ul`

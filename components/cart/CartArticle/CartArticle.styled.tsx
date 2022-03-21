@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import {
+    fontSizeMain,
+    fontSizeTertiary,
+    fontSizeTiny,
+} from "../utils/typography.styled";
 
 type DecorationColor = "light" | "medium" | "dark";
 
@@ -31,32 +36,6 @@ const decorationVariant = (variant: DecorationColor = "medium") => {
     }
 };
 
-const fontSizeMain = css`
-    ${tw`font-size[15px] line-height[1.3em] tracking-tighter
-        lg:(font-size[16.5px] line-height[1em] letter-spacing[-0.06em])
-        2lg:(font-size[1.4666667vw])`}
-
-    ${tw`2xl:font-size[22px]`}
-`;
-const fontSizeSecondary = css`
-    ${tw`font-size[15px] line-height[1.3em] tracking-tighter
-        lg:(font-size[13.5px] line-height[1em] letter-spacing[-0.06em])
-        2lg:(font-size[1.2vw])`}
-
-    ${tw`2xl:font-size[18px]`}
-`;
-const fontSizeTertiary = css`
-    ${fontSizeSecondary}
-    ${tw`font-size[13px]`}
-`;
-const fontSizeTiny = css`
-    ${tw`font-size[10px] line-height[1] tracking-tighter
-        lg:(font-size[9px] line-height[1.2em])
-        2lg:(font-size[0.8vw])`}
-
-    ${tw`2xl:font-size[12px]`}
-`;
-
 ////////////////////////////////////////////////////////
 // TODO: Product Display
 ////////////////////////////////////////////////////////
@@ -83,11 +62,15 @@ export const Separator = styled.hr`
 
 export const ImageContainer = styled.div`
     ${tw`relative flex justify-center items-center 
-    cursor-pointer width[40vw] padding[0.7em 0 33%]`}
+    cursor-pointer width[40vw] padding[0.5em 0 30%]`}
 
     span,
     img {
         ${tw`w-full h-full`}
+    }
+
+    span {
+        padding: 118% 0px 0px !important;
     }
 `;
 
@@ -109,7 +92,7 @@ export const ProductDetails = styled.div`
         }
 
         article {
-            ${tw`w-max text-accents-6 space-x-3
+            ${tw`w-max color[rgb(103, 103, 103)] space-x-3
             lg:(flex justify-between items-center mt-0.5 width[20%] text-accents-8)`}
 
             ${fontSizeTertiary}

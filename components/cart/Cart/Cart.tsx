@@ -81,14 +81,7 @@ const Cart: FC = () => {
                         <TotalBox>
                             <div>
                                 <h1>Total</h1>
-                                <p>
-                                    (Includes{" "}
-                                    {currencyKeys[`${data?.currency.code}`]}
-                                    {(data?.totalPrice ?? 0) -
-                                        (data?.lineItemsSubtotalPrice ??
-                                            0)}{" "}
-                                    VAT)
-                                </p>
+                                <p>(Taxes are calculated at checkout)</p>
                             </div>
                             <span>
                                 {currencyKeys[`${data?.currency.code}`] ?? "$"}

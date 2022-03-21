@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface ButtonProps {
-    isDisabled: boolean;
+    isDisabled?: boolean;
 }
 
 const fontSizeMain = css`
@@ -38,7 +38,7 @@ export const UtilityBtn = styled.button<ButtonProps>`
 
     ${fontSizeMain}
 
-    ${({ isDisabled }) =>
+    ${({ isDisabled = false }) =>
         isDisabled &&
         css`
             pointer-events: none;

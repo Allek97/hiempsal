@@ -20,10 +20,7 @@ const priceTextSize = css`
 `;
 
 export const Root = styled.div`
-    ${tw`relative flex flex-col padding-bottom[4vw] min-height[calc(100vh - 7.5vw)] opacity-0
-    lg:padding-bottom[2.6666666667vw]`}
-
-    ${({ theme }) => theme.layout.mainPadding}
+    ${tw`relative flex flex-col opacity-0`}
 
     animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1
         forwards;
@@ -85,11 +82,12 @@ export const ShoppingButton = styled(Button)`
 ////////////////////////////////////////////////////////
 
 export const CartPaymentContainer = styled.div`
-    ${tw`lg:(ml-auto w-1/2)`}
+    ${tw`lg:(ml-auto w-1/2 margin-bottom[8vw])`}
 `;
 
 export const ShippingBox = styled.div`
-    ${tw`flex justify-between items-center padding[4vw 0] border-b`}
+    ${tw`flex justify-between items-center padding[4vw 0] border-b
+    lg:(padding[1.3333333333vw 0])`}
     ${fontSizeSecondary}
 `;
 
@@ -111,7 +109,7 @@ export const TotalBox = styled.div`
 
 export const CheckoutWrapper = styled.div`
     ${tw`flex items-center content-center w-full margin-top[6vw] text-center 
-    lg:(mt-0)`}
+    lg:(margin-top[1.6vw])`}
 `;
 
 export const CheckoutButton = styled(Button)`
@@ -122,21 +120,6 @@ export const PaymentVendors = styled.ul`
     ${tw`flex items-center justify-center space-x-2 mt-3.5`}
 
     svg {
-        ${tw`w-6 h-6`}
-    }
-`;
-
-export const ShopPolicy = styled.div`
-    ${tw`flex items-center justify-center flex-col w-full
-    lg:(flex-row justify-between w-full mt-auto)
-    xl:w-4/5`}
-
-    margin-top: 8vw;
-    /* margin-bottom: 5rem; */
-
-    ${({ theme }) => theme.textSize.textSizeSmall}
-
-    span {
-        margin-bottom: 0.5rem;
+        ${tw`w-5 h-5`}
     }
 `;

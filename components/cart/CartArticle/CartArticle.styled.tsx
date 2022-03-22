@@ -173,13 +173,15 @@ export const RemoveBtn = styled.button`
 `;
 
 export const DecorationTop = styled.span<DecorationProps>`
-    ${tw`absolute bottom[50%] right-0 block height[3vw] width[12vw] p-0`}
+    ${tw`absolute bottom[50%] right-0 block height[3vw] width[12vw] p-0
+    lg:(height[2vw] width[8vw])`}
     transform: skewY(-10deg);
     ${(props) => decorationVariant(props.color)};
 `;
 
 export const DecorationBottom = styled(DecorationTop)<DecorationProps>`
-    ${tw`bottom[calc(50% - 1.5vw)] right[1vw] opacity-80`}
+    ${tw`bottom[calc(50% - 1.8vw)] right[1vw] opacity-80
+    lg:bottom[calc(50% - 1.2vw)]`}
 
     ${(props) => decorationVariant(props.color)};
 `;

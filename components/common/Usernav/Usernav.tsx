@@ -1,11 +1,8 @@
-import { FC, MutableRefObject, useEffect, useRef } from "react";
+import { FC, MutableRefObject, ReactNode, useEffect, useRef } from "react";
+import Link from "next/link";
 
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { VscEyeClosed } from "react-icons/vsc";
-
-import { Cart } from "@components/cart";
-import { Wishlist } from "@components/wishlist";
-import { ViewedProduct } from "@components/viewedProduct";
 
 import { useUsernavUI } from "@components/ui/usernavContext";
 import { useMediaQueryNext } from "lib/customHooks";
@@ -13,15 +10,19 @@ import { useMediaQueryNext } from "lib/customHooks";
 import { HelpCard } from "../../elements/helpCard";
 
 import {
-    Container,
     Content,
     HelpCardWrapper,
     NavBtn,
     Navigation,
     Root,
+    ShopPolicy,
 } from "./Usernav.styled";
 
-const Usernav: FC = () => {
+interface Props {
+    children: ReactNode;
+}
+
+const Usernav: FC<Props> = ({ children }) => {
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
     const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
@@ -67,64 +68,66 @@ const Usernav: FC = () => {
     return (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-            {isUsernavOpen && (
+            {!isUsernavOpen && (
                 <Root ref={rootRef} onScroll={listenScrollEvent}>
-                    <Container>
-                        <Navigation>
-                            <nav>
+                    <Navigation>
+                        <nav>
+                            <Link href="/cart/bag" passHref>
                                 <NavBtn
                                     type="button"
                                     aria-label="Cart"
-                                    onClick={openCart}
                                     isSelected={isCartOpen}
                                 >
                                     <HiArrowNarrowRight />
                                     <h1>Your Cart</h1>
                                 </NavBtn>
+                            </Link>
+                            <Link href="/cart/wishlist" passHref>
                                 <NavBtn
                                     type="button"
                                     aria-label="Wish list"
-                                    onClick={openWishList}
                                     isSelected={isWishListOpen}
                                 >
                                     <HiArrowNarrowRight />
                                     <h1>Wish list</h1>
                                 </NavBtn>
+                            </Link>
+
+                            <NavBtn
+                                type="button"
+                                aria-label="Viewed products"
+                                isSelected={isViewedProductsOpen}
+                            >
+                                <HiArrowNarrowRight />
+                                <h1>Viewed products</h1>
+                            </NavBtn>
+                            {isScreenLarge && (
                                 <NavBtn
                                     type="button"
-                                    aria-label="Viewed products"
-                                    onClick={openViewedProducts}
-                                    isSelected={isViewedProductsOpen}
+                                    aria-label="Close Usernav"
+                                    isSelected={false}
                                 >
-                                    <HiArrowNarrowRight />
-                                    <h1>Viewed products</h1>
+                                    <VscEyeClosed />
+                                    <h1>Close</h1>
                                 </NavBtn>
-                                {isScreenLarge && (
-                                    <NavBtn
-                                        type="button"
-                                        aria-label="Close Usernav"
-                                        onClick={closeUsernav}
-                                        isSelected={false}
-                                    >
-                                        <VscEyeClosed />
-                                        <h1>Close</h1>
-                                    </NavBtn>
-                                )}
-                            </nav>
-
+                            )}
                             {isScreenLarge && (
                                 <HelpCardWrapper>
                                     <HelpCard />
                                 </HelpCardWrapper>
                             )}
-                        </Navigation>
+                        </nav>
+                    </Navigation>
 
-                        <Content ref={contentRef} onScroll={listenScrollEvent}>
-                            {isCartOpen && <Cart />}
-                            {/* {isWishListOpen && <Wishlist />}
-                            {isViewedProductsOpen && <ViewedProduct />} */}
-                        </Content>
-                    </Container>
+                    <Content ref={contentRef} onScroll={listenScrollEvent}>
+                        {children}
+                        <ShopPolicy>
+                            <span>Delivery time: 5-7 business days</span>
+                            <span>100-day return period</span>
+                            <span>Free returns</span>
+                            <span>Free shipping from $50.00 CAD</span>
+                        </ShopPolicy>
+                    </Content>
                 </Root>
             )}
         </>

@@ -23,20 +23,15 @@ export const Root = styled.div`
     border-radius: 5px;
     padding: 4px 5px;
 
+    ${fontSizeMain}
     span {
         ${tw`margin[0 0.5em]`}
-        ${fontSizeMain}
-    }
-
-    button {
     }
 `;
 
 export const UtilityBtn = styled.button<ButtonProps>`
     ${tw`flex items-center justify-center width[15px] height[15px]
         cursor-pointer text-center user-select[none]`}
-
-    ${fontSizeMain}
 
     ${({ isDisabled = false }) =>
         isDisabled &&

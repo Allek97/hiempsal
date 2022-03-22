@@ -15,35 +15,32 @@ const opaqueAnimation = keyframes`
 `;
 
 export const Root = styled.main`
-    ${tw`fixed inset-0 z-40 h-full bg-white overflow-y-auto
+    ${tw`block relative overflow-y-auto
     lg:(overflow-visible)`}
 
     ${customScroll}
 `;
 
-export const Container = styled.div`
-    ${tw`flex flex-1 flex-col h-full mx-auto lg:flex-row`}
-`;
-
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`padding-top[72.5px] text-primary bg-primary 
-      lg:(sticky top-0 left-0 w-1/3 padding-top[9.55vw] bg-accents-2)
+    ${tw`padding-top[18px] text-primary bg-primary 
+      lg:(absolute -top-20 left-0 height[calc(100% + 5rem)] w-1/3
+        bg-accents-2)
       4xl:w-1/4`}
 
-    padding-left: 4vw;
-    padding-right: 0vw;
-
     nav {
-        ${tw`flex overflow-hidden lg:flex-col`}
-    }
+        ${tw`flex overflow-hidden lg:(sticky top-0 left-0 flex-col h-screen padding-top[calc(4.5vw + 5rem)])`}
 
-    @media only screen and (min-width: ${TwTheme`screens.md`}) {
-        padding-left: 3.75vw;
-        padding-right: 3.75vw;
-    }
-    @media only screen and (min-width: ${TwTheme`screens.lg`}) {
-        padding-left: 2.66666666667vw;
-        padding-right: 2.66666666667vw;
+        padding-left: 4vw;
+        padding-right: 0vw;
+
+        @media only screen and (min-width: ${TwTheme`screens.md`}) {
+            padding-left: 3.75vw;
+            padding-right: 3.75vw;
+        }
+        @media only screen and (min-width: ${TwTheme`screens.lg`}) {
+            padding-left: 2.66666666667vw;
+            padding-right: 2.66666666667vw;
+        }
     }
 `;
 
@@ -87,10 +84,12 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full opacity-0 bg-primary outline-none
-      lg:(overflow-y-auto width[66%] padding-top[7.5vw])
+    ${tw`max-w-full min-height[calc(100vh - 4rem)] padding-bottom[4vw] opacity-0 bg-primary outline-none
+      lg:(width[66%] padding-top[3.5vw] padding-bottom[2.6666666667vw] ml-auto)
       3xl:w-2/3
       4xl:w-3/4`}
+
+    ${({ theme }) => theme.layout.mainPadding}
 
     ${customScroll}
 
@@ -98,5 +97,20 @@ export const Content = styled.section<Record<string, unknown>>`
 `;
 
 export const HelpCardWrapper = styled.div`
-    ${tw`fixed bottom[2.6666666667vw]`}
+    ${tw`absolute bottom[2.6666666667vw]`}
+`;
+
+export const ShopPolicy = styled.div`
+    ${tw`flex items-center justify-center flex-col
+    lg:(absolute bottom[2.5vw] space-x-6 flex-row justify-between)
+    3xl:space-x-12`}
+
+    margin-top: 8vw;
+    /* margin-bottom: 5rem; */
+
+    ${({ theme }) => theme.textSize.textSizeSmall}
+
+    span {
+        margin-bottom: 0.5rem;
+    }
 `;

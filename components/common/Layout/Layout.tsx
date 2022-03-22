@@ -9,7 +9,6 @@ import { useUsernavUI } from "@components/ui/usernavContext";
 
 import { NavBar } from "..";
 import { Fit, Root } from "./Layout.styled";
-import { Usernav } from "../Usernav";
 
 const Layout: FC = ({ children }) => {
     const { isUsernavOpen, isMobileMenuOpen } = useUsernavUI();
@@ -30,8 +29,9 @@ const Layout: FC = ({ children }) => {
     return (
         <Root ref={ref}>
             <NavBar />
-            <Usernav />
+
             <Fit>{children}</Fit>
+            <footer className="h-96 bg-red">asdasd</footer>
         </Root>
     );
 };

@@ -4,6 +4,7 @@ import { FC, FormEvent, useState } from "react";
 import { Product } from "@framework/types/product";
 import useAddItem from "@framework/cart/use-add-item";
 import { currencyKeys } from "@lib/option";
+import { truncateText } from "@lib/truncateText";
 
 import { Popup } from "@components/ui";
 import { Swatch } from "..";
@@ -59,19 +60,12 @@ const ProductPopup: FC<Props> = ({ product }) => {
         }));
     };
 
-    const maximumLength = (content: string, maxLength = 29): string => {
-        const contentCut = content.substring(0, maxLength - 1);
-
-        if (content.length > maxLength) return `${contentCut}...`;
-        return contentCut;
-    };
-
     return (
         <Popup>
             <form onSubmit={addToCart}>
                 <Content>
                     <ProductInfo>
-                        <h1>{maximumLength(product.name)}</h1>
+                        <h1>{truncateText(product.name)}</h1>
                         <span>
                             {currencyKeys[`${product.price.currencyCode}`]}
                             {product.price.value}

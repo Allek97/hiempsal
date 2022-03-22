@@ -7,6 +7,7 @@ import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
 import { colorKeys, currencyKeys } from "@lib/option";
+import { truncateText } from "@lib/truncateText";
 
 import { CartQuantity } from "..";
 
@@ -25,13 +26,17 @@ interface Props {
 }
 
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
-    const isScreenLarge = useMediaQueryNext("lg");
+    const isScreenSmall = useMediaQueryNext("sm");
+    const isScreenTiny = useMediaQueryNext(21.875);
 
     const selectedColor = cartItem.options?.find((option) =>
         option.displayName.toLowerCase().match(/colou?r/gi)
     )?.values[0].hexColor;
     const selectedSize = cartItem.options?.find(
         (option) => option.displayName.toLowerCase() === "size"
+    )?.values[0].label;
+    const selectedGender = cartItem.options?.find(
+        (option) => option.displayName.toLowerCase() === "gender"
     )?.values[0].label;
 
     return (
@@ -51,20 +56,27 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
             </Link>
 
             <ProductDetails>
-                {isScreenLarge && (
+                {isScreenSmall && (
                     <>
                         <DecorationTop color="medium" />
                         <DecorationBottom color="dark" />
                     </>
                 )}
                 <div>
-                    <h2>{cartItem.name}</h2>
+                    <h2>
+                        {!isScreenTiny
+                            ? truncateText(cartItem.name, 29)
+                            : cartItem.name}
+                    </h2>
                     <article>
                         <span className="capitalize">
                             {colorKeys[`${selectedColor}`]}
                         </span>
                         <span className="uppercase">
                             {selectedSize ?? "N.D"}
+                        </span>
+                        <span className="capitalize">
+                            {selectedGender ?? "N.D"}
                         </span>
                     </article>
                 </div>

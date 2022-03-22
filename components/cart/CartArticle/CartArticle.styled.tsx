@@ -62,11 +62,13 @@ export const Separator = styled.hr`
 
 export const ImageContainer = styled.div`
     ${tw`relative flex justify-center items-center 
-    cursor-pointer width[40vw] padding[0.5em 0 30%]`}
+    cursor-pointer width[40vw] padding[0.5em 0 30%]
+    lg:(width[12vw] padding-bottom[20%])
+    4xl:width[13.5vw]`}
 
     span,
     img {
-        ${tw`w-full h-full`}
+        width: 100% !important;
     }
 
     span {
@@ -79,39 +81,43 @@ export const ImageContainer = styled.div`
 ////////////////////////////////////////////////////////
 
 export const ProductDetails = styled.div`
-    ${tw`relative w-full text-primary margin-left[1em] 
-    lg:(flex justify-between)`}
+    ${tw`relative w-full margin-left[1vw] text-primary
+    lg:(flex justify-between flex-1)`}
 
     & > div:first-of-type {
         ${tw`absolute top-0 left-0 flex flex-col max-width[65%] 
-        lg:(static flex-row items-start height[max-content] mr-0 order-1)`}
+        lg:(static flex-row items-start 
+            height[max-content] max-width[none] mr-0 order-1)`}
 
         h2 {
             ${fontSizeMain}
-            ${tw`margin-bottom[0.5em] text-primary`}
+            ${tw`margin-bottom[0.5em] text-primary
+            lg:(max-width[11vw] margin-right[6vw])`}
         }
 
         article {
-            ${tw`w-max color[rgb(103, 103, 103)] space-x-3
-            lg:(flex justify-between items-center mt-0.5 width[20%] text-accents-8)`}
+            ${tw`w-max color[rgb(103, 103, 103)]
+            lg:(flex justify-between items-start mt-0.5
+                 text-accents-8)`}
 
             ${fontSizeTertiary}
 
-            span:first-of-type {
-                ${tw`lg:(margin-right[4vw])
-                2xl:(margin-right[6vw])`}
+            & > span:not(:last-of-type) {
+                ${tw`margin-right[0.5em]`}
             }
 
-            span:nth-of-type(2) {
-                ${tw`xl:font-size[1.2vw]
-                2xl:(font-size[1.1vw])
-                3xl:(font-size[21px])`}
+            & > span:first-of-type {
+                ${tw`lg:(width[7.5vw] margin-right[1.8vw])`}
+            }
+
+            & > span:nth-of-type(2) {
+                ${tw`lg:margin-right[6.75vw]`}
             }
         }
     }
     & > div:nth-of-type(2) {
         ${tw`absolute top-0 right-0 flex flex-col items-end leading-5 
-        lg:(static order-4 mt-2)`}
+        lg:(static order-4 )`}
     }
     & > div:nth-of-type(3) {
         ${tw`absolute bottom-0 left-0 w-full leading-3 cursor-pointer
@@ -167,22 +173,13 @@ export const RemoveBtn = styled.button`
 `;
 
 export const DecorationTop = styled.span<DecorationProps>`
-    position: absolute;
-    bottom: 3vw;
-    right: 0;
-
-    display: block;
-    height: 2vw;
-    width: 8vw;
-    padding: 0px;
+    ${tw`absolute bottom[50%] right-0 block height[3vw] width[12vw] p-0`}
     transform: skewY(-10deg);
     ${(props) => decorationVariant(props.color)};
 `;
 
 export const DecorationBottom = styled(DecorationTop)<DecorationProps>`
-    bottom: 1.5vw;
-    right: 2rem;
+    ${tw`bottom[calc(50% - 1.5vw)] right[1vw] opacity-80`}
 
     ${(props) => decorationVariant(props.color)};
-    opacity: 0.8;
 `;

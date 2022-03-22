@@ -36,7 +36,7 @@ const Cart: FC = () => {
                     <div>Product</div>
                     <div>Colors</div>
                     <div>Size</div>
-                    <div>Quantity</div>
+                    <div>Gender</div>
                     <div>Price</div>
                 </ItemsHeader>
             )}

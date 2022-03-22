@@ -34,23 +34,16 @@ export const ItemsHeader = styled.div`
     lg:(font-size[14px] line-height[1.5em] letter-spacing[-0.06em])`}
 
     & > div:first-of-type {
-        ${tw`margin-right[26vw]
-        xl:margin-right[28vw]
-        2xl:margin-right[26vw]
-        4xl:margin-right[30.5rem]`}
+        ${tw`lg:(width[calc(12vw + 17vw + 1vw)])
+        4xl:(width[calc(13.5vw + 17vw + 1vw)])`}
     }
 
     & > div:nth-of-type(2) {
-        ${tw`margin-right[5.1vw]
-        2xl:margin-right[6.2vw]
-        4xl:margin-right[8rem]`}
+        ${tw`lg:(width[9.1vw])`}
     }
 
     & > div:nth-of-type(3) {
-        ${tw`margin-right[4.7vw]
-        xl:margin-right[4vw]
-        2xl:margin-right[7vw]
-        4xl:margin-right[8rem]`}
+        ${tw`lg:(width[7.75vw])`}
     }
 
     & > div:nth-of-type(4) {

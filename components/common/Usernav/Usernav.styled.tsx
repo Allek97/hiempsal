@@ -27,8 +27,8 @@ export const Container = styled.div`
 
 export const Navigation = styled.section<Record<string, unknown>>`
     ${tw`padding-top[72.5px] text-primary bg-primary 
-      lg:(sticky top-0 left-0 width[34%] padding-top[9.55vw] bg-accents-2)
-      3xl:width[25%]`}
+      lg:(sticky top-0 left-0 w-1/3 padding-top[9.55vw] bg-accents-2)
+      4xl:w-1/4`}
 
     padding-left: 4vw;
     padding-right: 0vw;
@@ -89,7 +89,8 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
 export const Content = styled.section<Record<string, unknown>>`
     ${tw`max-w-full opacity-0 bg-primary outline-none
       lg:(overflow-y-auto width[66%] padding-top[7.5vw])
-      3xl:width[75%]`}
+      3xl:w-2/3
+      4xl:w-3/4`}
 
     ${customScroll}
 

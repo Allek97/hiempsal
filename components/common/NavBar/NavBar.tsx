@@ -1,8 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import { useUsernavUI } from "@components/ui/usernavContext";
-import { usePopupUI } from "@components/ui/popupContext";
+import { useUI } from "@components/ui/context";
 
 import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
@@ -23,16 +22,7 @@ import {
 import { MobileNav } from "..";
 
 const Navbar: FC = () => {
-    const {
-        isUsernavOpen,
-        isUsernavScrolled,
-        isMobileMenuOpen,
-        closeUsernav,
-        openCart,
-        openWishList,
-    } = useUsernavUI();
-
-    const { isProductPopupOpen } = usePopupUI();
+    const { isProductPopupOpen, isMobileMenuOpen } = useUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
@@ -43,35 +33,25 @@ const Navbar: FC = () => {
         <>
             {!isScreenLarge && <MobileNav />}
             <NavbarRoot
-                isUsernavScrolled={isUsernavScrolled}
                 isScrolled={isScrolled}
-                isUsernavOpen={isUsernavOpen}
+                isUsernavOpen
                 isMobileMenuOpen={isMobileMenuOpen}
                 isProductPopupOpen={isProductPopupOpen}
             >
                 <Container
-                    isUsernavOpen={isUsernavOpen}
+                    isUsernavOpen
                     isScrolled={isScrolled}
-                    isUsernavScrolled={isUsernavScrolled}
+                    isUsernavScrolled={false}
                     isMobileMenuOpen={isMobileMenuOpen}
                 >
                     <Navigation>
                         <div className="flex items-center space-x-5">
                             <Link href="/" passHref scroll={false}>
-                                <Wrapper
-                                    isUsernavOpen={isUsernavOpen}
-                                    onClick={closeUsernav}
-                                    onKeyPress={closeUsernav}
-                                    role="button"
-                                    // tabIndex={0}
-                                >
-                                    {isUsernavOpen &&
+                                <Wrapper isUsernavOpen>
+                                    {true &&
                                     !isMobileMenuOpen &&
                                     !isScreenLarge ? (
-                                        <BsArrowLeftCircleFill
-                                            onClick={closeUsernav}
-                                            role="button"
-                                        />
+                                        <BsArrowLeftCircleFill role="button" />
                                     ) : (
                                         <Logo />
                                     )}
@@ -81,10 +61,8 @@ const Navbar: FC = () => {
                                 <nav className="space-x-6">
                                     <Link href="/" passHref>
                                         <NavbarItem
-                                            isUsernavOpen={isUsernavOpen}
-                                            isUsernavScrolled={
-                                                isUsernavScrolled
-                                            }
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
                                             type="button"
                                             aria-label="All"
                                         >
@@ -93,10 +71,8 @@ const Navbar: FC = () => {
                                     </Link>
                                     <Link href="/" passHref>
                                         <NavbarItem
-                                            isUsernavOpen={isUsernavOpen}
-                                            isUsernavScrolled={
-                                                isUsernavScrolled
-                                            }
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
                                             type="button"
                                             aria-label="Clothes"
                                         >
@@ -105,10 +81,8 @@ const Navbar: FC = () => {
                                     </Link>
                                     <Link href="/" passHref>
                                         <NavbarItem
-                                            isUsernavOpen={isUsernavOpen}
-                                            isUsernavScrolled={
-                                                isUsernavScrolled
-                                            }
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
                                             type="button"
                                             aria-label="Technologies"
                                         >
@@ -117,10 +91,8 @@ const Navbar: FC = () => {
                                     </Link>
                                     <Link href="/" passHref>
                                         <NavbarItem
-                                            isUsernavOpen={isUsernavOpen}
-                                            isUsernavScrolled={
-                                                isUsernavScrolled
-                                            }
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
                                             type="button"
                                             aria-label="More"
                                         >
@@ -132,9 +104,8 @@ const Navbar: FC = () => {
                         </div>
                         <Link href="/" passHref scroll={false}>
                             <HiemsalWrapper
-                                isUsernavOpen={isUsernavOpen}
+                                isUsernavOpen
                                 isScrolled={isScrolled}
-                                onClick={closeUsernav}
                                 role="button"
                             >
                                 <Hiempsal />
@@ -142,18 +113,10 @@ const Navbar: FC = () => {
                         </Link>
                         {isScreenLarge && (
                             <UtilWrapper>
-                                <button
-                                    aria-label="Wish list"
-                                    type="button"
-                                    onClick={openWishList}
-                                >
+                                <button aria-label="Wish list" type="button">
                                     <Heart />
                                 </button>
-                                <button
-                                    aria-label="Cart"
-                                    type="button"
-                                    onClick={openCart}
-                                >
+                                <button aria-label="Cart" type="button">
                                     <Bag />
                                 </button>
                                 <button aria-label="Profile" type="button">

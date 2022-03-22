@@ -19,7 +19,6 @@ import {
     ShippingBox,
     ShoppingButton,
     ShoppingWrapper,
-    ShopPolicy,
     TotalBox,
 } from "./Cart.styled";
 import { CartArticle } from "../CartArticle";

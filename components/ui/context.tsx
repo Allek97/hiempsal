@@ -2,10 +2,12 @@
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
 interface StateValues {
+    isMobileMenuOpen: boolean;
     isProductPopupOpen: boolean;
 }
 
 interface StateModifiers {
+    toggleMobileMenu: () => void;
     openProductPopup: () => void;
     closeProductPopup: () => void;
 }
@@ -13,25 +15,33 @@ interface StateModifiers {
 type State = StateValues & StateModifiers;
 
 const initialState: StateValues = {
+    isMobileMenuOpen: false,
     isProductPopupOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
+    toggleMobileMenu: () => {},
     openProductPopup: () => {},
     closeProductPopup: () => {},
 };
 
-const PopupUIContext = createContext<State>({
+const UIContext = createContext<State>({
     ...initialState,
     ...stateModifiers,
 });
 
 type Action = {
-    type: "OPEN_PRODUCT_POPUP" | "CLOSE_PRODUCT_POPUP";
+    type: "TOGGLE_MOBILE_MENU" | "OPEN_PRODUCT_POPUP" | "CLOSE_PRODUCT_POPUP";
+    payload?: any;
 };
 
 function uiReducer(state: StateValues, action: Action) {
     switch (action.type) {
+        case "TOGGLE_MOBILE_MENU":
+            return {
+                ...state,
+                isMobileMenuOpen: !state.isMobileMenuOpen,
+            };
         case "OPEN_PRODUCT_POPUP":
             return { ...state, isProductPopupOpen: true };
         case "CLOSE_PRODUCT_POPUP":
@@ -42,30 +52,30 @@ function uiReducer(state: StateValues, action: Action) {
     }
 }
 
-const PopupUIProvider: FC = ({ children }) => {
+const UIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);
 
+    const toggleMobileMenu = () => {
+        dispatch({ type: "TOGGLE_MOBILE_MENU" });
+    };
     const openProductPopup = () => dispatch({ type: "OPEN_PRODUCT_POPUP" });
     const closeProductPopup = () => dispatch({ type: "CLOSE_PRODUCT_POPUP" });
 
-    const value: State = useMemo(() => {
+    const value = useMemo(() => {
         return {
             ...state,
+            toggleMobileMenu,
             openProductPopup,
             closeProductPopup,
         };
     }, [state]);
 
-    return (
-        <PopupUIContext.Provider value={value}>
-            {children}
-        </PopupUIContext.Provider>
-    );
+    return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 };
 
-export const usePopupUI = () => {
-    const context = useContext(PopupUIContext);
+export const useUI = () => {
+    const context = useContext(UIContext);
     return context;
 };
 
-export default PopupUIProvider;
+export default UIProvider;

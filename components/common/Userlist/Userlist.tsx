@@ -2,8 +2,6 @@ import { FC, useState } from "react";
 
 import { AiTwotoneFire } from "react-icons/ai";
 
-import { useUsernavUI } from "@components/ui/usernavContext";
-
 import { Product } from "@framework/types/product";
 
 import {
@@ -24,8 +22,6 @@ interface Props {
 }
 
 const Userlist: FC<Props> = ({ products, variant }) => {
-    const { closeUsernav } = useUsernavUI();
-
     const [isWishlistEmpty, _] = useState<boolean>(false);
     return (
         <Root>
@@ -42,7 +38,7 @@ const Userlist: FC<Props> = ({ products, variant }) => {
                                 ? "The products on your wish list will appear here"
                                 : "Your visited products will appear here"}
                         </h1>
-                        <BrowsingBtn onClick={closeUsernav}>
+                        <BrowsingBtn onClick={() => alert("close")}>
                             <AiTwotoneFire />
                             <h1>Start browsing</h1>
                         </BrowsingBtn>

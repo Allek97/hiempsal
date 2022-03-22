@@ -4,7 +4,7 @@ import tw from "twin.macro";
 
 interface RootProps {
     isScrolled: boolean;
-    isUsernavScrolled: boolean;
+
     isUsernavOpen: boolean;
     isMobileMenuOpen: boolean;
     isProductPopupOpen: boolean;

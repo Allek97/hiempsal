@@ -5,26 +5,25 @@ import {
     enableBodyScroll,
 } from "body-scroll-lock";
 
-import { useUsernavUI } from "@components/ui/usernavContext";
+import { useUI } from "@components/ui/context";
 
 import { NavBar } from "..";
 import { Fit, Root } from "./Layout.styled";
 
 const Layout: FC = ({ children }) => {
-    const { isUsernavOpen, isMobileMenuOpen } = useUsernavUI();
+    const { isMobileMenuOpen } = useUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 
     useEffect(() => {
         if (ref.current) {
-            if (isMobileMenuOpen || isUsernavOpen)
-                disableBodyScroll(ref.current);
+            if (isMobileMenuOpen) disableBodyScroll(ref.current);
             else enableBodyScroll(ref.current);
         }
         return () => {
             clearAllBodyScrollLocks();
         };
-    }, [isMobileMenuOpen, isUsernavOpen]);
+    }, [isMobileMenuOpen]);
 
     return (
         <Root ref={ref}>

@@ -1,8 +1,7 @@
 import { FC } from "react";
 import type { AppProps } from "next/app";
 
-import UsernavUIProvider from "@components/ui/usernavContext";
-import PopupUIProvider from "@components/ui/popupContext";
+import UIProvider from "@components/ui/context";
 import ThemeUIProvider from "@components/ui/themeContext";
 
 import "../styles/globals.scss";
@@ -18,15 +17,13 @@ function MyApp({
     const Layout = Component.Layout ?? Noop;
 
     return (
-        <UsernavUIProvider>
-            <PopupUIProvider>
-                <ThemeUIProvider>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </ThemeUIProvider>
-            </PopupUIProvider>
-        </UsernavUIProvider>
+        <UIProvider>
+            <ThemeUIProvider>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </ThemeUIProvider>
+        </UIProvider>
     );
 }
 

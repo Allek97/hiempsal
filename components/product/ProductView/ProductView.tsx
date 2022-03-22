@@ -7,7 +7,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
 
-import { usePopupUI } from "@components/ui/popupContext";
+import { useUI } from "@components/ui/context";
 
 import { ethicalCertifications } from "@lib/const";
 import { currencyKeys } from "@lib/option";
@@ -34,7 +34,7 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
-    const { openProductPopup } = usePopupUI();
+    const { openProductPopup } = useUI();
     return (
         <Root>
             <ProductPopup product={product} />

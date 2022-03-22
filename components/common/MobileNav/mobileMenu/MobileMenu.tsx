@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
-import { useUsernavUI } from "@components/ui/usernavContext";
-
+import { useUI } from "@components/ui/context";
 import { EffectButton } from "@components/ui";
+
 import { HelpCard } from "@components/elements/helpCard";
 
 import {
@@ -15,7 +15,7 @@ import {
 } from "./MobileMenu.styled";
 
 const MobileMenu: FC = () => {
-    const { isMobileMenuOpen } = useUsernavUI();
+    const { isMobileMenuOpen } = useUI();
     return (
         <Root isMobileMenuOpen={isMobileMenuOpen}>
             <Navigation>

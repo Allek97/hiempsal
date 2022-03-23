@@ -1,13 +1,19 @@
 import { FC } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useUI } from "@components/ui/context";
 
 import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
 
-import { Bag, Heart, Logo, TextLogo as Hiempsal } from "@components/icons";
-import { BsArrowLeftCircleFill } from "react-icons/bs";
+import {
+    Bag,
+    Heart,
+    Logo,
+    TextLogo as Hiempsal,
+    Arrow,
+} from "@components/icons";
 
 import {
     Wrapper,
@@ -22,6 +28,9 @@ import {
 import { MobileNav } from "..";
 
 const Navbar: FC = () => {
+    const router = useRouter();
+    const isUsernavOpen = router.pathname.includes("cart");
+
     const { isProductPopupOpen, isMobileMenuOpen } = useUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
@@ -34,31 +43,25 @@ const Navbar: FC = () => {
             {!isScreenLarge && <MobileNav />}
             <NavbarRoot
                 isScrolled={isScrolled}
-                isUsernavOpen
                 isMobileMenuOpen={isMobileMenuOpen}
                 isProductPopupOpen={isProductPopupOpen}
+                isUsernavOpen={isUsernavOpen}
             >
                 <Container
-                    isUsernavOpen
                     isScrolled={isScrolled}
-                    isUsernavScrolled={false}
                     isMobileMenuOpen={isMobileMenuOpen}
                 >
                     <Navigation>
-                        <div className="flex items-center space-x-5">
-                            <Link href="/" passHref scroll={false}>
-                                <Wrapper isUsernavOpen>
-                                    {true &&
-                                    !isMobileMenuOpen &&
-                                    !isScreenLarge ? (
-                                        <BsArrowLeftCircleFill role="button" />
-                                    ) : (
-                                        <Logo />
-                                    )}
-                                </Wrapper>
-                            </Link>
+                        <div className="flex items-center">
+                            {!isMobileMenuOpen && (
+                                <Link href="/" passHref scroll={false}>
+                                    <Wrapper isUsernavOpen={isUsernavOpen}>
+                                        {isUsernavOpen ? <Arrow /> : <Logo />}
+                                    </Wrapper>
+                                </Link>
+                            )}
                             {isScreenLarge && (
-                                <nav className="space-x-6">
+                                <nav>
                                     <Link href="/" passHref>
                                         <NavbarItem
                                             isUsernavOpen

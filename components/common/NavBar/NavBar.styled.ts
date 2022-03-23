@@ -4,16 +4,17 @@ import tw from "twin.macro";
 
 interface RootProps {
     isScrolled: boolean;
-
-    isUsernavOpen: boolean;
     isMobileMenuOpen: boolean;
     isProductPopupOpen: boolean;
+    isUsernavOpen: boolean;
+}
+
+interface ContainerProps {
+    isScrolled?: boolean;
+    isMobileMenuOpen?: boolean;
 }
 interface WrapperProps {
     isUsernavOpen: boolean;
-    isScrolled?: boolean;
-    isUsernavScrolled?: boolean;
-    isMobileMenuOpen?: boolean;
 }
 
 interface NavbarItemProps {
@@ -53,9 +54,18 @@ export const NavbarRoot = styled.div<RootProps>`
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
 
         ${(props) =>
-            (props.isScrolled && !props.isUsernavOpen) ||
-            (props.isUsernavScrolled && props.isUsernavOpen) ||
-            props.isMobileMenuOpen
+            props.isUsernavOpen &&
+            css`
+                ${tw`lg:background[linear-gradient(90deg, rgba(233,236,239,1) 0%, 
+                    rgba(233,236,239,1) 33.333333333333333%, rgba(255,255,255,1) 33.333333333333333%, 
+                    rgba(255,255,255,1) 100%)]
+                4xl:background[linear-gradient(90deg, rgba(233,236,239,1) 0%, 
+                    rgba(233,236,239,1) 25%, rgba(255,255,255,1) 25%, 
+                    rgba(255,255,255,1) 100%)]`}
+            `}
+
+        ${(props) =>
+            props.isScrolled || props.isMobileMenuOpen
                 ? css`
                       transform: scaleY(1);
                   `
@@ -79,9 +89,7 @@ export const NavbarRoot = styled.div<RootProps>`
         transform-origin: left;
 
         ${(props) =>
-            (props.isScrolled && !props.isUsernavOpen) ||
-            (props.isUsernavScrolled && props.isUsernavOpen) ||
-            props.isMobileMenuOpen
+            props.isScrolled || props.isMobileMenuOpen
                 ? css`
                       transform: scaleX(1);
                   `
@@ -92,7 +100,7 @@ export const NavbarRoot = styled.div<RootProps>`
     }
 `;
 
-export const Container = styled.div<WrapperProps>`
+export const Container = styled.div<ContainerProps>`
     ${tw`relative padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
 
     ${({ theme }) => theme.layout.mainPadding}
@@ -113,10 +121,7 @@ export const Container = styled.div<WrapperProps>`
         transform-origin: left;
 
         ${(props) =>
-            (!props.isScrolled && !props.isUsernavOpen) ||
-            (!props.isUsernavScrolled &&
-                props.isUsernavOpen &&
-                !props.isMobileMenuOpen)
+            !props.isScrolled
                 ? css`
                       transform: scaleX(1);
                   `
@@ -136,21 +141,26 @@ export const Navigation = styled.nav`
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-    ${tw`transition-transform width[28px] cursor-pointer
-    2xl:(width[34px])`}
+    ${tw`self-center margin-right[0.7vw] transition-transform cursor-pointer`}
 
     svg {
-        ${tw`w-full h-full text-primary
-        lg:(text-transparent)`}
+        ${tw`h-full text-primary`}
+
+        ${({ isUsernavOpen }) =>
+            isUsernavOpen
+                ? css`
+                      ${tw`max-width[20px] width[5.6vw]
+                           md:width[2.4vw]
+                           lg:width[1.2vw]`}
+                  `
+                : css`
+                      ${tw`width[28px] 2xl:width[34px]`}
+                  `}
     }
 
-    ${(props) =>
-        props.isUsernavOpen &&
-        css`
-            opacity: 0;
-            animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955)
-                0.3s 1 forwards;
-        `};
+    opacity: 0;
+    animation: ${fadeIn} 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s 1
+        forwards;
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -167,7 +177,7 @@ export const Wrapper = styled.div<WrapperProps>`
 `;
 
 export const NavbarItem = styled.button<NavbarItemProps>`
-    ${tw`transition-colors text-accents-7 cursor-pointer`}
+    ${tw`margin-left[0.7vw] margin-right[0.7vw] transition-colors text-accents-7 cursor-pointer`}
 
     transform-origin: center bottom;
     transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);

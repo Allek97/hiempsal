@@ -17,10 +17,16 @@ import {
 import { MobileMenu } from "..";
 
 const MobileNav: FC = () => {
-    const { isProductPopupOpen, isMobileMenuOpen } = useUI();
+    const {
+        isProductPopupOpen,
+        isMobileMenuOpen,
+        closeProductPopup,
+        toggleMobileMenu,
+    } = useUI();
 
     const toggleMenu = () => {
-        alert("toggle Menu");
+        if (isProductPopupOpen) closeProductPopup();
+        else toggleMobileMenu();
     };
 
     return (

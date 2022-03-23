@@ -4,3 +4,4 @@ export { default as Logo } from "./Logo";
 export { default as TextLogo } from "./TextLogo";
 export { default as Test } from "./Test";
 export { default as Plus } from "./Plus";
+export { default as Arrow } from "./Arrow";

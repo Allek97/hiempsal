@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -33,14 +34,12 @@ const Navbar: FC = () => {
     const isUsernavOpen = router.pathname.includes("cart");
 
     const { isProductPopupOpen, isMobileMenuOpen } = useUI();
-    const { history, back } = useHistory();
+    const { back } = useHistory();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
     const scrollThreshold = isScreenLarge ? 20 : 0;
     const isScrolled = useScroll(scrollThreshold);
-
-    console.log(history);
 
     return (
         <>
@@ -59,7 +58,11 @@ const Navbar: FC = () => {
                         <div className="flex items-center">
                             {!isMobileMenuOpen && (
                                 <WrapperBtn
-                                    onClick={() => back()}
+                                    onClick={
+                                        isUsernavOpen
+                                            ? () => back("/")
+                                            : () => {}
+                                    }
                                     isUsernavOpen={isUsernavOpen}
                                     type="button"
                                 >

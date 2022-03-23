@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 
 import UIProvider from "@components/ui/context";
 import ThemeUIProvider from "@components/ui/themeContext";
+import HistoryProvider from "@contexts/History";
 
 import "../styles/globals.scss";
 import "../assets/base.css";
@@ -19,9 +20,11 @@ function MyApp({
     return (
         <UIProvider>
             <ThemeUIProvider>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
+                <HistoryProvider>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </HistoryProvider>
             </ThemeUIProvider>
         </UIProvider>
     );

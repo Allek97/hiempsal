@@ -55,7 +55,10 @@ const Navbar: FC = () => {
                         <div className="flex items-center">
                             {!isMobileMenuOpen && (
                                 <Link href="/" passHref scroll={false}>
-                                    <Wrapper isUsernavOpen={isUsernavOpen}>
+                                    <Wrapper
+                                        isUsernavOpen={isUsernavOpen}
+                                        onClick={() => router.back()}
+                                    >
                                         {isUsernavOpen ? <Arrow /> : <Logo />}
                                     </Wrapper>
                                 </Link>

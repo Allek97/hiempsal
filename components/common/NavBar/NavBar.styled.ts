@@ -140,7 +140,7 @@ export const Navigation = styled.nav`
     }
 `;
 
-export const Wrapper = styled.div<WrapperProps>`
+export const WrapperBtn = styled.button<WrapperProps>`
     ${tw`self-center margin-right[0.7vw] transition-transform cursor-pointer`}
 
     svg {

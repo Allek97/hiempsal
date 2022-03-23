@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useUI } from "@components/ui/context";
+import { useHistory } from "@contexts/History";
 
 import { useMediaQueryNext } from "lib/customHooks";
 import useScroll from "lib/customHooks/useScroll";
@@ -16,7 +17,6 @@ import {
 } from "@components/icons";
 
 import {
-    Wrapper,
     HiemsalWrapper,
     NavbarItem,
     Navigation,
@@ -24,6 +24,7 @@ import {
     NavbarRoot,
     UtilWrapper,
     Container,
+    WrapperBtn,
 } from "./NavBar.styled";
 import { MobileNav } from "..";
 
@@ -32,11 +33,14 @@ const Navbar: FC = () => {
     const isUsernavOpen = router.pathname.includes("cart");
 
     const { isProductPopupOpen, isMobileMenuOpen } = useUI();
+    const { history, back } = useHistory();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
     const scrollThreshold = isScreenLarge ? 20 : 0;
     const isScrolled = useScroll(scrollThreshold);
+
+    console.log(history);
 
     return (
         <>
@@ -54,14 +58,13 @@ const Navbar: FC = () => {
                     <Navigation>
                         <div className="flex items-center">
                             {!isMobileMenuOpen && (
-                                <Link href="/" passHref scroll={false}>
-                                    <Wrapper
-                                        isUsernavOpen={isUsernavOpen}
-                                        onClick={() => router.back()}
-                                    >
-                                        {isUsernavOpen ? <Arrow /> : <Logo />}
-                                    </Wrapper>
-                                </Link>
+                                <WrapperBtn
+                                    onClick={() => back()}
+                                    isUsernavOpen={isUsernavOpen}
+                                    type="button"
+                                >
+                                    {isUsernavOpen ? <Arrow /> : <Logo />}
+                                </WrapperBtn>
                             )}
                             {isScreenLarge && (
                                 <nav>

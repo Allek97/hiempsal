@@ -5,6 +5,7 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import { VscEyeClosed } from "react-icons/vsc";
 
 import { useUI } from "@components/ui/context";
+
 import { useMediaQueryNext } from "lib/customHooks";
 
 import { HelpCard } from "../../elements/helpCard";

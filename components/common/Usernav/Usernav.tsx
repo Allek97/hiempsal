@@ -1,10 +1,9 @@
-import { FC, MutableRefObject, ReactNode, useEffect, useRef } from "react";
+import { FC, MutableRefObject, ReactNode, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { VscEyeClosed } from "react-icons/vsc";
-
-import { useUI } from "@components/ui/context";
+import { BsBack } from "react-icons/bs";
 
 import { useMediaQueryNext } from "lib/customHooks";
 
@@ -24,42 +23,58 @@ interface Props {
 }
 
 const Usernav: FC<Props> = ({ children }) => {
+    const router = useRouter();
+    const isCartSelected = router.pathname === "/cart/bag";
+    const isWishlistSelected = router.pathname === "/cart/wishlist";
+    const isViewedProductSelected = router.pathname === "/cart/products";
+
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
     const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
     const isScreenLarge = useMediaQueryNext("lg");
-
-    const { isMobileMenuOpen } = useUI();
 
     return (
         <Root ref={rootRef}>
             <Navigation>
                 <nav>
                     <Link href="/cart/bag" passHref>
-                        <NavBtn type="button" aria-label="Cart">
+                        <NavBtn
+                            isSelected={isCartSelected}
+                            type="button"
+                            aria-label="Cart"
+                        >
                             <HiArrowNarrowRight />
                             <h1>Your Cart</h1>
                         </NavBtn>
                     </Link>
                     <Link href="/cart/wishlist" passHref>
-                        <NavBtn type="button" aria-label="Wish list">
+                        <NavBtn
+                            isSelected={isWishlistSelected}
+                            type="button"
+                            aria-label="Wish list"
+                        >
                             <HiArrowNarrowRight />
                             <h1>Wish list</h1>
                         </NavBtn>
                     </Link>
-
-                    <NavBtn type="button" aria-label="Viewed products">
-                        <HiArrowNarrowRight />
-                        <h1>Viewed products</h1>
-                    </NavBtn>
+                    <Link href="/cart/products" passHref>
+                        <NavBtn
+                            isSelected={isViewedProductSelected}
+                            type="button"
+                            aria-label="Viewed products"
+                        >
+                            <HiArrowNarrowRight />
+                            <h1>Viewed products</h1>
+                        </NavBtn>
+                    </Link>
                     {isScreenLarge && (
                         <NavBtn
                             type="button"
                             aria-label="Close Usernav"
                             isSelected={false}
                         >
-                            <VscEyeClosed />
-                            <h1>Close</h1>
+                            <BsBack fill="var(--accents-9)" />
+                            <h1>Home</h1>
                         </NavBtn>
                     )}
                     {isScreenLarge && (

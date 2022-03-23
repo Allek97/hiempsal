@@ -35,13 +35,14 @@ export const EffectBtnRoot = styled.button<Props>`
                       transform: translateX(0);
                   `}
     }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover svg {
+            opacity: 1;
+            transform: none;
+        }
 
-    &:hover svg {
-        opacity: 1;
-        transform: none;
-    }
-
-    &:hover h1 {
-        transform: translateX(1.4em);
+        &:hover h1 {
+            transform: translateX(1.4em);
+        }
     }
 `;

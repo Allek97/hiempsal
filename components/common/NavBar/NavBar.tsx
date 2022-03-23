@@ -114,7 +114,7 @@ const Navbar: FC = () => {
                                 </nav>
                             )}
                         </div>
-                        <Link href="/" passHref scroll={false}>
+                        <Link href="/" passHref>
                             <HiemsalWrapper
                                 isUsernavOpen
                                 isScrolled={isScrolled}
@@ -125,15 +125,24 @@ const Navbar: FC = () => {
                         </Link>
                         {isScreenLarge && (
                             <UtilWrapper>
-                                <button aria-label="Wish list" type="button">
-                                    <Heart />
-                                </button>
-                                <button aria-label="Cart" type="button">
-                                    <Bag />
-                                </button>
-                                <button aria-label="Profile" type="button">
-                                    <Profile />
-                                </button>
+                                <Link href="/cart/wishlist" passHref>
+                                    <button
+                                        aria-label="Wish list"
+                                        type="button"
+                                    >
+                                        <Heart />
+                                    </button>
+                                </Link>
+                                <Link href="/cart/bag" passHref>
+                                    <button aria-label="Cart" type="button">
+                                        <Bag />
+                                    </button>
+                                </Link>
+                                <Link href="/" passHref>
+                                    <button aria-label="Profile" type="button">
+                                        <Profile />
+                                    </button>
+                                </Link>
                             </UtilWrapper>
                         )}
                     </Navigation>

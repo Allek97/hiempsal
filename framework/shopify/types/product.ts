@@ -41,6 +41,7 @@ export interface Product {
     images: ProductImage[];
     price: ProductPrice;
     availableForSale: boolean;
+    featureImages: ProductImage[];
     options: ProductOption[];
     variants: ProductVariant[];
 }

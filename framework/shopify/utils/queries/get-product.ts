@@ -79,6 +79,7 @@ query product($slug: String!) {
           ... on MediaImage {
             image {
               url
+              altText
             }
           }
         }
@@ -88,6 +89,7 @@ query product($slug: String!) {
           ... on MediaImage {
             image {
               url
+              altText
             }
           }
         }
@@ -97,6 +99,7 @@ query product($slug: String!) {
           ... on MediaImage {
             image {
               url
+              altText
             }
           }
         }
@@ -106,6 +109,7 @@ query product($slug: String!) {
           ... on MediaImage {
             image {
               url
+              altText
             }
           }
         }
@@ -121,7 +125,7 @@ query product($slug: String!) {
       }
     }
   }
-
+  
 `;
 
 export default getProductQuery;

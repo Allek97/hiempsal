@@ -68,14 +68,16 @@ const Usernav: FC<Props> = ({ children }) => {
                         </NavBtn>
                     </Link>
                     {isScreenLarge && (
-                        <NavBtn
-                            type="button"
-                            aria-label="Close Usernav"
-                            isSelected={false}
-                        >
-                            <BsBack fill="var(--accents-9)" />
-                            <h1>Home</h1>
-                        </NavBtn>
+                        <Link href="/cart/products" passHref>
+                            <NavBtn
+                                type="button"
+                                aria-label="Home"
+                                isSelected={false}
+                            >
+                                <BsBack fill="var(--accents-9)" />
+                                <h1>Home</h1>
+                            </NavBtn>
+                        </Link>
                     )}
                     {isScreenLarge && (
                         <HelpCardWrapper>

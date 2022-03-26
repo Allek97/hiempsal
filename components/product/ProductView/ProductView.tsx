@@ -118,31 +118,24 @@ const ProductView: FC<Props> = ({ product }) => {
                     </VariantContainer>
                 </CartContainer>
 
-                <FeatureContainer isFirst>
-                    <div>
-                        <Image
-                            src="/images/testing.png"
-                            alt="Thumbnail"
-                            layout="fill"
-                            objectFit="contain"
-                            quality="85"
-                            priority
-                        />
-                    </div>
-                </FeatureContainer>
-
-                <FeatureContainer>
-                    <div>
-                        <Image
-                            src="/images/Men-TShirt-Black-Side.png"
-                            alt="Thumbnail"
-                            layout="fill"
-                            objectFit="contain"
-                            quality="85"
-                            priority
-                        />
-                    </div>
-                </FeatureContainer>
+                {product.featureImages.map((featureImage, idx) => (
+                    <FeatureContainer
+                        isFirst={idx === 0}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={`${featureImage.url}${idx}`}
+                    >
+                        <div>
+                            <Image
+                                src={featureImage.url}
+                                alt={featureImage.alt || "feature"}
+                                layout="fill"
+                                objectFit="cover"
+                                quality="85"
+                                priority
+                            />
+                        </div>
+                    </FeatureContainer>
+                ))}
             </ProductOverviewContainer>
         </Root>
     );

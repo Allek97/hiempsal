@@ -9,6 +9,7 @@ import {
     ProductPriceRange,
     ProductVariantConnection,
     SelectedOption,
+    MediaImage,
 } from "@framework/schema";
 import { Cart, LineItem } from "@framework/types/cart";
 import { Product, ProductImage, ProductPrice } from "@framework/types/product";
@@ -17,6 +18,17 @@ type OptionValues = {
     label: string;
     hexColor?: string;
 };
+
+type ImageReference = {
+    reference: MediaImage;
+};
+
+interface Metafields {
+    featureImage1: ImageReference;
+    featureImage2: ImageReference;
+}
+
+type ShopifyProductMeta = ShopifyProduct & Metafields;
 
 const normalizeProductImages = ({ edges }: ImageConnection): ProductImage[] =>
     edges.map(({ node: { url, altText, ...rest } }) => ({
@@ -163,7 +175,19 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     };
 };
 
-export const normalizeProduct = (productNode: ShopifyProduct): Product => {
+export const normalizeMediaImages = (
+    featureImages: Pick<Metafields, "featureImage1" | "featureImage2">
+): ProductImage[] =>
+    (Object.keys(featureImages) as Array<keyof typeof featureImages>).map(
+        (key) => ({
+            url:
+                featureImages[key].reference.image?.url ??
+                "/product-image-placeholder",
+            alt: featureImages[key].reference.alt ?? "",
+        })
+    );
+
+export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
     const {
         id,
         title: name,
@@ -175,6 +199,8 @@ export const normalizeProduct = (productNode: ShopifyProduct): Product => {
         options,
         variants,
         availableForSale,
+        featureImage1,
+        featureImage2,
         ...rest
     } = productNode;
 
@@ -188,6 +214,10 @@ export const normalizeProduct = (productNode: ShopifyProduct): Product => {
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange),
         availableForSale,
+        featureImages: normalizeMediaImages({
+            featureImage1,
+            featureImage2,
+        }),
         options: options
             ? options
                   .filter((o) => o.name !== "Title")

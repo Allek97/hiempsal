@@ -41,6 +41,7 @@ const Swatch: FC<Props> = ({
             htmlFor={value}
             isAvailable={isAvailable}
             isOutOfStock={isOutOfStock}
+            hasImage
         >
             <input
                 id={value}
@@ -55,8 +56,8 @@ const Swatch: FC<Props> = ({
                 <Image
                     src={image?.url ?? "/product-pattern-bg.svg"}
                     alt={image?.alt ?? "Item variant color"}
-                    width={3}
-                    height={5}
+                    width={2}
+                    height={3}
                     layout="responsive"
                     objectFit="contain"
                     priority

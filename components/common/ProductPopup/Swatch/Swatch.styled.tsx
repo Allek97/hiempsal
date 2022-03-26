@@ -7,6 +7,7 @@ interface ProductVariantProps {
     isPride?: boolean;
     isAvailable: boolean;
     isOutOfStock: boolean;
+    hasImage?: boolean;
 }
 
 const rainbow = css`
@@ -27,27 +28,30 @@ const rainbow = css`
 `;
 
 export const ProductVariantColor = styled.label<ProductVariantProps>`
-    ${tw`relative flex flex-col items-center justify-start text-center flex-1 
-    border border-color[#f0f0f0] border-radius[3px] bg-primary cursor-pointer
-    md:min-height[12.5rem]
-    lg:min-height[14.5vw]
-    2xl:min-height[13.5rem]`};
+    ${tw`relative flex flex-col items-center justify-start h-full
+    border border-color[#f0f0f0] border-radius[3px] 
+    bg-primary cursor-pointer text-center`};
 
-    ${tw`font-size[13px] text-accents-8
-        xl:font-size[14px]
+    ${({ hasImage }) =>
+        hasImage &&
+        css`
+            ${tw`padding[2vw]
+            sm:padding[3vw]
+            md:padding[2vw]
+            lg:padding[5px]`}
+        `}
+
+    // font
+    ${tw`font-size[13px]
+        md:font-size[14px]
         2xl:font-size[16px]`}
 
-    min-height: 38vw;
     transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
 
     input {
         ${tw`absolute z-30 top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
-
-        &:checked {
-            background-color: red;
-        }
 
         &:checked + span {
             ${({ isPride, isAvailable }) =>
@@ -110,10 +114,10 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
 `;
 
 export const VariantSizeGender = styled(ProductVariantColor)`
-    ${tw`relative justify-center min-height[15vw]
-    md:min-height[5.5rem]`}
+    ${tw`relative justify-center height[16vw]
+    md:height[10vw]`}
 `;
 
 export const ImageVariantWrapper = styled.span`
-    ${tw`width[65%] p-1`}
+    ${tw`relative w-full`}
 `;

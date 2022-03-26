@@ -24,25 +24,29 @@ export const Overlay = styled.div`
 `;
 
 export const Container = styled.section`
-    ${tw`fixed z-index[95] bottom-9 right[4vw] width[94vw] height[80%] bg-primary
-     overflow-y-scroll 
-    md:(width[55vw] right[0] left[0] mx-auto)
-    lg:(bottom-4 height[85%] width[33vw] ml-auto mr-10)
-    2xl:(width[32rem])`}
+    ${tw`fixed z-index[95] bottom-10 right[15px]
+    border-radius[5px] bg-primary overflow-y-auto 
+    lg:(right[2.6666666667vw] bottom[1.3333333333vw] border-radius[0px])`}
+
+    // Dimensions
+    ${tw`(width[calc(100% - 30px)] height[calc(90vh - 4.2rem)]) 
+    md:(height[calc(85vh - 4.2rem)])
+    lg:width[28vw]
+    2xl:width[21vw]`}
 
     animation : ${riseAnimation} 0.5s ease-out 1 forwards;
 
     filter: drop-shadow(rgba(0, 0, 0, 0.15) 1px 1px 3px);
     /* border-top-left-radius: 1.5rem; */
-
-    clip-path: polygon(4.5% 0, 100% 0, 100% 100%, 0 100%, 0 2.5%);
-
-    ${customScroll}
+    @media only screen and (min-width: 64em) {
+        clip-path: polygon(4.5% 0, 100% 0, 100% 100%, 0 100%, 0 3%);
+        ${customScroll}
+    }
 `;
 
 export const CloseWrapper = styled.div`
-    ${tw`absolute top-3 right-3 w-4 cursor-pointer z-10
-    xl:(py-11 top-0 right-8)`}
+    ${tw`absolute top-8 right-3 w-3.5 cursor-pointer z-10
+    xl:(right-8)`}
 
     @media (hover:hover) and (pointer: fine) {
         &:hover svg {

@@ -4,13 +4,13 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 export const Content = styled.div`
-    ${tw`relative flex flex-col py-8 px-4
-    lg:pt-10
-    2xl:px-6`}
+    ${tw`relative flex flex-col padding[7.6vw 4vw]
+    md:padding[3vw]
+    lg:padding[2rem 1.333333333333333vw]`}
 `;
 
 export const ProductInfo = styled.div`
-    ${tw`flex justify-between items-center mb-12 font-size[17px] tracking-tighter cursor-pointer
+    ${tw`flex justify-between items-center mb-12 font-size[16px] tracking-tighter cursor-pointer
     lg:justify-start
     xl:font-size[19px]`}
 
@@ -37,7 +37,9 @@ export const VariantOptionContainer = styled.section`
     }
 `;
 export const ProductVariantList = styled.div`
-    ${tw`grid grid-cols-3 justify-between items-center gap-1.5 mb-6`}
+    ${tw`grid grid-cols-3 grid-auto-rows[1fr] justify-between items-center gap-1.5 mb-6
+    md:grid-cols-4
+    lg:grid-cols-3`}
 `;
 
 ///////////////////////////////////////////////////

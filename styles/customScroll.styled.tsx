@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 
 const customScroll = css`
     &::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 8rem;
+        width: 6px;
+        border-radius: 5px;
     }
 
     &::-webkit-scrollbar-track {
@@ -11,13 +11,13 @@ const customScroll = css`
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: RGBA(var(--color-blue-special));
-        box-shadow: inset 0 0 6px RGBA(0, 0, 0, 0.5);
-        border-radius: 8rem;
+        background-color: var(--accents-4);
+        /* box-shadow: inset 0 0 6px RGBA(0, 0, 0, 0.5); */
+        border-radius: 2px;
     }
 
     &::-webkit-scrollbar-thumb:window-inactive {
-        background-color: RGBA(var(--color-blue-special));
+        background-color: var(--accents-4);
     }
 `;
 

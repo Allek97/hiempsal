@@ -31,8 +31,9 @@ export const Container = styled.section`
     // Dimensions
     ${tw`(width[calc(100% - 30px)] height[calc(90vh - 4.2rem)]) 
     md:(height[calc(85vh - 4.2rem)])
-    lg:width[28vw]
-    2xl:width[21vw]`}
+    lg:(width[32vw] height[75vh - 4.2rem])
+    2lg:width[30vw]
+    4xl:width[25vw]`}
 
     animation : ${riseAnimation} 0.5s ease-out 1 forwards;
 
@@ -46,7 +47,7 @@ export const Container = styled.section`
 
 export const CloseWrapper = styled.div`
     ${tw`absolute top-8 right-3 w-3.5 cursor-pointer z-10
-    xl:(right-8)`}
+    lg:(right[1.333333333333333vw])`}
 
     @media (hover:hover) and (pointer: fine) {
         &:hover svg {

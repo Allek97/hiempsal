@@ -4,6 +4,7 @@ import { ProductImage } from "@framework/types/product";
 import { colorKeys } from "@lib/option";
 import {
     ImageVariantWrapper,
+    NotifyButton,
     ProductVariantColor,
     VariantSizeGender,
 } from "./Swatch.styled";
@@ -50,6 +51,7 @@ const Swatch: FC<Props> = ({
                 required
                 onClick={clickHandler}
                 checked={isSelected}
+                disabled={isOutOfStock || !isAvailable}
             />
             <span />
             <ImageVariantWrapper>
@@ -81,11 +83,14 @@ const Swatch: FC<Props> = ({
                 required
                 onClick={clickHandler}
                 checked={isSelected}
+                disabled={isOutOfStock || !isAvailable}
             />
             <span />
 
             <span>{value}</span>
-            {isOutOfStock && <button type="button">OUT OF STOCK</button>}
+            {isOutOfStock && (
+                <NotifyButton type="button">Get notified</NotifyButton>
+            )}
         </VariantSizeGender>
     );
 };

@@ -1,7 +1,16 @@
 import { Button } from "@components/ui";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import tw from "twin.macro";
+
+const mainTextSize = css`
+    ${tw`font-size[16.5px] tracking-tighter
+    lg:font-size[13.5px]
+    2lg:font-size[1.2vw]`}
+
+    ${tw`2xl:font-size[18px]`}
+`;
 
 export const Content = styled.div`
     ${tw`relative flex flex-col padding[7.6vw 4vw]
@@ -10,17 +19,18 @@ export const Content = styled.div`
 `;
 
 export const ProductInfo = styled.div`
-    ${tw`flex justify-between items-center mb-12 font-size[16px] tracking-tighter cursor-pointer
-    lg:justify-start
-    xl:font-size[19px]`}
+    ${tw`flex justify-between items-center mb-12 cursor-pointer
+    lg:justify-start`}
+
+    ${mainTextSize}
 
     h1 {
         ${tw`mr-3`}
     }
 
     span {
-        ${tw`font-size[14.5px] text-accents-9
-        xl:font-size[16.5px]`}
+        ${tw`font-size[13px]
+        lg:font-size[14px]`}
     }
 `;
 
@@ -62,8 +72,8 @@ export const CartBtnWrapper = styled.div`
 `;
 
 export const CartButton = styled(Button)`
-    ${tw`height[50px] mx-auto overflow-hidden text-lg
-    2xl:text-xl`}
+    ${tw`height[50px] mx-auto overflow-hidden`}
+    ${mainTextSize}
     border-radius: 4px;
 
     @media (hover: hover) and (pointer: fine) {

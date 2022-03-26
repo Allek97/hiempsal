@@ -30,7 +30,7 @@ const rainbow = css`
 export const ProductVariantColor = styled.label<ProductVariantProps>`
     ${tw`relative flex flex-col items-center justify-start h-full
     border border-color[#f0f0f0] border-radius[3px] 
-    bg-primary cursor-pointer text-center`};
+    bg-primary text-center`};
 
     ${({ hasImage }) =>
         hasImage &&
@@ -38,10 +38,11 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
             ${tw`padding[2vw]
             sm:padding[3vw]
             md:padding[2vw]
-            lg:padding[5px]`}
+            lg:padding[5px]
+            4xl:padding[10px]`}
         `}
 
-    // font
+    // font size
     ${tw`font-size[13px]
         md:font-size[14px]
         2xl:font-size[16px]`}
@@ -68,41 +69,44 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
                     cursor: auto;
                 `}
         }
+
+        &:disabled + span {
+            ${({ isAvailable }) =>
+                !isAvailable &&
+                css`
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid #e4e4e4;
+                    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+                    background: #f0f0f0;
+                    color: #676767;
+                `}
+            ${({ isOutOfStock }) =>
+                isOutOfStock &&
+                css`
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+                    border: 1px solid #e4e4e4;
+                    background: #f0f0f0;
+                `}
+        }
+
+        &:disabled {
+            cursor: default;
+        }
     }
 
     & > span:first-of-type {
         ${tw`absolute z-10 top-0 left-0 
-         w-full h-full opacity-100 cursor-pointer`}
+         w-full h-full opacity-100`}
     }
     & > span:nth-of-type(2),
     & > span:last-of-type {
-        ${tw`relative z-20 mx-3.5`}
+        ${tw`relative z-30 mx-3.5`}
     }
 
-    ${({ isAvailable }) =>
-        !isAvailable &&
-        css`
-            pointer-events: none;
-            background: #f0f0f0;
-            border: 1px solid #e4e4e4;
-            box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
-            color: #676767;
-            display: flex;
-            flex-direction: column;
-        `}
-    ${({ isOutOfStock }) =>
-        isOutOfStock &&
-        css`
-            pointer-events: none;
-            background: #f0f0f0;
-            border: 1px solid #e4e4e4;
-            box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
-            color: red;
-            display: flex;
-            flex-direction: column;
-        `}
-
-    @media (hover:hover) and (pointer: fine) {
+    @media (hover: hover) and (pointer: fine) {
         &:hover {
             background-color: #f0f0f0;
         }
@@ -115,9 +119,18 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
 
 export const VariantSizeGender = styled(ProductVariantColor)`
     ${tw`relative justify-center height[16vw]
-    md:height[10vw]`}
+    md:height[10vw]
+    lg:height[5vw]
+    4xl:height[3.5vw]`}
 `;
 
 export const ImageVariantWrapper = styled.span`
     ${tw`relative w-full`}
+`;
+
+export const NotifyButton = styled.button`
+    ${tw`relative z-30 mt-3 
+    font-size[9px] tracking-normal line-height[1.2em] uppercase`}
+
+    cursor: pointer !important;
 `;

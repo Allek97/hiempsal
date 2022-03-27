@@ -1,12 +1,11 @@
-import { Product as ShopifyProduct } from "@framework/schema";
 import { ApiConfig, Variables } from "@framework/types/api";
-import { Product } from "@framework/types/product";
+import { Product, ShopifyProductMeta } from "@framework/types/product";
 import { normalizeProduct } from "@framework/utils/normalize";
 
 import getProductQuery from "@framework/utils/queries/get-product";
 
 type FetchType = {
-    product: ShopifyProduct;
+    product: ShopifyProductMeta;
 };
 
 type ReturnType = {

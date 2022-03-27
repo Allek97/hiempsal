@@ -4,31 +4,24 @@ import {
     Image,
     ImageConnection,
     Maybe,
-    Product as ShopifyProduct,
     ProductOption,
     ProductPriceRange,
     ProductVariantConnection,
     SelectedOption,
-    MediaImage,
 } from "@framework/schema";
 import { Cart, LineItem } from "@framework/types/cart";
-import { Product, ProductImage, ProductPrice } from "@framework/types/product";
+import {
+    Metafields,
+    Product,
+    ProductImage,
+    ProductPrice,
+    ShopifyProductMeta,
+} from "@framework/types/product";
 
 type OptionValues = {
     label: string;
     hexColor?: string;
 };
-
-type ImageReference = {
-    reference: MediaImage;
-};
-
-interface Metafields {
-    featureImage1: ImageReference;
-    featureImage2: ImageReference;
-}
-
-type ShopifyProductMeta = ShopifyProduct & Metafields;
 
 const normalizeProductImages = ({ edges }: ImageConnection): ProductImage[] =>
     edges.map(({ node: { url, altText, ...rest } }) => ({
@@ -214,10 +207,13 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange),
         availableForSale,
-        featureImages: normalizeMediaImages({
-            featureImage1,
-            featureImage2,
-        }),
+        featureImages:
+            featureImage1 && featureImage2
+                ? normalizeMediaImages({
+                      featureImage1,
+                      featureImage2,
+                  })
+                : [],
         options: options
             ? options
                   .filter((o) => o.name !== "Title")

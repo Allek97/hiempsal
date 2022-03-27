@@ -50,7 +50,7 @@ const Swatch: FC<Props> = ({
                 name="color"
                 required
                 onClick={clickHandler}
-                checked={isSelected}
+                defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />
             <span />
@@ -82,7 +82,7 @@ const Swatch: FC<Props> = ({
                 name={option}
                 required
                 onClick={clickHandler}
-                checked={isSelected}
+                defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />
             <span />

@@ -17,7 +17,7 @@ const productConnection = `
                 currencyCode
                 }
             }
-            images(first: 1) {
+            images(first: 1) { 
                 pageInfo {
                 hasNextPage
                 hasPreviousPage

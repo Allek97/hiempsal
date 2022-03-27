@@ -22,6 +22,7 @@
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.27.0",
+        "framer-motion": "^6.2.8",
         "js-cookie": "^3.0.1",
         "keen-slider": "^6.6.3",
         "next": "12.0.3",

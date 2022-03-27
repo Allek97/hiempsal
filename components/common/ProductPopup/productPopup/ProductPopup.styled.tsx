@@ -12,10 +12,13 @@ const mainTextSize = css`
     ${tw`2xl:font-size[18px]`}
 `;
 
-export const Content = styled.div`
-    ${tw`relative flex flex-col padding[7.6vw 4vw]
+export const Container = styled.div`
+    ${tw`padding[7.6vw 4vw]
     md:padding[3vw]
     lg:padding[2rem 1.333333333333333vw]`}
+`;
+export const Content = styled.div`
+    ${tw`relative flex flex-col`}
 `;
 
 export const ProductInfo = styled.div`
@@ -68,11 +71,18 @@ export const ProductPolicy = styled.div`
 `;
 
 export const CartBtnWrapper = styled.div`
-    ${tw`sticky bottom-10 z-index[150] width[90%] mx-auto`}
+    ${tw`sticky bottom-10 z-index[150] overflow-hidden bg-red`}
+    ${tw`height[51px] 
+    lg:height[3.6vw]
+    2xl:height[54px]`}
+
+    & > div {
+        ${tw`h-full`}
+    }
 `;
 
 export const CartButton = styled(Button)`
-    ${tw`height[50px] mx-auto overflow-hidden`}
+    ${tw`relative h-full mx-auto overflow-hidden capitalize`}
     ${mainTextSize}
     border-radius: 4px;
 
@@ -84,5 +94,18 @@ export const CartButton = styled(Button)`
 
     &:active {
         ${tw`bg-accents-9`}
+    }
+
+    & > div {
+        ${tw`absolute left-0 top-0 z-20 w-full h-full background-color[#000]`}
+        &:first-of-type {
+            &::after {
+                ${tw`content absolute right[-20px] top-0 width[30px] height[calc(100% + 20px)] background[#000]`}
+                transform: rotate(-15deg);
+            }
+        }
+        &:nth-of-type(2) {
+            ${tw`flex justify-center items-center z-10`}
+        }
     }
 `;

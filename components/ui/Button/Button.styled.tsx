@@ -1,12 +1,7 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
-interface Props {
-    isLoading: boolean;
-}
-
-export const Root = styled.button<Props>`
+export const Root = styled.button`
     ${tw`flex items-center justify-center w-full 
     shadow-lg rounded-sm bg-secondary  
     text-accents-1 text-center capitalize cursor-pointer`}
@@ -30,12 +25,6 @@ export const Root = styled.button<Props>`
             ${tw`bg-accents-2 text-primary`}
         }
     }
-
-    ${(props) =>
-        props.isLoading &&
-        css`
-            ${tw`bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed`}
-        `}
 `;
 
 // export const Rooted = Root.withComponent(`a`);

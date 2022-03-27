@@ -1,3 +1,19 @@
+import { Product as ShopifyProduct, MediaImage } from "@framework/schema";
+
+// Added Metafields related
+type ImageReference = {
+    reference: MediaImage;
+};
+
+export interface Metafields {
+    featureImage1: ImageReference;
+    featureImage2: ImageReference;
+}
+
+export type ShopifyProductMeta = ShopifyProduct & Partial<Metafields>;
+
+///////////////////////////////////////////////////////////////////
+
 export interface ProductImage {
     url: string;
     alt?: string;

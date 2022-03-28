@@ -1,4 +1,3 @@
-import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -61,51 +60,12 @@ export const ProductVariantList = styled.div`
 
 export const ProductPolicy = styled.div`
     ${tw`flex items-center justify-center flex-col w-full font-size[11px] leading-3 tracking-tighter
+    lg:mt-10
     2xl:font-size[12.5px]`}
 
     margin-bottom: 4rem;
 
     span {
         margin-bottom: 0.5rem;
-    }
-`;
-
-export const CartBtnWrapper = styled.div`
-    ${tw`sticky bottom-10 z-index[150] overflow-hidden bg-red`}
-    ${tw`height[51px] 
-    lg:height[3.6vw]
-    2xl:height[54px]`}
-
-    & > div {
-        ${tw`h-full`}
-    }
-`;
-
-export const CartButton = styled(Button)`
-    ${tw`relative h-full mx-auto overflow-hidden capitalize`}
-    ${mainTextSize}
-    border-radius: 4px;
-
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            ${tw`bg-accents-9 text-secondary shadow-md`}
-        }
-    }
-
-    &:active {
-        ${tw`bg-accents-9`}
-    }
-
-    & > div {
-        ${tw`absolute left-0 top-0 z-20 w-full h-full background-color[#000]`}
-        &:first-of-type {
-            &::after {
-                ${tw`content absolute right[-20px] top-0 width[30px] height[calc(100% + 20px)] background[#000]`}
-                transform: rotate(-15deg);
-            }
-        }
-        &:nth-of-type(2) {
-            ${tw`flex justify-center items-center z-10`}
-        }
     }
 `;

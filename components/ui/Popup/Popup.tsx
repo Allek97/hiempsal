@@ -13,7 +13,8 @@ interface Props {
 }
 
 const ProductPopup: FC<Props> = ({ children }) => {
-    const { closeProductPopup, isProductPopupOpen } = useUI();
+    const { isProductPopupOpen, closeProductPopup, setProductNotAdded } =
+        useUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 
@@ -25,7 +26,12 @@ const ProductPopup: FC<Props> = ({ children }) => {
         <Root ref={ref}>
             {isProductPopupOpen && (
                 <>
-                    <Overlay onClick={closeProductPopup} />
+                    <Overlay
+                        onClick={() => {
+                            setProductNotAdded();
+                            closeProductPopup();
+                        }}
+                    />
                     <Container>
                         {isScreenLarge && (
                             <CloseWrapper onClick={closeProductPopup}>

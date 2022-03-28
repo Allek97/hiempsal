@@ -157,8 +157,7 @@ export const VariantContainer = styled.div`
 `;
 
 export const VariantButton = styled(Button)`
-    ${tw`height[50px] w-full text-white tracking-tighter border-radius[3px] 
-    lg:(box-shadow[rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px])`}
+    ${tw`height[50px] w-full text-white tracking-tighter border-radius[3px]`}
 `;
 
 export const WishlistBtn = styled.button`

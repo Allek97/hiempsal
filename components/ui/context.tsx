@@ -4,12 +4,15 @@ import { createContext, FC, useContext, useMemo, useReducer } from "react";
 interface StateValues {
     isMobileMenuOpen: boolean;
     isProductPopupOpen: boolean;
+    isProductAdded: boolean;
 }
 
 interface StateModifiers {
     toggleMobileMenu: () => void;
     openProductPopup: () => void;
     closeProductPopup: () => void;
+    setProductAdded: () => void;
+    setProductNotAdded: () => void;
 }
 
 type State = StateValues & StateModifiers;
@@ -17,12 +20,15 @@ type State = StateValues & StateModifiers;
 const initialState: StateValues = {
     isMobileMenuOpen: false,
     isProductPopupOpen: false,
+    isProductAdded: false,
 };
 
 const stateModifiers: StateModifiers = {
     toggleMobileMenu: () => {},
     openProductPopup: () => {},
     closeProductPopup: () => {},
+    setProductAdded: () => {},
+    setProductNotAdded: () => {},
 };
 
 const UIContext = createContext<State>({
@@ -31,7 +37,12 @@ const UIContext = createContext<State>({
 });
 
 type Action = {
-    type: "TOGGLE_MOBILE_MENU" | "OPEN_PRODUCT_POPUP" | "CLOSE_PRODUCT_POPUP";
+    type:
+        | "TOGGLE_MOBILE_MENU"
+        | "OPEN_PRODUCT_POPUP"
+        | "CLOSE_PRODUCT_POPUP"
+        | "SET_PRODUCT_AS_ADDED"
+        | "SET_PRODUCT_AS_NOT_ADDED";
     payload?: any;
 };
 
@@ -44,8 +55,15 @@ function uiReducer(state: StateValues, action: Action) {
             };
         case "OPEN_PRODUCT_POPUP":
             return { ...state, isProductPopupOpen: true };
+
         case "CLOSE_PRODUCT_POPUP":
             return { ...state, isProductPopupOpen: false };
+
+        case "SET_PRODUCT_AS_ADDED":
+            return { ...state, isProductAdded: true };
+
+        case "SET_PRODUCT_AS_NOT_ADDED":
+            return { ...state, isProductAdded: false };
 
         default:
             return { ...state };
@@ -60,6 +78,9 @@ const UIProvider: FC = ({ children }) => {
     };
     const openProductPopup = () => dispatch({ type: "OPEN_PRODUCT_POPUP" });
     const closeProductPopup = () => dispatch({ type: "CLOSE_PRODUCT_POPUP" });
+    const setProductAdded = () => dispatch({ type: "SET_PRODUCT_AS_ADDED" });
+    const setProductNotAdded = () =>
+        dispatch({ type: "SET_PRODUCT_AS_NOT_ADDED" });
 
     const value = useMemo(() => {
         return {
@@ -67,6 +88,8 @@ const UIProvider: FC = ({ children }) => {
             toggleMobileMenu,
             openProductPopup,
             closeProductPopup,
+            setProductAdded,
+            setProductNotAdded,
         };
     }, [state]);
 

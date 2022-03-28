@@ -11,6 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     color?: string;
     during?: number;
     isRippleActive?: boolean | undefined;
+    isHoverActive?: boolean;
 }
 
 const Button: FC<Props> = ({
@@ -19,6 +20,7 @@ const Button: FC<Props> = ({
     color = "var(--accents-2)",
     during = 2000,
     isRippleActive = undefined,
+    isHoverActive = true,
     ...rest
 }) => {
     const isScreenLg = useMediaQueryNext("lg");
@@ -29,7 +31,12 @@ const Button: FC<Props> = ({
             className="w-full"
             isRippleActive={isRippleActive ?? !isScreenLg}
         >
-            <Root type="button" as={Component} {...rest}>
+            <Root
+                type="button"
+                as={Component}
+                isHoverActive={isHoverActive}
+                {...rest}
+            >
                 {children}
             </Root>
         </Ripple>
@@ -43,6 +50,7 @@ Button.defaultProps = {
     color: "var(--accents-2)",
     during: 2000,
     isRippleActive: undefined,
+    isHoverActive: true,
 };
 
 export default Button;

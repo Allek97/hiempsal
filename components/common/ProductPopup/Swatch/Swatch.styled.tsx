@@ -106,8 +106,20 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
         ${tw`relative z-30 mx-3.5`}
     }
 
+    & > span:last-of-type {
+        ${({ isOutOfStock, isAvailable }) =>
+            isOutOfStock || !isAvailable
+                ? css`
+                      ${tw`cursor-default`}
+                  `
+                : css`
+                      ${tw`cursor-pointer`}
+                  `}
+    }
+
     @media (hover: hover) and (pointer: fine) {
         &:hover {
+            transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
             background-color: #f0f0f0;
         }
     }

@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, FormEvent, useState } from "react";
-import { motion } from "framer-motion";
 
 import { Product } from "@framework/types/product";
+
 import useAddItem from "@framework/cart/use-add-item";
+import { useUI } from "@components/ui/context";
+
 import { currencyKeys } from "@lib/option";
 import { truncateText } from "@lib/truncateText";
 
 import { Popup } from "@components/ui";
-import { Swatch } from "..";
+import { CartButton, Swatch } from "..";
 
 import {
-    CartButton,
     Content,
     VariantOptionContainer,
     ProductInfo,
     ProductPolicy,
     ProductVariantList,
-    CartBtnWrapper,
     Container,
 } from "./ProductPopup.styled";
 import {
@@ -35,6 +35,9 @@ interface Props {
 
 const ProductPopup: FC<Props> = ({ product }) => {
     const [choices, setChoices] = useState<Choices>({});
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { isProductAdded, setProductAdded } = useUI();
 
     const addItem = useAddItem();
     const addToCart = async (e: FormEvent<HTMLFormElement>) => {
@@ -45,8 +48,10 @@ const ProductPopup: FC<Props> = ({ product }) => {
                 variantId: variant ? variant.id : product.variants[0].id,
                 quantity: 1,
             };
-
+            setIsLoading(true);
             await addItem(input);
+            setIsLoading(false);
+            setProductAdded();
         } catch (err) {
             console.log(err);
         }
@@ -64,116 +69,117 @@ const ProductPopup: FC<Props> = ({ product }) => {
 
     return (
         <Popup>
-            <Container>
-                <form onSubmit={addToCart}>
-                    <Content>
-                        <ProductInfo>
-                            <h1>{truncateText(product.name)}</h1>
-                            <span>
-                                {currencyKeys[`${product.price.currencyCode}`]}
-                                {product.price.value}
-                            </span>
-                        </ProductInfo>
-                        <VariantOptionContainer>
-                            {product.options.map((option) => {
-                                const optionName =
-                                    option.displayName.toLowerCase();
-                                return (
-                                    <div key={option.id}>
-                                        <h3>Select {optionName}</h3>
-                                        <ProductVariantList>
-                                            {option.values.map((optValue) => {
-                                                const variantImg =
-                                                    optionName.match(
-                                                        /colou?r/gi
-                                                    )
-                                                        ? getVariantImage(
-                                                              product,
-                                                              optValue.label
-                                                          )
-                                                        : undefined;
+            {!isProductAdded ? (
+                <Container>
+                    <form onSubmit={addToCart}>
+                        <Content>
+                            <ProductInfo>
+                                <h1>{truncateText(product.name)}</h1>
+                                <span>
+                                    {
+                                        currencyKeys[
+                                            `${product.price.currencyCode}`
+                                        ]
+                                    }
+                                    {product.price.value}
+                                </span>
+                            </ProductInfo>
+                            <VariantOptionContainer>
+                                {product.options.map((option) => {
+                                    const optionName =
+                                        option.displayName.toLowerCase();
+                                    return (
+                                        <div key={option.id}>
+                                            <h3>Select {optionName}</h3>
+                                            <ProductVariantList>
+                                                {option.values.map(
+                                                    (optValue) => {
+                                                        const variantImg =
+                                                            optionName.match(
+                                                                /colou?r/gi
+                                                            )
+                                                                ? getVariantImage(
+                                                                      product,
+                                                                      optValue.label
+                                                                  )
+                                                                : undefined;
 
-                                                const value = optValue.label;
+                                                        const value =
+                                                            optValue.label;
 
-                                                const isGloballyAvailable =
-                                                    isOptionAvailable(
-                                                        product.variants,
-                                                        optionName,
-                                                        value
-                                                    );
-
-                                                const isAvailable =
-                                                    hasAllVariantsForSale(
-                                                        product.variants,
-                                                        {
-                                                            ...choices,
-                                                            [optionName]: value,
-                                                        }
-                                                    );
-
-                                                return (
-                                                    <Swatch
-                                                        key={optValue.label}
-                                                        value={value}
-                                                        option={optionName}
-                                                        image={variantImg}
-                                                        isOutOfStock={
-                                                            !isGloballyAvailable
-                                                        }
-                                                        isAvailable={
-                                                            isAvailable
-                                                        }
-                                                        // eslint-disable-next-line no-unused-vars
-                                                        clickHandler={(_e) =>
-                                                            handleSwatchClick(
+                                                        const isGloballyAvailable =
+                                                            isOptionAvailable(
+                                                                product.variants,
                                                                 optionName,
                                                                 value
-                                                            )
-                                                        }
-                                                        isSelected={
-                                                            optionName in
-                                                                choices &&
-                                                            choices[
-                                                                optionName
-                                                            ] === value
-                                                        }
-                                                    />
-                                                );
-                                            })}
-                                        </ProductVariantList>
-                                    </div>
-                                );
-                            })}
-                        </VariantOptionContainer>
-                    </Content>
-                    <ProductPolicy>
-                        <span>Delivery time: 5-7 business days</span>
-                        <span>100-day return period</span>
-                        <span>Free returns</span>
-                        <span>FREE SHIPPING FROM $50.00 CAD</span>
-                    </ProductPolicy>
-                    <CartBtnWrapper>
-                        <CartButton type="submit">
-                            <motion.div
-                                initial={{ x: "calc(-100% - 30px)" }}
-                                animate={{ x: "calc(-75% - 30px)" }}
-                                transition={{
-                                    duration: "2",
-                                    ease: "easeInOut",
-                                }}
-                            />
-                            <motion.div
-                                animate={{
-                                    backgroundColor: "#e2e2e2",
-                                    color: "var(--secondary)",
-                                }}
-                            >
-                                Add To Cart
-                            </motion.div>
-                        </CartButton>
-                    </CartBtnWrapper>
-                </form>
-            </Container>
+                                                            );
+
+                                                        const isAvailable =
+                                                            hasAllVariantsForSale(
+                                                                product.variants,
+                                                                {
+                                                                    ...choices,
+                                                                    [optionName]:
+                                                                        value,
+                                                                }
+                                                            );
+
+                                                        return (
+                                                            <Swatch
+                                                                key={
+                                                                    optValue.label
+                                                                }
+                                                                value={value}
+                                                                option={
+                                                                    optionName
+                                                                }
+                                                                image={
+                                                                    variantImg
+                                                                }
+                                                                isOutOfStock={
+                                                                    !isGloballyAvailable
+                                                                }
+                                                                isAvailable={
+                                                                    isAvailable
+                                                                }
+                                                                clickHandler={(
+                                                                    // eslint-disable-next-line no-unused-vars
+                                                                    _e
+                                                                ) =>
+                                                                    handleSwatchClick(
+                                                                        optionName,
+                                                                        value
+                                                                    )
+                                                                }
+                                                                isSelected={
+                                                                    optionName in
+                                                                        choices &&
+                                                                    choices[
+                                                                        optionName
+                                                                    ] === value
+                                                                }
+                                                            />
+                                                        );
+                                                    }
+                                                )}
+                                            </ProductVariantList>
+                                        </div>
+                                    );
+                                })}
+                            </VariantOptionContainer>
+                        </Content>
+                        <ProductPolicy>
+                            <span>Delivery time: 5-7 business days</span>
+                            <span>100-day return period</span>
+                            <span>Free returns</span>
+                            <span>FREE SHIPPING FROM $50.00 CAD</span>
+                        </ProductPolicy>
+                        <CartButton isLoading={isLoading} />
+                    </form>
+                </Container>
+            ) : (
+                <h1>ITEM HAS BEEN ADDED</h1>
+            )}
         </Popup>
     );
 };

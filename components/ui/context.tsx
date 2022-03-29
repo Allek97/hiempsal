@@ -57,7 +57,10 @@ function uiReducer(state: StateValues, action: Action) {
             return { ...state, isProductPopupOpen: true };
 
         case "CLOSE_PRODUCT_POPUP":
-            return { ...state, isProductPopupOpen: false };
+            return {
+                ...state,
+                isProductPopupOpen: false,
+            };
 
         case "SET_PRODUCT_AS_ADDED":
             return { ...state, isProductAdded: true };

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 const mainTextSize = css`
@@ -11,11 +11,13 @@ const mainTextSize = css`
     ${tw`2xl:font-size[18px]`}
 `;
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
+    // Paddings
     ${tw`padding[7.6vw 4vw]
     md:padding[3vw]
     lg:padding[2rem 1.333333333333333vw]`}
 `;
+
 export const Content = styled.div`
     ${tw`relative flex flex-col`}
 `;
@@ -67,5 +69,20 @@ export const ProductPolicy = styled.div`
 
     span {
         margin-bottom: 0.5rem;
+    }
+`;
+
+////////////////////// CLOSING
+
+export const CloseWrapper = styled.div`
+    ${tw`absolute top-8 right-3 w-3.5 cursor-pointer z-10
+    lg:(right[1.333333333333333vw])`}
+
+    @media (hover:hover) and (pointer: fine) {
+        &:hover svg {
+            transition: fill 0.3s;
+            fill: #e00b25;
+            cursor: pointer;
+        }
     }
 `;

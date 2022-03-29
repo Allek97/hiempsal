@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 const mainTextSize = css`
-    ${tw`font-size[16.5px] tracking-tighter
+    ${tw`font-size[16.5px] letter-spacing[-0.06em]
     lg:font-size[13.5px]
     2lg:font-size[1.2vw]`}
 

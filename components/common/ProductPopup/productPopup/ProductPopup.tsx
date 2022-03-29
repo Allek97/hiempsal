@@ -8,6 +8,9 @@ import { useUI } from "@components/ui/context";
 
 import { currencyKeys } from "@lib/option";
 import { truncateText } from "@lib/truncateText";
+import { useMediaQueryNext } from "@lib/customHooks";
+
+import Close from "@components/icons/Close";
 
 import { Popup } from "@components/ui";
 import { CartButton, Swatch } from "..";
@@ -19,6 +22,7 @@ import {
     ProductPolicy,
     ProductVariantList,
     Container,
+    CloseWrapper,
 } from "./ProductPopup.styled";
 import {
     AvailableChoices,
@@ -37,7 +41,18 @@ const ProductPopup: FC<Props> = ({ product }) => {
     const [choices, setChoices] = useState<Choices>({});
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { isProductAdded, setProductAdded } = useUI();
+    const isScreenMedium = useMediaQueryNext("md");
+    const isScreenLarge = useMediaQueryNext("lg");
+    const isScreen2XL = useMediaQueryNext("2xl");
+
+    const containerAnimationHeight = (): string => {
+        if (isScreen2XL) return "calc(85vh - 4.2rem)";
+        if (isScreenLarge) return "calc(90vh - 4.2rem)";
+        if (isScreenMedium) return "calc(85vh - 4.2rem)";
+        return "calc(90vh - 4.2rem)";
+    };
+
+    const { isProductAdded, setProductAdded, closeProductPopup } = useUI();
 
     const addItem = useAddItem();
     const addToCart = async (e: FormEvent<HTMLFormElement>) => {
@@ -70,7 +85,18 @@ const ProductPopup: FC<Props> = ({ product }) => {
     return (
         <Popup>
             {!isProductAdded ? (
-                <Container>
+                <Container
+                    initial={{ height: "calc(0vh - 0rem)" }}
+                    animate={{
+                        height: containerAnimationHeight(),
+                    }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {isScreenLarge && (
+                        <CloseWrapper onClick={closeProductPopup}>
+                            <Close />
+                        </CloseWrapper>
+                    )}
                     <form onSubmit={addToCart}>
                         <Content>
                             <ProductInfo>

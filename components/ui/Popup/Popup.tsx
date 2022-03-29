@@ -2,11 +2,9 @@ import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
 
-import Close from "@components/icons/Close";
-
 import { useUI } from "../context";
 
-import { CloseWrapper, Container, Overlay, Root } from "./Popup.styled";
+import { Container, Overlay, Root } from "./Popup.styled";
 
 interface Props {
     children: ReactNode | ReactNode[];
@@ -32,14 +30,7 @@ const ProductPopup: FC<Props> = ({ children }) => {
                             closeProductPopup();
                         }}
                     />
-                    <Container>
-                        {isScreenLarge && (
-                            <CloseWrapper onClick={closeProductPopup}>
-                                <Close />
-                            </CloseWrapper>
-                        )}
-                        {children}
-                    </Container>
+                    <Container>{children}</Container>
                 </>
             )}
         </Root>

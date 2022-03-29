@@ -66,7 +66,6 @@ const Swatch: FC<Props> = ({
                 />
             </ImageVariantWrapper>
             <span>{colorKeys[value]}</span>
-            {isOutOfStock && <button type="button">OUT OF STOCK</button>}
         </ProductVariantColor>
     ) : (
         <VariantSizeGender

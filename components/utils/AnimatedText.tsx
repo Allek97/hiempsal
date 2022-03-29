@@ -61,7 +61,9 @@ const AnimatedCharacters = ({ type, text }: AnimatedTextProps) => {
     console.log(words);
 
     return (
-        <Tag style={{ lineHeight: "normal", marginTop: "1px" }}>
+        <Tag
+            style={{ lineHeight: "normal", marginTop: "3px", fontWeight: 500 }}
+        >
             {words.map((word, index) => {
                 return (
                     // Wrap each word in the Wrapper component

@@ -8,7 +8,7 @@ interface Props {
 
 export const Root = styled.button<Props>`
     ${tw`flex items-center justify-center w-full 
-    shadow-lg rounded-sm bg-secondary  
+    shadow-lg rounded-sm bg-secondary line-height[1em] 
     text-accents-1 text-center cursor-pointer`}
 
     box-shadow : rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;

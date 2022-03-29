@@ -12,10 +12,15 @@ const mainTextSize = css`
 `;
 
 export const Container = styled(motion.div)`
-    // Paddings
-    ${tw`padding[7.6vw 4vw]
-    md:padding[3vw]
-    lg:padding[2rem 1.333333333333333vw]`}
+    ${tw`padding-left[4vw] padding-right[4vw]
+    md:(padding-left[3vw] padding-right[3vw])
+    lg:(padding-left[1.333333333333333vw] padding-right[1.333333333333333vw])`}
+
+    form {
+        ${tw`padding-top[7.6vw] padding-bottom[7.6vw] 
+        md:(padding-top[3vw] padding-bottom[3vw])
+        lg:py-8`}
+    }
 `;
 
 export const Content = styled.div`

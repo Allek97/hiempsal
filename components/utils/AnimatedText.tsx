@@ -58,8 +58,6 @@ const AnimatedCharacters = ({ type, text }: AnimatedTextProps) => {
     // Get the tag name from tagMap
     const Tag = tagMap[type];
 
-    console.log(words);
-
     return (
         <Tag
             style={{ lineHeight: "normal", marginTop: "3px", fontWeight: 500 }}

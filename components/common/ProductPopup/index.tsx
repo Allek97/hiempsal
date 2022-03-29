@@ -1,3 +1,4 @@
 export { ProductPopup } from "./productPopup";
 export { Swatch } from "./swatch";
-export { CartButton } from "./CartButton";
+export { CartButton } from "./cartButton";
+export { ProductSelected } from "./productSelected";

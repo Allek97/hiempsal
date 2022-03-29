@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import customScroll from "@styles/customScroll.styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 export const Root = styled.aside`
@@ -12,7 +13,7 @@ export const Overlay = styled.div`
     cursor: url(/close-cursor-image.svg), pointer;
 `;
 
-export const Container = styled.main`
+export const Container = styled(motion.main)`
     ${tw`fixed z-index[95] bottom-10 right[15px]
     border-radius[5px] bg-primary overflow-y-auto -webkit-overflow-scrolling[touch]
     lg:(right[2.6666666667vw] bottom[1.3333333333vw] border-radius[0px])`}

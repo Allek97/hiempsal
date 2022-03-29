@@ -22,11 +22,14 @@ const MobileNav: FC = () => {
         isMobileMenuOpen,
         closeProductPopup,
         toggleMobileMenu,
+        setProductNotAdded,
     } = useUI();
 
     const toggleMenu = () => {
-        if (isProductPopupOpen) closeProductPopup();
-        else toggleMobileMenu();
+        if (isProductPopupOpen) {
+            closeProductPopup();
+            setProductNotAdded();
+        } else toggleMobileMenu();
     };
 
     return (

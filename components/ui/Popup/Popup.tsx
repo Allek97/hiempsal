@@ -30,7 +30,9 @@ const ProductPopup: FC<Props> = ({ children }) => {
                             closeProductPopup();
                         }}
                     />
-                    <Container>{children}</Container>
+                    <Container transition={{ duration: 3 }}>
+                        {children}
+                    </Container>
                 </>
             )}
         </Root>

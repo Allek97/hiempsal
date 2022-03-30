@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import customScroll from "@styles/customScroll.styled";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 
@@ -15,8 +14,8 @@ export const Overlay = styled.div`
 
 export const Container = styled(motion.main)`
     ${tw`fixed z-index[95] bottom-10 right[15px]
-    border-radius[5px] bg-primary overflow-y-auto -webkit-overflow-scrolling[touch]
-    lg:(right[2.6666666667vw] bottom[1.3333333333vw] border-radius[0px])`}
+    border-radius[5px] bg-primary 
+    lg:(right[2.6666666667vw] bottom[1.3333333333vw] border-radius[6px])`}
 
     // Dimensions
     ${tw`(width[calc(100% - 30px)]) 
@@ -24,12 +23,5 @@ export const Container = styled(motion.main)`
     2lg:width[28vw]
     4xl:width[22vw]`}
 
-
-
-    /* filter: drop-shadow(rgba(0, 0, 0, 0.15) 1px 1px 3px); */
-    /* border-top-left-radius: 1.5rem; */
-    @media only screen and (min-width: 64em) {
-        clip-path: polygon(4.5% 0, 100% 0, 100% 100%, 0 100%, 0 3%);
-        ${customScroll}
-    }
+    filter: drop-shadow(rgba(0, 0, 0, 0.15) 1px 1px 3px);
 `;

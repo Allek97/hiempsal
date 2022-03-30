@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, FormEvent, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 import { Product, ProductVariant } from "@framework/types/product";
 
@@ -85,23 +85,22 @@ const ProductPopup: FC<Props> = ({ product }) => {
         }));
     };
 
+    const containerVariant: Variants = {
+        itemAdded: { maxHeight: "50vh", height: "100%" },
+        itemNotAdded: { height: containerAnimationHeight(), maxHeight: "90vh" },
+    };
+
     return (
         <Popup>
-            <Container>
+            <Container
+                key="modal"
+                initial={{ height: "calc(0vh - 0rem)" }}
+                animate={isProductAdded ? "itemAdded" : "itemNotAdded"}
+                transition={{ duration: 0.5 }}
+                variants={containerVariant}
+            >
                 {!isProductAdded ? (
-                    <motion.div
-                        key="modal"
-                        initial={{ height: "calc(0vh - 0rem)" }}
-                        animate={{
-                            height: containerAnimationHeight(),
-                        }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {isScreenLarge && (
-                            <CloseWrapper onClick={closeProductPopup}>
-                                <Close />
-                            </CloseWrapper>
-                        )}
+                    <motion.div>
                         <form onSubmit={addToCart}>
                             <Content>
                                 <ProductInfo>
@@ -114,7 +113,15 @@ const ProductPopup: FC<Props> = ({ product }) => {
                                         }
                                         {product.price.value}
                                     </span>
+                                    {isScreenLarge && (
+                                        <CloseWrapper
+                                            onClick={closeProductPopup}
+                                        >
+                                            <Close />
+                                        </CloseWrapper>
+                                    )}
                                 </ProductInfo>
+
                                 <VariantOptionContainer>
                                     {product.options.map((option) => {
                                         const optionName =

@@ -4,14 +4,13 @@ import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
 
 import { useUI } from "../context";
 
-import { Overlay, Root } from "./Popup.styled";
-import { PopupContainer } from ".";
+import { Container, Overlay, Root } from "./Popup.styled";
 
 interface Props {
     children: ReactNode | ReactNode[];
 }
 
-const ProductPopup: FC<Props> = ({ children }) => {
+const Popup: FC<Props> = ({ children }) => {
     const { isProductPopupOpen, closeProductPopup, setProductNotAdded } =
         useUI();
 
@@ -23,19 +22,17 @@ const ProductPopup: FC<Props> = ({ children }) => {
 
     return (
         <Root ref={ref}>
-            {isProductPopupOpen && (
-                <>
-                    <Overlay
-                        onClick={() => {
-                            setProductNotAdded();
-                            closeProductPopup();
-                        }}
-                    />
-                    <PopupContainer>{children}</PopupContainer>
-                </>
-            )}
+            <>
+                <Overlay
+                    onClick={() => {
+                        setProductNotAdded();
+                        closeProductPopup();
+                    }}
+                />
+                <Container>{children}</Container>
+            </>
         </Root>
     );
 };
 
-export default ProductPopup;
+export default Popup;

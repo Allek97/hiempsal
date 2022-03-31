@@ -5,12 +5,15 @@ interface StateValues {
     isMobileMenuOpen: boolean;
     isProductPopupOpen: boolean;
     isProductAdded: boolean;
+    isProductCartOpen: boolean;
 }
 
 interface StateModifiers {
     toggleMobileMenu: () => void;
     openProductPopup: () => void;
     closeProductPopup: () => void;
+    openProductCart: () => void;
+    closeProductCart: () => void;
     setProductAdded: () => void;
     setProductNotAdded: () => void;
 }
@@ -21,12 +24,15 @@ const initialState: StateValues = {
     isMobileMenuOpen: false,
     isProductPopupOpen: false,
     isProductAdded: false,
+    isProductCartOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
     toggleMobileMenu: () => {},
     openProductPopup: () => {},
     closeProductPopup: () => {},
+    openProductCart: () => {},
+    closeProductCart: () => {},
     setProductAdded: () => {},
     setProductNotAdded: () => {},
 };
@@ -42,7 +48,9 @@ type Action = {
         | "OPEN_PRODUCT_POPUP"
         | "CLOSE_PRODUCT_POPUP"
         | "SET_PRODUCT_AS_ADDED"
-        | "SET_PRODUCT_AS_NOT_ADDED";
+        | "SET_PRODUCT_AS_NOT_ADDED"
+        | "OPEN_PRODUCT_CART"
+        | "CLOSE_PRODUCT_CART";
     payload?: any;
 };
 
@@ -68,6 +76,12 @@ function uiReducer(state: StateValues, action: Action) {
         case "SET_PRODUCT_AS_NOT_ADDED":
             return { ...state, isProductAdded: false };
 
+        case "OPEN_PRODUCT_CART":
+            return { ...state, isProductCartOpen: true };
+
+        case "CLOSE_PRODUCT_CART":
+            return { ...state, isProductCartOpen: false };
+
         default:
             return { ...state };
     }
@@ -84,6 +98,8 @@ const UIProvider: FC = ({ children }) => {
     const setProductAdded = () => dispatch({ type: "SET_PRODUCT_AS_ADDED" });
     const setProductNotAdded = () =>
         dispatch({ type: "SET_PRODUCT_AS_NOT_ADDED" });
+    const openProductCart = () => dispatch({ type: "OPEN_PRODUCT_CART" });
+    const closeProductCart = () => dispatch({ type: "CLOSE_PRODUCT_CART" });
 
     const value = useMemo(() => {
         return {
@@ -93,6 +109,8 @@ const UIProvider: FC = ({ children }) => {
             closeProductPopup,
             setProductAdded,
             setProductNotAdded,
+            openProductCart,
+            closeProductCart,
         };
     }, [state]);
 

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
@@ -14,8 +14,7 @@ import { useScrollDirectionNext } from "@lib/customHooks";
 import { ethicalCertifications } from "@lib/const";
 import { currencyKeys } from "@lib/option";
 
-import { ProductPopup } from "@components/common";
-import { ProductSlider, ProductSticky } from "..";
+import { ProductSlider } from "..";
 
 import {
     CartContainer,
@@ -30,19 +29,39 @@ import {
     VariantContainer,
     WishlistBtn,
 } from "./ProductView.styled";
+import ProductCart from "../ProductCart";
 
 interface Props {
     product: Product;
 }
 
 const ProductView: FC<Props> = ({ product }) => {
-    const { openProductPopup } = useUI();
+    const {
+        isProductPopupOpen,
+        openProductPopup,
+        openProductCart,
+        setProductNotAdded,
+    } = useUI();
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({ threshold: 1 });
 
+    const isProductOverviewOpen =
+        direction === "down" &&
+        !inView &&
+        (entry?.boundingClientRect.y ?? 0) < 0;
+
+    useEffect(() => {
+        if (isProductOverviewOpen) openProductPopup();
+    }, [isProductOverviewOpen, openProductPopup]);
+
     return (
         <Root>
-            <ProductPopup product={product} />
+            {isProductPopupOpen && (
+                <ProductCart
+                    product={product}
+                    isProductOverviewOpen={isProductOverviewOpen}
+                />
+            )}
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider>
@@ -114,7 +133,13 @@ const ProductView: FC<Props> = ({ product }) => {
                     </CertificationBox>
 
                     <VariantContainer ref={ref}>
-                        <VariantButton onClick={openProductPopup}>
+                        <VariantButton
+                            onClick={() => {
+                                openProductPopup();
+                                openProductCart();
+                                setProductNotAdded();
+                            }}
+                        >
                             Select Variant
                         </VariantButton>
                         <WishlistBtn>
@@ -143,9 +168,9 @@ const ProductView: FC<Props> = ({ product }) => {
                 ))}
             </ProductOverviewContainer>
             {/* Component appears only when Select Varaint button is out of the viewport with a 100% threshold  */}
-            {direction === "down" &&
+            {/* {direction === "down" &&
                 !inView &&
-                (entry?.boundingClientRect.y ?? 0) < 0 && <ProductSticky />}
+                (entry?.boundingClientRect.y ?? 0) < 0 && <ProductOverview />} */}
         </Root>
     );
 };

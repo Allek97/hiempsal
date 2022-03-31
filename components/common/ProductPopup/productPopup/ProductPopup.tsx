@@ -38,23 +38,18 @@ interface Props {
     product: Product;
 }
 
-const ProductPopup: FC<Props> = ({ product }) => {
+const ProductPopup: FC<Props> = ({ product, children }) => {
     const [choices, setChoices] = useState<Choices>({});
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
 
-    const isScreenMedium = useMediaQueryNext("md");
-    const isScreenLarge = useMediaQueryNext("lg");
-    const isScreen2XL = useMediaQueryNext("2xl");
-
-    const containerAnimationHeight = (): string => {
-        if (isScreen2XL) return "calc(85vh - 4.2rem)";
-        if (isScreenLarge) return "calc(90vh - 4.2rem)";
-        if (isScreenMedium) return "calc(85vh - 4.2rem)";
-        return "calc(90vh - 4.2rem)";
-    };
-
-    const { isProductAdded, setProductAdded, closeProductPopup } = useUI();
+    const {
+        isProductAdded,
+        isProductCartOpen,
+        setProductAdded,
+        closeProductPopup,
+        closeProductCart,
+    } = useUI();
 
     const addItem = useAddItem();
     const addToCart = async (e: FormEvent<HTMLFormElement>) => {
@@ -69,6 +64,7 @@ const ProductPopup: FC<Props> = ({ product }) => {
             setIsLoading(true);
             await addItem(input);
             setIsLoading(false);
+            closeProductCart();
             setProductAdded();
         } catch (err) {
             console.log(err);
@@ -85,9 +81,30 @@ const ProductPopup: FC<Props> = ({ product }) => {
         }));
     };
 
+    const isScreenMedium = useMediaQueryNext("md");
+    const isScreenLarge = useMediaQueryNext("lg");
+    const isScreen2XL = useMediaQueryNext("2xl");
+
+    const containerAnimationHeight = (): string => {
+        if (isScreen2XL) return "calc(85vh - 4.2rem)";
+        if (isScreenLarge) return "calc(90vh - 4.2rem)";
+        if (isScreenMedium) return "calc(85vh - 4.2rem)";
+        return "calc(90vh - 4.2rem)";
+    };
+
     const containerVariant: Variants = {
         itemAdded: { maxHeight: "50vh", height: "100%" },
-        itemNotAdded: { height: containerAnimationHeight(), maxHeight: "90vh" },
+        productCartOpen: {
+            maxHeight: "90vh",
+            height: containerAnimationHeight(),
+        },
+        childOpen: { maxHeight: "50vh", height: "100%" },
+    };
+
+    const animationHandler = () => {
+        if (isProductAdded) return "itemAdded";
+        if (isProductCartOpen) return "productCartOpen";
+        // return "childOpen";
     };
 
     return (
@@ -95,11 +112,11 @@ const ProductPopup: FC<Props> = ({ product }) => {
             <Container
                 key="modal"
                 initial={{ height: "calc(0vh - 0rem)" }}
-                animate={isProductAdded ? "itemAdded" : "itemNotAdded"}
+                animate={animationHandler()}
                 transition={{ duration: 0.5 }}
                 variants={containerVariant}
             >
-                {!isProductAdded ? (
+                {isProductCartOpen && (
                     <motion.div>
                         <form onSubmit={addToCart}>
                             <Content>
@@ -218,13 +235,16 @@ const ProductPopup: FC<Props> = ({ product }) => {
                             <CartButton isLoading={isLoading} />
                         </form>
                     </motion.div>
-                ) : (
+                )}
+                {isProductAdded && (
                     <ProductSelected
                         selectedVariant={selectedVariant ?? product.variants[0]}
                         productName={product.name}
                         currencyCode={product.price.currencyCode}
                     />
                 )}
+                {/*Add children for custom use*/}
+                {children}
             </Container>
         </Popup>
     );

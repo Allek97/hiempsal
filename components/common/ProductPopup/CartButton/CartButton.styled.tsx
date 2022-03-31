@@ -1,6 +1,7 @@
 import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 const mainTextSize = css`
@@ -11,7 +12,7 @@ const mainTextSize = css`
     ${tw`2xl:font-size[18px]`}
 `;
 
-export const CartBtnWrapper = styled.div`
+export const CartBtnWrapper = styled(motion.div)`
     ${tw`sticky bottom-10 z-index[150] overflow-hidden`}
     ${tw`height[51px] 
     lg:height[3.6vw]

@@ -28,7 +28,6 @@ const Layout: FC = ({ children }) => {
     return (
         <Root ref={ref}>
             <NavBar />
-
             <Fit>{children}</Fit>
             <footer className="h-96 bg-red">asdasd</footer>
         </Root>

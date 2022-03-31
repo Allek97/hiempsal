@@ -55,7 +55,11 @@ const placeholderTextInitialAnimated: AnimatedTextProps[] = [
 
 const CartButton: FC<Props> = ({ isLoading = false }) => {
     return (
-        <CartBtnWrapper>
+        <CartBtnWrapper
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.15, delay: 0.35 }}
+        >
             <CartBtn type="submit" isHoverActive={false}>
                 <motion.div
                     animate={isLoading && "loading"}

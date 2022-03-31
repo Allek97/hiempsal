@@ -43,7 +43,8 @@ const Navbar: FC = () => {
 
     return (
         <>
-            {!isScreenLarge && <MobileNav />}
+            {/* {!isScreenLarge && <MobileNav />} */}
+            <MobileNav />
             <NavbarRoot
                 isScrolled={isScrolled}
                 isMobileMenuOpen={isMobileMenuOpen}

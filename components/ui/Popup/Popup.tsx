@@ -4,7 +4,8 @@ import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
 
 import { useUI } from "../context";
 
-import { Container, Overlay, Root } from "./Popup.styled";
+import { Overlay, Root } from "./Popup.styled";
+import { PopupContainer } from ".";
 
 interface Props {
     children: ReactNode | ReactNode[];
@@ -30,7 +31,7 @@ const ProductPopup: FC<Props> = ({ children }) => {
                             closeProductPopup();
                         }}
                     />
-                    <Container>{children}</Container>
+                    <PopupContainer>{children}</PopupContainer>
                 </>
             )}
         </Root>

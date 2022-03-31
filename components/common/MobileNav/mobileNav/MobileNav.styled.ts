@@ -1,5 +1,6 @@
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 interface BtnProps {
@@ -9,41 +10,11 @@ interface BtnProps {
     isProductPopupOpen?: boolean;
 }
 
-////////////////////////////////////////////
-// NOTE: Animations
-///////////////////////////////////////////
-const expandHorizontal = keyframes` 
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-`;
-
-const expandVerticalCenter = keyframes` 
-    100% {
-        opacity : 1;
-        transform: translate(-50%,0)
-    }
-`;
-
-const smallRotate = keyframes` 
-    0% { transform: rotate(70deg) }
-    100% {transform: rotate(0)}
-`;
-
-///////////////////////////////////////////
-///////////////////////////////////////////
-
-export const MobileNavRoot = styled.nav`
+export const MobileNavRoot = styled(motion.nav)`
     ${tw`fixed bottom-4 left-1/2 z-index[200] w-12 h-12`}
-    opacity: 0;
-    transform: translateY(100%) translateX(-50%);
-
-    animation: ${expandVerticalCenter} 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.3s
-        forwards;
 `;
 
-export const MenuBtn = styled.button<BtnProps>`
+export const MenuBtn = styled(motion.button)<BtnProps>`
     ${tw`absolute z-10 flex items-center justify-center w-full h-full 
         border-radius[50%] bg-primary hover:text-accents-6`};
 
@@ -67,13 +38,6 @@ export const MenuBtn = styled.button<BtnProps>`
             `}
 
             ${(props) =>
-            props.isMobileMenuOpen &&
-            css`
-                animation: ${smallRotate} 1s cubic-bezier(0.19, 1, 0.22, 1) 1
-                    forwards;
-            `}
-
-            ${(props) =>
             props.isProductPopupOpen &&
             css`
                 fill: black;
@@ -88,16 +52,13 @@ export const Navigation = styled.nav`
     border-radius: 50%;
 `;
 
-export const Cart = styled.div<BtnProps>`
-    ${tw`absolute left-1/2 w-20 h-10 flex items-center rounded-3xl opacity-0 bg-primary`}
+export const Cart = styled(motion.div)<BtnProps>`
+    ${tw`absolute left[38%] w-20 h-10 flex items-center rounded-3xl bg-primary`}
 
     // BUG: translate-x not working in tailwind
-    /* transform: translateX(100%); */
-    box-shadow: var(--shadow-1);
+    /* transform: translateX(-100%); */
 
-    transform: translateX(-50%);
-    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.6s
-        forwards;
+    box-shadow: var(--shadow-1);
 
     button {
         ${tw`transition-colors ml-auto mr-5`}
@@ -108,27 +69,22 @@ export const Cart = styled.div<BtnProps>`
                 ${tw`text-accents-6`}
             `}
 
-        &:hover {
-            ${(props) =>
-                !props.isMobileMenuOpen &&
-                !props.isUsernavOpen &&
-                !props.isProfileOpen &&
-                css`
-                    ${tw`text-accents-6`}
-                `}
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                ${(props) =>
+                    !props.isMobileMenuOpen &&
+                    !props.isUsernavOpen &&
+                    !props.isProfileOpen &&
+                    css`
+                        ${tw`text-accents-6`}
+                    `}
+            }
         }
     }
 `;
 
-export const Profile = styled.div<BtnProps>`
-    ${tw`absolute -left-full w-20 h-10 flex items-center rounded-3xl opacity-0 bg-primary`}
-
-    // BUG: translate-x not working in tailwind
-    /* transform: translateX(-100%); */
-    
-    transform: translateX(50%);
-    animation: ${expandHorizontal} 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.6s
-        forwards;
+export const Profile = styled(motion.div)<BtnProps>`
+    ${tw`absolute left[-90%] w-20 h-10 flex items-center rounded-3xl bg-primary`}
 
     box-shadow: var(--shadow-1);
 
@@ -141,14 +97,16 @@ export const Profile = styled.div<BtnProps>`
                 ${tw`text-accents-6`}
             `}
 
-        &:hover {
-            ${(props) =>
-                !props.isMobileMenuOpen &&
-                !props.isUsernavOpen &&
-                !props.isProfileOpen &&
-                css`
-                    ${tw`text-accents-6`}
-                `}
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                ${(props) =>
+                    !props.isMobileMenuOpen &&
+                    !props.isUsernavOpen &&
+                    !props.isProfileOpen &&
+                    css`
+                        ${tw`text-accents-6`}
+                    `}
+            }
         }
 
         svg {

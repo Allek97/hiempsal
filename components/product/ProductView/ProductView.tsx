@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useInView } from "react-intersection-observer";
 
 import { FaRegHeart } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
@@ -9,11 +10,12 @@ import { Product } from "@framework/types/product";
 
 import { useUI } from "@components/ui/context";
 
+import { useScrollDirectionNext } from "@lib/customHooks";
 import { ethicalCertifications } from "@lib/const";
 import { currencyKeys } from "@lib/option";
 
 import { ProductPopup } from "@components/common";
-import { ProductSlider } from "..";
+import { ProductSlider, ProductSticky } from "..";
 
 import {
     CartContainer,
@@ -35,6 +37,9 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
     const { openProductPopup } = useUI();
+    const { direction } = useScrollDirectionNext();
+    const { ref, inView, entry } = useInView({ threshold: 1 });
+
     return (
         <Root>
             <ProductPopup product={product} />
@@ -108,7 +113,7 @@ const ProductView: FC<Props> = ({ product }) => {
                         </ul>
                     </CertificationBox>
 
-                    <VariantContainer>
+                    <VariantContainer ref={ref}>
                         <VariantButton onClick={openProductPopup}>
                             Select Variant
                         </VariantButton>
@@ -137,6 +142,10 @@ const ProductView: FC<Props> = ({ product }) => {
                     </FeatureContainer>
                 ))}
             </ProductOverviewContainer>
+            {/* Component appears only when Select Varaint button is out of the viewport with a 100% threshold  */}
+            {direction === "down" &&
+                !inView &&
+                (entry?.boundingClientRect.y ?? 0) < 0 && <ProductSticky />}
         </Root>
     );
 };

@@ -4,7 +4,7 @@ import { useScrollDirection } from "react-use-scroll-direction";
 
 type Direction = "up" | "down" | "neutral";
 
-export const useWindowScroll = () => {
+const useScrollDirectionNext = () => {
     const [direction, setDirection] = useState<Direction>("neutral");
     const { isScrollingUp, isScrollingDown } = useScrollDirection();
 
@@ -15,3 +15,5 @@ export const useWindowScroll = () => {
 
     return { direction };
 };
+
+export default useScrollDirectionNext;

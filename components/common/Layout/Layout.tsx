@@ -32,8 +32,8 @@ const Layout: FC = ({ children }) => {
 
     return (
         <Root ref={ref}>
-            {!isScreenLarge && <MobileNav />}
             <NavBar />
+            {!isScreenLarge && <MobileNav />}
             <Fit>{children}</Fit>
             <footer className="h-96 bg-red">asdasd</footer>
         </Root>

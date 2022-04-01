@@ -30,7 +30,7 @@ const useMediaQueryNext = (screenSize: Screen | number): boolean => {
         : `${screenSize}em`;
 
     // NOTE We are making sure there is a re-render every time window.innerWidth hits one of our queries
-    //
+    // useLayoutEffect more appropriate cause we are measuring DOM even though useEffect will work just fine
     useLayoutEffect(() => {
         function updateSize() {
             if (mediaRerender.includes(window.innerWidth))

@@ -5,7 +5,7 @@ import { useMediaQueryNext } from "lib/customHooks";
 
 import useCart from "@framework/cart/use-cart";
 
-import { currencyKeys } from "@lib/option";
+import { currencyMap } from "@framework/utils/optionMapping";
 
 import {
     CartPaymentContainer,
@@ -83,7 +83,7 @@ const Cart: FC = () => {
                                 <p>(Taxes are calculated at checkout)</p>
                             </div>
                             <span>
-                                {currencyKeys[`${data?.currency.code}`] ?? "$"}
+                                {currencyMap[`${data?.currency.code}`] ?? "$"}
                                 {data?.totalPrice}
                             </span>
                         </TotalBox>

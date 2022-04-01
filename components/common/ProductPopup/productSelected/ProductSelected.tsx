@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductVariant } from "@framework/types/product";
-import { colorKeys, currencyKeys } from "@lib/option";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 import {
     ProductInfo,
     Root,
@@ -48,7 +48,7 @@ const ProductSelected: FC<Props> = ({
                 <div>
                     <h4>
                         {productName} |{" "}
-                        {colorKeys[
+                        {colorMap[
                             selectedOptions.color ?? selectedOptions.colour
                         ]
                             .toLowerCase()
@@ -58,7 +58,7 @@ const ProductSelected: FC<Props> = ({
                         {selectedOptions.gender}
                     </h4>
                     <span>
-                        {currencyKeys[currencyCode]}
+                        {currencyMap[currencyCode]}
                         {price}
                     </span>
                 </div>

@@ -79,7 +79,7 @@ function uiReducer(state: StateValues, action: Action) {
             return { ...state, isProductAdded: false };
 
         case "OPEN_PRODUCT_CART":
-            return { ...state, isProductCartOpen: true };
+            return { ...state, isProductCartOpen: true, isProductAdded: false };
 
         case "CLOSE_PRODUCT_CART":
             return { ...state, isProductCartOpen: false };

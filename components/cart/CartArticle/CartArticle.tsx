@@ -6,7 +6,7 @@ import { useMediaQueryNext } from "lib/customHooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
-import { colorKeys, currencyKeys } from "@lib/option";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 import { truncateText } from "@lib/truncateText";
 
 import { CartQuantity } from "..";
@@ -70,7 +70,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                     </h2>
                     <article>
                         <span className="capitalize">
-                            {colorKeys[`${selectedColor}`]}
+                            {colorMap[`${selectedColor}`]}
                         </span>
                         <span className="uppercase">
                             {selectedSize ?? "N.D"}
@@ -83,7 +83,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
 
                 <div>
                     <span>
-                        {currencyKeys[currencyCode]}
+                        {currencyMap[currencyCode]}
                         {Number(cartItem.variant.price)?.toFixed(0)}
                     </span>
                     {/* <span>CAD</span> */}

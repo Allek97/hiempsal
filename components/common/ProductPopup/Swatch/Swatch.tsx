@@ -1,7 +1,7 @@
 import { FC, MouseEvent } from "react";
 import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
-import { colorKeys } from "@lib/option";
+import { colorMap } from "@framework/utils/optionMapping";
 import {
     ImageVariantWrapper,
     NotifyButton,
@@ -65,7 +65,7 @@ const Swatch: FC<Props> = ({
                     priority
                 />
             </ImageVariantWrapper>
-            <span>{colorKeys[value]}</span>
+            <span>{colorMap[value]}</span>
         </ProductVariantColor>
     ) : (
         <VariantSizeGender

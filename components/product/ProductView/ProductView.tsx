@@ -12,7 +12,7 @@ import { useUI } from "@components/ui/context";
 
 import { useScrollDirectionNext } from "@lib/customHooks";
 import { ethicalCertifications } from "@lib/const";
-import { currencyKeys } from "@lib/option";
+import { currencyMap } from "@framework/utils/optionMapping";
 
 import { ProductSlider } from "..";
 
@@ -43,7 +43,6 @@ const ProductView: FC<Props> = ({ product }) => {
         openPopup,
         closePopup,
         openProductCart,
-        setProductNotAdded,
     } = useUI();
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({ threshold: 1 });
@@ -74,7 +73,7 @@ const ProductView: FC<Props> = ({ product }) => {
             )}
             <ProductOverviewContainer>
                 <SliderContainer>
-                    {/* <ProductSlider>
+                    <ProductSlider>
                         {product.images.map((image, idx) => (
                             <ImageContainer key={image.url}>
                                 <Image
@@ -88,7 +87,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                 />
                             </ImageContainer>
                         ))}
-                    </ProductSlider> */}
+                    </ProductSlider>
                 </SliderContainer>
 
                 <CartContainer>
@@ -108,7 +107,7 @@ const ProductView: FC<Props> = ({ product }) => {
                         <div>
                             <h1>{product.name}</h1>
                             <h3>
-                                {currencyKeys[`${product.price.currencyCode}`]}
+                                {currencyMap[`${product.price.currencyCode}`]}
                                 {product.price.value}
                             </h3>
                         </div>
@@ -147,7 +146,6 @@ const ProductView: FC<Props> = ({ product }) => {
                             onClick={() => {
                                 openPopup();
                                 openProductCart();
-                                setProductNotAdded();
                             }}
                         >
                             Select Variant

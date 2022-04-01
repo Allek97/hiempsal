@@ -92,10 +92,10 @@ const MobileNav: FC = () => {
                     aria-label="Menu"
                     type="button"
                     onClick={toggleMenu}
-                    isMobileMenuOpen={isMobileMenuOpen}
-                    isUsernavOpen={isUsernavOpen}
-                    isProfileOpen={false}
-                    isPopupOpen={isProductCartOpen || isProductAdded}
+                    $isMobileMenuOpen={isMobileMenuOpen}
+                    $isUsernavOpen={isUsernavOpen}
+                    $isProfileOpen={false}
+                    $isPopupOpen={isProductCartOpen || isProductAdded}
                 >
                     <motion.div
                         animate={isMobileMenuOpen ? "openMenu" : "closeMenu"}
@@ -117,9 +117,9 @@ const MobileNav: FC = () => {
                             <>
                                 <Cart
                                     key="cart"
-                                    isUsernavOpen={isUsernavOpen}
-                                    isMobileMenuOpen={isMobileMenuOpen}
-                                    isProfileOpen={false}
+                                    $isUsernavOpen={isUsernavOpen}
+                                    $isMobileMenuOpen={isMobileMenuOpen}
+                                    $isProfileOpen={false}
                                     initial="collapse"
                                     animate="expand"
                                     exit="collapse"
@@ -133,9 +133,9 @@ const MobileNav: FC = () => {
                                 </Cart>
                                 <Profile
                                     key="profile"
-                                    isProfileOpen={false}
-                                    isMobileMenuOpen={isMobileMenuOpen}
-                                    isUsernavOpen={isUsernavOpen}
+                                    $isProfileOpen={false}
+                                    $isMobileMenuOpen={isMobileMenuOpen}
+                                    $isUsernavOpen={isUsernavOpen}
                                     initial="collapse"
                                     animate="expand"
                                     exit="collapse"

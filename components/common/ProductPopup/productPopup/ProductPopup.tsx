@@ -8,7 +8,7 @@ import { Product, ProductVariant } from "@framework/types/product";
 import useAddItem from "@framework/cart/use-add-item";
 import { useUI } from "@components/ui/context";
 
-import { currencyKeys } from "@lib/option";
+import { currencyMap } from "@framework/utils/optionMapping";
 import { truncateText } from "@lib/truncateText";
 import { useMediaQueryNext } from "@lib/customHooks";
 
@@ -123,7 +123,7 @@ const ProductPopup: FC<Props> = ({
                                     <h1>{truncateText(product.name)}</h1>
                                     <span>
                                         {
-                                            currencyKeys[
+                                            currencyMap[
                                                 `${product.price.currencyCode}`
                                             ]
                                         }

@@ -7,7 +7,7 @@ interface BtnProps {
     isMobileMenuOpen: boolean;
     isUsernavOpen: boolean;
     isProfileOpen: boolean;
-    isProductPopupOpen?: boolean;
+    isPopupOpen?: boolean;
 }
 
 export const MobileNavRoot = styled(motion.nav)`
@@ -22,7 +22,7 @@ export const MenuBtn = styled(motion.button)<BtnProps>`
 
     svg {
         ${(props) =>
-            props.isMobileMenuOpen || props.isProductPopupOpen
+            props.isMobileMenuOpen || props.isPopupOpen
                 ? css`
                       ${tw`h-5 w-5`}
                   `
@@ -38,7 +38,7 @@ export const MenuBtn = styled(motion.button)<BtnProps>`
             `}
 
             ${(props) =>
-            props.isProductPopupOpen &&
+            props.isPopupOpen &&
             css`
                 fill: black;
             `}

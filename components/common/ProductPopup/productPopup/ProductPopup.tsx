@@ -1,5 +1,6 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, ReactNode, useState } from "react";
 import { motion, Variants } from "framer-motion";
 
 import { Product, ProductVariant } from "@framework/types/product";
@@ -36,20 +37,21 @@ import {
 
 interface Props {
     product: Product;
+    containedChild?: ReactNode | ReactNode[];
+    uncontainedChild?: ReactNode | ReactNode[];
 }
 
-const ProductPopup: FC<Props> = ({ product, children }) => {
+const ProductPopup: FC<Props> = ({
+    product,
+    containedChild,
+    uncontainedChild,
+}) => {
     const [choices, setChoices] = useState<Choices>({});
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
 
-    const {
-        isProductAdded,
-        isProductCartOpen,
-        setProductAdded,
-        closeProductPopup,
-        closeProductCart,
-    } = useUI();
+    const { isProductAdded, isProductCartOpen, setProductAdded, closePopup } =
+        useUI();
 
     const addItem = useAddItem();
     const addToCart = async (e: FormEvent<HTMLFormElement>) => {
@@ -64,7 +66,6 @@ const ProductPopup: FC<Props> = ({ product, children }) => {
             setIsLoading(true);
             await addItem(input);
             setIsLoading(false);
-            closeProductCart();
             setProductAdded();
         } catch (err) {
             console.log(err);
@@ -98,13 +99,11 @@ const ProductPopup: FC<Props> = ({ product, children }) => {
             maxHeight: "90vh",
             height: containerAnimationHeight(),
         },
-        childOpen: { maxHeight: "50vh", height: "100%" },
     };
 
     const animationHandler = () => {
         if (isProductAdded) return "itemAdded";
         if (isProductCartOpen) return "productCartOpen";
-        // return "childOpen";
     };
 
     return (
@@ -131,9 +130,7 @@ const ProductPopup: FC<Props> = ({ product, children }) => {
                                         {product.price.value}
                                     </span>
                                     {isScreenLarge && (
-                                        <CloseWrapper
-                                            onClick={closeProductPopup}
-                                        >
+                                        <CloseWrapper onClick={closePopup}>
                                             <Close />
                                         </CloseWrapper>
                                     )}
@@ -244,10 +241,16 @@ const ProductPopup: FC<Props> = ({ product, children }) => {
                     />
                 )}
                 {/*Add children for custom use*/}
-                {children}
+                {containedChild}
             </Container>
+            {uncontainedChild}
         </Popup>
     );
+};
+
+ProductPopup.defaultProps = {
+    containedChild: undefined,
+    uncontainedChild: undefined,
 };
 
 export default ProductPopup;

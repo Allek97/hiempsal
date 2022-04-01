@@ -158,7 +158,7 @@ export const VariantContainer = styled.div`
 
 export const VariantButton = styled(Button)`
     ${tw`height[50px] w-full text-white tracking-tighter border-radius[3px]`}
-`;
+` as typeof Button;
 
 export const WishlistBtn = styled.button`
     ${tw`w-5 margin-left[6vw] mr-3

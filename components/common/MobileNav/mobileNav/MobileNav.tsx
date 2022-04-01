@@ -62,17 +62,17 @@ const MobileNav: FC = () => {
     const isUsernavOpen = router.pathname.includes("cart");
 
     const {
-        isProductPopupOpen,
+        isPopupOpen,
         isMobileMenuOpen,
-        closeProductPopup,
+        isProductCartOpen,
+        isProductAdded,
+        closePopup,
         toggleMobileMenu,
-        setProductNotAdded,
     } = useUI();
 
     const toggleMenu = () => {
-        if (isProductPopupOpen) {
-            closeProductPopup();
-            setProductNotAdded();
+        if ((isPopupOpen && isProductCartOpen) || isProductAdded) {
+            closePopup();
         } else toggleMobileMenu();
     };
 
@@ -95,14 +95,16 @@ const MobileNav: FC = () => {
                     isMobileMenuOpen={isMobileMenuOpen}
                     isUsernavOpen={isUsernavOpen}
                     isProfileOpen={false}
-                    isProductPopupOpen={isProductPopupOpen}
+                    isPopupOpen={isProductCartOpen || isProductAdded}
                 >
                     <motion.div
                         animate={isMobileMenuOpen ? "openMenu" : "closeMenu"}
                         variants={menuBtnVariants}
                         transition={{ duration: 0.2 }}
                     >
-                        {isMobileMenuOpen || isProductPopupOpen ? (
+                        {isMobileMenuOpen ||
+                        isProductCartOpen ||
+                        isProductAdded ? (
                             <Close />
                         ) : (
                             <HiOutlineMenuAlt3 />
@@ -111,7 +113,7 @@ const MobileNav: FC = () => {
                 </MenuBtn>
                 <Navigation>
                     <AnimatePresence>
-                        {!isProductPopupOpen && (
+                        {!isPopupOpen && (
                             <>
                                 <Cart
                                     key="cart"

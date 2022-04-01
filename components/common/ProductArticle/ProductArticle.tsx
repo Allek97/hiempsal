@@ -45,7 +45,7 @@ const ProductArticle: FC<Props> = ({
 
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
-    const { isProductPopupOpen, openProductPopup } = useUI();
+    const { isPopupOpen, openPopup } = useUI();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
@@ -76,7 +76,7 @@ const ProductArticle: FC<Props> = ({
 
     return (
         <Root>
-            {isProductPopupOpen && <ProductPopup product={product} />}
+            {isPopupOpen && <ProductPopup product={product} />}
             <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
                     <ImageContainer isDisplayed={isDisplayed}>
@@ -139,7 +139,7 @@ const ProductArticle: FC<Props> = ({
                             <AddToCartBtn
                                 onClick={
                                     variant === "wishlist"
-                                        ? openProductPopup
+                                        ? openPopup
                                         : // eslint-disable-next-line @typescript-eslint/no-empty-function
                                           () => {}
                                 }
@@ -148,10 +148,7 @@ const ProductArticle: FC<Props> = ({
                                 Add To Cart
                             </AddToCartBtn>
                         ) : (
-                            <QuickViewBtn
-                                type="button"
-                                onClick={openProductPopup}
-                            >
+                            <QuickViewBtn type="button" onClick={openPopup}>
                                 <Plus /> <h5>Quick View</h5>
                             </QuickViewBtn>
                         ))}

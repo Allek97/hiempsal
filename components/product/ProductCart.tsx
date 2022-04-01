@@ -12,11 +12,14 @@ interface Props {
 const ProductCart: FC<Props> = ({ product, isProductOverviewOpen }) => {
     const { isProductCartOpen, isProductAdded } = useUI();
     return (
-        <ProductPopup product={product}>
-            {isProductOverviewOpen && !isProductCartOpen && !isProductAdded && (
-                <ProductOverview />
-            )}
-        </ProductPopup>
+        <ProductPopup
+            product={product}
+            uncontainedChild={
+                isProductOverviewOpen &&
+                !isProductCartOpen &&
+                !isProductAdded && <ProductOverview />
+            }
+        />
     );
 };
 

@@ -13,9 +13,10 @@ const mainTextSize = css`
 `;
 
 export const Container = styled(motion.div)`
-    ${tw`padding-left[4vw] padding-right[4vw] overflow-y-auto -webkit-overflow-scrolling[touch]
+    ${tw`padding-left[4vw] padding-right[4vw] overflow-y-auto -webkit-overflow-scrolling[touch] 
+    bg-white border-radius[5px] 
     md:(padding-left[3vw] padding-right[3vw])
-    lg:(padding-left[1.333333333333333vw] padding-right[1.333333333333333vw])`}
+    lg:(padding-left[1.333333333333333vw] padding-right[1.333333333333333vw] border-radius[6px] )`}
 
     form {
         ${tw`padding-top[7.6vw] padding-bottom[7.6vw] 

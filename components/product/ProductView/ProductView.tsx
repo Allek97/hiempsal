@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
@@ -37,26 +37,36 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
     const {
-        isProductPopupOpen,
-        openProductPopup,
+        isPopupOpen,
+        isProductCartOpen,
+        isProductAdded,
+        openPopup,
+        closePopup,
         openProductCart,
         setProductNotAdded,
     } = useUI();
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({ threshold: 1 });
 
-    const isProductOverviewOpen =
-        direction === "down" &&
-        !inView &&
-        (entry?.boundingClientRect.y ?? 0) < 0;
+    const isProductOverviewOpen = useMemo(
+        () =>
+            direction === "down" &&
+            !inView &&
+            (entry?.boundingClientRect.y ?? 0) < 0,
+        [direction, inView, entry?.boundingClientRect.y]
+    );
 
     useEffect(() => {
-        if (isProductOverviewOpen) openProductPopup();
-    }, [isProductOverviewOpen, openProductPopup]);
+        if (!isProductCartOpen && !isProductAdded) {
+            if (isProductOverviewOpen) openPopup();
+            else closePopup();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isProductOverviewOpen, isPopupOpen, isProductCartOpen, isProductAdded]);
 
     return (
         <Root>
-            {isProductPopupOpen && (
+            {isPopupOpen && (
                 <ProductCart
                     product={product}
                     isProductOverviewOpen={isProductOverviewOpen}
@@ -64,7 +74,7 @@ const ProductView: FC<Props> = ({ product }) => {
             )}
             <ProductOverviewContainer>
                 <SliderContainer>
-                    <ProductSlider>
+                    {/* <ProductSlider>
                         {product.images.map((image, idx) => (
                             <ImageContainer key={image.url}>
                                 <Image
@@ -78,7 +88,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                 />
                             </ImageContainer>
                         ))}
-                    </ProductSlider>
+                    </ProductSlider> */}
                 </SliderContainer>
 
                 <CartContainer>
@@ -135,7 +145,7 @@ const ProductView: FC<Props> = ({ product }) => {
                     <VariantContainer ref={ref}>
                         <VariantButton
                             onClick={() => {
-                                openProductPopup();
+                                openPopup();
                                 openProductCart();
                                 setProductNotAdded();
                             }}
@@ -167,10 +177,6 @@ const ProductView: FC<Props> = ({ product }) => {
                     </FeatureContainer>
                 ))}
             </ProductOverviewContainer>
-            {/* Component appears only when Select Varaint button is out of the viewport with a 100% threshold  */}
-            {/* {direction === "down" &&
-                !inView &&
-                (entry?.boundingClientRect.y ?? 0) < 0 && <ProductOverview />} */}
         </Root>
     );
 };

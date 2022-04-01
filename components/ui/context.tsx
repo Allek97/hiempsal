@@ -3,15 +3,15 @@ import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
 interface StateValues {
     isMobileMenuOpen: boolean;
-    isProductPopupOpen: boolean;
+    isPopupOpen: boolean;
     isProductAdded: boolean;
     isProductCartOpen: boolean;
 }
 
 interface StateModifiers {
     toggleMobileMenu: () => void;
-    openProductPopup: () => void;
-    closeProductPopup: () => void;
+    openPopup: () => void;
+    closePopup: () => void;
     openProductCart: () => void;
     closeProductCart: () => void;
     setProductAdded: () => void;
@@ -22,15 +22,15 @@ type State = StateValues & StateModifiers;
 
 const initialState: StateValues = {
     isMobileMenuOpen: false,
-    isProductPopupOpen: false,
+    isPopupOpen: false,
     isProductAdded: false,
     isProductCartOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
     toggleMobileMenu: () => {},
-    openProductPopup: () => {},
-    closeProductPopup: () => {},
+    openPopup: () => {},
+    closePopup: () => {},
     openProductCart: () => {},
     closeProductCart: () => {},
     setProductAdded: () => {},
@@ -45,8 +45,8 @@ const UIContext = createContext<State>({
 type Action = {
     type:
         | "TOGGLE_MOBILE_MENU"
-        | "OPEN_PRODUCT_POPUP"
-        | "CLOSE_PRODUCT_POPUP"
+        | "OPEN_POPUP"
+        | "CLOSE_POPUP"
         | "SET_PRODUCT_AS_ADDED"
         | "SET_PRODUCT_AS_NOT_ADDED"
         | "OPEN_PRODUCT_CART"
@@ -61,17 +61,19 @@ function uiReducer(state: StateValues, action: Action) {
                 ...state,
                 isMobileMenuOpen: !state.isMobileMenuOpen,
             };
-        case "OPEN_PRODUCT_POPUP":
-            return { ...state, isProductPopupOpen: true };
+        case "OPEN_POPUP":
+            return { ...state, isPopupOpen: true };
 
-        case "CLOSE_PRODUCT_POPUP":
+        case "CLOSE_POPUP":
             return {
                 ...state,
-                isProductPopupOpen: false,
+                isPopupOpen: false,
+                isProductAdded: false,
+                isProductCartOpen: false,
             };
 
         case "SET_PRODUCT_AS_ADDED":
-            return { ...state, isProductAdded: true };
+            return { ...state, isProductAdded: true, isProductCartOpen: false };
 
         case "SET_PRODUCT_AS_NOT_ADDED":
             return { ...state, isProductAdded: false };
@@ -93,8 +95,8 @@ const UIProvider: FC = ({ children }) => {
     const toggleMobileMenu = () => {
         dispatch({ type: "TOGGLE_MOBILE_MENU" });
     };
-    const openProductPopup = () => dispatch({ type: "OPEN_PRODUCT_POPUP" });
-    const closeProductPopup = () => dispatch({ type: "CLOSE_PRODUCT_POPUP" });
+    const openPopup = () => dispatch({ type: "OPEN_POPUP" });
+    const closePopup = () => dispatch({ type: "CLOSE_POPUP" });
     const setProductAdded = () => dispatch({ type: "SET_PRODUCT_AS_ADDED" });
     const setProductNotAdded = () =>
         dispatch({ type: "SET_PRODUCT_AS_NOT_ADDED" });
@@ -105,8 +107,8 @@ const UIProvider: FC = ({ children }) => {
         return {
             ...state,
             toggleMobileMenu,
-            openProductPopup,
-            closeProductPopup,
+            openPopup,
+            closePopup,
             setProductAdded,
             setProductNotAdded,
             openProductCart,

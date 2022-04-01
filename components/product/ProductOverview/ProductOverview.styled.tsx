@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
-export const Root = styled.div`
+export const Root = styled(motion.div)`
     ${tw`relative grid items-center grid-template-columns[minmax(auto,50%) minmax(auto,50%)]
     w-full height[4.2rem] border-radius[3px] bg-primary`}
 

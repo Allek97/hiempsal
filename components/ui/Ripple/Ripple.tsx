@@ -27,8 +27,13 @@ const RippleStyle = styled(Ripples)<RippleProps>`
         `}
 `;
 
-const Ripple: FC<Props> = ({ children, isRippleActive, ...rest }) => {
+const Ripple: FC<Props> = ({
+    children,
+    isRippleActive = undefined,
+    ...rest
+}) => {
     const isScreenLg = useMediaQueryNext("lg");
+    // console.log(isRippleActive, isScreenLg);
     return (
         <RippleStyle isRippleActive={isRippleActive ?? !isScreenLg} {...rest}>
             {children}

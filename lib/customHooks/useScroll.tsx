@@ -20,8 +20,7 @@ const useScroll = (scrollY: number): boolean => {
         return (): void => {
             window.removeEventListener("scroll", listenScrollEvent);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // NOTE Empty array ensures that effect is only run on mount
+    }, [scrollY]);
 
     return isScrolled;
 };

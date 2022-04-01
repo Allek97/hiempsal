@@ -5,7 +5,7 @@ import tw from "twin.macro";
 interface RootProps {
     isScrolled: boolean;
     isMobileMenuOpen: boolean;
-    isProductPopupOpen: boolean;
+    isPopupOpen: boolean;
     isUsernavOpen: boolean;
 }
 
@@ -34,13 +34,6 @@ const fadeIn = keyframes`
 
 export const NavbarRoot = styled.div<RootProps>`
     ${tw`sticky top-0 z-50 bg-transparent`}
-
-    ${(props) =>
-        props.isProductPopupOpen &&
-        !props.isMobileMenuOpen &&
-        css`
-            pointer-events: none;
-        `}
 
     &:before {
         content: "";

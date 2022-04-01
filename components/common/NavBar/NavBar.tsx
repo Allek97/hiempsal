@@ -33,12 +33,13 @@ const Navbar: FC = () => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
 
-    const { isProductPopupOpen, isMobileMenuOpen } = useUI();
+    const { isPopupOpen, isMobileMenuOpen } = useUI();
     const { back } = useHistory();
 
     const isScreenLarge = useMediaQueryNext("lg");
 
     const scrollThreshold = isScreenLarge ? 20 : 0;
+
     const isScrolled = useScroll(scrollThreshold);
 
     return (
@@ -48,7 +49,7 @@ const Navbar: FC = () => {
             <NavbarRoot
                 isScrolled={isScrolled}
                 isMobileMenuOpen={isMobileMenuOpen}
-                isProductPopupOpen={isProductPopupOpen}
+                isPopupOpen={isPopupOpen}
                 isUsernavOpen={isUsernavOpen}
             >
                 <Container

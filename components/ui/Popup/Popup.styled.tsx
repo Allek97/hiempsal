@@ -14,8 +14,7 @@ export const Overlay = styled.div`
 
 export const Container = styled(motion.main)`
     ${tw`fixed z-index[95] bottom-10 right[15px]
-    border-radius[5px] bg-primary 
-    lg:(right[2.6666666667vw] bottom[1.3333333333vw] border-radius[6px])`}
+    lg:(right[2.6666666667vw] bottom[1.3333333333vw])`}
 
     // Dimensions
     ${tw`(width[calc(100% - 30px)]) 

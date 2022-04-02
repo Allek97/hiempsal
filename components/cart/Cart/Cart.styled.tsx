@@ -27,20 +27,19 @@ export const Root = styled.div`
 `;
 
 export const ItemsHeader = styled.div`
-    ${tw`flex text-accents-7 font-size[13px] line-height[1em] tracking-tighter 
-    lg:(font-size[14px] line-height[1.5em] letter-spacing[-0.06em])`}
+    ${tw`flex text-accents-7 font-size[14px] line-height[1.5em] letter-spacing[-0.06em]`}
 
     & > div:first-of-type {
-        ${tw`lg:(width[calc(12vw + 17vw + 1vw)])
+        ${tw`width[calc(12vw + 17vw + 1vw)]
         4xl:(width[calc(13.5vw + 17vw + 1vw)])`}
     }
 
     & > div:nth-of-type(2) {
-        ${tw`lg:(width[9.1vw])`}
+        ${tw`width[9.1vw]`}
     }
 
     & > div:nth-of-type(3) {
-        ${tw`lg:(width[7.75vw])`}
+        ${tw`width[7.75vw]`}
     }
 
     & > div:nth-of-type(4) {

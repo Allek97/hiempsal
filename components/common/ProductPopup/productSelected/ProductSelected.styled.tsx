@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface UtilProps {
-    isCartBtn?: boolean;
+    $isCartBtn?: boolean;
 }
 
 const textSizeMain = css`
@@ -68,8 +68,8 @@ export const UtilBtn = styled(Button)<UtilProps>`
 
     ${textSizeBtn}
 
-    ${({ isCartBtn }) =>
-        isCartBtn &&
+    ${({ $isCartBtn }) =>
+        $isCartBtn &&
         css`
             ${tw`bg-white text-primary`}
             @media (hover: hover) and (pointer: fine) {

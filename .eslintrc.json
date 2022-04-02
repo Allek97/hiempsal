@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*  npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb 
+/*  npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-config-airbnb-typescript 
     eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react 
     @emotion/eslint-plugin eslint-plugin-styled-components-a11y eslint-plugin-react-hooks
     @next/eslint-plugin-next --save--dev */
@@ -11,15 +11,18 @@
 // TODO: Some npm modules maybe missing, AJOUTE LES
 {
     "extends": [
-        "airbnb",
-        "prettier",
-        "plugin:react/recommended",
         "eslint:recommended",
-        "next",
+        "airbnb",
+        "airbnb-typescript",
+        "airbnb/hooks",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:styled-components-a11y/strict"
+        "plugin:react/recommended",
+        "plugin:styled-components-a11y/strict",
+        "plugin:@next/next/recommended",
+        "plugin:react/jsx-runtime",
+        "prettier"
     ],
     "plugins": [
         "prettier",
@@ -52,6 +55,23 @@
             "error",
             { "varsIgnorePattern": "_" }
         ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "variable",
+                "format": [
+                    "camelCase",
+                    "strictCamelCase",
+                    "UPPER_CASE",
+                    "PascalCase"
+                ],
+                "filter": {
+                    // you can expand this regex as you find more cases that require quoting that you want to allow
+                    "regex": "^__$",
+                    "match": false
+                }
+            }
+        ],
         "spaced-comment": "off",
         "no-param-reassign": "off",
         "arrow-body-style": "off",
@@ -79,7 +99,8 @@
         "ecmaFeatures": {
             "jsx": true,
             "tsx": true
-        }
+        },
+        "project": ["./tsconfig.json"]
     },
     "env": {
         "browser": true,

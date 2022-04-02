@@ -1,11 +1,4 @@
-import {
-    ButtonHTMLAttributes,
-    ElementType,
-    FC,
-    ReactNode,
-    useEffect,
-    useState,
-} from "react";
+import { ButtonHTMLAttributes, ElementType, FC, ReactNode } from "react";
 import { Ripple } from "..";
 import { Root } from "./Button.styled";
 
@@ -29,12 +22,6 @@ const Button: FC<Props> = ({
     isHoverActive = true,
     ...rest
 }) => {
-    const [display, setDisplay] = useState<boolean>(false);
-    useEffect(() => {
-        setDisplay(true);
-    }, []);
-    if (!display) return null;
-
     return (
         <Ripple
             color={color}
@@ -57,7 +44,7 @@ const Button: FC<Props> = ({
 // NOTE defaultProps soon to be depreciated
 Button.defaultProps = {
     Component: "button",
-    href: "/",
+    href: "",
     color: "var(--accents-2)",
     during: 2000,
     isRippleActive: undefined,

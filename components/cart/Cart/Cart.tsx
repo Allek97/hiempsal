@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import payments from "@lib/const/payments";
-import { useMediaQueryNext } from "lib/customHooks";
+import { Media } from "@lib/media";
 
 import useCart from "@framework/cart/use-cart";
 
@@ -24,13 +24,11 @@ import {
 import { CartArticle } from "../CartArticle";
 
 const Cart: FC = () => {
-    const isScreenLarge = useMediaQueryNext("lg");
-
     const { data, isEmpty } = useCart();
 
     return (
         <Root>
-            {isScreenLarge && (
+            <Media greaterThanOrEqual="lg">
                 <ItemsHeader>
                     <div>Product</div>
                     <div>Colors</div>
@@ -38,7 +36,8 @@ const Cart: FC = () => {
                     <div>Gender</div>
                     <div>Price</div>
                 </ItemsHeader>
-            )}
+            </Media>
+
             {isEmpty ? (
                 <EmptyCartRoot>
                     <EmptyCartBox>

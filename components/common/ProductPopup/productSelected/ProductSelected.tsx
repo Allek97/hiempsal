@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductVariant } from "@framework/types/product";
 import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { FunctionalLink } from "@components/utils";
 import {
     ProductInfo,
     Root,
@@ -64,11 +65,21 @@ const ProductSelected: FC<Props> = ({
                 </div>
             </ProductInfo>
             <UtilWrapper>
-                <Link href="/cart/bag" passHref>
-                    <UtilBtn type="button" isHoverActive={false} isCartBtn>
-                        View Cart
-                    </UtilBtn>
-                </Link>
+                <div className="w-full">
+                    <Link href="/cart/bag" passHref>
+                        <FunctionalLink>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+
+                            <UtilBtn
+                                type="button"
+                                isHoverActive={false}
+                                $isCartBtn
+                            >
+                                View Cart
+                            </UtilBtn>
+                        </FunctionalLink>
+                    </Link>
+                </div>
 
                 <UtilBtn type="button">Checkout</UtilBtn>
             </UtilWrapper>

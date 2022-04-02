@@ -1,5 +1,6 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+
 import tailwindConfig from "../../tailwind.config";
 
 type Screen = "sm" | "md" | "lg" | "xl" | "2xl";
@@ -31,7 +32,7 @@ const useMediaQueryNext = (screenSize: Screen | number): boolean => {
 
     // NOTE We are making sure there is a re-render every time window.innerWidth hits one of our queries
     // useLayoutEffect more appropriate cause we are measuring DOM even though useEffect will work just fine
-    useLayoutEffect(() => {
+    useEffect(() => {
         function updateSize() {
             if (mediaRerender.includes(window.innerWidth))
                 setScreenWidth(window.innerWidth);

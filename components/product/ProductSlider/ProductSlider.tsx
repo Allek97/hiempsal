@@ -33,7 +33,6 @@ const ProductSlider: FC = ({ children }) => {
     const [isMounted, setIsMounted] = useState<boolean>(false);
     const sliderContainerRef = useRef<HTMLDivElement>(null);
 
-    const isScreenLg = useMediaQueryNext("lg");
     const isScreen2XL = useMediaQueryNext("2xl");
 
     const [ref, slider] = useKeenSlider<HTMLDivElement>({
@@ -101,7 +100,7 @@ const ProductSlider: FC = ({ children }) => {
                         <>
                             <ImageControlView>
                                 <ImageControlZoom>
-                                    <Ripple isRippleActive={!isScreenLg}>
+                                    <Ripple>
                                         <button
                                             onClick={() => zoomIn()}
                                             type="button"
@@ -110,7 +109,7 @@ const ProductSlider: FC = ({ children }) => {
                                         </button>
                                     </Ripple>
 
-                                    <Ripple isRippleActive={!isScreenLg}>
+                                    <Ripple>
                                         <button
                                             onClick={() => zoomOut()}
                                             type="button"
@@ -120,7 +119,7 @@ const ProductSlider: FC = ({ children }) => {
                                     </Ripple>
                                 </ImageControlZoom>
 
-                                <Ripple isRippleActive={!isScreenLg}>
+                                <Ripple>
                                     <button
                                         onClick={() => resetTransform()}
                                         type="button"
@@ -129,7 +128,7 @@ const ProductSlider: FC = ({ children }) => {
                                     </button>
                                 </Ripple>
 
-                                <Ripple isRippleActive={!isScreenLg}>
+                                <Ripple>
                                     <button onClick={onFirst} type="button">
                                         <BiReset />
                                     </button>

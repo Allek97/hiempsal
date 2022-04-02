@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-css-tags */
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { mediaStyles } from "../lib/media";
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
@@ -11,6 +12,11 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <style
+                        type="text/css"
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: mediaStyles }}
+                    />
                     <link
                         rel="stylesheet"
                         href="/fonts/HelveticaNowText/style.css"

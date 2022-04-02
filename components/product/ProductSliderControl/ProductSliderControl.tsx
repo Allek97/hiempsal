@@ -1,5 +1,4 @@
 import { Ripple } from "@components/ui";
-import { useMediaQueryNext } from "@lib/customHooks";
 import { FC, MouseEventHandler } from "react";
 
 import {
@@ -22,12 +21,10 @@ const ProductSliderControl: FC<Props> = ({
     totalSlides,
     currentSlide,
 }) => {
-    const isScreenLarge = useMediaQueryNext("lg");
-
     return (
         <>
             <Control direction="left">
-                <Ripple isRippleActive={!isScreenLarge}>
+                <Ripple>
                     <ControlBtn
                         onClick={onPrev}
                         aria-label="Previous Product Image"
@@ -39,7 +36,7 @@ const ProductSliderControl: FC<Props> = ({
             </Control>
 
             <Control direction="right">
-                <Ripple isRippleActive={!isScreenLarge}>
+                <Ripple>
                     <ControlBtn
                         onClick={onNext}
                         aria-label="Previous Product Image"

@@ -2,7 +2,6 @@ import { FC, ReactNode } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import Ripples, { RipplesProps } from "react-ripples";
-import { useMediaQueryNext } from "@lib/customHooks";
 import { transientOptions } from "@lib/transientOptions";
 
 interface Props extends RipplesProps {
@@ -11,12 +10,22 @@ interface Props extends RipplesProps {
 }
 
 interface RippleProps {
-    $isRippleActive: boolean;
+    $isRippleActive?: boolean;
 }
 
 const RippleStyle = styled(Ripples, transientOptions)<RippleProps>`
     ${({ $isRippleActive }) =>
-        !$isRippleActive &&
+        $isRippleActive === false &&
+        css`
+            overflow: visible !important;
+            & > s {
+                height: 0 !important;
+                width: 0 !important;
+            }
+        `}
+
+    ${({ $isRippleActive }) =>
+        $isRippleActive === undefined &&
         css`
             @media (hover: hover) and (pointer: fine) {
                 overflow: visible !important;
@@ -28,15 +37,9 @@ const RippleStyle = styled(Ripples, transientOptions)<RippleProps>`
         `}
 `;
 
-const Ripple: FC<Props> = ({
-    children,
-    isRippleActive = undefined,
-    ...rest
-}) => {
-    const isScreenLg = useMediaQueryNext("lg");
-    // console.log(isRippleActive, isScreenLg);
+const Ripple: FC<Props> = ({ children, isRippleActive, ...rest }) => {
     return (
-        <RippleStyle $isRippleActive={isRippleActive ?? !isScreenLg} {...rest}>
+        <RippleStyle $isRippleActive={isRippleActive} {...rest}>
             {children}
         </RippleStyle>
     );

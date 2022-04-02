@@ -40,12 +40,13 @@ export const ImageControlView = styled.div`
 
         box-shadow: var(--shadow-2);
         border-radius: 5px;
-
         button {
             ${tw`transition-transform`}
             ${tw`p-1.5 bg-primary text-primary text-xl select-none
             md:font-size[22px]
             lg:(p-2.5 text-2xl)`}
+            
+            border-radius: 5px;
         }
     }
 
@@ -78,6 +79,9 @@ export const ImageControlZoom = styled.div`
     & > div {
         box-shadow: var(--shadow-2);
         border-radius: 5px;
+        button {
+            border-radius: 5px;
+        }
     }
 
     & > div:first-of-type {

@@ -7,7 +7,7 @@ import {
 
 import { useUI } from "@components/ui/context";
 
-import { useMediaQueryNext } from "@lib/customHooks";
+import { Media } from "@lib/media";
 
 import { MobileNav, NavBar } from "..";
 
@@ -28,12 +28,13 @@ const Layout: FC = ({ children }) => {
         };
     }, [isMobileMenuOpen]);
 
-    const isScreenLarge = useMediaQueryNext("lg");
-
     return (
         <Root ref={ref}>
             <NavBar />
-            {!isScreenLarge && <MobileNav />}
+            <Media lessThan="lg">
+                <MobileNav />
+            </Media>
+
             <Fit>{children}</Fit>
             <footer className="h-96 bg-red">asdasd</footer>
         </Root>

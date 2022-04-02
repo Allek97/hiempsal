@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import { useUI } from "@components/ui/context";
 import { useHistory } from "@contexts/History";
 
-import { useMediaQueryNext } from "lib/customHooks";
-import useScroll from "lib/customHooks/useScroll";
+import { Media } from "@lib/media";
+import { useMediaQueryNext, useScroll } from "lib/customHooks";
 
 import {
     Bag,
@@ -65,7 +65,7 @@ const Navbar: FC = () => {
                                 {isUsernavOpen ? <Arrow /> : <Logo />}
                             </WrapperBtn>
                         )}
-                        {isScreenLarge && (
+                        <Media greaterThanOrEqual="lg">
                             <nav>
                                 <Link href="/" passHref>
                                     <NavbarItem
@@ -108,7 +108,7 @@ const Navbar: FC = () => {
                                     </NavbarItem>
                                 </Link>
                             </nav>
-                        )}
+                        </Media>
                     </div>
                     <Link href="/" passHref>
                         <HiemsalWrapper
@@ -119,7 +119,7 @@ const Navbar: FC = () => {
                             <Hiempsal />
                         </HiemsalWrapper>
                     </Link>
-                    {isScreenLarge && (
+                    <Media greaterThanOrEqual="lg">
                         <UtilWrapper>
                             <Link href="/cart/wishlist" passHref>
                                 <button aria-label="Wish list" type="button">
@@ -137,7 +137,7 @@ const Navbar: FC = () => {
                                 </button>
                             </Link>
                         </UtilWrapper>
-                    )}
+                    </Media>
                 </Navigation>
             </Container>
         </NavbarRoot>

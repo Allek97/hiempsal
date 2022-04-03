@@ -1,10 +1,6 @@
 const Plus = ({ ...props }) => {
     return (
-        <svg
-            viewBox="0 0 15 15"
-            className="MoreIcon_container__4JChE ProductTooltip_quickViewIcon__JKu7p"
-            {...props}
-        >
+        <svg viewBox="0 0 15 15" className="" {...props}>
             <path
                 className=""
                 d="M7.25 8.875L7.25 15L8.75 15L8.75 8.875L7.25 8.875ZM7.25 7.125L8.75 7.125L8.75 1L7.25 1L7.25 7.125Z"

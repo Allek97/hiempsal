@@ -36,6 +36,7 @@ module.exports = {
                 green: "var(--green)",
                 red: "var(--red)",
                 "orange-red": "var(--orange-red)",
+                grey: "var(--grey)",
             },
             textColor: {
                 base: "var(--text-base)",

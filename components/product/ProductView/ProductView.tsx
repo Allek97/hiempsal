@@ -29,7 +29,7 @@ import {
     VariantContainer,
     WishlistBtn,
 } from "./ProductView.styled";
-import ProductCart from "../ProductCart";
+import ProductCart from "../ProductCart/ProductCart";
 
 interface Props {
     product: Product;

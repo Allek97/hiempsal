@@ -2,7 +2,7 @@ import { ProductPopup } from "@components/common";
 import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 import { FC } from "react";
-import { ProductOverview } from ".";
+import { ProductOverview } from "..";
 
 interface Props {
     product: Product;
@@ -17,7 +17,13 @@ const ProductCart: FC<Props> = ({ product, isProductOverviewOpen }) => {
             uncontainedChild={
                 isProductOverviewOpen &&
                 !isProductCartOpen &&
-                !isProductAdded && <ProductOverview />
+                !isProductAdded && (
+                    <ProductOverview
+                        productImage={product.images[1]}
+                        productName={product.name}
+                        productPrice={product.price}
+                    />
+                )
             }
         />
     );

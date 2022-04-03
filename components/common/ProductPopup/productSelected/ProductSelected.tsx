@@ -1,9 +1,15 @@
 import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { useUI } from "@components/ui/context";
+
 import { ProductVariant } from "@framework/types/product";
-import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+
 import { FunctionalLink } from "@components/utils";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { Choices } from "../helpers";
+
 import {
     ProductInfo,
     Root,
@@ -11,7 +17,6 @@ import {
     UtilBtn,
     UtilWrapper,
 } from "./ProductSelected.styled";
-import { Choices } from "../helpers";
 
 interface Props {
     selectedVariant: ProductVariant;
@@ -31,6 +36,7 @@ const ProductSelected: FC<Props> = ({
             [option.displayName.toLowerCase()]: option.values[0].label,
         }))
     );
+    const { setProductNotAdded } = useUI();
 
     return (
         <Root>
@@ -66,7 +72,7 @@ const ProductSelected: FC<Props> = ({
             </ProductInfo>
             <UtilWrapper>
                 <Link href="/cart/bag" passHref>
-                    <FunctionalLink>
+                    <FunctionalLink onClick={setProductNotAdded}>
                         <UtilBtn type="button" isHoverActive={false} $isCartBtn>
                             View Cart
                         </UtilBtn>

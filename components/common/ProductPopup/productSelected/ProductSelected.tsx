@@ -65,21 +65,13 @@ const ProductSelected: FC<Props> = ({
                 </div>
             </ProductInfo>
             <UtilWrapper>
-                <div className="w-full">
-                    <Link href="/cart/bag" passHref>
-                        <FunctionalLink>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-
-                            <UtilBtn
-                                type="button"
-                                isHoverActive={false}
-                                $isCartBtn
-                            >
-                                View Cart
-                            </UtilBtn>
-                        </FunctionalLink>
-                    </Link>
-                </div>
+                <Link href="/cart/bag" passHref>
+                    <FunctionalLink>
+                        <UtilBtn type="button" isHoverActive={false} $isCartBtn>
+                            View Cart
+                        </UtilBtn>
+                    </FunctionalLink>
+                </Link>
 
                 <UtilBtn type="button">Checkout</UtilBtn>
             </UtilWrapper>

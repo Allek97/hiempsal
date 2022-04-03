@@ -29,9 +29,9 @@ const textSizeBtn = css`
 export const Root = styled.div`
     ${tw`flex flex-col`}
 
-    ${tw`padding-top[4vw] padding-bottom[4vw] 
+    ${tw`padding-top[5vw] padding-bottom[4vw] 
         md:(padding-top[3vw] padding-bottom[3vw])
-        lg:(padding-top[calc(2vw / 3)] padding-bottom[calc(2vw / 3)])`}
+        lg:(padding-top[0.8vw] padding-bottom[calc(2vw / 3)])`}
 `;
 
 export const ProductInfo = styled.div`
@@ -61,6 +61,10 @@ export const ImageWrapper = styled.div`
 export const UtilWrapper = styled.div`
     ${tw`flex padding[1vw 0]
     lg:padding[calc(1vw / 3) 0]`}
+
+    & > a {
+        ${tw`w-full margin[0.25em]`}
+    }
 `;
 
 export const UtilBtn = styled(Button)<UtilProps>`
@@ -71,7 +75,7 @@ export const UtilBtn = styled(Button)<UtilProps>`
     ${({ $isCartBtn }) =>
         $isCartBtn &&
         css`
-            ${tw`bg-white text-primary`}
+            ${tw`bg-white text-primary m-0`}
             @media (hover: hover) and (pointer: fine) {
                 &:hover {
                     ${tw`bg-secondary text-secondary`}

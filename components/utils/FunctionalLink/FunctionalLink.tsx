@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { forwardRef, MouseEventHandler, ReactNode } from "react";
 
 // FIX Hacky trick in order to use Link(next/link) with functional components accroding to :
@@ -7,10 +8,8 @@ import { forwardRef, MouseEventHandler, ReactNode } from "react";
 // NOTE Issue #7915 still not fixed
 
 interface Props {
-    children: ReactNode;
-    // eslint-disable-next-line react/require-default-props
+    children: ReactNode | ReactNode[];
     href?: string;
-    // eslint-disable-next-line react/require-default-props
     onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 

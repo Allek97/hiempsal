@@ -30,7 +30,7 @@ const ProductOverview: FC<Props> = ({
     productImage,
 }) => {
     const variants: Variants = {
-        isOpen: { y: 0, opacity: 1, maxHeight: "100%" },
+        isOpen: { y: 0, opacity: 1, maxHeight: "50vh" },
         isHidden: { y: "150%", opacity: 0, maxHeight: 0 },
     };
 

@@ -27,13 +27,11 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
         productCartOpen: {
             maxHeight: "90vh",
         },
-        closed: { maxHeight: "0" },
     };
 
     const animationHandler = () => {
         if (isProductAdded) return "itemAdded";
         if (isProductCartOpen) return "productCartOpen";
-        if (!isProductCartOpen && !isProductAdded) return "closed";
     };
 
     return (
@@ -45,7 +43,7 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
                 transition={{ duration: 0.5 }}
                 variants={containerVariant}
             >
-                <Paddings hasPadding={hasPadding}>
+                <Paddings hasPadding>
                     {isProductCartOpen && (
                         <ProductCart
                             product={product}
@@ -61,10 +59,10 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
                             currencyCode={product.price.currencyCode}
                         />
                     )}
-                    {/*Add children for custom use*/}
-                    {children}
                 </Paddings>
             </Container>
+            {/*Add children for custom use*/}
+            <Paddings hasPadding={hasPadding}>{children}</Paddings>
         </Popup>
     );
 };

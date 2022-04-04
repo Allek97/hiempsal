@@ -10,18 +10,15 @@ interface Props {
 
 const ProductCart: FC<Props> = ({ product, isProductOverviewOpen }) => {
     return (
-        <ProductPopup
-            product={product}
-            uncontainedChild={
-                isProductOverviewOpen && (
-                    <ProductOverview
-                        productImage={product.images[1]}
-                        productName={product.name}
-                        productPrice={product.price}
-                    />
-                )
-            }
-        />
+        <ProductPopup product={product}>
+            {isProductOverviewOpen && (
+                <ProductOverview
+                    productImage={product.images[1]}
+                    productName={product.name}
+                    productPrice={product.price}
+                />
+            )}
+        </ProductPopup>
     );
 };
 

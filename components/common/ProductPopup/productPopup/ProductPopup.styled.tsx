@@ -1,7 +1,12 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import customScroll from "@styles/customScroll.styled";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
+
+interface PaddingProps {
+    hasPadding: boolean;
+}
 
 export const Container = styled(motion.div)`
     ${tw`overflow-y-auto -webkit-overflow-scrolling[touch] 
@@ -21,8 +26,12 @@ export const Container = styled(motion.div)`
     }
 `;
 
-export const Paddings = styled.div`
-    ${tw`padding-left[4vw] padding-right[4vw]
+export const Paddings = styled.div<PaddingProps>`
+    ${({ hasPadding }) =>
+        hasPadding &&
+        css`
+            ${tw`padding-left[4vw] padding-right[4vw]
         md:(padding-left[3vw] padding-right[3vw]) 
         lg:(padding-left[1.333333333333333vw] padding-right[1.333333333333333vw])`}
+        `}
 `;

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { FC, ReactNode, useState } from "react";
 import { Variants } from "framer-motion";
 
@@ -12,15 +13,11 @@ import { Container, Paddings } from "./ProductPopup.styled";
 
 interface Props {
     product: Product;
-    containedChild?: ReactNode | ReactNode[];
-    uncontainedChild?: ReactNode | ReactNode[];
+    children: ReactNode | ReactNode[];
+    hasPadding?: boolean;
 }
 
-const ProductPopup: FC<Props> = ({
-    product,
-    containedChild,
-    uncontainedChild,
-}) => {
+const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
 
     const { isProductAdded, isProductCartOpen } = useUI();
@@ -48,7 +45,7 @@ const ProductPopup: FC<Props> = ({
                 transition={{ duration: 0.5 }}
                 variants={containerVariant}
             >
-                <Paddings>
+                <Paddings hasPadding={hasPadding}>
                     {isProductCartOpen && (
                         <ProductCart
                             product={product}
@@ -65,17 +62,11 @@ const ProductPopup: FC<Props> = ({
                         />
                     )}
                     {/*Add children for custom use*/}
-                    {containedChild}
+                    {children}
                 </Paddings>
             </Container>
-            {uncontainedChild}
         </Popup>
     );
-};
-
-ProductPopup.defaultProps = {
-    containedChild: undefined,
-    uncontainedChild: undefined,
 };
 
 export default ProductPopup;

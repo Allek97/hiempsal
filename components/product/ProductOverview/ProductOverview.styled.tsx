@@ -24,7 +24,7 @@ export const Root = styled(motion.div)`
     ${tw`relative grid items-center grid-template-columns[minmax(auto,50%) minmax(auto,50%)]
     w-full height[4rem] border-radius[3px] bg-primary
     md:(grid-template-columns[minmax(0,auto) minmax(100px,auto)])
-    lg:(height[calc(1.5rem + 2.5vw)])`}
+    lg:(height[calc(1.5rem + 2.4vw)])`}
 
     transition: transform .5s cubic-bezier(.19,1,.22,1),background .4s cubic-bezier(.19,1,.22,1) .2s;
     -webkit-clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 10%);
@@ -32,14 +32,14 @@ export const Root = styled(motion.div)`
 
     & > button {
         ${tw`height[4rem]
-        lg:(height[calc(1.5rem + 2.5vw)])`}
+        lg:(height[calc(1.5rem + 2.4vw)])`}
     }
 `;
 
 export const ImageWrapper = styled.div`
     ${tw`relative width[11vw] min-width[9.6vw] margin[0 1.5vw]
     md:(width[7.2vw] min-width[5.7vw])
-    lg:(width[calc(100%)] min-width[2.75rem] margin[0 0.2rem])`}
+    lg:(width[calc(1rem + 2.5vw)] min-width[calc(1rem + 2.5vw)] margin[0 0.2rem])`}
 `;
 
 export const ProductInfo = styled.div`

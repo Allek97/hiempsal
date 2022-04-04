@@ -50,10 +50,13 @@
         "class-methods-use-this": "off",
         "prefer-destructuring": ["warn", { "object": true, "array": false }],
         "prefer-arrow-callback": "off",
-        "no-unused-vars": ["error", { "varsIgnorePattern": "_" }],
+        "no-unused-vars": [
+            "error",
+            { "varsIgnorePattern": "^__", "argsIgnorePattern": "^_" }
+        ],
         "@typescript-eslint/no-unused-vars": [
             "error",
-            { "varsIgnorePattern": "_" }
+            { "varsIgnorePattern": "^__", "argsIgnorePattern": "^_" }
         ],
         "@typescript-eslint/naming-convention": [
             "error",

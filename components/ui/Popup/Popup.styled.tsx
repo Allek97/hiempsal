@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 export const Root = styled.aside`
-    ${tw`relative block`}
+    ${tw`relative block overflow-hidden`}
 `;
 
 export const Overlay = styled.div`

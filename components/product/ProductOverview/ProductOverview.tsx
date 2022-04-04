@@ -1,7 +1,10 @@
 import { FC } from "react";
 import Image from "next/image";
+import { Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
+
+import { useUI } from "@components/ui/context";
 
 import { ProductImage, ProductPrice } from "@framework/types/product";
 
@@ -26,8 +29,21 @@ const ProductOverview: FC<Props> = ({
     productPrice,
     productImage,
 }) => {
+    const variants: Variants = {
+        isOpen: { y: 0, opacity: 1, maxHeight: "100%" },
+        isHidden: { y: "150%", opacity: 0, maxHeight: 0 },
+    };
+
+    const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
+
     return (
-        <Root>
+        <Root
+            initial="isHidden"
+            animate={
+                isProductCartOpen || isProductAdded ? "isHidden" : "isOpen"
+            }
+            variants={variants}
+        >
             <button type="button" className="flex items-center w-full">
                 <ImageWrapper>
                     <Image
@@ -54,7 +70,7 @@ const ProductOverview: FC<Props> = ({
             </button>
             <div className="relative flex items-center justify-end w-full h-full">
                 <ProductAction>
-                    <ActionButton type="button">
+                    <ActionButton type="button" onClick={openProductCart}>
                         <span>
                             <Plus />
                             <span>Select Variant</span>

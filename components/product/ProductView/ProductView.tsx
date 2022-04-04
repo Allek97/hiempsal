@@ -10,7 +10,7 @@ import { Product } from "@framework/types/product";
 
 import { useUI } from "@components/ui/context";
 
-import { useScrollDirectionNext } from "@lib/customHooks";
+import { useMediaQueryNext, useScrollDirectionNext } from "@lib/customHooks";
 import { ethicalCertifications } from "@lib/const";
 import { currencyMap } from "@framework/utils/optionMapping";
 
@@ -47,12 +47,14 @@ const ProductView: FC<Props> = ({ product }) => {
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({ threshold: 1 });
 
+    const isScreenLarge = useMediaQueryNext("lg");
+
     const isProductOverviewOpen = useMemo(
         () =>
-            direction === "down" &&
+            (isScreenLarge ? true : direction === "down") &&
             !inView &&
             (entry?.boundingClientRect.y ?? 0) < 0,
-        [direction, inView, entry?.boundingClientRect.y]
+        [direction, inView, entry?.boundingClientRect.y, isScreenLarge]
     );
 
     useEffect(() => {

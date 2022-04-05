@@ -98,7 +98,11 @@ const MobileNav: FC = () => {
                     $isPopupOpen={isProductCartOpen || isProductAdded}
                 >
                     <motion.div
-                        animate={isMobileMenuOpen ? "openMenu" : "closeMenu"}
+                        animate={
+                            isMobileMenuOpen || isProductCartOpen
+                                ? "openMenu"
+                                : "closeMenu"
+                        }
                         variants={menuBtnVariants}
                         transition={{ duration: 0.2 }}
                     >

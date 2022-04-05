@@ -8,8 +8,7 @@ import { RiHeartAddFill } from "react-icons/ri";
 import { ProductPopup } from "@components/common";
 
 import { useUI } from "@components/ui/context";
-
-import { useMediaQueryNext } from "lib/customHooks";
+import { FunctionalLink } from "@components/utils";
 
 import { Product } from "@framework/types/product";
 
@@ -26,6 +25,7 @@ import {
     ImageContainer,
     QuickViewBtn,
 } from "./ProductArticle.styled";
+import { Media } from "@lib/media";
 
 interface Props {
     product: Product;
@@ -46,8 +46,6 @@ const ProductArticle: FC<Props> = ({
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
     const { isPopupOpen, openPopup } = useUI();
-
-    const isScreenLarge = useMediaQueryNext("lg");
 
     function addToWishlist() {
         if (isAddedToWishlist) {
@@ -79,36 +77,42 @@ const ProductArticle: FC<Props> = ({
             {isPopupOpen && <ProductPopup product={product} />}
             <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
-                    <ImageContainer isDisplayed={isDisplayed}>
-                        <ProductImageWrapper
-                            imageSize={layout}
-                            isDisplayed={isDisplayed}
-                        >
-                            <div>
-                                <Image
-                                    src={images[0].url ?? placeHolder}
-                                    alt="Black hoodie"
-                                    quality="80"
-                                    layout="fill"
-                                    objectFit="contain"
-                                    priority
-                                />
-                            </div>
-                        </ProductImageWrapper>
-                    </ImageContainer>
+                    <FunctionalLink>
+                        <ImageContainer isDisplayed={isDisplayed}>
+                            <ProductImageWrapper
+                                imageSize={layout}
+                                isDisplayed={isDisplayed}
+                            >
+                                <div>
+                                    <Image
+                                        src={images[0].url ?? placeHolder}
+                                        alt="Black hoodie"
+                                        quality="80"
+                                        layout="fill"
+                                        objectFit="contain"
+                                        priority
+                                    />
+                                </div>
+                            </ProductImageWrapper>
+                        </ImageContainer>
+                    </FunctionalLink>
                 </Link>
 
                 <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
                     <div className="flex items-start justify-between sm:items-center">
                         <div>
-                            {isScreenLarge && (
+                            <Media greaterThanOrEqual="lg">
                                 <h6>
                                     All-rounder and breathable hoodie for every
                                     weather
                                 </h6>
-                            )}
-                            <Link href="/" passHref>
-                                <h3>{name}</h3>
+                            </Media>
+
+                            <Link href={`/products/${slug}`} passHref>
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                <a>
+                                    <h3>{name}</h3>
+                                </a>
                             </Link>
                         </div>
 
@@ -143,7 +147,6 @@ const ProductArticle: FC<Props> = ({
                                         : // eslint-disable-next-line @typescript-eslint/no-empty-function
                                           () => {}
                                 }
-                                isRippleActive={false}
                             >
                                 Add To Cart
                             </AddToCartBtn>

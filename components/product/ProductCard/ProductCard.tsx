@@ -1,9 +1,11 @@
 import { FC } from "react";
 import Image from "next/image";
-import Link from "next/link";
+
 import { Product } from "@framework/types/product";
+
 import Heart from "@components/icons/Heart";
 import { ProductArticle } from "@components/common/ProductArticle";
+
 import {
     ProductBg,
     ProductFavorite,
@@ -36,79 +38,70 @@ const ProductCard: FC<Props> = ({
     return (
         <>
             {variant === "slim" && (
-                <Link href={`/${product.slug}`} passHref>
-                    <>
-                        <div className="absolute inset-0 z-20 flex items-center justify-center ">
-                            <span className="bg-black text-white p-3 font-bold text-xl">
-                                {product.name}
-                            </span>
-                        </div>
-                        {product.images && (
-                            <ProductImageWrapper>
-                                <Image
-                                    alt={product.name ?? "Product image"}
-                                    src={
-                                        product.images[0].url ??
-                                        placeholderImage
-                                    }
-                                    height={320}
-                                    width={320}
-                                    quality="85"
-                                    layout="fixed"
-                                />
-                            </ProductImageWrapper>
-                        )}
-                    </>
-                </Link>
+                <>
+                    <div className="absolute inset-0 z-20 flex items-center justify-center ">
+                        <span className="bg-black text-white p-3 font-bold text-xl">
+                            {product.name}
+                        </span>
+                    </div>
+                    {product.images && (
+                        <ProductImageWrapper>
+                            <Image
+                                alt={product.name ?? "Product image"}
+                                src={product.images[0].url ?? placeholderImage}
+                                height={320}
+                                width={320}
+                                quality="85"
+                                layout="fixed"
+                            />
+                        </ProductImageWrapper>
+                    )}
+                </>
             )}
 
             {variant === "simple" && (
-                <Link href={`/${product.slug}`} passHref>
-                    <Root className="product-card" id="product-card">
-                        <ProductBg />
-                        <ProductTag>
-                            <ProductName>
-                                <span>{name}</span>
-                            </ProductName>
-                            <ProductPrice>
-                                {`${currencySymbol}${productPrice} ${currency}`}
-                            </ProductPrice>
-                        </ProductTag>
-                        <ProductImageWrapper>
-                            {product.images && (
-                                <Image
-                                    src={thumbnailUrl ?? placeholderImage}
-                                    alt={alt ?? "Product image"}
-                                    height={540}
-                                    width={540}
-                                    quality="100"
-                                    layout="responsive"
-                                    objectFit="contain"
-                                />
-                            )}
-                        </ProductImageWrapper>
-                        <ProductFavorite
-                            aria-label="Add to wishlist"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                alert("added to wishlist");
-                            }}
-                        >
-                            <Heart />
-                        </ProductFavorite>
-                    </Root>
-                </Link>
+                <Root className="product-card" id="product-card">
+                    <ProductBg />
+                    <ProductTag>
+                        <ProductName>
+                            <span>{name}</span>
+                        </ProductName>
+                        <ProductPrice>
+                            {`${currencySymbol}${productPrice} ${currency}`}
+                        </ProductPrice>
+                    </ProductTag>
+                    <ProductImageWrapper>
+                        {product.images && (
+                            <Image
+                                src={thumbnailUrl ?? placeholderImage}
+                                alt={alt ?? "Product image"}
+                                height={540}
+                                width={540}
+                                quality="100"
+                                layout="responsive"
+                                objectFit="contain"
+                            />
+                        )}
+                    </ProductImageWrapper>
+                    <ProductFavorite
+                        aria-label="Add to wishlist"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            alert("added to wishlist");
+                        }}
+                    >
+                        <Heart />
+                    </ProductFavorite>
+                </Root>
             )}
 
             {variant === "complex" && (
-                <Link href={`/${product.slug}`} passHref>
-                    <ProductArticle
-                        product={product}
-                        variant="product"
-                        isDisplayed={isDisplayed}
-                        layout="B"
-                    />
-                </Link>
+                <ProductArticle
+                    product={product}
+                    variant="product"
+                    isDisplayed={isDisplayed}
+                    layout="B"
+                />
             )}
         </>
     );

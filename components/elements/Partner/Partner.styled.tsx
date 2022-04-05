@@ -5,7 +5,6 @@ import tw from "twin.macro";
 
 interface Props {
     name: string;
-    isScreenLarge: boolean;
 }
 
 const flashAnimation = keyframes`
@@ -127,13 +126,11 @@ export const PartnerSvgWrapper = styled.li<Props>`
     lg:height[7rem]
     3xl:height[7.5rem]`}
 
-    ${(props) =>
-        props.isScreenLarge &&
-        css`
-            &:hover {
-                ${tw`bg-accents-5`}
-            }
-        `}
+    @media (hover: hover) and (pointer: fine) and (min-width: 64em) {
+        &:hover {
+            ${tw`bg-accents-5`}
+        }
+    }
 
     img {
         ${(props) => handleImageFit(props.name)}

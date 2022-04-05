@@ -7,7 +7,6 @@ import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 
 interface ArrowProps {
     disabled: boolean;
-    isScreenLarge: boolean;
 }
 
 interface IndicatorSlideProps {
@@ -29,9 +28,8 @@ const arrowCss = css`
 
 export const ArrowSvgLeft = styled(HiArrowNarrowLeft)<ArrowProps>`
     ${arrowCss}
-    left: 0px;
 
-    opacity: ${(props) => (props.isScreenLarge ? 0 : 1)};
+    ${tw`left-0 opacity-100 lg:opacity-0`}
 
     ${(props) =>
         props.disabled &&
@@ -42,10 +40,8 @@ export const ArrowSvgLeft = styled(HiArrowNarrowLeft)<ArrowProps>`
 
 export const ArrowSvgRight = styled(HiArrowNarrowRight)<ArrowProps>`
     ${arrowCss}
-    left: auto;
-    right: 0px;
 
-    opacity: ${(props) => (props.isScreenLarge ? 0 : 1)};
+    ${tw`right-0 left-auto opacity-100 lg:opacity-0`}
 
     ${(props) =>
         props.disabled &&

@@ -2,6 +2,23 @@
 
 import { createMedia } from "@artsy/fresnel";
 
+export type AvailaibleBreakpoints =
+    | "base"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "2lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "4xl"
+    | "5xl";
+
+export type Breakpoints = {
+    [P in AvailaibleBreakpoints]: number;
+};
+
 const ExampleAppMedia = createMedia({
     breakpoints: {
         base: 0,
@@ -15,7 +32,7 @@ const ExampleAppMedia = createMedia({
         "3xl": 1680,
         "4xl": 1800,
         "5xl": 1920,
-    },
+    } as Breakpoints,
 });
 
 // Make styles for injection into the header of the page

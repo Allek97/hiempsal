@@ -1,15 +1,14 @@
 import { FC } from "react";
 import Image from "next/image";
-import Tilt from "react-tilt";
-import { useMediaQueryNext } from "@lib/customHooks";
+// FIX: Find another library
+import Tilt from "react-parallax-tilt";
 
+import { Media } from "@lib/media";
 import clothBrands from "@lib/const/clothBrands";
 
 import { Dot, PartnerList, PartnerSvgWrapper, Root } from "./Partner.styled";
 
 const Partner: FC = () => {
-    const isScreenLarge = useMediaQueryNext("lg");
-
     return (
         <Root>
             <h1>
@@ -20,13 +19,9 @@ const Partner: FC = () => {
             <PartnerList>
                 {clothBrands.map(({ link, id, title }) => (
                     <div key={id}>
-                        {isScreenLarge ? (
+                        <Media greaterThanOrEqual="lg">
                             <Tilt className="Tilt cursor-pointer" key={id}>
-                                <PartnerSvgWrapper
-                                    isScreenLarge={isScreenLarge}
-                                    key={id}
-                                    name={title}
-                                >
+                                <PartnerSvgWrapper key={id} name={title}>
                                     <Image
                                         src={link}
                                         alt={title}
@@ -36,12 +31,9 @@ const Partner: FC = () => {
                                     />
                                 </PartnerSvgWrapper>
                             </Tilt>
-                        ) : (
-                            <PartnerSvgWrapper
-                                isScreenLarge={isScreenLarge}
-                                key={id}
-                                name={title}
-                            >
+                        </Media>
+                        <Media lessThan="lg">
+                            <PartnerSvgWrapper key={id} name={title}>
                                 <Image
                                     src={link}
                                     alt={title}
@@ -50,7 +42,7 @@ const Partner: FC = () => {
                                     objectFit="contain"
                                 />
                             </PartnerSvgWrapper>
-                        )}
+                        </Media>
                     </div>
                 ))}
             </PartnerList>

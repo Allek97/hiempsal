@@ -13,7 +13,7 @@ import { Container, Paddings } from "./ProductPopup.styled";
 
 interface Props {
     product: Product;
-    children: ReactNode | ReactNode[];
+    children?: ReactNode | ReactNode[];
     hasPadding?: boolean;
 }
 

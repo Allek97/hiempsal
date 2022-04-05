@@ -8,8 +8,6 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 
-import { useMediaQueryNext } from "@lib/customHooks";
-
 import {
     ArrowSvgLeft,
     ArrowSvgRight,
@@ -23,27 +21,18 @@ interface Props {
     direction: "left" | "right";
     disabled: boolean;
     onClick: (e: any) => void;
-    isScreenLarge: boolean;
 }
 
 type Direction = "left" | "right" | "center";
 
 const Arrow = (props: Props): JSX.Element => {
-    const { disabled, direction, isScreenLarge, onClick } = props;
+    const { disabled, direction, onClick } = props;
     return (
         <div>
             {direction === "left" ? (
-                <ArrowSvgLeft
-                    onClick={onClick}
-                    disabled={disabled}
-                    isScreenLarge={isScreenLarge}
-                />
+                <ArrowSvgLeft onClick={onClick} disabled={disabled} />
             ) : (
-                <ArrowSvgRight
-                    onClick={onClick}
-                    disabled={disabled}
-                    isScreenLarge={isScreenLarge}
-                />
+                <ArrowSvgRight onClick={onClick} disabled={disabled} />
             )}
         </div>
     );
@@ -65,8 +54,6 @@ const ImageSlider: FC = () => {
             setDirection("center");
         },
     });
-
-    const isScreenLarge = useMediaQueryNext("lg");
 
     const totalNbImages = instanceRef.current?.track.details.slides.length;
 
@@ -156,7 +143,6 @@ const ImageSlider: FC = () => {
                             instanceRef.current?.prev();
                         }}
                         disabled={currentSlide === 0}
-                        isScreenLarge={isScreenLarge}
                     />
 
                     <Arrow
@@ -170,7 +156,6 @@ const ImageSlider: FC = () => {
                             currentSlide ===
                             instanceRef.current.track.details.slides.length - 1
                         }
-                        isScreenLarge={isScreenLarge}
                     />
                 </>
             )}

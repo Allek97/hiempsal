@@ -10,16 +10,19 @@ interface Props {
 }
 
 const ProductCart: FC<Props> = ({ product, isProductOverviewOpen }) => {
-    const { isProductAdded, isProductCartOpen } = useUI();
+    const { isProductAdded, isProductCartOpen, isMobileMenuOpen } = useUI();
     return (
         <ProductPopup product={product} hasPadding={false}>
-            {!isProductCartOpen && !isProductAdded && isProductOverviewOpen && (
-                <ProductOverview
-                    productImage={product.images[1]}
-                    productName={product.name}
-                    productPrice={product.price}
-                />
-            )}
+            {!isProductCartOpen &&
+                !isProductAdded &&
+                !isMobileMenuOpen &&
+                isProductOverviewOpen && (
+                    <ProductOverview
+                        productImage={product.images[1]}
+                        productName={product.name}
+                        productPrice={product.price}
+                    />
+                )}
         </ProductPopup>
     );
 };

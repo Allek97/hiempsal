@@ -25,13 +25,9 @@ export const Root = styled.button<Props>`
                     background-color: white;
                 }
             }
-
-            @media (hover: hover) and (pointer: fine) {
-                &:active {
-                    ${tw`bg-accents-2 text-primary`}
-                }
+            &:active {
+                ${tw`bg-accents-2 text-primary`}
             }
-
             &:focus {
                 ${tw`outline-none`}
             }

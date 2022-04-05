@@ -20,7 +20,7 @@ const Partner: FC = () => {
                 {clothBrands.map(({ link, id, title }) => (
                     <div key={id}>
                         <Media greaterThanOrEqual="lg">
-                            <Tilt className="Tilt cursor-pointer" key={id}>
+                            <Tilt className="cursor-pointer" key={id}>
                                 <PartnerSvgWrapper key={id} name={title}>
                                     <Image
                                         src={link}

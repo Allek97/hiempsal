@@ -12,6 +12,7 @@ import { FunctionalLink } from "@components/utils";
 
 import { Product } from "@framework/types/product";
 
+import { Media } from "@lib/media";
 import { Plus } from "@components/icons";
 
 import {
@@ -25,7 +26,6 @@ import {
     ImageContainer,
     QuickViewBtn,
 } from "./ProductArticle.styled";
-import { Media } from "@lib/media";
 
 interface Props {
     product: Product;

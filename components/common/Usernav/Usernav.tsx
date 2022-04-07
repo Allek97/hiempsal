@@ -39,6 +39,7 @@ const Usernav: FC<Props> = ({ children }) => {
                 <nav>
                     <Link href="/cart/bag" passHref>
                         <NavBtn
+                            isFirst
                             isSelected={isCartSelected}
                             type="button"
                             aria-label="Cart"
@@ -73,6 +74,7 @@ const Usernav: FC<Props> = ({ children }) => {
                                 type="button"
                                 aria-label="Home"
                                 isSelected={false}
+                                isLast
                             >
                                 <BsBack fill="var(--accents-9)" />
                                 <h1>Home</h1>

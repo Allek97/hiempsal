@@ -6,6 +6,8 @@ import tw, { theme as TwTheme } from "twin.macro";
 
 interface NavBtnProps {
     isSelected: boolean;
+    isFirst?: boolean;
+    isLast?: boolean;
 }
 
 const opaqueAnimation = keyframes`
@@ -50,16 +52,20 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
     ${({ theme }) => theme.textSize.textSizeHeader}
 
     @media only screen and (min-width: ${TwTheme`screens.lg`}) {
-        &:first-of-type {
-            ${tw`border-t-2 border-black border-solid`}
-        }
+        ${({ isFirst }) =>
+            isFirst &&
+            css`
+                ${tw`border-t-2 border-black border-solid`}
+            `}
     }
 
-    &:not(:last-child) {
-        padding-right: 10vw;
+    ${({ isLast }) =>
+        !isLast &&
+        css`
+            padding-right: 10vw;
 
-        ${tw`lg:px-0`}
-    }
+            ${tw`lg:px-0`}
+        `}
 
     h1 {
         ${tw`text-accents-5 lg:text-primary`}
@@ -72,8 +78,8 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
     }
 
     svg {
-        ${(props) =>
-            props.isSelected
+        ${({ isSelected }) =>
+            isSelected
                 ? css`
                       ${tw`text-primary`}
                   `

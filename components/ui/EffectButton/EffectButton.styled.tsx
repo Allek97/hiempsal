@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const EffectBtnRoot = styled.button<Props>`
-    ${tw`relative inline-flex items-center`}
+    ${tw`relative inline-flex items-center w-full`}
 
     svg {
         ${tw`opacity-0`}

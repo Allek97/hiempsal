@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
 import { colorMap } from "@framework/utils/optionMapping";
@@ -13,8 +13,7 @@ export interface SwatchProps {
     value: string;
     option: "size" | "color" | "gender" | string;
     image?: ProductImage | undefined;
-    // eslint-disable-next-line no-unused-vars
-    clickHandler: (e: MouseEvent<HTMLInputElement>) => void;
+    clickHandler: (optionName: string, value: string) => void;
     isAvailable: boolean;
     isOutOfStock: boolean;
     isSelected: boolean;
@@ -49,7 +48,7 @@ const Swatch: FC<SwatchProps> = ({
                 type="radio"
                 name="color"
                 required
-                onClick={clickHandler}
+                onClick={() => clickHandler(option, value)}
                 defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />
@@ -80,7 +79,7 @@ const Swatch: FC<SwatchProps> = ({
                 type="radio"
                 name={option}
                 required
-                onClick={clickHandler}
+                onClick={() => clickHandler(option, value)}
                 defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />

@@ -129,11 +129,8 @@ const ProductCart: FC<Props> = ({ product, setSelectedVariant }) => {
                                                         !isGloballyAvailable
                                                     }
                                                     isAvailable={isAvailable}
-                                                    clickHandler={(_e) =>
-                                                        handleSwatchClick(
-                                                            optionName,
-                                                            value
-                                                        )
+                                                    clickHandler={
+                                                        handleSwatchClick
                                                     }
                                                     isSelected={
                                                         optionName in choices &&

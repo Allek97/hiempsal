@@ -1,12 +1,11 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Swatch, { SwatchProps } from "./Swatch";
 
 function renderSwatch(props?: Partial<SwatchProps>) {
+    // FIX need to randomise the default props
     const defaultProps: SwatchProps = {
-        clickHandler: () => {
-            console.log("asdasd");
-        },
+        clickHandler: () => {},
         value: "M",
         isAvailable: true,
         isOutOfStock: false,
@@ -16,7 +15,6 @@ function renderSwatch(props?: Partial<SwatchProps>) {
 
     return {
         ...render(<Swatch {...defaultProps} {...props} />),
-
         swatchProps: { ...defaultProps, ...props },
     };
 }
@@ -30,24 +28,53 @@ test("make sure all the elements render correctly", () => {
     expect(swatchInput).toBeRequired();
 });
 
-test("notify when option is out of stock", () => {
-    renderSwatch({ isOutOfStock: true });
-
-    expect(screen.getByRole("alert")).toHaveTextContent(/get notified/i);
-});
-
-test.only("select option when clicked", async () => {
+test("select optionName with it's value when clicked", async () => {
     const mockClickHandler = jest.fn();
-    const { debug } = renderSwatch({
-        isSelected: true,
-        isAvailable: true,
-        isOutOfStock: false,
+    const {
+        swatchProps: { option, value },
+    } = renderSwatch({
         clickHandler: mockClickHandler,
     });
-    mockClickHandler.mockResolvedValueOnce({ isCalled: true });
 
     const swatchInput = screen.getByRole("radio");
     await userEvent.click(swatchInput);
 
     expect(mockClickHandler).toHaveBeenCalledTimes(1);
+    expect(mockClickHandler).toHaveBeenCalledWith(option, value);
+});
+
+test("can't select optionName with it's value when disabled", async () => {
+    const mockClickHandler = jest.fn();
+    // NOTE disabled when option is out of stock or unavailable
+
+    // 1) option is not on stock for all variants
+    const { swatchProps, rerender } = renderSwatch({
+        isOutOfStock: true,
+        clickHandler: mockClickHandler,
+    });
+
+    const swatchInput = screen.getByRole("radio");
+    await userEvent.click(swatchInput);
+
+    expect(mockClickHandler).not.toHaveBeenCalled();
+    // 2) option is on stock but not available at that moment due to other selected options
+    rerender(
+        <Swatch {...swatchProps} isAvailable={false} isOutOfStock={false} />
+    );
+
+    await userEvent.click(swatchInput);
+
+    expect(mockClickHandler).not.toHaveBeenCalled();
+    // 3) option is out of stock and unavailable
+    rerender(<Swatch {...swatchProps} isAvailable={false} isOutOfStock />);
+
+    await userEvent.click(swatchInput);
+
+    expect(mockClickHandler).not.toHaveBeenCalled();
+});
+
+test("notify when option is out of stock", () => {
+    renderSwatch({ isOutOfStock: true });
+
+    expect(screen.getByRole("alert")).toHaveTextContent(/get notified/i);
 });

@@ -17,7 +17,7 @@ const opaqueAnimation = keyframes`
 `;
 
 export const Root = styled.main`
-    ${tw`block relative overflow-y-auto
+    ${tw`relative block overflow-y-auto
     lg:(overflow-visible)`}
 
     ${customScroll}
@@ -30,19 +30,10 @@ export const Navigation = styled.section<Record<string, unknown>>`
       4xl:w-1/4`}
 
     nav {
-        ${tw`flex overflow-hidden lg:(sticky top-0 left-0 flex-col h-screen padding-top[calc(4.5vw + 5rem)])`}
-
-        padding-left: 4vw;
-        padding-right: 0vw;
-
-        @media only screen and (min-width: ${TwTheme`screens.md`}) {
-            padding-left: 3.75vw;
-            padding-right: 3.75vw;
-        }
-        @media only screen and (min-width: ${TwTheme`screens.lg`}) {
-            padding-left: 2.66666666667vw;
-            padding-right: 2.66666666667vw;
-        }
+        ${tw`flex overflow-hidden padding-left[4vw] padding-right[0vw]`}
+        ${tw`md:(padding-left[3.75vw] padding-right[3.75vw])`}
+        ${tw`lg:(sticky top-0 left-0 flex-col h-screen 
+        padding-top[calc(4.5vw + 5rem)] padding-left[2.66666666667vw] padding-right[2.66666666667vw])`}
     }
 `;
 

@@ -30,7 +30,7 @@ const rainbow = css`
 export const ProductVariantColor = styled.label<ProductVariantProps>`
     ${tw`relative flex flex-col items-center justify-start h-full
     border border-color[#f0f0f0] border-radius[3px] 
-    bg-primary text-center`};
+    bg-primary text-center cursor-pointer`};
 
     ${({ hasImage }) =>
         hasImage &&

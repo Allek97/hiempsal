@@ -2,7 +2,7 @@ type Variable = {
     [key: string]: string;
 };
 
-export const colorMap: Variable = {
+const colorMap: Variable = {
     "#FFFFFF": "White Smoke",
     "#000000": "Roseman Black",
     "#00eaff": "Electric blue",
@@ -10,8 +10,10 @@ export const colorMap: Variable = {
     "#af021a": "Candy Apple Red",
 };
 
-export const currencyMap: Variable = {
+const currencyMap: Variable = {
     USD: "$",
     CAD: "$",
     EUR: "€",
 };
+
+export { colorMap, currencyMap };

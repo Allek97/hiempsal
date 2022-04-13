@@ -7,7 +7,8 @@
         "start": "next start",
         "lint": "next lint",
         "cypress": "cypress open",
-        "test": "jest --watch"
+        "test": "jest --watch --verbose",
+        "preinstall": "npx npm-force-resolutions"
     },
     "dependencies": {
         "@artsy/fresnel": "^3.4.0",
@@ -17,10 +18,8 @@
         "@emotion/styled": "^11.8.1",
         "@mui/material": "^5.5.0",
         "@tailwindcss/jit": "^0.1.18",
-        "@testing-library/react": "^13.0.0",
         "body-scroll-lock": "^4.0.0-beta.0",
         "classnames": "^2.3.1",
-        "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^16.2.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.25.3",
@@ -32,6 +31,7 @@
         "js-cookie": "^3.0.1",
         "keen-slider": "^6.6.3",
         "next": "^12.1.4",
+        "npm-force-resolutions": "0.0.10",
         "prettier": "^2.6.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -55,10 +55,13 @@
         "@emotion/eslint-plugin": "^11.7.0",
         "@next/eslint-plugin-next": "^12.1.4",
         "@testing-library/jest-dom": "^5.16.3",
+        "@testing-library/react": "^12.1.5",
+        "@testing-library/user-event": "^14.1.0",
         "@types/body-scroll-lock": "^3.1.0",
+        "@types/jest-axe": "^3.5.3",
         "@types/js-cookie": "^3.0.1",
         "@types/node": "16.11.7",
-        "@types/react": "17.0.34",
+        "@types/react": "17.0.30",
         "@types/styled-components": "^5.1.21",
         "@typescript-eslint/eslint-plugin": "^5.3.1",
         "@typescript-eslint/parser": "^5.3.1",
@@ -66,11 +69,13 @@
         "babel-plugin-styled-components": "^2.0.2",
         "cypress": "^9.5.2",
         "eslint": "^8.12.0",
+        "eslint-config-airbnb": "^19.0.4",
         "eslint-config-next": "^12.0.3",
         "eslint-plugin-react-hooks": "^4.4.0",
         "eslint-plugin-styled-components-a11y": "0.0.34",
         "jest": "^27.5.1",
-        "postcss": "^8.3.11",
+        "jest-axe": "^6.0.0",
+        "postcss": "^8.4.12",
         "postcss-import": "^14.0.2"
     },
     "babelMacros": {
@@ -78,5 +83,8 @@
             "config": "./tailwind.config.js",
             "preset": "styled-components"
         }
+    },
+    "resolutions": {
+        "@types/react": "17.0.30"
     }
 }

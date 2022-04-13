@@ -9,7 +9,7 @@ import {
     VariantSizeGender,
 } from "./Swatch.styled";
 
-interface Props {
+export interface SwatchProps {
     value: string;
     option: "size" | "color" | "gender" | string;
     image?: ProductImage | undefined;
@@ -27,7 +27,7 @@ const defaultImage = {
     alt: "Variant of the product",
 };
 
-const Swatch: FC<Props> = ({
+const Swatch: FC<SwatchProps> = ({
     value,
     option,
     image = defaultImage,
@@ -88,7 +88,9 @@ const Swatch: FC<Props> = ({
 
             <span>{value}</span>
             {isOutOfStock && (
-                <NotifyButton type="button">Get notified</NotifyButton>
+                <NotifyButton type="button" role="alert">
+                    Get notified
+                </NotifyButton>
             )}
         </VariantSizeGender>
     );

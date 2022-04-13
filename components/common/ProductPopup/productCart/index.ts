@@ -1,1 +1,1 @@
-export { default as ProductCart } from "./productCart";
+export { default as ProductCart } from "./ProductCart";

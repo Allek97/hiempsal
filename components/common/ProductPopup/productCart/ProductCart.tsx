@@ -60,10 +60,7 @@ const ProductCart: FC<Props> = ({ product, setSelectedVariant }) => {
         }
     };
 
-    const handleSwatchClick = async (
-        optionName: AvailableChoices,
-        value: string
-    ) => {
+    const handleSwatchClick = (optionName: AvailableChoices, value: string) => {
         setChoices((previous) => ({
             ...previous,
             [optionName]: value,

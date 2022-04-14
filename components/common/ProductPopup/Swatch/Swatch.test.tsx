@@ -1,7 +1,11 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
+/* eslint-disable @next/next/no-img-element */
 import { render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
 import { colorMap } from "@framework/utils/optionMapping";
+import { ImageProps } from "next/image";
 import Swatch, { SwatchProps } from "./Swatch";
 
 function renderSwatch(props?: Partial<SwatchProps>) {
@@ -29,6 +33,16 @@ function renderWhenOutOfStock(option: string) {
     expect(screen.getByRole("alert")).toHaveTextContent(/get notified/i);
 }
 
+jest.mock("next/image", () => ({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    __esModule: true,
+
+    default: ({ src, alt }: ImageProps) => {
+        // eslint-disable-next-line jsx-a11y/alt-text
+        return <img src={src as string} alt={alt} />;
+    },
+}));
+
 describe("component renders correctly", () => {
     test("when the selected option is size or gender", () => {
         const randomOption = faker.random.arrayElement(["size", "gender"]);
@@ -43,10 +57,13 @@ describe("component renders correctly", () => {
     });
     test("when the selected option is color", () => {
         const randomColor = faker.random.arrayElement(Object.keys(colorMap));
+        const randomImgUrl = faker.image.fashion();
+        const randomImgAlt = faker.lorem.lines(1);
 
         const { swatchProps } = renderSwatch({
             option: "color",
             value: randomColor,
+            image: { url: randomImgUrl, alt: randomImgAlt },
         });
 
         expect(
@@ -55,8 +72,10 @@ describe("component renders correctly", () => {
         const swatchInput = screen.getByRole("radio") as HTMLInputElement;
         expect(swatchInput.checked).toBe(swatchProps.isSelected);
         expect(swatchInput).toBeRequired();
-        const variantImage = screen.getByTestId("variant-image");
+        const variantImage = screen.getByAltText(randomImgAlt);
         expect(variantImage).toBeInTheDocument();
+        expect(variantImage.getAttribute("src")).toBe(randomImgUrl);
+        expect(variantImage).toHaveAttribute("alt", randomImgAlt);
         const spanEffect = screen.getByTestId("span-effect");
         expect(spanEffect).toBeInTheDocument();
     });

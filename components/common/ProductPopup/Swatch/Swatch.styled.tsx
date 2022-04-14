@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface ProductVariantProps {
-    isSelected?: boolean;
     isPride?: boolean;
     isAvailable: boolean;
     isOutOfStock: boolean;
@@ -30,7 +29,7 @@ const rainbow = css`
 export const ProductVariantColor = styled.label<ProductVariantProps>`
     ${tw`relative flex flex-col items-center justify-start h-full
     border border-color[#f0f0f0] border-radius[3px] 
-    bg-primary text-center cursor-pointer`};
+    bg-primary text-center`};
 
     ${({ hasImage }) =>
         hasImage &&
@@ -52,7 +51,7 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
     box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
 
     input {
-        ${tw`absolute z-30 top-0 left-0 w-full h-full opacity-0 cursor-pointer`}
+        ${tw`absolute z-30 top-0 left-0 w-full h-full opacity-0`}
 
         &:checked + span {
             ${({ isPride, isAvailable }) =>
@@ -63,10 +62,14 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
                               ${rainbow}
                           `
                         : css`
-                              background-color: #f0f0f0;
+                              background: linear-gradient(
+                                  176deg,
+                                  var(--accents-3),
+                                  var(--accents-4)
+                              );
                           `}
                     box-shadow: inset 0 0 0 2px #676767be;
-                    cursor: auto;
+                    /* cursor: auto; */
                 `}
         }
 
@@ -91,10 +94,6 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
                     background: #f0f0f0;
                 `}
         }
-
-        &:disabled {
-            cursor: default;
-        }
     }
 
     & > span:first-of-type {
@@ -106,17 +105,6 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
         ${tw`relative z-30 mx-3.5`}
     }
 
-    & > span:last-of-type {
-        ${({ isOutOfStock, isAvailable }) =>
-            isOutOfStock || !isAvailable
-                ? css`
-                      ${tw`cursor-default`}
-                  `
-                : css`
-                      ${tw`cursor-pointer`}
-                  `}
-    }
-
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -124,9 +112,28 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
         }
     }
 
-    &:active {
-        box-shadow: inset 0 0 0 2.5px #676767be;
-    }
+    ${({ isOutOfStock, isAvailable }) =>
+        !(isOutOfStock || !isAvailable) &&
+        css`
+            &:active {
+                box-shadow: inset 0 0 0 2.5px #676767be;
+            }
+        `}
+
+    ${({ isOutOfStock, isAvailable }) =>
+        isOutOfStock || !isAvailable
+            ? css`
+                  ${tw`cursor-default`}
+                  & > * {
+                      ${tw`cursor-default`}
+                  }
+              `
+            : css`
+                  ${tw`cursor-pointer`}
+                  & > * {
+                      ${tw`cursor-pointer`}
+                  }
+              `}
 `;
 
 export const VariantSizeGender = styled(ProductVariantColor)`
@@ -137,11 +144,11 @@ export const VariantSizeGender = styled(ProductVariantColor)`
 `;
 
 export const ImageVariantWrapper = styled.span`
-    ${tw`relative w-full`}
+    ${tw`relative w-full cursor-pointer`}
 `;
 
 export const NotifyButton = styled.button`
-    ${tw`relative z-30 mt-3 
+    ${tw`relative z-30 mt-3 flex items-end
     font-size[9px] tracking-normal line-height[1.2em] uppercase`}
 
     cursor: pointer !important;

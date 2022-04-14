@@ -2,6 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
 import { colorMap } from "@framework/utils/optionMapping";
+import { MdAddAlert } from "react-icons/md";
 import {
     ImageVariantWrapper,
     NotifyButton,
@@ -25,6 +26,14 @@ const defaultImage = {
     url: placeHolder,
     alt: "Variant of the product",
 };
+
+function NotifyComponent() {
+    return (
+        <NotifyButton type="button" role="alert">
+            <MdAddAlert className="mr-1 h-3.5 w-3.5" /> Get notified
+        </NotifyButton>
+    );
+}
 
 const Swatch: FC<SwatchProps> = ({
     value,
@@ -52,7 +61,7 @@ const Swatch: FC<SwatchProps> = ({
                 defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />
-            <span />
+            <span data-testid="span-effect" />
             <ImageVariantWrapper>
                 <Image
                     src={image?.url ?? "/product-pattern-bg.svg"}
@@ -61,10 +70,12 @@ const Swatch: FC<SwatchProps> = ({
                     height={3}
                     layout="responsive"
                     objectFit="contain"
+                    data-testid="variant-image"
                     priority
                 />
             </ImageVariantWrapper>
             <span>{colorMap[value]}</span>
+            {isOutOfStock && <NotifyComponent />}
         </ProductVariantColor>
     ) : (
         <VariantSizeGender
@@ -83,14 +94,10 @@ const Swatch: FC<SwatchProps> = ({
                 defaultChecked={isSelected}
                 disabled={isOutOfStock || !isAvailable}
             />
-            <span />
+            <span data-testid="span-effect" />
 
             <span>{value}</span>
-            {isOutOfStock && (
-                <NotifyButton type="button" role="alert">
-                    Get notified
-                </NotifyButton>
-            )}
+            {isOutOfStock && <NotifyComponent />}
         </VariantSizeGender>
     );
 };

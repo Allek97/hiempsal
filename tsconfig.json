@@ -29,9 +29,10 @@
         "next-env.d.ts",
         "jest.config.js",
         "next.config.js",
-        "__mocks__/fileMock.js",
+        "__mocks__/*",
         "**/*.ts",
-        "**/*.tsx"
+        "**/*.tsx",
+        "__mocks__/framer-motion.js"
     ],
     "exclude": ["node_modules"]
 }

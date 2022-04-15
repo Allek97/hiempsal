@@ -30,12 +30,12 @@ import {
 } from "./ProductCart.styled";
 import { CartButton } from "../cartButton";
 
-interface Props {
+export interface ProductCartProps {
     product: Product;
     setSelectedVariant: Dispatch<SetStateAction<ProductVariant | undefined>>;
 }
 
-const ProductCart: FC<Props> = ({ product, setSelectedVariant }) => {
+const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
     const [choices, setChoices] = useState<Choices>({});
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

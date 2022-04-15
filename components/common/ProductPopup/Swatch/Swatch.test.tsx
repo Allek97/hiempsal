@@ -46,7 +46,9 @@ jest.mock("next/image", () => ({
 describe("component renders correctly", () => {
     test("when the selected option is size or gender", () => {
         const randomOption = faker.random.arrayElement(["size", "gender"]);
-        const { swatchProps } = renderSwatch({ option: randomOption });
+        const { swatchProps } = renderSwatch({
+            option: randomOption,
+        });
 
         expect(screen.getByText(swatchProps.value)).toBeInTheDocument();
         const swatchInput = screen.getByRole("radio") as HTMLInputElement;

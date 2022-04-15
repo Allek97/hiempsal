@@ -54,6 +54,7 @@
     "devDependencies": {
         "@emotion/babel-plugin": "^11.3.0",
         "@emotion/eslint-plugin": "^11.7.0",
+        "@emotion/jest": "^11.9.1",
         "@faker-js/faker": "^6.1.2",
         "@next/eslint-plugin-next": "^12.1.4",
         "@testing-library/jest-dom": "^5.16.3",
@@ -77,6 +78,8 @@
         "eslint-plugin-styled-components-a11y": "0.0.34",
         "jest": "^27.5.1",
         "jest-axe": "^6.0.0",
+        "jest-watch-select-projects": "^2.0.0",
+        "jest-watch-typeahead": "^1.0.0",
         "postcss": "^8.4.12",
         "postcss-import": "^14.0.2"
     },

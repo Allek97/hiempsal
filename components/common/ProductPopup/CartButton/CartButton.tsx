@@ -60,10 +60,11 @@ const CartButton: FC<Props> = ({ isLoading = false }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.15, delay: 0.35 }}
         >
-            <CartBtn type="submit" isHoverActive={false}>
+            <CartBtn type="submit" role="button" isHoverActive={false}>
                 <motion.div
                     animate={isLoading && "loading"}
                     {...boxAnimation1}
+                    data-testid="motion-x"
                 />
                 <motion.div animate={isLoading && "loading"} {...boxAnimation2}>
                     <motion.div

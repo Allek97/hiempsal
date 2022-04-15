@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
-import { useBodyScroll, useMediaQueryNext } from "lib/customHooks";
+import { useBodyScroll, useMediaQueryNext } from "@lib/customHooks";
 
 import { useUI } from "../context";
 

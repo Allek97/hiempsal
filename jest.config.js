@@ -40,4 +40,10 @@ module.exports = {
         "/node_modules/",
         "^.+\\.module\\.(css|sass|scss)$",
     ],
+    watchPlugins: [
+        "jest-watch-typeahead/filename",
+        "jest-watch-typeahead/testname",
+        "jest-watch-select-projects",
+    ],
+    snapshotSerializers: ["@emotion/jest/serializer"],
 };

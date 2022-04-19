@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import {
     Product,
@@ -6,6 +6,11 @@ import {
     ProductVariant,
 } from "@framework/types/product";
 import ProductCart, { ProductCartProps } from "./ProductCart";
+
+jest.mock("framer-motion", () => ({
+    ...jest.requireActual("framer-motion"),
+    useReducedMotion: () => true,
+}));
 
 function renderProductCart(props?: Partial<Product>) {
     const productOptions: ProductOption[] = [
@@ -59,6 +64,8 @@ function renderProductCart(props?: Partial<Product>) {
     };
 }
 
-test.only("renders correctly", () => {
-    const { debug } = renderProductCart();
+test.only("renders correctly", async () => {
+    await act(async () => {
+        renderProductCart();
+    });
 });

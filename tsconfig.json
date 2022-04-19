@@ -22,7 +22,8 @@
             "@styles/*": ["styles/*"],
             "@assets/*": ["assets/*"],
             "@lib/*": ["lib/*"],
-            "@contexts/*": ["contexts/*"]
+            "@contexts/*": ["contexts/*"],
+            "@tests/*": ["tests/*"]
         }
     },
     "include": [

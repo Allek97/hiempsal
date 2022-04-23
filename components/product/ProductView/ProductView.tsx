@@ -10,7 +10,7 @@ import { Product } from "@framework/types/product";
 
 import { useUI } from "@components/ui/context";
 
-import { useMediaQueryNext, useScrollDirectionNext } from "@lib/customHooks";
+import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
 import { ethicalCertifications } from "@lib/const";
 import { currencyMap } from "@framework/utils/optionMapping";
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { BsBack } from "react-icons/bs";
 
-import { useMediaQueryNext } from "lib/customHooks";
+import { useMediaQueryNext } from "@hooks";
 
 import { HelpCard } from "../../elements/helpCard";
 

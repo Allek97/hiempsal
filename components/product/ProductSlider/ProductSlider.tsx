@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { Ripple } from "@components/ui";
-import { useMediaQueryNext } from "@lib/customHooks";
+import { useMediaQueryNext } from "@hooks";
 import { useKeenSlider } from "keen-slider/react";
 import {
     Children,

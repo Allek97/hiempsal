@@ -1,9 +1,12 @@
 import { render, act, screen } from "@tests/customRender";
+import useAddItem from "@framework/cart/use-add-item";
 
 import { faker } from "@faker-js/faker";
 
 import { ProductOption, ProductVariant } from "@framework/types/product";
 
+import Close from "@components/icons/Close";
+import { currencyMap } from "@framework/utils/optionMapping";
 import ProductCart, { ProductCartProps } from "./ProductCart";
 
 const productOptions: ProductOption[] = [
@@ -55,12 +58,30 @@ function renderProductCart(props?: Partial<ProductCartProps>) {
     };
 }
 
+jest.mock("@framework/cart/use-add-item");
+
 test.only("renders correctly", async () => {
-    // const promise = Promise.resolve();
+    // FIX : https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning
+    const mockUseAddItem = useAddItem as unknown as jest.Mock;
+    mockUseAddItem.mockImplementation(() => {});
 
-    renderProductCart({ product: { ...defaultProps.product, name: "asd" } });
+    await act(async () => mockUseAddItem());
 
-    expect(screen.getByText("asd")).toBeInTheDocument();
+    const {
+        product: { name, price },
+    } = defaultProps;
+    const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
 
-    await act(async () => {});
+    renderProductCart({
+        product: {
+            ...defaultProps.product,
+            price: { currencyCode: randomCurrency, value: price.value },
+        },
+    });
+
+    expect(screen.getByText(name)).toBeInTheDocument();
+    expect(screen.getByText(name)).toBeInTheDocument();
+    expect(
+        screen.getByText(`${currencyMap[randomCurrency]}${price.value}`)
+    ).toBeInTheDocument();
 });

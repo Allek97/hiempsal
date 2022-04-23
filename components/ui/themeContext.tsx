@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 import { FC } from "react";
 
-import { useTouchDevice } from "@lib/customHooks";
+import { useTouchDevice } from "@hooks";
 
 import {
     mainPadding,

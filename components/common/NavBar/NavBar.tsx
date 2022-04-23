@@ -7,7 +7,7 @@ import { useUI } from "@components/ui/context";
 import { useHistory } from "@contexts/History";
 
 import { Media } from "@lib/media";
-import { useMediaQueryNext, useScroll } from "lib/customHooks";
+import { useMediaQueryNext, useScroll } from "@hooks";
 
 import {
     Bag,

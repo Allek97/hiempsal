@@ -2,7 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useMediaQueryNext } from "lib/customHooks";
+import { useMediaQueryNext } from "@hooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";

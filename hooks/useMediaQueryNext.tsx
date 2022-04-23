@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from "../tailwind.config";
 
 type Screen = "sm" | "md" | "lg" | "xl" | "2xl";
 

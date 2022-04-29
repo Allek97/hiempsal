@@ -51,6 +51,7 @@ const Swatch: FC<SwatchProps> = ({
             isAvailable={isAvailable}
             isOutOfStock={isOutOfStock}
             hasImage
+            data-testid={`swatch-${option}`}
         >
             <input
                 id={value}
@@ -84,6 +85,7 @@ const Swatch: FC<SwatchProps> = ({
             isAvailable={isAvailable}
             isOutOfStock={isOutOfStock}
             isPride={value.toLowerCase() === "genderfluid"}
+            data-testid={`swatch-${option}`}
         >
             <input
                 id={value}

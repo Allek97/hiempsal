@@ -4,15 +4,24 @@ import useAddItem from "@framework/cart/use-add-item";
 import { faker } from "@faker-js/faker";
 
 import { ProductOption, ProductVariant } from "@framework/types/product";
-
-import Close from "@components/icons/Close";
 import { currencyMap } from "@framework/utils/optionMapping";
+
 import ProductCart, { ProductCartProps } from "./ProductCart";
 
 const productOptions: ProductOption[] = [
     {
         id: faker.datatype.uuid(),
-        displayName: faker.commerce.productMaterial(),
+        displayName: "color",
+        values: [{ label: faker.commerce.productMaterial() }],
+    },
+    {
+        id: faker.datatype.uuid(),
+        displayName: "size",
+        values: [{ label: faker.commerce.productMaterial() }],
+    },
+    {
+        id: faker.datatype.uuid(),
+        displayName: "gender",
         values: [{ label: faker.commerce.productMaterial() }],
     },
 ];
@@ -83,5 +92,14 @@ test.only("renders correctly", async () => {
     expect(screen.getByText(name)).toBeInTheDocument();
     expect(
         screen.getByText(`${currencyMap[randomCurrency]}${price.value}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByTestId(`swatch-${productOptions[0].displayName}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByTestId(`swatch-${productOptions[1].displayName}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByTestId(`swatch-${productOptions[2].displayName}`)
     ).toBeInTheDocument();
 });

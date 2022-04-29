@@ -77,7 +77,10 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                             {currencyMap[`${product.price.currencyCode}`]}
                             {product.price.value}
                         </span>
-                        <CloseWrapper onClick={closePopup}>
+                        <CloseWrapper
+                            data-testid="close-wrapper"
+                            onClick={closePopup}
+                        >
                             <Media greaterThanOrEqual="lg">
                                 <Close />
                             </Media>

@@ -59,6 +59,7 @@ const CartButton: FC<Props> = ({ isLoading = false }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.15, delay: 0.35 }}
+            data-testid="cart-button"
         >
             <CartBtn type="submit" role="button" isHoverActive={false}>
                 <motion.div

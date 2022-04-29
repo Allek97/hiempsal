@@ -1,65 +1,13 @@
 import { render, act, screen } from "@tests/customRender";
+import userEvent from "@testing-library/user-event";
 import useAddItem from "@framework/cart/use-add-item";
 
 import { faker } from "@faker-js/faker";
 
-import { ProductOption, ProductVariant } from "@framework/types/product";
-import { currencyMap } from "@framework/utils/optionMapping";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 
 import ProductCart, { ProductCartProps } from "./ProductCart";
-
-const productOptions: ProductOption[] = [
-    {
-        id: faker.datatype.uuid(),
-        displayName: "color",
-        values: [{ label: faker.commerce.productMaterial() }],
-    },
-    {
-        id: faker.datatype.uuid(),
-        displayName: "size",
-        values: [{ label: faker.commerce.productMaterial() }],
-    },
-    {
-        id: faker.datatype.uuid(),
-        displayName: "gender",
-        values: [{ label: faker.commerce.productMaterial() }],
-    },
-];
-const productVariants: ProductVariant[] = [
-    {
-        id: faker.datatype.uuid(),
-        name: faker.commerce.productName(),
-        sku: faker.datatype.uuid(),
-        image: { url: faker.image.fashion(), alt: faker.image.fashion() },
-        price: faker.datatype.number(),
-        listPrice: faker.datatype.number(),
-        requiresShipping: faker.datatype.boolean(),
-        availableForSale: faker.datatype.boolean(),
-        options: productOptions,
-    },
-];
-const defaultProps: ProductCartProps = {
-    product: {
-        id: faker.datatype.uuid(),
-        name: faker.commerce.productName(),
-        vendor: faker.company.companyName(),
-        description: faker.commerce.productDescription(),
-        path: faker.datatype.string(),
-        slug: faker.datatype.string(),
-        images: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
-        price: {
-            currencyCode: faker.finance.currencySymbol(),
-            value: faker.datatype.number(),
-        },
-        availableForSale: faker.datatype.boolean(),
-        featureImages: [
-            { url: faker.image.fashion(), alt: faker.image.fashion() },
-        ],
-        options: productOptions,
-        variants: productVariants,
-    },
-    setSelectedVariant: () => {},
-};
+import { defaultProps, productOptions } from "./tests/variables";
 
 function renderProductCart(props?: Partial<ProductCartProps>) {
     return {
@@ -69,7 +17,7 @@ function renderProductCart(props?: Partial<ProductCartProps>) {
 
 jest.mock("@framework/cart/use-add-item");
 
-test.only("renders correctly", async () => {
+test("renders correctly", async () => {
     // FIX : https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning
     const mockUseAddItem = useAddItem as unknown as jest.Mock;
     mockUseAddItem.mockImplementation(() => {});
@@ -80,6 +28,7 @@ test.only("renders correctly", async () => {
         product: { name, price },
     } = defaultProps;
     const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
+    const color = colorMap[productOptions[0].values[0].label];
 
     renderProductCart({
         product: {
@@ -89,17 +38,45 @@ test.only("renders correctly", async () => {
     });
 
     expect(screen.getByText(name)).toBeInTheDocument();
-    expect(screen.getByText(name)).toBeInTheDocument();
+
     expect(
         screen.getByText(`${currencyMap[randomCurrency]}${price.value}`)
     ).toBeInTheDocument();
+
+    expect(screen.getByTestId("close-wrapper")).toBeInTheDocument();
+
     expect(
-        screen.getByTestId(`swatch-${productOptions[0].displayName}`)
+        screen.getByText(RegExp(String.raw`${color}`, "i"))
     ).toBeInTheDocument();
     expect(
-        screen.getByTestId(`swatch-${productOptions[1].displayName}`)
+        screen.getByText(
+            RegExp(String.raw`${productOptions[1].values[0].label}`, "i")
+        )
     ).toBeInTheDocument();
     expect(
-        screen.getByTestId(`swatch-${productOptions[2].displayName}`)
+        screen.getByText(
+            RegExp(String.raw`${productOptions[2].values[0].label}`, "i")
+        )
     ).toBeInTheDocument();
+
+    expect(
+        screen.getByText(`Select ${productOptions[0].displayName}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByText(`Select ${productOptions[1].displayName}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByText(`Select ${productOptions[2].displayName}`)
+    ).toBeInTheDocument();
+
+    expect(
+        screen.getByText(/Delivery time: 5-7 business days/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/100-day return period/i)).toBeInTheDocument();
+    expect(screen.getByText(/Free returns/i)).toBeInTheDocument();
+    expect(
+        screen.getByText(/FREE SHIPPING FROM \$50.00 CAD/i)
+    ).toBeInTheDocument();
+
+    expect(screen.getByTestId("cart-button")).toBeInTheDocument();
 });

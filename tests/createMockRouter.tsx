@@ -11,7 +11,7 @@ const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
         back: jest.fn(),
         beforePopState: jest.fn(),
         prefetch: jest.fn(() => Promise.resolve()),
-        push: jest.fn(),
+        push: jest.fn().mockResolvedValue(true),
         reload: jest.fn(),
         replace: jest.fn(),
         events: {

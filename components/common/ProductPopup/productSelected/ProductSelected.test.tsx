@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from "@tests/customRender";
+import { render, screen, waitFor } from "@tests/customRender";
 import { NextRouter } from "next/router";
 import userEvent from "@testing-library/user-event";
 import faker from "@faker-js/faker";
@@ -55,7 +55,7 @@ test("renders correctely", () => {
     ).toBeInTheDocument();
 });
 
-test("redirected to cart page when clicking to cart button", async () => {
+test("redirected to cart page when clicking the view cart button", async () => {
     const { mockRouter } = renderProductSelected(undefined, {
         push: jest.fn().mockResolvedValue(true),
     });
@@ -63,8 +63,8 @@ test("redirected to cart page when clicking to cart button", async () => {
     const cartBtn = screen.getByRole("button", { name: /view cart/i });
     expect(cartBtn.closest("a")).toHaveAttribute("href", "/cart/bag");
 
-    userEvent.click(cartBtn);
-    waitFor(() => {
+    await userEvent.click(cartBtn);
+    await waitFor(() => {
         expect(mockRouter.push).toHaveBeenCalledWith(
             "/cart/bag",
             "/cart/bag",
@@ -72,3 +72,5 @@ test("redirected to cart page when clicking to cart button", async () => {
         );
     });
 });
+
+test("redirected to checkout page when clicking the checkout button", () => {});

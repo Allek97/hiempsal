@@ -1,7 +1,7 @@
 import faker from "@faker-js/faker";
 import { ProductOption, ProductVariant } from "@framework/types/product";
 import { colorMap } from "@framework/utils/optionMapping";
-import { ProductCartProps } from "../ProductCart";
+import { ProductCartProps } from "../productCart/ProductCart";
 
 const randomColor = faker.random.arrayElement(Object.keys(colorMap));
 

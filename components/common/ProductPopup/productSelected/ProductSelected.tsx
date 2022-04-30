@@ -18,13 +18,13 @@ import {
     UtilWrapper,
 } from "./ProductSelected.styled";
 
-interface Props {
+export interface ProductSelectedProps {
     selectedVariant: ProductVariant;
     productName: string;
     currencyCode: "USD" | "EUR" | "CAD" | string;
 }
 
-const ProductSelected: FC<Props> = ({
+const ProductSelected: FC<ProductSelectedProps> = ({
     selectedVariant,
     productName,
     currencyCode,
@@ -39,7 +39,7 @@ const ProductSelected: FC<Props> = ({
     const { setProductNotAdded } = useUI();
 
     return (
-        <Root>
+        <Root data-testid="product-selected">
             <ProductInfo>
                 <ImageWrapper>
                     <Image

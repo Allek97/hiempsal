@@ -53,7 +53,7 @@ export const ProductInfo = styled.div`
 
 export const ImageWrapper = styled.div`
     ${tw`relative h-full width[27.5vw] p-0
-    lg:width[3.125rem]`}
+    lg:width[4rem]`}
 
     background-color: white;
 `;

@@ -1,5 +1,4 @@
 import { render, act, screen } from "@tests/customRender";
-import userEvent from "@testing-library/user-event";
 import useAddItem from "@framework/cart/use-add-item";
 
 import { faker } from "@faker-js/faker";
@@ -7,7 +6,7 @@ import { faker } from "@faker-js/faker";
 import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 
 import ProductCart, { ProductCartProps } from "./ProductCart";
-import { defaultProps, productOptions } from "./tests/variables";
+import { defaultProps, productOptions } from "../tests/variables";
 
 function renderProductCart(props?: Partial<ProductCartProps>) {
     return {
@@ -46,16 +45,16 @@ test("renders correctly", async () => {
     expect(screen.getByTestId("close-wrapper")).toBeInTheDocument();
 
     expect(
-        screen.getByText(RegExp(String.raw`${color}`, "i"))
+        screen.getByText(RegExp(String.raw`^${color}$`, "i"))
     ).toBeInTheDocument();
     expect(
         screen.getByText(
-            RegExp(String.raw`${productOptions[1].values[0].label}`, "i")
+            RegExp(String.raw`^${productOptions[1].values[0].label}$`, "i")
         )
     ).toBeInTheDocument();
     expect(
         screen.getByText(
-            RegExp(String.raw`${productOptions[2].values[0].label}`, "i")
+            RegExp(String.raw`^${productOptions[2].values[0].label}$`, "i")
         )
     ).toBeInTheDocument();
 

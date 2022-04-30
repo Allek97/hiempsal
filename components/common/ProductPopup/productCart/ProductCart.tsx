@@ -68,7 +68,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
     };
 
     return (
-        <div>
+        <div data-testid="product-cart">
             <Form onSubmit={addToCart}>
                 <div className="relative flex flex-col">
                     <ProductInfo>

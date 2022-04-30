@@ -1,5 +1,6 @@
 import { NextRouter } from "next/router";
 
+// NOTE : https://stackoverflow.com/questions/66322816/mock-next-link-with-jest-in-next-js
 const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
     return {
         basePath: "",
@@ -9,7 +10,7 @@ const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
         asPath: "/",
         back: jest.fn(),
         beforePopState: jest.fn(),
-        prefetch: jest.fn(),
+        prefetch: jest.fn(() => Promise.resolve()),
         push: jest.fn(),
         reload: jest.fn(),
         replace: jest.fn(),

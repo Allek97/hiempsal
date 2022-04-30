@@ -1,11 +1,14 @@
 import * as nextRouter from "next/router";
+import { NextRouter } from "next/router";
 import { FC, ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
 import UIProvider from "@components/ui/context";
 import ThemeUIProvider from "@components/ui/themeContext";
 import HistoryProvider from "@contexts/History";
 import { MediaContextProvider } from "@lib/media";
+import createMockRouter from "./createMockRouter";
 
 jest.mock("framer-motion", () => ({
     ...jest.requireActual("framer-motion"),
@@ -41,8 +44,17 @@ const AllTheProviders: FC = ({ children }) => {
 
 const customRender = (
     ui: ReactElement,
-    options?: Omit<RenderOptions, "wrapper">
-) => render(ui, { wrapper: AllTheProviders, ...options });
+    options?: Omit<RenderOptions, "wrapper">,
+    routerOptions: Partial<NextRouter> = {}
+) => ({
+    ...render(
+        <RouterContext.Provider value={createMockRouter(routerOptions)}>
+            {ui}
+        </RouterContext.Provider>,
+        { wrapper: AllTheProviders, ...options }
+    ),
+    mockRouter: createMockRouter(routerOptions),
+});
 
 export * from "@testing-library/react";
 export { customRender as render, useRouter as mockUseRouter };

@@ -8,6 +8,7 @@ import { ProductVariant } from "@framework/types/product";
 
 import { FunctionalLink } from "@components/utils";
 import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+
 import { Choices } from "../helpers";
 
 import {
@@ -79,7 +80,9 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                     </FunctionalLink>
                 </Link>
 
-                <UtilBtn type="button">Checkout</UtilBtn>
+                <UtilBtn Component="a" href="/api/checkout">
+                    Checkout
+                </UtilBtn>
             </UtilWrapper>
         </Root>
     );

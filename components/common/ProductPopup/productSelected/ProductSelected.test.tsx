@@ -73,4 +73,11 @@ test("redirected to cart page when clicking the view cart button", async () => {
     });
 });
 
-test("redirected to checkout page when clicking the checkout button", () => {});
+test("checkout button redirect to our checkout api", () => {
+    renderProductSelected(undefined, {
+        push: jest.fn().mockResolvedValue(true),
+    });
+
+    const checkout = screen.getByText(/checkout/i);
+    expect(checkout).toHaveAttribute("href", "/api/checkout");
+});

@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
 import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 
 import ProductCart, { ProductCartProps } from "./ProductCart";
-import { defaultProps, productOptions } from "../tests/variables";
+import { defaultProps, productOptions } from "../__mocks__/variables";
 
 function renderProductCart(props?: Partial<ProductCartProps>) {
     return {

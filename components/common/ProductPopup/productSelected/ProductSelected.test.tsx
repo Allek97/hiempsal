@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import faker from "@faker-js/faker";
 
 import { currencyMap } from "@framework/utils/optionMapping";
-import { productOptions } from "../tests/variables";
+import { productOptions } from "../__mocks__/variables";
 import ProductSelected, { ProductSelectedProps } from "./ProductSelected";
 
 const defaultProps: ProductSelectedProps = {
@@ -74,9 +74,7 @@ test("redirected to cart page when clicking the view cart button", async () => {
 });
 
 test("checkout button redirect to our checkout api", () => {
-    renderProductSelected(undefined, {
-        push: jest.fn().mockResolvedValue(true),
-    });
+    renderProductSelected();
 
     const checkout = screen.getByText(/checkout/i);
     expect(checkout).toHaveAttribute("href", "/api/checkout");

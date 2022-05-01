@@ -11,7 +11,7 @@ import { ProductSelected, ProductCart } from "..";
 
 import { Container, Paddings } from "./ProductPopup.styled";
 
-interface Props {
+export interface Props {
     product: Product;
     children?: ReactNode | ReactNode[];
     hasPadding?: boolean;

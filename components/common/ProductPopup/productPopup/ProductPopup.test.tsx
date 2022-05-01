@@ -1,21 +1,56 @@
-// test.only("Adds selected variant to cart", () => {
-//     renderProductCart();
+import { State, UIContext } from "@components/ui/context";
+import useAddItem from "@framework/cart/use-add-item";
+import { act, render, screen } from "@testing-library/react";
 
-//     const color = colorMap[productOptions[0].values[0].label];
-//     const button = screen.getByTestId("cart-button");
+import { product as productMock } from "../__mocks__/variables";
+import ProductPopup, { Props as ProductPopupProps } from "./ProductPopup";
 
-//     // get the the options to be selected
-//     const option1 = screen.getByText(RegExp(String.raw`${color}`, "i"));
-//     const option2 = screen.getByText(
-//         RegExp(String.raw`${productOptions[1].values[0].label}`, "i")
-//     );
-//     const option3 = screen.getByText(
-//         RegExp(String.raw`${productOptions[2].values[0].label}`, "i")
-//     );
-//     // select variant
-//     userEvent.click(option1);
-//     userEvent.click(option2);
-//     userEvent.click(option3);
-//     // Add variant to cart
-//     userEvent.click(button);
-// });
+jest.mock("framer-motion", () => ({
+    ...jest.requireActual("framer-motion"),
+    useReducedMotion: () => true,
+}));
+
+const defaultProps: ProductPopupProps = {
+    product: productMock,
+};
+
+type Render = {
+    uiProviderProps: Partial<State>;
+    props?: Partial<ProductPopupProps>;
+};
+
+function renderProductPopup({ uiProviderProps, ...props }: Render) {
+    return {
+        ...render(
+            // eslint-disable-next-line react/jsx-no-constructed-context-values
+            <UIContext.Provider value={uiProviderProps as State}>
+                <ProductPopup {...defaultProps} {...props} />
+            </UIContext.Provider>
+        ),
+    };
+}
+
+jest.mock("@framework/cart/use-add-item");
+
+describe("component renders correctly", () => {
+    it("when is <ProductCart/> is open", async () => {
+        const mockUseAddItem = useAddItem as unknown as jest.Mock;
+        mockUseAddItem.mockImplementation(() => {});
+
+        await act(async () => mockUseAddItem());
+
+        const { debug } = await renderProductPopup({
+            uiProviderProps: { isProductCartOpen: true, isProductAdded: false },
+        });
+
+        debug();
+    });
+
+    it("when is <ProductSelected /> is open", () => {
+        const { debug } = renderProductPopup({
+            uiProviderProps: { isProductCartOpen: false, isProductAdded: true },
+        });
+
+        debug();
+    });
+});

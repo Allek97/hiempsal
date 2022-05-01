@@ -1,5 +1,9 @@
 import faker from "@faker-js/faker";
-import { ProductOption, ProductVariant } from "@framework/types/product";
+import {
+    Product,
+    ProductOption,
+    ProductVariant,
+} from "@framework/types/product";
 import { colorMap } from "@framework/utils/optionMapping";
 import { ProductCartProps } from "../productCart/ProductCart";
 
@@ -35,27 +39,27 @@ const productVariants: ProductVariant[] = [
         options: productOptions,
     },
 ];
-const defaultProps: ProductCartProps = {
-    product: {
-        id: faker.datatype.uuid(),
-        name: faker.commerce.productName(),
-        vendor: faker.company.companyName(),
-        description: faker.commerce.productDescription(),
-        path: faker.datatype.string(),
-        slug: faker.datatype.string(),
-        images: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
-        price: {
-            currencyCode: faker.finance.currencySymbol(),
-            value: faker.datatype.number(),
-        },
-        availableForSale: faker.datatype.boolean(),
-        featureImages: [
-            { url: faker.image.fashion(), alt: faker.image.fashion() },
-        ],
-        options: productOptions,
-        variants: productVariants,
+
+const product: Product = {
+    id: faker.datatype.uuid(),
+    name: faker.commerce.productName(),
+    vendor: faker.company.companyName(),
+    description: faker.commerce.productDescription(),
+    path: faker.datatype.string(),
+    slug: faker.datatype.string(),
+    images: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
+    price: {
+        currencyCode: faker.finance.currencySymbol(),
+        value: faker.datatype.number(),
     },
+    availableForSale: faker.datatype.boolean(),
+    featureImages: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
+    options: productOptions,
+    variants: productVariants,
+};
+const defaultProps: ProductCartProps = {
+    product,
     setSelectedVariant: () => {},
 };
 
-export { defaultProps, productOptions, productVariants };
+export { defaultProps, productOptions, productVariants, product };

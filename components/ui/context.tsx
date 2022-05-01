@@ -18,7 +18,7 @@ interface StateModifiers {
     setProductNotAdded: () => void;
 }
 
-type State = StateValues & StateModifiers;
+export type State = StateValues & StateModifiers;
 
 const initialState: StateValues = {
     isMobileMenuOpen: false,
@@ -37,7 +37,7 @@ const stateModifiers: StateModifiers = {
     setProductNotAdded: () => {},
 };
 
-const UIContext = createContext<State>({
+export const UIContext = createContext<State>({
     ...initialState,
     ...stateModifiers,
 });
@@ -103,7 +103,7 @@ const UIProvider: FC = ({ children }) => {
     const openProductCart = () => dispatch({ type: "OPEN_PRODUCT_CART" });
     const closeProductCart = () => dispatch({ type: "CLOSE_PRODUCT_CART" });
 
-    const value = useMemo(() => {
+    const value: State = useMemo(() => {
         return {
             ...state,
             toggleMobileMenu,

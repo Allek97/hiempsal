@@ -26,7 +26,7 @@ const Popup: FC<Props> = ({ children }) => {
     useBodyScroll(ref, isProductCartOpen && isProductAdded, !isScreenLarge);
 
     return (
-        <Root ref={ref}>
+        <Root ref={ref} data-testid="product-popup">
             <>
                 {(isProductCartOpen || isProductAdded) && (
                     <Overlay

@@ -49,7 +49,8 @@
         "swr": "^1.2.2",
         "tailwindcss": "^2.2.19",
         "twin.macro": "^2.8.1",
-        "typescript": "^4.6.3"
+        "typescript": "^4.6.3",
+        "whatwg-fetch": "^3.6.2"
     },
     "devDependencies": {
         "@emotion/babel-plugin": "^11.3.0",
@@ -81,6 +82,7 @@
         "jest-axe": "^6.0.0",
         "jest-watch-select-projects": "^2.0.0",
         "jest-watch-typeahead": "^1.0.0",
+        "msw": "^0.39.2",
         "postcss": "^8.4.12",
         "postcss-import": "^14.0.2"
     },

@@ -55,6 +55,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
             await addItem(input);
             setIsLoading(false);
             setProductAdded();
+            console.log("Hello");
         } catch (err) {
             console.log(err);
         }

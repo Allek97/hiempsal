@@ -35,7 +35,7 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
     };
 
     return (
-        <Popup>
+        <Popup data-testid="product-popup">
             <Container
                 key="modal"
                 initial={{ maxHeight: "0vh" }}

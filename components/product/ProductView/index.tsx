@@ -1,1 +1,1 @@
-export { default as ProductView } from "./ProductView";
+export { default as ProductView, VariantButtonPopup } from "./ProductView";

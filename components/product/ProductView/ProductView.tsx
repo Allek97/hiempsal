@@ -35,6 +35,21 @@ interface Props {
     product: Product;
 }
 
+export const VariantButtonPopup = () => {
+    const { openPopup, openProductCart } = useUI();
+
+    return (
+        <VariantButton
+            onClick={() => {
+                openPopup();
+                openProductCart();
+            }}
+        >
+            Select Variant
+        </VariantButton>
+    );
+};
+
 const ProductView: FC<Props> = ({ product }) => {
     const {
         isPopupOpen,
@@ -42,7 +57,6 @@ const ProductView: FC<Props> = ({ product }) => {
         isProductAdded,
         openPopup,
         closePopup,
-        openProductCart,
     } = useUI();
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({ threshold: 1 });
@@ -144,14 +158,8 @@ const ProductView: FC<Props> = ({ product }) => {
                     </CertificationBox>
 
                     <VariantContainer ref={ref}>
-                        <VariantButton
-                            onClick={() => {
-                                openPopup();
-                                openProductCart();
-                            }}
-                        >
-                            Select Variant
-                        </VariantButton>
+                        <VariantButtonPopup />
+
                         <WishlistBtn>
                             <FaRegHeart className="w-full h-full" />
                         </WishlistBtn>

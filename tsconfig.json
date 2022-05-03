@@ -25,7 +25,9 @@
             "@contexts/*": ["contexts/*"],
             "@tests/*": ["tests/*"],
             "@hooks": ["hooks"],
-            "@hooks/*": ["hooks/*"]
+            "@hooks/*": ["hooks/*"],
+            "@mocks": ["__mocks__"],
+            "@mocks/*": ["__mocks__/*"]
         }
     },
     "include": [

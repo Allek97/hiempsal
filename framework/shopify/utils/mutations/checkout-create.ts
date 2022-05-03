@@ -1,4 +1,4 @@
-const checkoutCreateMutationMutation = ` 
+const checkoutCreateMutation = ` 
 mutation checkoutCreate($input: CheckoutCreateInput = {}) {
     checkoutCreate(input: $input) {
         checkoutUserErrors {
@@ -68,4 +68,4 @@ mutation checkoutCreate($input: CheckoutCreateInput = {}) {
 
 `;
 
-export default checkoutCreateMutationMutation;
+export default checkoutCreateMutation;

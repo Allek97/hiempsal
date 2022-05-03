@@ -1,7 +1,7 @@
 import { checkoutDetailFragment } from "../common";
 
-const checkoutLineItemsAdd = `
-    mutation($checkoutId: ID!,$lineItems: [CheckoutLineItemInput!]!) {
+const checkoutLineItemsAddMutation = `
+    mutation checkoutLineItemsAdd($checkoutId: ID!,$lineItems: [CheckoutLineItemInput!]!) {
         checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
             checkoutUserErrors {
                 field
@@ -15,4 +15,4 @@ const checkoutLineItemsAdd = `
 
 `;
 
-export default checkoutLineItemsAdd;
+export default checkoutLineItemsAddMutation;

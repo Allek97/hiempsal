@@ -9,24 +9,17 @@ import { VariantButtonPopup } from "@components/product";
 import { colorMap } from "@framework/utils/optionMapping";
 
 import useAddItem from "@framework/cart/use-add-item";
+import { checkoutServer } from "@mocks/api";
 import { product as productMock } from "../__mocks__/variables";
 import ProductPopup, { Props as ProductPopupProps } from "./ProductPopup";
 
-jest.mock("@framework/utils/fetch-api.ts");
+// jest.mock("@framework/utils/fetch-api.ts");
+
 jest.mock("@framework/cart/use-add-item");
 
-const server = setupServer(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rest.post(
-        "https://hiempsal.myshopify.com/api/2022-01/graphql.json",
-        (req, res, ctx) => {
-            return res(ctx.json({ firstName: "John" }));
-        }
-    )
-);
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-afterAll(() => server.close());
-afterEach(() => server.resetHandlers());
+beforeAll(() => checkoutServer.listen({ onUnhandledRequest: "error" }));
+afterAll(() => checkoutServer.close());
+afterEach(() => checkoutServer.resetHandlers());
 
 const defaultProps: ProductPopupProps = {
     product: productMock,
@@ -45,7 +38,7 @@ function renderProductPopup(props?: Partial<ProductPopupProps>) {
 
 test.only("adds selected variant to our checkout cart", async () => {
     const { variants } = productMock;
-    const { options } = variants[0];
+    const { options, id: variantId } = variants[0];
 
     const color =
         colorMap[
@@ -60,13 +53,13 @@ test.only("adds selected variant to our checkout cart", async () => {
     )[0].values[0].label;
 
     const mockUseAddItem = useAddItem as unknown as jest.Mock;
-    mockUseAddItem.mockImplementation(
-        () => (input: { variantId: string; quantity: number }) => input
+    const mockAddItem = jest.fn(
+        async (input: { variantId: string; quantity: number }) =>
+            input.variantId
     );
+    mockUseAddItem.mockImplementation(() => mockAddItem);
 
-    const { debug } = await renderProductPopup();
-
-    debug();
+    await renderProductPopup();
 
     const variantBtn = screen.getByText(/Select Variant/i);
     await userEvent.click(variantBtn);
@@ -92,16 +85,17 @@ test.only("adds selected variant to our checkout cart", async () => {
     await userEvent.click(sizeInput);
     await userEvent.click(genderInput);
 
-    // debug(colorInput);
     // add them to the cart
     await userEvent.click(cartBtn);
 
-    expect(useAddItem).toHaveBeenCalled();
-    // userEvent.click(div);
+    expect(mockAddItem).toHaveBeenCalledWith({
+        variantId: variantId,
+        quantity: 1,
+    });
 
-    // await waitFor(() => {
-    //     expect(screen.getByTestId("product-selected")).toBeInTheDocument();
-    // });
+    await waitFor(() => {
+        expect(screen.getByTestId("product-selected")).toBeInTheDocument();
+    });
 
-    debug();
+    // debug();
 });

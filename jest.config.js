@@ -29,6 +29,8 @@ module.exports = {
         "^@tests/(.*)$": "<rootDir>/tests/$1",
         "^@hooks/(.*)$": "<rootDir>/hooks/$1",
         "^@hooks(.*)$": "<rootDir>/hooks",
+        "^@mocks/(.*)$": "<rootDir>/__mocks__/$1",
+        "^@mocks(.*)$": "<rootDir>/__mocks__",
     },
     // Add more setup options before each test is run
     setupFilesAfterEnv: ["<rootDir>/tests/setup-env.ts"],

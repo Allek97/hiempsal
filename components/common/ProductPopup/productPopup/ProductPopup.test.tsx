@@ -6,12 +6,13 @@ import { setupServer } from "msw/node";
 
 import { VariantButtonPopup } from "@components/product";
 
-import { colorMap } from "@framework/utils/optionMapping";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 
 import useAddItem from "@framework/cart/use-add-item";
 import { checkoutServer } from "@mocks/api";
 import { product as productMock } from "../__mocks__/variables";
 import ProductPopup, { Props as ProductPopupProps } from "./ProductPopup";
+import { Choices } from "../helpers";
 
 // jest.mock("@framework/utils/fetch-api.ts");
 
@@ -37,8 +38,19 @@ function renderProductPopup(props?: Partial<ProductPopupProps>) {
 }
 
 test.only("adds selected variant to our checkout cart", async () => {
-    const { variants } = productMock;
-    const { options, id: variantId } = variants[0];
+    const {
+        name: productName,
+        variants,
+        price: { currencyCode },
+    } = productMock;
+    const { options, id: variantId, price, image } = variants[0];
+
+    const selectedOptions: Choices = Object.assign(
+        {},
+        ...options.map((option) => ({
+            [option.displayName.toLowerCase()]: option.values[0].label,
+        }))
+    );
 
     const color =
         colorMap[
@@ -97,5 +109,26 @@ test.only("adds selected variant to our checkout cart", async () => {
         expect(screen.getByTestId("product-selected")).toBeInTheDocument();
     });
 
-    // debug();
+    // Make sure <ProductSelected /> displays the correct variant
+
+    const variantName = `${productName} | 
+    ${colorMap[selectedOptions.color ?? selectedOptions.colour]
+        .toLowerCase()
+        .split(" ")
+        .join("-")}
+    , ${selectedOptions.size.toUpperCase()}, 
+    ${selectedOptions.gender}`;
+
+    const variantPrice = `${currencyMap[currencyCode]}${price}`;
+
+    const variantTitle = screen.getByText(
+        new RegExp(String.raw`${variantName}`, "i")
+    );
+    const variantPriceHeader = screen.getByText(variantPrice);
+
+    expect(variantTitle).toBeInTheDocument();
+    expect(variantPriceHeader).toBeInTheDocument();
+    expect(
+        screen.getByAltText(image?.alt ?? "Selected product")
+    ).toBeInTheDocument();
 });

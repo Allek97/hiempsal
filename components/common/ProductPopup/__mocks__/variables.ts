@@ -4,10 +4,11 @@ import {
     ProductOption,
     ProductVariant,
 } from "@framework/types/product";
-import { colorMap } from "@framework/utils/optionMapping";
+import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 import { ProductCartProps } from "../productCart/ProductCart";
 
 const randomColor = faker.random.arrayElement(Object.keys(colorMap));
+const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
 
 const productOptions: ProductOption[] = [
     {
@@ -49,7 +50,7 @@ const product: Product = {
     slug: faker.datatype.string(),
     images: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
     price: {
-        currencyCode: faker.finance.currencySymbol(),
+        currencyCode: randomCurrency,
         value: faker.datatype.number(),
     },
     availableForSale: faker.datatype.boolean(),

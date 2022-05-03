@@ -30,12 +30,11 @@ test("should display add to cart before loading", async () => {
 test("should display adding after loading", async () => {
     const { container } = render(<CartButton isLoading />);
 
-    const motionBox = screen.getByTestId("motion-x");
+    // const motionBox = screen.getByTestId("motion-x");
+    const component = screen.getByTestId("cart-button");
 
     await waitFor(() => {
-        expect(motionBox).toHaveStyle(
-            "transform: translateX(calc(-75% - 30px)) translateZ(0);"
-        );
+        expect(component).toHaveStyle("opacity: 1;");
     });
 
     expect(container).toMatchSnapshot();

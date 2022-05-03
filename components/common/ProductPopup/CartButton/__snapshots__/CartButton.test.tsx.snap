@@ -501,7 +501,7 @@ exports[`should display adding after loading 1`] = `
   <div
     class="emotion-0 emotion-1"
     data-testid="cart-button"
-    style="opacity: 0.994789020128;"
+    style="opacity: 1;"
   >
     <button
       class="emotion-2 emotion-3 emotion-4"

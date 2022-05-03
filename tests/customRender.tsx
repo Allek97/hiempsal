@@ -49,7 +49,7 @@ type CustomOptions = {
 
 const customRender = (
     ui: ReactElement,
-    { renderOptions, routerOptions = {} }: CustomOptions
+    { renderOptions, routerOptions = {} }: CustomOptions = {}
 ) => ({
     ...render(
         <RouterContext.Provider value={createMockRouter(routerOptions)}>

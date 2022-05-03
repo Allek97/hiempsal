@@ -1,8 +1,6 @@
 import "whatwg-fetch";
-import { render, screen, waitFor, act } from "@tests/customRender";
+import { render, screen, waitFor } from "@tests/customRender";
 import userEvent from "@testing-library/user-event";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
 
 import { VariantButtonPopup } from "@components/product";
 

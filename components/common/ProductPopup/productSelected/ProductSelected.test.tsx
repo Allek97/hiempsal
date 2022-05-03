@@ -28,11 +28,9 @@ function renderProductSelected(
     routerOptions?: Partial<NextRouter>
 ) {
     return {
-        ...render(
-            <ProductSelected {...defaultProps} {...props} />,
-            undefined,
-            routerOptions
-        ),
+        ...render(<ProductSelected {...defaultProps} {...props} />, {
+            routerOptions: routerOptions,
+        }),
     };
 }
 
@@ -55,7 +53,7 @@ test("renders correctely", () => {
     ).toBeInTheDocument();
 });
 
-test("redirected to cart page when clicking the view cart button", async () => {
+test("user is redirected to cart page when clicking the view cart button", async () => {
     const { mockRouter } = renderProductSelected(undefined, {
         push: jest.fn().mockResolvedValue(true),
     });

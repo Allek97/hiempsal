@@ -42,16 +42,20 @@ const AllTheProviders: FC = ({ children }) => {
     );
 };
 
+type CustomOptions = {
+    renderOptions?: Omit<RenderOptions, "wrapper">;
+    routerOptions?: Partial<NextRouter>;
+};
+
 const customRender = (
     ui: ReactElement,
-    options?: Omit<RenderOptions, "wrapper">,
-    routerOptions: Partial<NextRouter> = {}
+    { renderOptions, routerOptions = {} }: CustomOptions
 ) => ({
     ...render(
         <RouterContext.Provider value={createMockRouter(routerOptions)}>
             {ui}
         </RouterContext.Provider>,
-        { wrapper: AllTheProviders, ...options }
+        { wrapper: AllTheProviders, ...renderOptions }
     ),
     mockRouter: createMockRouter(routerOptions),
 });

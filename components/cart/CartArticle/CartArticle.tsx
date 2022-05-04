@@ -104,7 +104,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                 </div>
 
                 <div>
-                    <CartQuantity quantity={cartItem.quantity} />
+                    <CartQuantity cartItem={cartItem} />
                 </div>
             </ProductDetails>
         </Article>

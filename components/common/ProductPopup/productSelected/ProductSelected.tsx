@@ -7,7 +7,7 @@ import { useUI } from "@components/ui/context";
 import { ProductVariant } from "@framework/types/product";
 
 import { FunctionalLink } from "@components/utils";
-import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { currencyMap } from "@framework/utils/optionMapping";
 
 import { Choices } from "../helpers";
 
@@ -56,9 +56,7 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                 <div>
                     <h4>
                         {productName} |{" "}
-                        {colorMap[
-                            selectedOptions.color ?? selectedOptions.colour
-                        ]
+                        {(selectedOptions.color ?? selectedOptions.colour)
                             .toLowerCase()
                             .split(" ")
                             .join("-")}

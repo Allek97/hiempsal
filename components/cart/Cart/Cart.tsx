@@ -92,7 +92,7 @@ const Cart: FC = () => {
                         </TotalBox>
 
                         <CheckoutWrapper>
-                            <CheckoutButton Component="a" href="/checkout">
+                            <CheckoutButton Component="a" href="/api/checkout">
                                 Checkout
                             </CheckoutButton>
                         </CheckoutWrapper>

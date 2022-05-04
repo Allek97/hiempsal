@@ -4,7 +4,6 @@
 import { render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
-import { colorMap } from "@framework/utils/optionMapping";
 import { ImageProps } from "next/image";
 import Swatch, { SwatchProps } from "./Swatch";
 
@@ -58,7 +57,7 @@ describe("component renders correctly", () => {
         expect(spanEffect).toBeInTheDocument();
     });
     test("when the selected option is color", () => {
-        const randomColor = faker.random.arrayElement(Object.keys(colorMap));
+        const randomColor = faker.commerce.color();
         const randomImgUrl = faker.image.fashion();
         const randomImgAlt = faker.lorem.lines(1);
 
@@ -68,9 +67,7 @@ describe("component renders correctly", () => {
             image: { url: randomImgUrl, alt: randomImgAlt },
         });
 
-        expect(
-            screen.getByText(colorMap[swatchProps.value])
-        ).toBeInTheDocument();
+        expect(screen.getByText(swatchProps.value)).toBeInTheDocument();
         const swatchInput = screen.getByRole("radio") as HTMLInputElement;
         expect(swatchInput.checked).toBe(swatchProps.isSelected);
         expect(swatchInput).toBeRequired();

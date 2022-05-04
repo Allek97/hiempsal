@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import { VariantButtonPopup } from "@components/product";
 
-import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { currencyMap } from "@framework/utils/optionMapping";
 
 import useAddItem from "@framework/cart/use-add-item";
 import { checkoutServer } from "@mocks/api";
@@ -50,11 +50,8 @@ test.only("adds selected variant to our checkout cart", async () => {
         }))
     );
 
-    const color =
-        colorMap[
-            options.filter((option) => option.displayName === "color")[0]
-                .values[0].label
-        ];
+    const color = options.filter((option) => option.displayName === "color")[0]
+        .values[0].label;
     const size = options.filter((option) => option.displayName === "size")[0]
         .values[0].label;
 
@@ -110,7 +107,7 @@ test.only("adds selected variant to our checkout cart", async () => {
     // Make sure <ProductSelected /> displays the correct variant
 
     const variantName = `${productName} | 
-    ${colorMap[selectedOptions.color ?? selectedOptions.colour]
+    ${(selectedOptions.color ?? selectedOptions.colour)
         .toLowerCase()
         .split(" ")
         .join("-")}

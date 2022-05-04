@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
-import { colorMap } from "@framework/utils/optionMapping";
 import { MdAddAlert } from "react-icons/md";
 import {
     ImageVariantWrapper,
@@ -75,7 +74,7 @@ const Swatch: FC<SwatchProps> = ({
                     priority
                 />
             </ImageVariantWrapper>
-            <span>{colorMap[value]}</span>
+            <span>{value}</span>
             {isOutOfStock && <NotifyComponent />}
         </ProductVariantColor>
     ) : (

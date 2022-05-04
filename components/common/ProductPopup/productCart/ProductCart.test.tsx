@@ -3,7 +3,7 @@ import useAddItem from "@framework/cart/use-add-item";
 
 import { faker } from "@faker-js/faker";
 
-import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { currencyMap } from "@framework/utils/optionMapping";
 
 import ProductCart, { ProductCartProps } from "./ProductCart";
 import { defaultProps, productOptions } from "../__mocks__/variables";
@@ -27,7 +27,7 @@ test("renders correctly", async () => {
         product: { name, price },
     } = defaultProps;
     const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
-    const color = colorMap[productOptions[0].values[0].label];
+    const color = productOptions[0].values[0].label;
 
     renderProductCart({
         product: {

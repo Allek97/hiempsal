@@ -60,7 +60,7 @@ export const Separator = styled.hr`
 // TODO: Product Display
 ////////////////////////////////////////////////////////
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.a`
     ${tw`relative flex justify-center items-center 
     cursor-pointer width[40vw] padding[0.5em 0 30%]
     lg:(width[12vw] padding-bottom[20%])

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,7 +7,7 @@ import { useMediaQueryNext } from "@hooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
-import { colorMap, currencyMap } from "@framework/utils/optionMapping";
+import { currencyMap } from "@framework/utils/optionMapping";
 import { truncateText } from "@lib/truncateText";
 import useRemoveItem from "@framework/cart/use-remove-item";
 
@@ -44,7 +45,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
 
     return (
         <Article className="article-item">
-            <Link href="/" passHref>
+            <Link href={`/products/${cartItem.path}`} passHref>
                 <ImageContainer>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -67,14 +68,16 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                 )}
                 <div>
                     <h2>
-                        {!isScreenTiny
-                            ? truncateText(cartItem.name, 29)
-                            : cartItem.name}
+                        <Link href={`/products/${cartItem.path}`} passHref>
+                            <a>
+                                {!isScreenTiny
+                                    ? truncateText(cartItem.name, 29)
+                                    : cartItem.name}
+                            </a>
+                        </Link>
                     </h2>
                     <article>
-                        <span className="capitalize">
-                            {colorMap[`${selectedColor}`]}
-                        </span>
+                        <span className="capitalize">{selectedColor}</span>
                         <span className="uppercase">
                             {selectedSize ?? "N.D"}
                         </span>

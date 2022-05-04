@@ -1,11 +1,13 @@
 import { getConfig } from "@framework/api/config";
 import { ApiFetcher } from "@framework/types/api";
+import { MutationHook, SWRHook } from "@framework/types/hooks";
 import useSWR from "swr";
 
-const useData = (hook: any, fetcher: ApiFetcher, ctx: any) => {
+const useData = (hook: SWRHook, fetcher: ApiFetcher, ctx: any) => {
     const hookFetcher = async (query: string) => {
         // eslint-disable-next-line no-useless-catch
         try {
+            // eslint-disable-next-line @typescript-eslint/return-await
             return await hook.fetcher({
                 fetch: fetcher,
                 options: { query },
@@ -21,7 +23,7 @@ const useData = (hook: any, fetcher: ApiFetcher, ctx: any) => {
     return response;
 };
 
-export const useSWRHook = (hook: any) => {
+export const useSWRHook = (hook: SWRHook) => {
     const { fetch: fetcher } = getConfig();
     return hook.useHook({
         useData(ctx: any) {
@@ -31,7 +33,7 @@ export const useSWRHook = (hook: any) => {
     });
 };
 
-export const useMutationHook = (hook: any) => {
+export const useMutationHook = (hook: MutationHook) => {
     const { fetch: fetcher } = getConfig();
     return hook.useHook({
         fetch: (input: any) => {

@@ -98,7 +98,7 @@ export const Content = styled.section<Record<string, unknown>>`
 `;
 
 export const HelpCardWrapper = styled.div`
-    ${tw`absolute bottom[2.6666666667vw]`}
+    ${tw`display[none] lg:(block absolute bottom[2.6666666667vw])`}
 `;
 
 export const ShopPolicy = styled.div`

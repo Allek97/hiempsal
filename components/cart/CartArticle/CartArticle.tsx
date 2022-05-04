@@ -8,6 +8,7 @@ import { MdRemoveShoppingCart } from "react-icons/md";
 import { LineItem } from "@framework/types/cart";
 import { colorMap, currencyMap } from "@framework/utils/optionMapping";
 import { truncateText } from "@lib/truncateText";
+import useRemoveItem from "@framework/cart/use-remove-item";
 
 import { CartQuantity } from "..";
 
@@ -38,6 +39,8 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const selectedGender = cartItem.options?.find(
         (option) => option.displayName.toLowerCase() === "gender"
     )?.values[0].label;
+
+    const removeItem = useRemoveItem();
 
     return (
         <Article className="article-item">
@@ -93,7 +96,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                     <RemoveBtn
                         type="button"
                         aria-label="Remove item"
-                        onClick={() => alert("Remove Item")}
+                        onClick={() => removeItem({ lineItemId: cartItem.id })}
                     >
                         <MdRemoveShoppingCart />
                         <span>Remove</span>

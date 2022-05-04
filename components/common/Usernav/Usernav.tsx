@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { BsBack } from "react-icons/bs";
 
-import { useMediaQueryNext } from "@hooks";
-
 import { FunctionalLink } from "@components/utils";
 import { HelpCard } from "../../elements/helpCard";
 
@@ -32,8 +30,6 @@ const Usernav: FC<Props> = ({ children }) => {
 
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
     const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
-
-    const isScreenLarge = useMediaQueryNext("lg");
 
     return (
         <Root ref={rootRef}>

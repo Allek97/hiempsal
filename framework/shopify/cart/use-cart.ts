@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line import/no-cycle
 import { getConfig } from "@framework/api/config";
-import { Checkout } from "@framework/schema";
+import { Checkout, CheckoutCreatePayload } from "@framework/schema";
+import { ApiFetcher } from "@framework/types/api";
 import { Cart } from "@framework/types/cart";
 import { SWRHook } from "@framework/types/hooks";
 import { checkoutToCart } from "@framework/utils";
@@ -41,7 +42,11 @@ const handler: SWRHook<UseCartHookDescriptor> = {
 
             checkout = data.node;
         } else {
-            checkout = await createCheckout(fetch as any);
+            checkout = await createCheckout(
+                fetch as unknown as ApiFetcher<{
+                    checkoutCreate: CheckoutCreatePayload;
+                }>
+            );
         }
 
         const cart = checkoutToCart(checkout);

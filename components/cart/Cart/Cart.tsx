@@ -3,6 +3,8 @@ import Link from "next/link";
 import payments from "@lib/const/payments";
 import { Media } from "@lib/media";
 
+import { FunctionalLink } from "@components/utils";
+
 import useCart from "@framework/cart/use-cart";
 
 import { currencyMap } from "@framework/utils/optionMapping";
@@ -48,13 +50,15 @@ const Cart: FC = () => {
                     </EmptyCartBox>
                     <ShoppingWrapper>
                         <Link href="/" passHref>
-                            <ShoppingButton
-                                Component="button"
-                                color="var(--accents-2)"
-                                aria-label="Go Shopping"
-                            >
-                                Go Shopping
-                            </ShoppingButton>
+                            <FunctionalLink>
+                                <ShoppingButton
+                                    Component="button"
+                                    color="var(--accents-2)"
+                                    aria-label="Go Shopping"
+                                >
+                                    Go Shopping
+                                </ShoppingButton>
+                            </FunctionalLink>
                         </Link>
                     </ShoppingWrapper>
                 </EmptyCartRoot>

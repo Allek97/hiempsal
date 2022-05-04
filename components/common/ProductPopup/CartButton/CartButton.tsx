@@ -1,11 +1,12 @@
-import { AnimatedText } from "@components/utils";
-import { AnimatedTextProps } from "@components/utils/AnimatedText";
+import { ButtonHTMLAttributes, FC } from "react";
 import { motion, Variants } from "framer-motion";
 
-import { FC } from "react";
+import { AnimatedText } from "@components/utils";
+import { AnimatedTextProps } from "@components/utils/AnimatedText";
+
 import { CartBtn, CartBtnWrapper } from "./CartButton.styled";
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading?: boolean;
 }
 
@@ -53,7 +54,7 @@ const placeholderTextInitialAnimated: AnimatedTextProps[] = [
     { type: "heading1", text: "Adding" },
 ];
 
-const CartButton: FC<Props> = ({ isLoading = false }) => {
+const CartButton: FC<Props> = ({ isLoading = false, onClick }) => {
     return (
         <CartBtnWrapper
             initial={{ opacity: 0 }}
@@ -61,7 +62,12 @@ const CartButton: FC<Props> = ({ isLoading = false }) => {
             transition={{ duration: 0.15, delay: 0.35 }}
             data-testid="cart-button"
         >
-            <CartBtn type="submit" role="button" isHoverActive={false}>
+            <CartBtn
+                type="submit"
+                role="button"
+                isHoverActive={false}
+                onClick={onClick}
+            >
                 <motion.div
                     animate={isLoading && "loading"}
                     {...boxAnimation1}

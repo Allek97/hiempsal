@@ -7,6 +7,7 @@ import { BsBack } from "react-icons/bs";
 
 import { useMediaQueryNext } from "@hooks";
 
+import { FunctionalLink } from "@components/utils";
 import { HelpCard } from "../../elements/helpCard";
 
 import {
@@ -16,6 +17,7 @@ import {
     Navigation,
     Root,
     ShopPolicy,
+    WrapperMedia,
 } from "./Usernav.styled";
 
 interface Props {
@@ -38,54 +40,62 @@ const Usernav: FC<Props> = ({ children }) => {
             <Navigation>
                 <nav>
                     <Link href="/cart/bag" passHref>
-                        <NavBtn
-                            isFirst
-                            isSelected={isCartSelected}
-                            type="button"
-                            aria-label="Cart"
-                        >
-                            <HiArrowNarrowRight />
-                            <h1>Your Cart</h1>
-                        </NavBtn>
+                        <FunctionalLink>
+                            <NavBtn
+                                $isFirst
+                                $isSelected={isCartSelected}
+                                type="button"
+                                aria-label="Cart"
+                            >
+                                <HiArrowNarrowRight />
+                                <h1>Your Cart</h1>
+                            </NavBtn>
+                        </FunctionalLink>
                     </Link>
                     <Link href="/cart/wishlist" passHref>
-                        <NavBtn
-                            isSelected={isWishlistSelected}
-                            type="button"
-                            aria-label="Wish list"
-                        >
-                            <HiArrowNarrowRight />
-                            <h1>Wish list</h1>
-                        </NavBtn>
+                        <FunctionalLink>
+                            <NavBtn
+                                $isSelected={isWishlistSelected}
+                                type="button"
+                                aria-label="Wish list"
+                            >
+                                <HiArrowNarrowRight />
+                                <h1>Wish list</h1>
+                            </NavBtn>
+                        </FunctionalLink>
                     </Link>
                     <Link href="/cart/products" passHref>
-                        <NavBtn
-                            isSelected={isViewedProductSelected}
-                            type="button"
-                            aria-label="Viewed products"
-                        >
-                            <HiArrowNarrowRight />
-                            <h1>Viewed products</h1>
-                        </NavBtn>
-                    </Link>
-                    {isScreenLarge && (
-                        <Link href="/cart/products" passHref>
+                        <FunctionalLink>
                             <NavBtn
+                                $isSelected={isViewedProductSelected}
                                 type="button"
-                                aria-label="Home"
-                                isSelected={false}
-                                isLast
+                                aria-label="Viewed products"
                             >
-                                <BsBack fill="var(--accents-9)" />
-                                <h1>Home</h1>
+                                <HiArrowNarrowRight />
+                                <h1>Viewed products</h1>
                             </NavBtn>
+                        </FunctionalLink>
+                    </Link>
+
+                    <WrapperMedia>
+                        <Link href="/cart/products" passHref>
+                            <FunctionalLink>
+                                <NavBtn
+                                    type="button"
+                                    aria-label="Home"
+                                    $isSelected={false}
+                                    $isLast
+                                >
+                                    <BsBack fill="var(--accents-9)" />
+                                    <h1>Home</h1>
+                                </NavBtn>
+                            </FunctionalLink>
                         </Link>
-                    )}
-                    {isScreenLarge && (
-                        <HelpCardWrapper>
-                            <HelpCard />
-                        </HelpCardWrapper>
-                    )}
+                    </WrapperMedia>
+
+                    <HelpCardWrapper>
+                        <HelpCard />
+                    </HelpCardWrapper>
                 </nav>
             </Navigation>
 

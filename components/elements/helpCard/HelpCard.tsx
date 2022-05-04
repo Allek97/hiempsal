@@ -13,6 +13,7 @@ const HelpCard: FC = () => {
                         quality="80"
                         layout="fill"
                         objectFit="cover"
+                        priority
                     />
                 </HelpCardImage>
 

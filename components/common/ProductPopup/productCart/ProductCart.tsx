@@ -97,7 +97,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                             const optionName = option.displayName.toLowerCase();
                             const showError =
                                 !(optionName in choices) && isSubmitAttempt;
-                            console.log(showError);
+
                             return (
                                 <div key={option.id}>
                                     <motion.div className="relative flex">

@@ -3,11 +3,12 @@ import { EffectButton } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw, { theme as TwTheme } from "twin.macro";
+import { transientOptions } from "@lib/transientOptions";
 
 interface NavBtnProps {
-    isSelected: boolean;
-    isFirst?: boolean;
-    isLast?: boolean;
+    $isSelected: boolean;
+    $isFirst?: boolean;
+    $isLast?: boolean;
 }
 
 const opaqueAnimation = keyframes`
@@ -37,24 +38,27 @@ export const Navigation = styled.section<Record<string, unknown>>`
     }
 `;
 
-export const NavBtn = styled(EffectButton)<NavBtnProps>`
+export const WrapperMedia = styled.div`
+    ${tw`display[none] lg:(block w-full)`}
+`;
+
+export const NavBtn = styled(EffectButton, transientOptions)<NavBtnProps>`
     ${tw`lg:(py-4 border-b-2 border-secondary border-solid text-primary)`}
 
     ${({ theme }) => theme.textSize.textSizeHeader}
 
     @media only screen and (min-width: ${TwTheme`screens.lg`}) {
-        ${({ isFirst }) =>
-            isFirst &&
+        ${({ $isFirst }) =>
+            $isFirst &&
             css`
                 ${tw`border-t-2 border-black border-solid`}
             `}
     }
 
-    ${({ isLast }) =>
-        !isLast &&
+    ${({ $isLast }) =>
+        !$isLast &&
         css`
             padding-right: 10vw;
-
             ${tw`lg:px-0`}
         `}
 
@@ -62,15 +66,15 @@ export const NavBtn = styled(EffectButton)<NavBtnProps>`
         ${tw`text-accents-5 lg:text-primary`}
 
         ${(props) =>
-            props.isSelected &&
+            props.$isSelected &&
             css`
                 ${tw`text-primary`}
             `};
     }
 
     svg {
-        ${({ isSelected }) =>
-            isSelected
+        ${({ $isSelected }) =>
+            $isSelected
                 ? css`
                       ${tw`text-primary`}
                   `

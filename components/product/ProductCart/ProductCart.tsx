@@ -1,6 +1,7 @@
 import { ProductPopup } from "@components/common";
 import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
+
 import { FC } from "react";
 import { ProductOverview } from "..";
 
@@ -21,6 +22,7 @@ const ProductCart: FC<Props> = ({ product, isProductOverviewOpen }) => {
                         productImage={product.images[1]}
                         productName={product.name}
                         productPrice={product.price}
+                        key="over"
                     />
                 )}
         </ProductPopup>

@@ -31,7 +31,8 @@ const productOverviewDisplay = css`
 
 export const ProductOverviewContainer = styled.div`
     ${tw`relative grid grid-cols-2 gap-2.5 w-full 
-    min-height[auto] px-0
+    min-height[auto] px-0 margin-bottom[16vw]
+    md:margin-bottom[8.33333333vw]
     lg:pr-11`}
 
     ${productOverviewDisplay}
@@ -123,29 +124,6 @@ export const ProductInfo = styled.header`
     }
 `;
 
-export const CertificationBox = styled.div`
-    ${tw`flex flex-col mb-1 mt-auto`}
-
-    p {
-        ${tw`font-size[10px] color[#676767] pb-1`}
-    }
-
-    li {
-        ${tw`transition-transform list-none`}
-
-        &:not(:last-of-type) {
-            ${tw`mr-1.5`}
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                ${tw`transition-transform`}
-                transform : scale(1.1);
-            }
-        }
-    }
-`;
-
 export const VariantContainer = styled.div`
     ${tw`flex justify-between items-center height[max-content]`}
 
@@ -174,4 +152,11 @@ export const WishlistBtn = styled.button`
 `;
 
 ////////////////////////////////////////////////
+// NOTE Product details
 ////////////////////////////////////////////////
+
+export const ProductDetails = styled.div`
+    ${tw`flex flex-col`}
+
+    ${({ theme }) => theme.layout.mainPadding}
+`;

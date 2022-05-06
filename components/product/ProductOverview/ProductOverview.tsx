@@ -31,7 +31,7 @@ const ProductOverview: FC<Props> = ({
 }) => {
     const variants: Variants = {
         isOpen: { y: 0, opacity: 1, maxHeight: "50vh" },
-        isHidden: { y: "150%", opacity: 0, maxHeight: 0 },
+        isHidden: { y: "150%", opacity: 0, maxHeight: "50vh" },
     };
 
     const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
@@ -42,7 +42,14 @@ const ProductOverview: FC<Props> = ({
             animate={
                 isProductCartOpen || isProductAdded ? "isHidden" : "isOpen"
             }
+            exit={{
+                y: "150%",
+                opacity: 0,
+                maxHeight: "50vh",
+                transition: { duration: 10 },
+            }}
             variants={variants}
+            key="product-overview"
         >
             <button type="button" className="flex items-center w-full">
                 <ImageWrapper>

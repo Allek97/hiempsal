@@ -194,6 +194,7 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         availableForSale,
         featureImage1,
         featureImage2,
+        featureName,
         ...rest
     } = productNode;
 
@@ -220,6 +221,7 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
                   .map((o) => normalizeProductOption(o))
             : [],
         variants: variants ? normalizeProductVariants(variants) : [],
+        featureName: featureName.value,
         ...rest,
     };
 

@@ -8,9 +8,10 @@ type ImageReference = {
 export interface Metafields {
     featureImage1: ImageReference;
     featureImage2: ImageReference;
+    featureName: { value: string };
 }
 
-export type ShopifyProductMeta = ShopifyProduct & Partial<Metafields>;
+export type ShopifyProductMeta = ShopifyProduct & Metafields;
 
 ///////////////////////////////////////////////////////////////////
 
@@ -58,6 +59,7 @@ export interface Product {
     price: ProductPrice;
     availableForSale: boolean;
     featureImages: ProductImage[];
+    featureName: string;
     options: ProductOption[];
     variants: ProductVariant[];
 }

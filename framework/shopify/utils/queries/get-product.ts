@@ -109,7 +109,7 @@ query product($slug: String!) {
           ... on MediaImage {
             image {
               url
-              altText
+              altText 
             }
           }
         }

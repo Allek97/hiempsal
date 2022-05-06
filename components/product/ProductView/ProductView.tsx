@@ -11,16 +11,16 @@ import { Product } from "@framework/types/product";
 import { useUI } from "@components/ui/context";
 
 import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
-import { ethicalCertifications } from "@lib/const";
+
 import { currencyMap } from "@framework/utils/optionMapping";
 
-import { ProductSlider } from "..";
+import { ProductSlider, Certification, ProductDescription } from "..";
 
 import {
     CartContainer,
-    CertificationBox,
     FeatureContainer,
     ImageContainer,
+    ProductDetails,
     ProductInfo,
     ProductOverviewContainer,
     Root,
@@ -85,8 +85,10 @@ const ProductView: FC<Props> = ({ product }) => {
                 <ProductCart
                     product={product}
                     isProductOverviewOpen={isProductOverviewOpen}
+                    key="product-cart"
                 />
             )}
+
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider>
@@ -129,33 +131,7 @@ const ProductView: FC<Props> = ({ product }) => {
                         </div>
                     </ProductInfo>
 
-                    <CertificationBox>
-                        <p>Using ethical ressources</p>
-                        <ul className="flex">
-                            {ethicalCertifications.map(
-                                ({ id, link, title, website }) => (
-                                    <li key={id}>
-                                        <a
-                                            href={website}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            title={title}
-                                        >
-                                            <Image
-                                                src={link}
-                                                alt={title}
-                                                layout="fixed"
-                                                width={30}
-                                                height={30}
-                                                quality="85"
-                                                priority
-                                            />
-                                        </a>
-                                    </li>
-                                )
-                            )}
-                        </ul>
-                    </CertificationBox>
+                    <Certification />
 
                     <VariantContainer ref={ref}>
                         <VariantButtonPopup />
@@ -185,6 +161,12 @@ const ProductView: FC<Props> = ({ product }) => {
                     </FeatureContainer>
                 ))}
             </ProductOverviewContainer>
+            <ProductDetails>
+                <ProductDescription
+                    description={product.description}
+                    featureName={product.featureName}
+                />
+            </ProductDetails>
         </Root>
     );
 };

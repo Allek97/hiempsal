@@ -2,6 +2,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Variants } from "framer-motion";
 
 import { useMediaQueryNext } from "@hooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
@@ -27,6 +28,23 @@ interface Props {
     currencyCode: string;
 }
 
+const articleVariant: Variants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            ease: "easeIn",
+            duration: 0.3,
+        },
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            ease: "easeIn",
+            duration: 0.3,
+        },
+    },
+};
+
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     const isScreenSmall = useMediaQueryNext("sm");
     const isScreenTiny = useMediaQueryNext(21.875);
@@ -42,9 +60,21 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
     )?.values[0].label;
 
     const removeItem = useRemoveItem();
-
     return (
-        <Article className="article-item">
+        <Article
+            className="article-item"
+            variants={articleVariant}
+            exit={{
+                height: 0,
+                opacity: 0,
+                transition: {
+                    duration: 0.4,
+                    opacity: {
+                        duration: 0.3,
+                    },
+                },
+            }}
+        >
             <Link href={`/products/${cartItem.path}`} passHref>
                 <ImageContainer>
                     <Image

@@ -1,15 +1,10 @@
-import { Button } from "@components/ui";
-import { css, keyframes } from "@emotion/react";
-
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import tw from "twin.macro";
-import { fontSizeSecondary, fontSizeTiny } from "../utils/typography.styled";
 
-const opaqueAnimation = keyframes`
-    100% {
-        opacity: 1;
-    }
-`;
+import { Button } from "@components/ui";
+
+import { fontSizeSecondary, fontSizeTiny } from "../utils/typography.styled";
 
 const priceTextSize = css`
     ${tw`font-size[15px] line-height[1.3em] tracking-tighter
@@ -20,10 +15,7 @@ const priceTextSize = css`
 `;
 
 export const Root = styled.div`
-    ${tw`relative flex flex-col opacity-0`}
-
-    animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1
-        forwards;
+    ${tw`relative flex flex-col`}
 `;
 
 export const ItemsHeader = styled.div`

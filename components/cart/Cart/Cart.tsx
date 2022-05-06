@@ -1,5 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+
 import payments from "@lib/const/payments";
 import { Media } from "@lib/media";
 
@@ -24,6 +26,21 @@ import {
     TotalBox,
 } from "./Cart.styled";
 import { CartArticle } from "../CartArticle";
+
+const containerVariant: Variants = {
+    hidden: {
+        height: 0,
+    },
+    visible: {
+        height: "auto",
+        transition: {
+            duration: 0.5,
+            ease: "easeIn",
+            staggerChildren: 0.1,
+            delayChildren: 0.3,
+        },
+    },
+};
 
 const Cart: FC = () => {
     const { data, isEmpty } = useCart();
@@ -63,16 +80,23 @@ const Cart: FC = () => {
                     </ShoppingWrapper>
                 </EmptyCartRoot>
             ) : (
-                <>
-                    <div className="flex flex-col">
-                        {data?.lineItems.map((item) => (
-                            <CartArticle
-                                cartItem={item}
-                                currencyCode={data.currency.code}
-                                key={item.id}
-                            />
-                        ))}
-                    </div>
+                <motion.div>
+                    <motion.div
+                        className="flex flex-col overflow-hidden"
+                        variants={containerVariant}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <AnimatePresence>
+                            {data?.lineItems.map((item) => (
+                                <CartArticle
+                                    cartItem={item}
+                                    currencyCode={data.currency.code}
+                                    key={`${item.id}-${item.variant.id}`}
+                                />
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
 
                     <CartPaymentContainer>
                         <ShippingBox>
@@ -103,7 +127,7 @@ const Cart: FC = () => {
                             ))}
                         </PaymentVendors>
                     </CartPaymentContainer>
-                </>
+                </motion.div>
             )}
         </Root>
     );

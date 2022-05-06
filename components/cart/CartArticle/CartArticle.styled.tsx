@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 import {
     fontSizeMain,
@@ -40,7 +41,7 @@ const decorationVariant = (variant: DecorationColor = "medium") => {
 // TODO: Product Display
 ////////////////////////////////////////////////////////
 
-export const Article = styled.article`
+export const Article = styled(motion.article)`
     ${tw`flex h-full w-full padding-bottom[1em] overflow-y-hidden tracking-tighter
         pt-4 border-t-accents-9 text-base`}
 

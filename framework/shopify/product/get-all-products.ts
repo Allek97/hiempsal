@@ -1,6 +1,6 @@
 import { ProductConnection } from "@framework/schema";
 import { ApiConfig } from "@framework/types/api";
-import { Product } from "@framework/types/product";
+import { Product, ShopifyProductMeta } from "@framework/types/product";
 import { normalizeProduct } from "@framework/utils/normalize";
 import { getAllProductsQuery } from "@framework/utils/queries";
 
@@ -15,8 +15,9 @@ const getAllProducts = async (config: ApiConfig): Promise<Product[]> => {
         query: getAllProductsQuery,
     });
 
-    const products = shopifyProducts.edges.map(({ node: shopifyProduct }) =>
-        normalizeProduct(shopifyProduct)
+    const products: Product[] = shopifyProducts.edges.map(
+        ({ node: shopifyProduct }) =>
+            normalizeProduct(shopifyProduct as ShopifyProductMeta)
     );
 
     return products;

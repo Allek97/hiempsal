@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Rating } from "@mui/material";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
+
+// #cdcdcd
 
 const titleSize = css`
     ${tw`font-size[17px] tracking-tighter line-height[1.15em] font-bold
@@ -10,12 +14,12 @@ const titleSize = css`
     ${tw`2xl:font-size[18px]`}
 `;
 const featureSize = css`
-    ${tw`font-family[Whyte Inktrap] font-size[36px] letter-spacing[-0.04em] line-height[1em]
-    lg:(font-size[40px] letter-spacing[-0.06em])
-    2lg:font-size[3.65vw]`}
+    ${tw`font-family[Whyte Inktrap] font-size[40px] letter-spacing[-0.04em] line-height[1em]
+    lg:(font-size[45px] letter-spacing[-0.06em])
+    2lg:font-size[4vw]`}
 
     ${tw`
-    2xl:font-size[55px]`}
+    2xl:font-size[60px]`}
 `;
 
 const descriptionSize = css`
@@ -27,13 +31,13 @@ const descriptionSize = css`
 `;
 
 export const Root = styled.div`
-    ${tw`flex flex-col
+    ${tw`flex flex-col 
     lg:(width[50.667vw] padding-right[10.667vw])
     2xl:(width[42vw] pr-0)
     4xl:(width[46vw])`}
 
     h2 {
-        ${tw`margin-bottom[7.2vw]
+        ${tw`margin-bottom[7.2vw] text-accents-9
         md:mb-8`}
         ${titleSize}
     }
@@ -44,6 +48,30 @@ export const Root = styled.div`
     }
 
     p {
+        ${tw`margin-bottom[34px]`}
         ${descriptionSize}
+    }
+`;
+
+export const ReviewContainer = styled(motion.div)`
+    ${tw`flex items-center w-max cursor-pointer`}
+`;
+
+export const StyledRating = styled(Rating)`
+    ${tw`column-gap[1px] margin-right[2vw] 
+    lg:margin-right[0.66666666666667vw]`}
+
+    svg {
+        height: 10px;
+        width: 10px;
+
+        /* padding-right: 3px; */
+    }
+
+    .MuiRating-iconFilled {
+        color: var(--orange-red);
+    }
+    .MuiRating-iconEmpty {
+        color: #cdcdcd;
     }
 `;

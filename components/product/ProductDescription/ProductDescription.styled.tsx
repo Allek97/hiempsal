@@ -7,7 +7,7 @@ import tw from "twin.macro";
 // #cdcdcd
 
 const titleSize = css`
-    ${tw`font-size[17px] tracking-tighter line-height[1.15em] font-bold
+    ${tw`font-size[17px] tracking-tighter line-height[1.15em] font-semibold
     lg:(font-size[13.5px] line-height[1.1em])
     2lg:font-size[1.2vw]`}
 
@@ -31,8 +31,9 @@ const descriptionSize = css`
 `;
 
 export const Root = styled.div`
-    ${tw`flex flex-col 
-    lg:(width[50.667vw] padding-right[10.667vw])
+    ${tw`flex flex-col margin-bottom[20vw] mr-auto
+    md:margin-bottom[10vw]
+    lg:(width[50.667vw] padding-right[10.667vw] mb-0)
     2xl:(width[42vw] pr-0)
     4xl:(width[46vw])`}
 

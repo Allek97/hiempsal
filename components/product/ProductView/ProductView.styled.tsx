@@ -155,8 +155,17 @@ export const WishlistBtn = styled.button`
 // NOTE Product details
 ////////////////////////////////////////////////
 
-export const ProductDetails = styled.div`
-    ${tw`flex flex-col`}
+const bottomMargin = css`
+    ${tw`margin-bottom[24vw]
+    md:margin-bottom[12vw]
+    lg:margin-bottom[8vw]
+    4xl:margin-bottom[6vw]`}
+`;
+
+export const ProductDetailsBox = styled.div`
+    ${tw`flex flex-col
+    lg:flex-row`}
 
     ${({ theme }) => theme.layout.mainPadding}
+    ${bottomMargin}
 `;

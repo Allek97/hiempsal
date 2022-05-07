@@ -14,13 +14,18 @@ import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
 
 import { currencyMap } from "@framework/utils/optionMapping";
 
-import { ProductSlider, Certification, ProductDescription } from "..";
+import {
+    ProductSlider,
+    Certification,
+    ProductDescription,
+    ProductInformation,
+} from "..";
 
 import {
     CartContainer,
     FeatureContainer,
     ImageContainer,
-    ProductDetails,
+    ProductDetailsBox,
     ProductInfo,
     ProductOverviewContainer,
     Root,
@@ -161,12 +166,14 @@ const ProductView: FC<Props> = ({ product }) => {
                     </FeatureContainer>
                 ))}
             </ProductOverviewContainer>
-            <ProductDetails>
+            <ProductDetailsBox>
                 <ProductDescription
                     description={product.description}
                     featureName={product.featureName}
                 />
-            </ProductDetails>
+
+                <ProductInformation />
+            </ProductDetailsBox>
         </Root>
     );
 };

@@ -5,4 +5,5 @@ export { ProductSliderControl } from "./ProductSliderControl";
 export { ProductOverview } from "./ProductOverview";
 export { ProductCart } from "./ProductCart";
 export { ProductDescription } from "./ProductDescription";
+export { ProductInformation } from "./ProductDetails";
 export { default as Certification } from "./Certification";

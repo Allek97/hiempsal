@@ -21,7 +21,7 @@ const textSizeAction = css`
 `;
 
 export const Root = styled(motion.div)`
-    ${tw`relative grid items-center grid-template-columns[minmax(auto,50%) minmax(auto,50%)]
+    ${tw`grid items-center grid-template-columns[minmax(auto,50%) minmax(auto,50%)]
     w-full height[4rem] border-radius[3px] bg-primary
     md:(grid-template-columns[minmax(0,auto) minmax(100px,auto)])
     lg:(height[calc(1.5rem + 2.4vw)])`}

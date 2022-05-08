@@ -1,4 +1,5 @@
 import { Plus } from "@components/icons";
+import { useUI } from "@components/ui/context";
 import { motion, Variants } from "framer-motion";
 import { FC } from "react";
 
@@ -25,9 +26,17 @@ interface InfoProps {
 }
 
 const Info: FC<InfoProps> = ({ infoName }) => {
+    const { openPopup, openProductCart } = useUI();
     return (
         <InfoBox>
-            <InfoBtn type="button" whileHover="hover">
+            <InfoBtn
+                type="button"
+                whileHover="hover"
+                onClick={() => {
+                    openPopup();
+                    openProductCart();
+                }}
+            >
                 <motion.span variants={textMotion}>{infoName}</motion.span>
                 <motion.div variants={svgMotion}>
                     <Plus />

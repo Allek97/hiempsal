@@ -2,6 +2,7 @@ import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import { useBodyScroll, useMediaQueryNext } from "@hooks";
 
+import { useProductInfo } from "@components/product/context";
 import { useUI } from "../context";
 
 import { Container, Overlay, Root } from "./Popup.styled";
@@ -19,21 +20,38 @@ const Popup: FC<Props> = ({ children }) => {
         setProductNotAdded,
     } = useUI();
 
+    const {
+        isDimensionsOpen,
+        isFeaturesOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        isSustainability,
+        closeProductInformation,
+    } = useProductInfo();
+
+    const isOverlay =
+        isDimensionsOpen ||
+        isFeaturesOpen ||
+        isMaterialsOpen ||
+        isShippingOpen ||
+        isSustainability ||
+        isProductCartOpen ||
+        isProductAdded;
+
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
-
     const isScreenLarge = useMediaQueryNext("lg");
-
-    useBodyScroll(ref, isProductCartOpen && isProductAdded, !isScreenLarge);
+    useBodyScroll(ref, isProductCartOpen, isScreenLarge);
 
     return (
         <Root ref={ref} data-testid="product-popup">
             <>
-                {(isProductCartOpen || isProductAdded) && (
+                {isOverlay && (
                     <Overlay
                         onClick={() => {
                             setProductNotAdded();
                             closeProductCart();
                             closePopup();
+                            closeProductInformation();
                         }}
                     />
                 )}

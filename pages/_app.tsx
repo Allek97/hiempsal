@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import UIProvider from "@components/ui/context";
 import ThemeUIProvider from "@components/ui/themeContext";
 import HistoryProvider from "@contexts/History";
+import ProductInfoProvider from "@components/product/context";
 import { MediaContextProvider } from "@lib/media";
 
 import "../styles/globals.scss";
@@ -23,9 +24,11 @@ function MyApp({
             <ThemeUIProvider>
                 <HistoryProvider>
                     <MediaContextProvider>
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
+                        <ProductInfoProvider>
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                        </ProductInfoProvider>
                     </MediaContextProvider>
                 </HistoryProvider>
             </ThemeUIProvider>

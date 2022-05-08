@@ -2,6 +2,7 @@
 
 import { Layout } from "@components/common";
 import { ProductView } from "@components/product";
+
 import { getConfig } from "@framework/api/config";
 import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";

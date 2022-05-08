@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
@@ -35,6 +35,7 @@ import {
     WishlistBtn,
 } from "./ProductView.styled";
 import ProductCart from "../ProductCart/ProductCart";
+import { useProductInfo } from "../context";
 
 interface Props {
     product: Product;
@@ -63,35 +64,59 @@ const ProductView: FC<Props> = ({ product }) => {
         openPopup,
         closePopup,
     } = useUI();
+
+    const {
+        setProductOverview,
+        isProductOverviewOpen,
+        isFeaturesOpen,
+        isDimensionsOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        isSustainability,
+    } = useProductInfo();
+    const isProductInfo =
+        isDimensionsOpen ||
+        isFeaturesOpen ||
+        isMaterialsOpen ||
+        isShippingOpen ||
+        isSustainability;
+
     const { direction } = useScrollDirectionNext();
-    const { ref, inView, entry } = useInView({ threshold: 1 });
+    const { ref, inView, entry } = useInView({
+        threshold: 1,
+        triggerOnce: false,
+    });
 
     const isScreenLarge = useMediaQueryNext("lg");
 
-    const isProductOverviewOpen = useMemo(
-        () =>
+    useEffect(() => {
+        const condition =
             (isScreenLarge ? true : direction === "down") &&
             !inView &&
-            (entry?.boundingClientRect.y ?? 0) < 0,
-        [direction, inView, entry?.boundingClientRect.y, isScreenLarge]
-    );
+            (entry?.boundingClientRect.y ?? 0) < 0;
+
+        setProductOverview(condition);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        direction,
+        entry?.boundingClientRect.y,
+        inView,
+        isScreenLarge,
+        isProductInfo,
+    ]);
 
     useEffect(() => {
         if (!isProductCartOpen && !isProductAdded) {
-            if (isProductOverviewOpen) openPopup();
+            if (isProductOverviewOpen || isProductInfo) openPopup();
             else closePopup();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isProductOverviewOpen, isPopupOpen, isProductCartOpen, isProductAdded]);
+    }, [isProductOverviewOpen, isProductCartOpen, isProductAdded]);
 
     return (
         <Root>
             {isPopupOpen && (
-                <ProductCart
-                    product={product}
-                    isProductOverviewOpen={isProductOverviewOpen}
-                    key="product-cart"
-                />
+                <ProductCart product={product} key="product-cart" />
             )}
 
             <ProductOverviewContainer>

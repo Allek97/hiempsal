@@ -1,37 +1,52 @@
 /* eslint-disable react/require-default-props */
+import { FC, ReactNode } from "react";
+
 import { ProductPopup } from "@components/common";
 import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 
-import { FC, ReactNode } from "react";
 import { ProductOverview } from "..";
+import { useProductInfo } from "../context";
 
 interface Props {
     product: Product;
-    isProductOverviewOpen: boolean;
     children?: ReactNode | ReactNode[];
 }
 
-const ProductCart: FC<Props> = ({
-    product,
-    isProductOverviewOpen,
-    children,
-}) => {
+const ProductCart: FC<Props> = ({ product, children }) => {
     const { isProductAdded, isProductCartOpen, isMobileMenuOpen } = useUI();
+
+    const {
+        isFeaturesOpen,
+        isDimensionsOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        isSustainability,
+        isProductOverviewOpen,
+    } = useProductInfo();
+
+    const isOverviewOpen =
+        !isProductCartOpen &&
+        !isProductAdded &&
+        !isMobileMenuOpen &&
+        (isFeaturesOpen ||
+            isDimensionsOpen ||
+            isMaterialsOpen ||
+            isShippingOpen ||
+            isSustainability ||
+            isProductOverviewOpen);
+
     return (
         <ProductPopup product={product} hasPadding={false}>
-            <div className="h-32 bg-black">asdsa</div>
-            {!isProductCartOpen &&
-                !isProductAdded &&
-                !isMobileMenuOpen &&
-                isProductOverviewOpen && (
-                    <ProductOverview
-                        productImage={product.images[1]}
-                        productName={product.name}
-                        productPrice={product.price}
-                        key="over"
-                    />
-                )}
+            {isFeaturesOpen && <div className="h-96 bg-primary">asdsa</div>}
+            {isOverviewOpen && (
+                <ProductOverview
+                    productImage={product.images[1]}
+                    productName={product.name}
+                    productPrice={product.price}
+                    key="over"
+                />
+            )}
             {children}
         </ProductPopup>
     );

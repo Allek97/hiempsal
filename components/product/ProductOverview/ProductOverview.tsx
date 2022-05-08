@@ -17,6 +17,7 @@ import {
     ProductInfo,
     Root,
 } from "./ProductOverview.styled";
+import { useProductInfo } from "../context";
 
 interface Props {
     productImage: ProductImage;
@@ -35,6 +36,7 @@ const ProductOverview: FC<Props> = ({
     };
 
     const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
+    const { closeProductInformation } = useProductInfo();
 
     return (
         <Root
@@ -77,7 +79,13 @@ const ProductOverview: FC<Props> = ({
             </button>
             <div className="relative flex items-center justify-end w-full h-full">
                 <ProductAction>
-                    <ActionButton type="button" onClick={openProductCart}>
+                    <ActionButton
+                        type="button"
+                        onClick={() => {
+                            openProductCart();
+                            closeProductInformation();
+                        }}
+                    >
                         <span>
                             <Plus />
                             <span>Select Variant</span>

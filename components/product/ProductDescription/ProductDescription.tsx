@@ -16,7 +16,6 @@ export interface Props {
 const reviewMotion: Variants = {
     hover: {
         skewX: "-10deg",
-        transformOrigin: "center bottom",
         transition: {
             duration: 0.3,
             ease: [0.19, 1, 0.22, 1],
@@ -43,6 +42,7 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
                 <motion.span
                     className="text-accents-8"
                     variants={reviewMotion}
+                    style={{ transformOrigin: "center bottom" }}
                     // whileHover={{skew}}
                 >
                     4 Reviews

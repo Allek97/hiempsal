@@ -6,6 +6,7 @@ interface StateValues {
     isSustainability: boolean;
     isDimensionsOpen: boolean;
     isShippingOpen: boolean;
+    isProductOverviewOpen: boolean;
 }
 
 interface StateModifiers {
@@ -15,6 +16,7 @@ interface StateModifiers {
     openDimensions: () => void;
     openShipping: () => void;
     closeProductInformation: () => void;
+    setProductOverview: (condition: boolean) => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -25,6 +27,7 @@ const initialState: StateValues = {
     isSustainability: false,
     isDimensionsOpen: false,
     isShippingOpen: false,
+    isProductOverviewOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -34,20 +37,25 @@ const stateModifiers: StateModifiers = {
     openDimensions: () => {},
     openShipping: () => {},
     closeProductInformation: () => {},
+    setProductOverview: () => {},
 };
 
 const PIContext = createContext<State>({ ...initialState, ...stateModifiers });
 
-type Action =
-    | "OPEN_FEATURES"
-    | "OPEN_MATERIALS"
-    | "OPEN_SUSTAINABILITY"
-    | "OPEN_DIMENSIONS"
-    | "OPEN_SHIPPING"
-    | "CLOSE_PRODUCT_INFORMATION";
+type Action = {
+    type:
+        | "OPEN_FEATURES"
+        | "OPEN_MATERIALS"
+        | "OPEN_SUSTAINABILITY"
+        | "OPEN_DIMENSIONS"
+        | "OPEN_SHIPPING"
+        | "CLOSE_PRODUCT_INFORMATION"
+        | "SET_PRODUCT_OVERVIEW";
+    payload?: boolean;
+};
 
 function piReducer(state: StateValues, action: Action) {
-    switch (action) {
+    switch (action.type) {
         case "OPEN_FEATURES":
             return {
                 ...state,
@@ -56,6 +64,7 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
+                isProductOverviewOpen: true,
             };
         case "OPEN_MATERIALS":
             return {
@@ -65,6 +74,7 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
+                isProductOverviewOpen: true,
             };
         case "OPEN_SUSTAINABILITY":
             return {
@@ -74,6 +84,7 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: true,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
+                isProductOverviewOpen: true,
             };
         case "OPEN_DIMENSIONS":
             return {
@@ -83,6 +94,7 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: false,
                 isDimensionsOpen: true,
                 isShippingOpen: false,
+                isProductOverviewOpen: true,
             };
         case "OPEN_SHIPPING":
             return {
@@ -92,6 +104,7 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: true,
+                isProductOverviewOpen: true,
             };
         case "CLOSE_PRODUCT_INFORMATION":
             return {
@@ -101,6 +114,17 @@ function piReducer(state: StateValues, action: Action) {
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
+            };
+        case "SET_PRODUCT_OVERVIEW":
+            if (action.payload)
+                return {
+                    ...state,
+                    isProductOverviewOpen: true,
+                };
+
+            return {
+                ...state,
+                isProductOverviewOpen: false,
             };
 
         default:
@@ -113,12 +137,15 @@ function piReducer(state: StateValues, action: Action) {
 const ProductInfoProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(piReducer, initialState);
 
-    const openFeatures = () => dispatch("OPEN_FEATURES");
-    const openMaterials = () => dispatch("OPEN_MATERIALS");
-    const openSustainability = () => dispatch("OPEN_SUSTAINABILITY");
-    const openDimensions = () => dispatch("OPEN_DIMENSIONS");
-    const openShipping = () => dispatch("OPEN_SHIPPING");
-    const closeProductInformation = () => dispatch("CLOSE_PRODUCT_INFORMATION");
+    const openFeatures = () => dispatch({ type: "OPEN_FEATURES" });
+    const openMaterials = () => dispatch({ type: "OPEN_MATERIALS" });
+    const openSustainability = () => dispatch({ type: "OPEN_SUSTAINABILITY" });
+    const openDimensions = () => dispatch({ type: "OPEN_DIMENSIONS" });
+    const openShipping = () => dispatch({ type: "OPEN_SHIPPING" });
+    const closeProductInformation = () =>
+        dispatch({ type: "CLOSE_PRODUCT_INFORMATION" });
+    const setProductOverview = (condition: boolean) =>
+        dispatch({ type: "SET_PRODUCT_OVERVIEW", payload: condition });
 
     const value: State = useMemo(
         () => ({
@@ -129,6 +156,7 @@ const ProductInfoProvider: FC = ({ children }) => {
             openDimensions,
             openShipping,
             closeProductInformation,
+            setProductOverview,
         }),
         [state]
     );

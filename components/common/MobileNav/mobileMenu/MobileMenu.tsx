@@ -4,7 +4,7 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useUI } from "@components/ui/context";
 import { EffectButton } from "@components/ui";
 
-import { HelpCard } from "@components/elements/helpCard";
+import { HelpCard } from "@components/elements/HelpCard";
 
 import {
     Complement,

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { motion, Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
+import { HelpCard } from "@components/elements";
 import { useUI } from "@components/ui/context";
 import { useProductInfo } from "../context";
 
@@ -43,25 +44,21 @@ const Info: FC<InfoProps> = ({ infoName }) => {
     const { openPopup } = useUI();
 
     function handleOpen() {
+        openPopup();
         switch (infoName) {
             case "Features":
-                openPopup();
                 openFeatures();
                 break;
             case "Materials & technologies":
-                openPopup();
                 openMaterials();
                 break;
             case "Sustainability":
-                openPopup();
                 openSustainability();
                 break;
             case "Dimensions":
-                openPopup();
                 openDimensions();
                 break;
             case "Shipping info":
-                openPopup();
                 openShipping();
                 break;
 
@@ -103,6 +100,9 @@ const ProductDetails: FC = () => {
                 <Info infoName="Dimensions" />
                 <Info infoName="Shipping info" />
             </List>
+            <div>
+                <HelpCard text="How can we help you?" />
+            </div>
         </Root>
     );
 };

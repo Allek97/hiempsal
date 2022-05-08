@@ -23,6 +23,11 @@ export const Root = styled.dl`
     ${tw`flex flex-col
     lg:width[30.6666666667vw]
     4xl:width[23vw]`}
+
+    & > div {
+        ${tw`margin-top[7.2vw]
+        md:mt-8`}
+    }
 `;
 
 export const List = styled.dl`

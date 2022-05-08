@@ -1,11 +1,28 @@
 import Image from "next/image";
 import { FC } from "react";
+import { motion, Variants } from "framer-motion";
 import { HelpCardBox, HelpCardImage } from "./HelpCard.styled";
 
-const HelpCard: FC = () => {
+interface Props {
+    text?: string;
+    isOnline?: boolean;
+}
+
+const textMotion: Variants = {
+    hover: {
+        skewX: "-10deg",
+        transition: {
+            duration: 0.3,
+            ease: [0.19, 1, 0.22, 1],
+        },
+    },
+};
+
+const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
+    const statusText = isOnline ? "Online" : "Offline";
     return (
-        <button type="button">
-            <HelpCardBox>
+        <motion.button type="button" whileHover="hover">
+            <HelpCardBox isOnline={isOnline}>
                 <HelpCardImage>
                     <Image
                         alt="Help agent"
@@ -18,12 +35,17 @@ const HelpCard: FC = () => {
                 </HelpCardImage>
 
                 <div>
-                    <span>Get help</span>
-                    <span>Online now</span>
+                    <motion.span variants={textMotion}>{text}</motion.span>
+                    <span>{statusText}</span>
                 </div>
             </HelpCardBox>
-        </button>
+        </motion.button>
     );
+};
+
+HelpCard.defaultProps = {
+    isOnline: true,
+    text: "Get Help",
 };
 
 export default HelpCard;

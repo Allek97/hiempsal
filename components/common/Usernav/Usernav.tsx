@@ -6,7 +6,7 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import { BsBack } from "react-icons/bs";
 
 import { FunctionalLink } from "@components/utils";
-import { HelpCard } from "../../elements/helpCard";
+import { HelpCard } from "../../elements/HelpCard";
 
 import {
     Content,

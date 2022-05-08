@@ -2,6 +2,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
+interface HelpCardProps {
+    isOnline: boolean;
+}
+
 export const textSizeTiny = css`
     ${tw`font-size[10px] line-height[1.2em] letter-spacing[-0.04em] 
     lg:(font-size[9px] line-height[1.3em] letter-spacing[-0.05em])
@@ -10,7 +14,7 @@ export const textSizeTiny = css`
     ${tw`2xl:font-size[12px]`}
 `;
 
-export const HelpCardBox = styled.div`
+export const HelpCardBox = styled.div<HelpCardProps>`
     ${tw`flex items-center transition 
     font-size[14.5px] cursor-pointer`}
 
@@ -28,15 +32,20 @@ export const HelpCardBox = styled.div`
         }
 
         span:nth-of-type(2) {
-            ${tw`text-accents-7`}
+            ${tw`flex items-center text-accents-7`}
             ${textSizeTiny}
+
+            &:before {
+                ${tw`content h-1.5 w-1.5 mr-1 border-radius[50%] bg-red`}
+                background-color: ${({ isOnline }) =>
+                    isOnline ? "var(--green)" : "var(--orange-red)"}
+            }
         }
     }
 
     &:hover div:nth-of-type(2) {
         span:first-of-type {
-            ${tw`transition`}
-            transform: skewX(-10deg);
+            transform-origin: center bottom;
         }
     }
 `;

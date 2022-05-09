@@ -66,7 +66,6 @@ const MobileNav: FC = () => {
         isMobileMenuOpen,
         isProductCartOpen,
         isProductAdded,
-
         toggleMobileMenu,
         closeProductCart,
         setProductNotAdded,

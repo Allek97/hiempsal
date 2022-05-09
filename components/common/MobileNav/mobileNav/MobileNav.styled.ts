@@ -18,7 +18,7 @@ export const MobileNavRoot = styled(motion.div)`
 
 export const MenuBtn = styled(motion.button, transientOptions)<BtnProps>`
     ${tw`absolute z-10 flex items-center justify-center w-full h-full 
-        border-radius[50%] bg-primary hover:text-accents-6`};
+        border-radius[50%] bg-primary`};
 
     box-shadow: var(--shadow-2);
 

@@ -1,5 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { FC } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import { ProductPopup } from "@components/common";
 import { useUI } from "@components/ui/context";
@@ -39,13 +40,12 @@ const ProductCart: FC<Props> = ({ product }) => {
 
     return (
         <ProductPopup product={product} hasPadding={false}>
-            {isFeaturesOpen && <Features />}
+            <AnimatePresence>{isFeaturesOpen && <Features />}</AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview
                     productImage={product.images[1]}
                     productName={product.name}
                     productPrice={product.price}
-                    key="over"
                 />
             )}
         </ProductPopup>

@@ -20,9 +20,9 @@ const featureText = css`
 `;
 
 export const Root = styled(motion.div)`
-    ${tw`w-full h-full overflow-y-auto bg-white`}
-
-    max-height: calc(85vh - 4.2rem);
+    ${tw`w-full h-full max-height[calc(85vh - 4.2rem)] overflow-y-auto bg-white
+    md:max-height[calc(75vh - 4.2rem)]
+    lg:max-height[calc(85vh - 3.61rem)]`}
 
     border-bottom: 2px solid #f0f0f0;
     border-radius: 6px 0 0 0;

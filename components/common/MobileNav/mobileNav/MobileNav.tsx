@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, Variants } from "framer-motion";
@@ -63,12 +63,13 @@ const MobileNav: FC = () => {
     const isUsernavOpen = router.pathname.includes("cart");
 
     const {
-        isPopupOpen,
         isMobileMenuOpen,
         isProductCartOpen,
         isProductAdded,
-        closePopup,
+
         toggleMobileMenu,
+        closeProductCart,
+        setProductNotAdded,
     } = useUI();
 
     const {
@@ -89,8 +90,9 @@ const MobileNav: FC = () => {
         isShippingOpen;
 
     const toggleMenu = () => {
-        if (isPopupOpen) {
-            closePopup();
+        if (isProductCartOpen || isProductAdded || isProductInfoOpen) {
+            closeProductCart();
+            setProductNotAdded();
             closeProductInformation();
         } else toggleMobileMenu();
     };
@@ -141,12 +143,11 @@ const MobileNav: FC = () => {
                 </MenuBtn>
                 <Navigation>
                     <AnimatePresence>
-                        {!(
-                            isProductCartOpen ||
-                            isProductAdded ||
-                            isProductInfoOpen ||
-                            isProductOverviewOpen
-                        ) && (
+                        {((!isProductCartOpen &&
+                            !isProductAdded &&
+                            !isProductInfoOpen &&
+                            !isProductOverviewOpen) ||
+                            isMobileMenuOpen) && (
                             <>
                                 <Cart
                                     key="cart"

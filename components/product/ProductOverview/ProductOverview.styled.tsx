@@ -1,7 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
+
+interface RootProps {
+    $clip: boolean;
+}
 
 const textSizeMain = css`
     ${tw`font-size[13px] line-height[1.3em] letter-spacing[-0.04em]
@@ -20,15 +25,22 @@ const textSizeAction = css`
     ${tw`2xl:font-size[15px]`}
 `;
 
-export const Root = styled(motion.div)`
+export const Root = styled(motion.div, transientOptions)<RootProps>`
     ${tw`grid items-center grid-template-columns[minmax(auto,50%) minmax(auto,50%)]
-    w-full height[4rem] border-radius[3px] bg-primary
+    w-full height[4rem] bg-primary
     md:(grid-template-columns[minmax(0,auto) minmax(100px,auto)])
     lg:(height[calc(1.5rem + 2.4vw)])`}
 
     /* transition: transform .5s cubic-bezier(.19,1,.22,1),background .4s cubic-bezier(.19,1,.22,1) .2s; */
-    -webkit-clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 10%);
-    clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 10%);
+    ${({ $clip }) =>
+        $clip &&
+        css`
+            -webkit-clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 10%);
+            clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 10%);
+            border-radius: 3px;
+        `}
+
+    
 
     & > button {
         ${tw`height[4rem]

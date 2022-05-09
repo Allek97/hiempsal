@@ -6,6 +6,8 @@ import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 
 import { ProductOverview } from "..";
+import { Features } from "../ProductInformation";
+
 import { useProductInfo } from "../context";
 
 interface Props {
@@ -38,7 +40,7 @@ const ProductCart: FC<Props> = ({ product, children }) => {
 
     return (
         <ProductPopup product={product} hasPadding={false}>
-            {isFeaturesOpen && <div className="h-96 bg-primary">asdsa</div>}
+            {isFeaturesOpen && <Features />}
             {isOverviewOpen && (
                 <ProductOverview
                     productImage={product.images[1]}

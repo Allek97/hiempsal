@@ -36,7 +36,21 @@ const ProductOverview: FC<Props> = ({
     };
 
     const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
-    const { closeProductInformation } = useProductInfo();
+    const {
+        closeProductInformation,
+        isDimensionsOpen,
+        isFeaturesOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        isSustainability,
+    } = useProductInfo();
+
+    const isProductInfoOpen =
+        isDimensionsOpen ||
+        isFeaturesOpen ||
+        isMaterialsOpen ||
+        isShippingOpen ||
+        isSustainability;
 
     return (
         <Root
@@ -52,6 +66,7 @@ const ProductOverview: FC<Props> = ({
             }}
             variants={variants}
             key="product-overview"
+            $clip={!isProductInfoOpen}
         >
             <button type="button" className="flex items-center w-full">
                 <ImageWrapper>

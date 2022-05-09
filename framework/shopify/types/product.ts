@@ -9,11 +9,23 @@ export interface Metafields {
     featureImage1: ImageReference;
     featureImage2: ImageReference;
     featureName: { value: string };
+    features: { value: string };
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
 
 ///////////////////////////////////////////////////////////////////
+
+export interface ProductFeatures {
+    features: {
+        itemNumber: string;
+        backLength: number;
+        weight: number;
+        denier?: string;
+        cut: string;
+    };
+    descriptions: string[];
+}
 
 export interface ProductImage {
     url: string;
@@ -60,6 +72,7 @@ export interface Product {
     availableForSale: boolean;
     featureImages: ProductImage[];
     featureName: string;
+    features: ProductFeatures;
     options: ProductOption[];
     variants: ProductVariant[];
 }

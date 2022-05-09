@@ -40,7 +40,9 @@ const ProductCart: FC<Props> = ({ product }) => {
 
     return (
         <ProductPopup product={product} hasPadding={false}>
-            <AnimatePresence>{isFeaturesOpen && <Features />}</AnimatePresence>
+            <AnimatePresence>
+                {isFeaturesOpen && <Features features={product.features} />}
+            </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview
                     productImage={product.images[1]}

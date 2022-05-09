@@ -117,10 +117,7 @@ query product($slug: String!) {
       featureName: metafield(namespace: "my_fields", key: "feature_name") {
         value
       }
-      productClothInfo: metafield(namespace: "my_fields", key: "product_cloth_info") {
-        value
-      }
-      productTechInfo: metafield(namespace: "my_fields", key: "product_tech_info") {
+      features: metafield(namespace: "my_fields", key: "features") {
         value
       }
     }

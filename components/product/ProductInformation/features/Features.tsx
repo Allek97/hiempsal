@@ -2,11 +2,18 @@ import { FC } from "react";
 import { motion, Variants } from "framer-motion";
 
 import { useProductInfo } from "@components/product/context";
+import { ProductFeatures } from "@framework/types/product";
 
 import { Root } from "./Features.styled";
 import { Header, Item } from "../commun";
 
-const Features: FC = () => {
+interface Props {
+    features: ProductFeatures;
+}
+
+const Features: FC<Props> = ({ features }) => {
+    const { features: productFeatures, descriptions } = features;
+
     const { isProductOverviewOpen } = useProductInfo();
 
     const featureMotion: Variants = {
@@ -33,22 +40,52 @@ const Features: FC = () => {
             >
                 <Header title="Features" />
 
-                {[0, 1, 2, 3, 4].map((el) => (
-                    <Item
-                        title="Item number"
-                        content={`213123-${el}`}
-                        key={el}
-                    />
-                ))}
-                {[0, 1].map((el) => (
-                    <Item
-                        title="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Itaque suscipit, illum aliquam vero ipsam commodi
-                    veritatis officia est incidunt sunt, dignissimos tempore
-                    tempora nemo blanditiis voluptatum deserunt perspiciatis
-                    magnam nisi?"
-                        key={el}
-                    />
+                {Object.keys(productFeatures).map((feature) => {
+                    if (feature === "itemNumber")
+                        return (
+                            <Item
+                                title="Item number"
+                                content={productFeatures[feature]}
+                                key={feature}
+                            />
+                        );
+                    if (feature === "backLength")
+                        return (
+                            <Item
+                                title="Back length"
+                                content={`${productFeatures[feature]} cm`}
+                                key={feature}
+                            />
+                        );
+                    if (feature === "weight")
+                        return (
+                            <Item
+                                title="Weight"
+                                content={`${productFeatures[feature]} g`}
+                                key={feature}
+                            />
+                        );
+                    if (feature === "denier")
+                        return (
+                            <Item
+                                title="Denier (main material)"
+                                content={productFeatures[feature]}
+                                key={feature}
+                            />
+                        );
+                    if (feature === "cut")
+                        return (
+                            <Item
+                                title="Cut"
+                                content={productFeatures[feature]}
+                                key={feature}
+                            />
+                        );
+                    return null;
+                })}
+
+                {descriptions.map((description) => (
+                    <Item title={description} key={description} />
                 ))}
             </motion.ul>
         </Root>

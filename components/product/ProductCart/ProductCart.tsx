@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 import { ProductPopup } from "@components/common";
 import { useUI } from "@components/ui/context";
@@ -12,10 +12,9 @@ import { useProductInfo } from "../context";
 
 interface Props {
     product: Product;
-    children?: ReactNode | ReactNode[];
 }
 
-const ProductCart: FC<Props> = ({ product, children }) => {
+const ProductCart: FC<Props> = ({ product }) => {
     const { isProductAdded, isProductCartOpen, isMobileMenuOpen } = useUI();
 
     const {
@@ -49,7 +48,6 @@ const ProductCart: FC<Props> = ({ product, children }) => {
                     key="over"
                 />
             )}
-            {children}
         </ProductPopup>
     );
 };

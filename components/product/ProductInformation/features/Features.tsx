@@ -1,7 +1,7 @@
 import Close from "@components/icons/Close";
 import { useProductInfo } from "@components/product/context";
 import { FC } from "react";
-import { CloseBtn, Root, Title } from "./Features.styled";
+import { CloseBtn, Feature, Root, Title } from "./Features.styled";
 
 const Features: FC = () => {
     const { closeProductInformation } = useProductInfo();
@@ -19,7 +19,50 @@ const Features: FC = () => {
                         <Close />
                     </CloseBtn>
                 </Title>
-                <div>asd</div>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
+                <Feature>
+                    <span>Item number</span>
+                    <p>8465-05427</p>
+                </Feature>
             </ul>
         </Root>
     );

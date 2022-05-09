@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, Variants } from "framer-motion";
@@ -9,6 +9,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Close from "@components/icons/Close";
 
 import { useUI } from "@components/ui/context";
+import { useProductInfo } from "@components/product/context";
 
 import {
     Cart,
@@ -70,9 +71,27 @@ const MobileNav: FC = () => {
         toggleMobileMenu,
     } = useUI();
 
+    const {
+        isSustainability,
+        isDimensionsOpen,
+        isFeaturesOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        closeProductInformation,
+        isProductOverviewOpen,
+    } = useProductInfo();
+
+    const isProductInfoOpen =
+        isSustainability ||
+        isDimensionsOpen ||
+        isFeaturesOpen ||
+        isMaterialsOpen ||
+        isShippingOpen;
+
     const toggleMenu = () => {
-        if ((isPopupOpen && isProductCartOpen) || isProductAdded) {
+        if (isPopupOpen) {
             closePopup();
+            closeProductInformation();
         } else toggleMobileMenu();
     };
 
@@ -95,11 +114,15 @@ const MobileNav: FC = () => {
                     $isMobileMenuOpen={isMobileMenuOpen}
                     $isUsernavOpen={isUsernavOpen}
                     $isProfileOpen={false}
-                    $isPopupOpen={isProductCartOpen || isProductAdded}
+                    $isPopupOpen={
+                        isProductCartOpen || isProductAdded || isProductInfoOpen
+                    }
                 >
                     <motion.div
                         animate={
-                            isMobileMenuOpen || isProductCartOpen
+                            isMobileMenuOpen ||
+                            isProductCartOpen ||
+                            isProductInfoOpen
                                 ? "openMenu"
                                 : "closeMenu"
                         }
@@ -108,7 +131,8 @@ const MobileNav: FC = () => {
                     >
                         {isMobileMenuOpen ||
                         isProductCartOpen ||
-                        isProductAdded ? (
+                        isProductAdded ||
+                        isProductInfoOpen ? (
                             <Close />
                         ) : (
                             <HiOutlineMenuAlt3 />
@@ -117,7 +141,12 @@ const MobileNav: FC = () => {
                 </MenuBtn>
                 <Navigation>
                     <AnimatePresence>
-                        {!isPopupOpen && (
+                        {!(
+                            isProductCartOpen ||
+                            isProductAdded ||
+                            isProductInfoOpen ||
+                            isProductOverviewOpen
+                        ) && (
                             <>
                                 <Cart
                                     key="cart"

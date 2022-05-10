@@ -1,17 +1,9 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import Close from "@components/icons/Close";
 import { useProductInfo } from "@components/product/context";
 import { FC } from "react";
-
-const titleSize = css`
-    ${tw`font-size[20px] tracking-tighter line-height[1.1em]
-    lg:(font-size[17.25px] letter-spacing[-0.06em])
-    2lg:font-size[1.53333333333333vw]`}
-
-    ${tw`2xl:font-size[23px]`}
-`;
+import { titleSize } from "./typography";
 
 export const CloseBtn = styled.button`
     ${tw`display[none] 

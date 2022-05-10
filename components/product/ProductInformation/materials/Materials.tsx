@@ -9,7 +9,7 @@ interface Props {
     features: ProductFeatures;
 }
 
-const Features: FC<Props> = ({ features }) => {
+const Materials: FC<Props> = ({ features }) => {
     const { features: productFeatures, descriptions } = features;
 
     return (
@@ -18,7 +18,7 @@ const Features: FC<Props> = ({ features }) => {
                 className="block w-full h-full overflow-y-auto"
                 exit={{ opacity: 0, transition: { duration: 0 } }}
             >
-                <Header title="Features" />
+                <Header title="Materials & technologies" />
 
                 {Object.keys(productFeatures).map((feature) => {
                     if (feature === "itemNumber")
@@ -72,4 +72,4 @@ const Features: FC<Props> = ({ features }) => {
     );
 };
 
-export default Features;
+export default Materials;

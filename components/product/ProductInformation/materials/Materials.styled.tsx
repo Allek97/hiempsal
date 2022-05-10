@@ -12,7 +12,7 @@ export const Root = styled(motion.div)`
     border-radius: 6px 0 0 0;
 
     /* -webkit-clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 29%); */
-    clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%, 100% 1.3rem);
+    clip-path: polygon(97% 0, 0 0, 0 100%, 100% 100%, 100% 1.1rem);
 `;
 
 export const Title = styled.section`

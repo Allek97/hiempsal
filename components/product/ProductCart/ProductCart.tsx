@@ -7,7 +7,7 @@ import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 
 import { ProductOverview } from "..";
-import { Features } from "../ProductInformation";
+import { Features, Materials } from "../ProductInformation";
 
 import { useProductInfo } from "../context";
 
@@ -42,6 +42,7 @@ const ProductCart: FC<Props> = ({ product }) => {
         <ProductPopup product={product} hasPadding={false}>
             <AnimatePresence>
                 {isFeaturesOpen && <Features features={product.features} />}
+                {isMaterialsOpen && <Materials features={product.features} />}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

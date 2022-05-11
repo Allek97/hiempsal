@@ -19,53 +19,18 @@ const Features: FC<Props> = ({ features }) => {
                 className="block w-full h-full"
                 exit={{ opacity: 0, transition: { duration: 0 } }}
             >
-                {Object.keys(productFeatures).map((feature) => {
-                    if (feature === "itemNumber")
-                        return (
-                            <Item
-                                title="Item number"
-                                content={productFeatures[feature]}
-                                key={feature}
-                            />
-                        );
-                    if (feature === "backLength")
-                        return (
-                            <Item
-                                title="Back length"
-                                content={`${productFeatures[feature]} cm`}
-                                key={feature}
-                            />
-                        );
-                    if (feature === "weight")
-                        return (
-                            <Item
-                                title="Weight"
-                                content={`${productFeatures[feature]} g`}
-                                key={feature}
-                            />
-                        );
-                    if (feature === "denier")
-                        return (
-                            <Item
-                                title="Denier (main material)"
-                                content={productFeatures[feature]}
-                                key={feature}
-                            />
-                        );
-                    if (feature === "cut")
-                        return (
-                            <Item
-                                title="Cut"
-                                content={productFeatures[feature]}
-                                key={feature}
-                            />
-                        );
-                    return null;
-                })}
-
-                {descriptions.map((description) => (
-                    <Item title={description} key={description} />
+                {Object.entries(productFeatures).map(([feature, value]) => (
+                    <Item
+                        title={value.description}
+                        content={value.content}
+                        key={feature}
+                    />
                 ))}
+
+                {descriptions &&
+                    descriptions.map((description) => (
+                        <Item content={description} key={description} />
+                    ))}
             </motion.ul>
         </Container>
     );

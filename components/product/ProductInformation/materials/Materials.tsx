@@ -4,6 +4,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { Plus } from "@components/icons";
 import { Container, Header, Item } from "../commun";
 import { ListBtn } from "./Materials.styled";
+import { ProductMaterials } from "@framework/types/product";
 
 interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
@@ -60,7 +61,11 @@ type Material = {
     [key: string]: boolean;
 };
 
-const Materials: FC = () => {
+interface Props {
+    materials: ProductMaterials;
+}
+
+const Materials: FC<Props> = ({ materials }) => {
     const [materialState, setMaterialState] = useState<Material>({});
 
     function handleMaterialState(myMaterial: string) {

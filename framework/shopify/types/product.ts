@@ -10,6 +10,7 @@ export interface Metafields {
     featureImage2: ImageReference;
     featureName: { value: string };
     features: { value: string };
+    materials: { value: string };
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
@@ -18,13 +19,42 @@ export type ShopifyProductMeta = ShopifyProduct & Metafields;
 
 export interface ProductFeatures {
     features: {
-        itemNumber: string;
-        backLength: number;
-        weight: number;
-        denier?: string;
-        cut: string;
+        [key: string]: {
+            description?: string;
+            content: string;
+        };
     };
-    descriptions: string[];
+    descriptions?: string[];
+}
+
+export interface ProductMaterials {
+    technologies?: {
+        features?: {
+            [key: string]: {
+                description?: string;
+                content: string;
+            };
+        };
+        descriptions?: string[];
+    };
+    productCare?: {
+        features?: {
+            [key: string]: {
+                description?: string;
+                content: string;
+            };
+        };
+        descriptions?: string[];
+    };
+    materialComposition?: {
+        features?: {
+            [key: string]: {
+                description?: string;
+                content: string;
+            };
+        };
+        descriptions?: string[];
+    };
 }
 
 export interface ProductImage {
@@ -73,6 +103,7 @@ export interface Product {
     featureImages: ProductImage[];
     featureName: string;
     features: ProductFeatures;
+    materials: ProductMaterials;
     options: ProductOption[];
     variants: ProductVariant[];
 }

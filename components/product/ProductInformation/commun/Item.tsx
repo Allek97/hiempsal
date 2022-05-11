@@ -5,8 +5,8 @@ import tw from "twin.macro";
 import { contentSize } from "./typography";
 
 interface Props {
-    title: string;
-    content?: string;
+    title?: string;
+    content: string;
     layout?: "A" | "B";
 }
 
@@ -37,14 +37,14 @@ export const ItemContainer = styled.li<ItemProps>`
 const Item: FC<Props> = ({ title, content, layout = "A" }) => {
     return (
         <ItemContainer layout={layout}>
-            <span>{title}</span>
-            {content && <p>{content}</p>}
+            {title && <span>{title}</span>}
+            <p>{content}</p>
         </ItemContainer>
     );
 };
 
 Item.defaultProps = {
-    content: "",
+    title: undefined,
     layout: "A",
 };
 

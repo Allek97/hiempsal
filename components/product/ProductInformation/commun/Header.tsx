@@ -1,18 +1,26 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 import Close from "@components/icons/Close";
 import { useProductInfo } from "@components/product/context";
 import { FC } from "react";
 import { titleSize } from "./typography";
 
-export const CloseBtn = styled.button`
+export const CloseBtn = styled(motion.button)`
     ${tw`display[none] 
     lg:(absolute top-1/2 right[0.6666666667vw]
      grid place-content-center w-10 h-10)`}
     transform: translateY(-50%);
 
     svg {
-        ${tw`w-4 h-14`}
+        ${tw`w-4 h-4`}
+    }
+    @media (hover: hover) and (pointer: fine) {
+        transition: fill 0.1s cubic-bezier(0.49, 0.03, 0.13, 0.99);
+        &:hover svg {
+            transition: fill 0.1s cubic-bezier(0.49, 0.03, 0.13, 0.99);
+            color: var(--orange-red);
+        }
     }
 `;
 

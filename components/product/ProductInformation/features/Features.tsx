@@ -14,12 +14,11 @@ const Features: FC<Props> = ({ features }) => {
 
     return (
         <Container>
+            <Header title="Features" />
             <motion.ul
-                className="block w-full h-full overflow-y-auto"
+                className="block w-full h-full"
                 exit={{ opacity: 0, transition: { duration: 0 } }}
             >
-                <Header title="Features" />
-
                 {Object.keys(productFeatures).map((feature) => {
                     if (feature === "itemNumber")
                         return (

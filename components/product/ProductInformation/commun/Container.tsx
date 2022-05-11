@@ -21,11 +21,18 @@ const Container: FC = ({ children }) => {
 
     const containerMotion: Variants = {
         hidden: { height: 0 },
-        visible: { height: "auto", transition: { duration: 0.4, delay: 0.1 } },
+        visible: {
+            height: "auto",
+            overflowY: "auto",
+            transition: {
+                duration: 0.45,
+                delay: 0.1,
+            },
+        },
         exit: {
             height: 0,
             overflowY: "hidden",
-            transition: { duration: isProductOverviewOpen ? 0.3 : 0 },
+            transition: { duration: isProductOverviewOpen ? 0.35 : 0 },
         },
     };
 

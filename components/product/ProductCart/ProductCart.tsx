@@ -42,7 +42,7 @@ const ProductCart: FC<Props> = ({ product }) => {
         <ProductPopup product={product} hasPadding={false}>
             <AnimatePresence>
                 {isFeaturesOpen && <Features features={product.features} />}
-                {isMaterialsOpen && <Materials features={product.features} />}
+                {isMaterialsOpen && <Materials />}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

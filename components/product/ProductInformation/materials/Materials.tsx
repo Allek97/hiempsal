@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, FC, useState } from "react";
-import { motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
-import { Container, Header } from "../commun";
+import { Container, Header, Item } from "../commun";
 import { ListBtn } from "./Materials.styled";
 
 interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,7 +10,7 @@ interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     isOpen?: boolean;
 }
 
-const MaterialButton: FC<BtnProps> = ({ title, isOpen = false }) => {
+const MaterialButton: FC<BtnProps> = ({ title, isOpen = false, onClick }) => {
     const textMotion: Variants = {
         hover: {
             skewX: "-10deg",
@@ -29,7 +29,12 @@ const MaterialButton: FC<BtnProps> = ({ title, isOpen = false }) => {
         },
     };
     return (
-        <ListBtn type="button" whileHover="hover">
+        <ListBtn
+            type="button"
+            whileHover="hover"
+            $isOpen={isOpen}
+            onClick={onClick}
+        >
             <motion.h3
                 variants={textMotion}
                 style={{ transformOrigin: "center bottom" }}
@@ -70,6 +75,27 @@ const Materials: FC = () => {
         setMaterialState(newState);
     }
 
+    const contentMotion: Variants = {
+        hidden: { height: 0 },
+        visible: {
+            height: "auto",
+            transition: {
+                duration: 0.3,
+                delay: 0.2,
+            },
+        },
+        exit: {
+            height: 0,
+            opacity: 0,
+            overflowY: "hidden",
+            transition: {
+                duration: 0.3,
+                delay: 0.15,
+                opacity: { duration: 0, delay: 0 },
+            },
+        },
+    };
+
     return (
         <Container>
             <Header title="Materials & technologies" />
@@ -77,40 +103,76 @@ const Materials: FC = () => {
                 className="block w-full h-full"
                 exit={{ opacity: 0, transition: { duration: 0 } }}
             >
-                <motion.li onClick={() => handleMaterialState("technologies")}>
+                <motion.li>
                     <MaterialButton
                         title="Technologies"
+                        onClick={() => handleMaterialState("technologies")}
                         isOpen={materialState.technologies ?? false}
                     />
-                    {materialState.technologies && (
-                        <ul>
-                            <li>Technologies</li>
-                        </ul>
-                    )}
+                    <AnimatePresence>
+                        {materialState.technologies && (
+                            <motion.ul
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={contentMotion}
+                            >
+                                <li>Technologies</li>
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
                 </motion.li>
-                <motion.li onClick={() => handleMaterialState("productCare")}>
+                <motion.li>
                     <MaterialButton
                         title="Product Care"
+                        onClick={() => handleMaterialState("productCare")}
                         isOpen={materialState.productCare ?? false}
                     />
-                    {materialState.productCare && (
-                        <ul>
-                            <li>Product Care</li>
-                        </ul>
-                    )}
+                    <AnimatePresence>
+                        {materialState.productCare && (
+                            <motion.ul
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={contentMotion}
+                            >
+                                <li>Product Care</li>
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
                 </motion.li>
-                <motion.li
-                    onClick={() => handleMaterialState("materialComposition")}
-                >
+                <motion.li>
                     <MaterialButton
                         title="Material composition"
+                        onClick={() =>
+                            handleMaterialState("materialComposition")
+                        }
                         isOpen={materialState.materialComposition ?? false}
                     />
-                    {materialState.materialComposition && (
-                        <ul>
-                            <li>Material composition</li>
-                        </ul>
-                    )}
+                    <AnimatePresence>
+                        {materialState.materialComposition && (
+                            <motion.ul
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={contentMotion}
+                            >
+                                <Item
+                                    title="asadasdasdasdasdddddddd asd asd asd
+                            asd asd asd asd asd asd asd asd asd"
+                                    layout="B"
+                                />
+                                <Item
+                                    title="asadasdasdasdasdddddddd asd asd asd asd asd asd asd asd asd asd asd asd"
+                                    layout="B"
+                                />
+                                <Item
+                                    title="asadasdasdasdasdddddddd asd asd asd asd asd asd asd asd asd asd asd asd"
+                                    layout="B"
+                                />
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
                 </motion.li>
             </motion.ul>
         </Container>

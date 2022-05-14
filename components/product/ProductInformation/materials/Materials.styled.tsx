@@ -2,12 +2,13 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
+import { transientOptions } from "@lib/transientOptions";
 
 interface ListBtnProps {
     $isOpen: boolean;
 }
 
-export const ListBtn = styled(motion.button)<ListBtnProps>`
+export const ListBtn = styled(motion.button, transientOptions)<ListBtnProps>`
     ${tw`relative flex justify-between items-center w-full`}
     ${tw`padding[6.7vw 4vw] 
     lg:padding[2vw 1.3333333333vw]

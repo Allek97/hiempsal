@@ -2,9 +2,10 @@ import { ButtonHTMLAttributes, FC, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
+import { ProductMaterials } from "@framework/types/product";
+
 import { Container, Header, Item } from "../commun";
 import { ListBtn } from "./Materials.styled";
-import { ProductMaterials } from "@framework/types/product";
 
 interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
@@ -66,6 +67,8 @@ interface Props {
 }
 
 const Materials: FC<Props> = ({ materials }) => {
+    const { technologies, productCare, materialComposition } = materials;
+
     const [materialState, setMaterialState] = useState<Material>({});
 
     function handleMaterialState(myMaterial: string) {
@@ -95,7 +98,7 @@ const Materials: FC<Props> = ({ materials }) => {
             overflowY: "hidden",
             transition: {
                 duration: 0.3,
-                delay: 0.15,
+                delay: 0,
                 opacity: { duration: 0, delay: 0 },
             },
         },
@@ -108,7 +111,7 @@ const Materials: FC<Props> = ({ materials }) => {
                 className="block w-full h-full"
                 exit={{ opacity: 0, transition: { duration: 0 } }}
             >
-                <motion.li>
+                <motion.li className="overflow-hidden">
                     <MaterialButton
                         title="Technologies"
                         onClick={() => handleMaterialState("technologies")}
@@ -122,12 +125,31 @@ const Materials: FC<Props> = ({ materials }) => {
                                 exit="exit"
                                 variants={contentMotion}
                             >
-                                <li>Technologies</li>
+                                {technologies?.features &&
+                                    Object.entries(technologies?.features).map(
+                                        ([feature, value]) => (
+                                            <Item
+                                                title={value.description}
+                                                content={value.content}
+                                                key={feature}
+                                                layout="B"
+                                            />
+                                        )
+                                    )}
+                                {technologies?.descriptions?.map(
+                                    (description) => (
+                                        <Item
+                                            content={description}
+                                            key={description}
+                                            layout="B"
+                                        />
+                                    )
+                                )}
                             </motion.ul>
                         )}
                     </AnimatePresence>
                 </motion.li>
-                <motion.li>
+                <motion.li className="overflow-hidden">
                     <MaterialButton
                         title="Product Care"
                         onClick={() => handleMaterialState("productCare")}
@@ -141,12 +163,31 @@ const Materials: FC<Props> = ({ materials }) => {
                                 exit="exit"
                                 variants={contentMotion}
                             >
-                                <li>Product Care</li>
+                                {productCare?.features &&
+                                    Object.entries(productCare?.features).map(
+                                        ([feature, value]) => (
+                                            <Item
+                                                title={value.description}
+                                                content={value.content}
+                                                key={feature}
+                                                layout="B"
+                                            />
+                                        )
+                                    )}
+                                {productCare?.descriptions?.map(
+                                    (description) => (
+                                        <Item
+                                            content={description}
+                                            key={description}
+                                            layout="A"
+                                        />
+                                    )
+                                )}
                             </motion.ul>
                         )}
                     </AnimatePresence>
                 </motion.li>
-                <motion.li>
+                <motion.li className="overflow-hidden">
                     <MaterialButton
                         title="Material composition"
                         onClick={() =>
@@ -162,19 +203,26 @@ const Materials: FC<Props> = ({ materials }) => {
                                 exit="exit"
                                 variants={contentMotion}
                             >
-                                <Item
-                                    title="asadasdasdasdasdddddddd asd asd asd
-                            asd asd asd asd asd asd asd asd asd"
-                                    layout="B"
-                                />
-                                <Item
-                                    title="asadasdasdasdasdddddddd asd asd asd asd asd asd asd asd asd asd asd asd"
-                                    layout="B"
-                                />
-                                <Item
-                                    title="asadasdasdasdasdddddddd asd asd asd asd asd asd asd asd asd asd asd asd"
-                                    layout="B"
-                                />
+                                {materialComposition?.features &&
+                                    Object.entries(
+                                        materialComposition?.features
+                                    ).map(([feature, value]) => (
+                                        <Item
+                                            title={value.description}
+                                            content={value.content}
+                                            key={feature}
+                                            layout="B"
+                                        />
+                                    ))}
+                                {materialComposition?.descriptions?.map(
+                                    (description) => (
+                                        <Item
+                                            content={description}
+                                            key={description}
+                                            layout="B"
+                                        />
+                                    )
+                                )}
                             </motion.ul>
                         )}
                     </AnimatePresence>

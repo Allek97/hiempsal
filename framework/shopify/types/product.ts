@@ -11,6 +11,7 @@ export interface Metafields {
     featureName: { value: string };
     features: { value: string };
     materials: { value: string };
+    sustainability: { value: string };
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
@@ -57,6 +58,15 @@ export interface ProductMaterials {
     };
 }
 
+export interface ProductSustainability {
+    features: {
+        [key: string]: {
+            description?: string;
+            content: string;
+        };
+    };
+    descriptions?: string[];
+}
 export interface ProductImage {
     url: string;
     alt?: string;
@@ -104,6 +114,7 @@ export interface Product {
     featureName: string;
     features: ProductFeatures;
     materials: ProductMaterials;
+    sustainability: ProductSustainability;
     options: ProductOption[];
     variants: ProductVariant[];
 }

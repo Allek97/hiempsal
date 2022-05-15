@@ -7,7 +7,12 @@ import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 
 import { ProductOverview } from "..";
-import { Features, Materials, Sustainability } from "../ProductInformation";
+import {
+    Dimensions,
+    Features,
+    Materials,
+    Sustainability,
+} from "../ProductInformation";
 
 import { useProductInfo } from "../context";
 
@@ -46,6 +51,7 @@ const ProductCart: FC<Props> = ({ product }) => {
                 {isSustainability && (
                     <Sustainability sustainability={product.sustainability} />
                 )}
+                {isDimensionsOpen && <Dimensions />}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

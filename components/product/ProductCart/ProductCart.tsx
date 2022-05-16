@@ -51,7 +51,9 @@ const ProductCart: FC<Props> = ({ product }) => {
                 {isSustainability && (
                     <Sustainability sustainability={product.sustainability} />
                 )}
-                {isDimensionsOpen && <Dimensions />}
+                {isDimensionsOpen && (
+                    <Dimensions dimensions={product.dimensions} />
+                )}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

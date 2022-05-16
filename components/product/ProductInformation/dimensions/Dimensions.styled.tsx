@@ -1,6 +1,20 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
+
+interface HeadProps {
+    $isDragged: boolean;
+}
+
+export const ControllerBtn = styled(motion.button)`
+    ${tw`flex`}
+
+    svg {
+        ${tw`w-8 h-8 p-1.5`}
+    }
+`;
 
 export const Box = styled(motion.div)`
     ${tw`block w-full h-full padding-left[4vw] mb-16
@@ -13,7 +27,7 @@ export const Table = styled.div`
     border-collapse[collapse] border-spacing[0]`}
 `;
 
-export const Head = styled(motion.div)`
+export const Head = styled(motion.div, transientOptions)<HeadProps>`
     ${tw`relative z-20 float-left width[22.8vw]
     md:width[16vw]
     lg:width[7.3333333333vw]
@@ -22,8 +36,13 @@ export const Head = styled(motion.div)`
     margin-top: 1px;
     margin-bottom: 1px;
 
-    /* box-shadow: 0 0 49px rgb(0 0 0 / 7%), 0 0 22.05px rgb(0 0 0 / 12%),
-        0 0 9.8px rgb(0 0 0 / 12%), 0 0 4.9px rgb(0 0 0 / 9%); */
+    ${({ $isDragged }) =>
+        $isDragged &&
+        css`
+            box-shadow: 0 0 49px rgb(0 0 0 / 7%), 0 0 22.05px rgb(0 0 0 / 12%),
+                0 0 9.8px rgb(0 0 0 / 12%), 0 0 4.9px rgb(0 0 0 / 9%);
+        `}
+
     border-top: 2px solid #cdcdcd;
 `;
 
@@ -43,10 +62,6 @@ export const Body = styled(motion.div)`
 
 export const TR = styled.div`
     ${tw`flex-grow-0`}
-
-    &:nth-of-type(odd) {
-        background: #f8f7f7;
-    }
 `;
 export const TH = styled.div`
     ${tw`flex items-center height[14vw] font-light
@@ -55,12 +70,14 @@ export const TH = styled.div`
     lg:(height[4.1333vw] min-height[5.333vw])
     4xl:(height[3.1vw] min-height[0])`}
 
-    ${({ theme }) => theme.textSize.textSizeSmall}
-    
-    ${tw`width[22.8vw] md:width[16vw] text-align[center]
+    ${tw`width[22.8vw] md:width[16vw] text-align[center] font-size[13px]
     lg:width[7.3333333333vw]
     2xl:font-size[14px]
     4xl:width[5.5vw]`}
 
     border-bottom: 2px solid hsla(0, 0%, 80%, 0.45);
+
+    &:nth-of-type(odd) {
+        background: #f8f7f7;
+    }
 `;

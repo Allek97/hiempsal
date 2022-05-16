@@ -198,6 +198,7 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         features,
         materials,
         sustainability,
+        dimensions,
         ...rest
     } = productNode;
 
@@ -228,6 +229,7 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         features: JSON.parse(features?.value ?? null),
         materials: JSON.parse(materials?.value ?? null),
         sustainability: JSON.parse(sustainability?.value ?? null),
+        dimensions: JSON.parse(dimensions?.value ?? null),
         ...rest,
     };
 

@@ -126,6 +126,9 @@ query product($slug: String!) {
       sustainability: metafield(namespace: "my_fields", key: "sustainability") {
         value
       }
+      dimensions: metafield(namespace: "my_fields", key: "dimensions") {
+        value
+      }
     }
   }
   

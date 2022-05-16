@@ -5,13 +5,18 @@ type ImageReference = {
     reference: MediaImage;
 };
 
+type JSONType = {
+    value: string;
+};
+
 export interface Metafields {
     featureImage1: ImageReference;
     featureImage2: ImageReference;
-    featureName: { value: string };
-    features: { value: string };
-    materials: { value: string };
-    sustainability: { value: string };
+    featureName: JSONType;
+    features: JSONType;
+    materials: JSONType;
+    sustainability: JSONType;
+    dimensions: JSONType;
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
@@ -67,6 +72,13 @@ export interface ProductSustainability {
     };
     descriptions?: string[];
 }
+
+export interface ProductDimensions {
+    [key: string]: {
+        description: string;
+        content: string[];
+    };
+}
 export interface ProductImage {
     url: string;
     alt?: string;
@@ -115,6 +127,7 @@ export interface Product {
     features: ProductFeatures;
     materials: ProductMaterials;
     sustainability: ProductSustainability;
+    dimensions: ProductDimensions;
     options: ProductOption[];
     variants: ProductVariant[];
 }

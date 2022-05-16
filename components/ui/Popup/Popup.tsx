@@ -14,30 +14,16 @@ interface Props {
 const Popup: FC<Props> = ({ children }) => {
     const { isProductCartOpen, isProductAdded, closePopup } = useUI();
 
-    const {
-        isDimensionsOpen,
-        isFeaturesOpen,
-        isMaterialsOpen,
-        isShippingOpen,
-        isSustainability,
-        closeProductInformation,
-    } = useProductInfo();
+    const { isProductInfoOpen, closeProductInformation } = useProductInfo();
 
-    const isProductInfo =
-        isDimensionsOpen ||
-        isFeaturesOpen ||
-        isMaterialsOpen ||
-        isShippingOpen ||
-        isSustainability;
-
-    const isOverlay = isProductInfo || isProductCartOpen || isProductAdded;
+    const isOverlay = isProductInfoOpen || isProductCartOpen || isProductAdded;
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     const isScreenLarge = useMediaQueryNext("lg");
     useBodyScroll(ref, isProductCartOpen, isScreenLarge);
 
     function handleOverlay() {
-        if (!isProductInfo) closePopup();
+        if (!isProductInfoOpen) closePopup();
         closeProductInformation();
     }
 

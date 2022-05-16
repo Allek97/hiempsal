@@ -72,21 +72,10 @@ const MobileNav: FC = () => {
     } = useUI();
 
     const {
-        isSustainability,
-        isDimensionsOpen,
-        isFeaturesOpen,
-        isMaterialsOpen,
-        isShippingOpen,
+        isProductInfoOpen,
         closeProductInformation,
         isProductOverviewOpen,
     } = useProductInfo();
-
-    const isProductInfoOpen =
-        isSustainability ||
-        isDimensionsOpen ||
-        isFeaturesOpen ||
-        isMaterialsOpen ||
-        isShippingOpen;
 
     const toggleMenu = () => {
         if (isProductCartOpen || isProductAdded || isProductInfoOpen) {

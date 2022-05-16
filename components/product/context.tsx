@@ -7,6 +7,7 @@ interface StateValues {
     isDimensionsOpen: boolean;
     isShippingOpen: boolean;
     isProductOverviewOpen: boolean;
+    isProductInfoOpen: boolean;
 }
 
 interface StateModifiers {
@@ -28,6 +29,7 @@ const initialState: StateValues = {
     isDimensionsOpen: false,
     isShippingOpen: false,
     isProductOverviewOpen: false,
+    isProductInfoOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -147,9 +149,35 @@ const ProductInfoProvider: FC = ({ children }) => {
     const setProductOverview = (condition: boolean) =>
         dispatch({ type: "SET_PRODUCT_OVERVIEW", payload: condition });
 
+    const {
+        isDimensionsOpen,
+        isFeaturesOpen,
+        isMaterialsOpen,
+        isShippingOpen,
+        isSustainability,
+    } = state;
+
+    const isProductInfoOpen = useMemo(
+        () =>
+            isDimensionsOpen ||
+            isFeaturesOpen ||
+            isMaterialsOpen ||
+            isShippingOpen ||
+            isSustainability,
+
+        [
+            isDimensionsOpen,
+            isFeaturesOpen,
+            isMaterialsOpen,
+            isShippingOpen,
+            isSustainability,
+        ]
+    );
+
     const value: State = useMemo(
         () => ({
             ...state,
+            isProductInfoOpen,
             openFeatures,
             openMaterials,
             openSustainability,
@@ -158,7 +186,7 @@ const ProductInfoProvider: FC = ({ children }) => {
             closeProductInformation,
             setProductOverview,
         }),
-        [state]
+        [state, isProductInfoOpen]
     );
 
     return <PIContext.Provider value={value}>{children}</PIContext.Provider>;

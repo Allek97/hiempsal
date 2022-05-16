@@ -41,21 +41,7 @@ const ProductOverview: FC<Props> = ({
     };
 
     const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
-    const {
-        closeProductInformation,
-        isDimensionsOpen,
-        isFeaturesOpen,
-        isMaterialsOpen,
-        isShippingOpen,
-        isSustainability,
-    } = useProductInfo();
-
-    const isProductInfoOpen =
-        isDimensionsOpen ||
-        isFeaturesOpen ||
-        isMaterialsOpen ||
-        isShippingOpen ||
-        isSustainability;
+    const { closeProductInformation, isProductInfoOpen } = useProductInfo();
 
     return (
         <Root

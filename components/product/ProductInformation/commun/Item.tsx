@@ -49,23 +49,28 @@ export const ItemContainer = styled.li<ItemProps>`
 
             span {
                 ${tw`margin-bottom[0.5em] font-bold`}
+                ${theme.textSize.textSizeMedium}
             }
             p {
                 ${theme.textSize.textSizeMain}
             }
         `}
-
-    ${({ layout }) =>
+            
+            ${({ layout, theme }) =>
         layout === "D" &&
         css`
             ${commonLayout}
             ${tw`flex-col items-start`}
+            
+            
 
             span {
                 ${tw`margin-bottom[0.5em]`}
                 ${subTitleSize}
             }
             p {
+                ${theme.textSize.textSizeMedium}
+                ${tw`line-height[1.3]`}
             }
         `}
 `;

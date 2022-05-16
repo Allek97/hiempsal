@@ -22,7 +22,8 @@ interface Props {
 }
 
 const ProductCart: FC<Props> = ({ product }) => {
-    const { isProductAdded, isProductCartOpen, isMobileMenuOpen } = useUI();
+    const { isProductAdded, isProductCartOpen, isMobileMenuOpen, isHelpOpen } =
+        useUI();
 
     const {
         isFeaturesOpen,
@@ -31,18 +32,14 @@ const ProductCart: FC<Props> = ({ product }) => {
         isShippingOpen,
         isSustainability,
         isProductOverviewOpen,
+        isProductInfoOpen,
     } = useProductInfo();
 
     const isOverviewOpen =
         !isProductCartOpen &&
         !isProductAdded &&
         !isMobileMenuOpen &&
-        (isFeaturesOpen ||
-            isDimensionsOpen ||
-            isMaterialsOpen ||
-            isShippingOpen ||
-            isSustainability ||
-            isProductOverviewOpen);
+        (isProductInfoOpen || isProductOverviewOpen || isHelpOpen);
 
     return (
         <ProductPopup product={product} hasPadding={false}>

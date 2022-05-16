@@ -7,6 +7,8 @@ import { Product, ProductVariant } from "@framework/types/product";
 import { useUI } from "@components/ui/context";
 
 import { Popup } from "@components/ui";
+
+import { HelpCardContent } from "@components/elements/HelpCard";
 import { ProductSelected, ProductCart } from "..";
 
 import { Container, Paddings } from "./ProductPopup.styled";
@@ -20,7 +22,7 @@ export interface Props {
 const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
 
-    const { isProductAdded, isProductCartOpen } = useUI();
+    const { isProductAdded, isProductCartOpen, isHelpOpen } = useUI();
 
     const containerVariant: Variants = {
         itemAdded: { maxHeight: "50vh", height: "100%" },
@@ -61,6 +63,10 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
                     )}
                 </Paddings>
             </Container>
+
+            <Paddings hasPadding={hasPadding}>
+                {isHelpOpen && <HelpCardContent />}
+            </Paddings>
             {/*Add children for custom use*/}
             <Paddings hasPadding={hasPadding}>{children}</Paddings>
         </Popup>

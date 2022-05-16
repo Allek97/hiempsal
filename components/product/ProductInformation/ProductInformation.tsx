@@ -89,16 +89,30 @@ const Info: FC<InfoProps> = ({ infoName }) => {
     );
 };
 
-const ProductDetails: FC = () => {
+interface Props {
+    hasFeatures: boolean;
+    hasSustainability: boolean;
+    hasMaterials: boolean;
+    hasDimensions: boolean;
+    hasShipping: boolean;
+}
+
+const ProductInformation: FC<Props> = ({
+    hasFeatures,
+    hasSustainability,
+    hasMaterials,
+    hasDimensions,
+    hasShipping,
+}) => {
     return (
         <Root>
             <List>
                 <dt>Product Information</dt>
-                <Info infoName="Features" />
-                <Info infoName="Materials & technologies" />
-                <Info infoName="Sustainability" />
-                <Info infoName="Dimensions" />
-                <Info infoName="Shipping info" />
+                {hasFeatures && <Info infoName="Features" />}
+                {hasMaterials && <Info infoName="Materials & technologies" />}
+                {hasSustainability && <Info infoName="Sustainability" />}
+                {hasDimensions && <Info infoName="Dimensions" />}
+                {hasShipping && <Info infoName="Shipping info" />}
             </List>
             <div>
                 <HelpCard text="How can we help you?" />
@@ -107,4 +121,4 @@ const ProductDetails: FC = () => {
     );
 };
 
-export default ProductDetails;
+export default ProductInformation;

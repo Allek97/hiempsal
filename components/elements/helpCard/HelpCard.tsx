@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 import { motion, Variants } from "framer-motion";
+import { useUI } from "@components/ui/context";
 import { HelpCardBox, HelpCardImage } from "./HelpCard.styled";
 
 interface Props {
@@ -19,9 +20,17 @@ const textMotion: Variants = {
 };
 
 const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
+    const { openHelp } = useUI();
+
     const statusText = isOnline ? "Online" : "Offline";
     return (
-        <motion.button type="button" whileHover="hover">
+        <motion.button
+            type="button"
+            whileHover="hover"
+            onClick={() => {
+                openHelp();
+            }}
+        >
             <HelpCardBox isOnline={isOnline}>
                 <HelpCardImage>
                     <Image

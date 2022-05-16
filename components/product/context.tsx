@@ -28,8 +28,8 @@ const initialState: StateValues = {
     isSustainability: false,
     isDimensionsOpen: false,
     isShippingOpen: false,
-    isProductOverviewOpen: false,
     isProductInfoOpen: false,
+    isProductOverviewOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -62,51 +62,51 @@ function piReducer(state: StateValues, action: Action) {
             return {
                 ...state,
                 isFeaturesOpen: true,
+                isProductOverviewOpen: true,
                 isMaterialsOpen: false,
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
-                isProductOverviewOpen: true,
             };
         case "OPEN_MATERIALS":
             return {
                 ...state,
-                isFeaturesOpen: false,
                 isMaterialsOpen: true,
+                isProductOverviewOpen: true,
+                isFeaturesOpen: false,
                 isSustainability: false,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
-                isProductOverviewOpen: true,
             };
         case "OPEN_SUSTAINABILITY":
             return {
                 ...state,
+                isSustainability: true,
+                isProductOverviewOpen: true,
                 isFeaturesOpen: false,
                 isMaterialsOpen: false,
-                isSustainability: true,
                 isDimensionsOpen: false,
                 isShippingOpen: false,
-                isProductOverviewOpen: true,
             };
         case "OPEN_DIMENSIONS":
             return {
                 ...state,
+                isDimensionsOpen: true,
+                isProductOverviewOpen: true,
                 isFeaturesOpen: false,
                 isMaterialsOpen: false,
                 isSustainability: false,
-                isDimensionsOpen: true,
                 isShippingOpen: false,
-                isProductOverviewOpen: true,
             };
         case "OPEN_SHIPPING":
             return {
                 ...state,
+                isShippingOpen: true,
+                isProductOverviewOpen: true,
                 isFeaturesOpen: false,
                 isMaterialsOpen: false,
                 isSustainability: false,
                 isDimensionsOpen: false,
-                isShippingOpen: true,
-                isProductOverviewOpen: true,
             };
         case "CLOSE_PRODUCT_INFORMATION":
             return {
@@ -128,7 +128,6 @@ function piReducer(state: StateValues, action: Action) {
                 ...state,
                 isProductOverviewOpen: false,
             };
-
         default:
             return {
                 ...state,
@@ -164,7 +163,6 @@ const ProductInfoProvider: FC = ({ children }) => {
             isMaterialsOpen ||
             isShippingOpen ||
             isSustainability,
-
         [
             isDimensionsOpen,
             isFeaturesOpen,

@@ -40,7 +40,13 @@ const ProductOverview: FC<Props> = ({
         },
     };
 
-    const { isProductCartOpen, isProductAdded, openProductCart } = useUI();
+    const {
+        isProductCartOpen,
+        isProductAdded,
+        isHelpOpen,
+        closeHelp,
+        openProductCart,
+    } = useUI();
     const { closeProductInformation, isProductInfoOpen } = useProductInfo();
 
     return (
@@ -57,7 +63,7 @@ const ProductOverview: FC<Props> = ({
             }}
             variants={variants}
             key="product-overview"
-            $clip={!isProductInfoOpen}
+            $clip={!isProductInfoOpen && !isHelpOpen}
         >
             <button type="button" className="flex items-center w-full">
                 <ImageWrapper>
@@ -90,6 +96,7 @@ const ProductOverview: FC<Props> = ({
                         onClick={() => {
                             openProductCart();
                             closeProductInformation();
+                            closeHelp();
                         }}
                     >
                         <span>

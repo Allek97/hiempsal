@@ -61,25 +61,13 @@ const ProductView: FC<Props> = ({ product }) => {
         isPopupOpen,
         isProductCartOpen,
         isProductAdded,
+        isHelpOpen,
         openPopup,
         closePopup,
     } = useUI();
 
-    const {
-        setProductOverview,
-        isProductOverviewOpen,
-        isFeaturesOpen,
-        isDimensionsOpen,
-        isMaterialsOpen,
-        isShippingOpen,
-        isSustainability,
-    } = useProductInfo();
-    const isProductInfo =
-        isDimensionsOpen ||
-        isFeaturesOpen ||
-        isMaterialsOpen ||
-        isShippingOpen ||
-        isSustainability;
+    const { setProductOverview, isProductOverviewOpen, isProductInfoOpen } =
+        useProductInfo();
 
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({
@@ -102,12 +90,12 @@ const ProductView: FC<Props> = ({ product }) => {
         entry?.boundingClientRect.y,
         inView,
         isScreenLarge,
-        isProductInfo,
+        isProductInfoOpen,
     ]);
 
     useEffect(() => {
         if (!isProductCartOpen && !isProductAdded) {
-            if (isProductOverviewOpen || isProductInfo) openPopup();
+            if (isProductOverviewOpen || isProductInfoOpen) openPopup();
             else closePopup();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -197,7 +185,13 @@ const ProductView: FC<Props> = ({ product }) => {
                     featureName={product.featureName}
                 />
 
-                <ProductInformation />
+                <ProductInformation
+                    hasDimensions={!!product.dimensions}
+                    hasFeatures={!!product.features}
+                    hasMaterials={!!product.materials}
+                    hasShipping={!!product.shipping}
+                    hasSustainability={!!product.sustainability}
+                />
             </ProductDetailsBox>
         </Root>
     );

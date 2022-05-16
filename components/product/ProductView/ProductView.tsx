@@ -61,7 +61,7 @@ const ProductView: FC<Props> = ({ product }) => {
         isPopupOpen,
         isProductCartOpen,
         isProductAdded,
-        isHelpOpen,
+
         openPopup,
         closePopup,
     } = useUI();
@@ -93,6 +93,7 @@ const ProductView: FC<Props> = ({ product }) => {
         isProductInfoOpen,
     ]);
 
+    // NOTE: Used to interact with <MobileNav />
     useEffect(() => {
         if (!isProductCartOpen && !isProductAdded) {
             if (isProductOverviewOpen || isProductInfoOpen) openPopup();

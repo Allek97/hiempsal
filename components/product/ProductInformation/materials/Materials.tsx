@@ -179,7 +179,7 @@ const Materials: FC<Props> = ({ materials }) => {
                                         <Item
                                             content={description}
                                             key={description}
-                                            layout="A"
+                                            layout="B"
                                         />
                                     )
                                 )}

@@ -129,6 +129,9 @@ query product($slug: String!) {
       dimensions: metafield(namespace: "my_fields", key: "dimensions") {
         value
       }
+      shipping: metafield(namespace: "my_fields", key: "shipping") {
+        value
+      }
     }
   }
   

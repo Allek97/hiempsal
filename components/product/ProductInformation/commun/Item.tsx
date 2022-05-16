@@ -2,44 +2,50 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import tw from "twin.macro";
-import { contentSize } from "./typography";
+import { contentSize, subTitleSize } from "./typography";
 
 interface Props {
     title?: string;
     content: string;
-    layout?: "A" | "B" | "C";
+    layout?: "A" | "B" | "C" | "D";
 }
 
 interface ItemProps {
-    layout?: "A" | "B" | "C";
+    layout?: "A" | "B" | "C" | "D";
 }
 
+const commonLayout = css`
+    ${tw`width[calc(100% - 8vw)] padding[4vw 0] mx-auto
+        md:padding[3vw 0]
+        lg:(padding[2vw 0] width[calc(100% - 2.6666666667vw)])`}
+    border-bottom: 1px solid hsla(0,0%,60%,.3);
+`;
+
 export const ItemContainer = styled.li<ItemProps>`
-    ${tw`flex justify-between items-center`}
+    ${tw`flex justify-between items-center whitespace-pre-wrap`}
 
-    ${({ layout }) =>
-        layout === "A" &&
-        css`
-            ${tw`width[calc(100% - 8vw)] padding[4vw 0] mx-auto
-                  md:padding[3vw 0]
-                  lg:(padding[2vw 0] width[calc(100% - 2.6666666667vw)])`}
-            border-bottom: 1px solid hsla(0,0%,60%,.3);
-        `}
+    span,p {
+        ${tw`whitespace-pre-wrap`}
+    }
 
-    ${({ layout }) =>
+    ${contentSize}
+
+    ${({ layout }) => layout === "A" && commonLayout}
+
+    ${({ layout, theme }) =>
         layout === "B" &&
         css`
             ${tw`padding[6.7vw 4vw]
                     lg:padding[2.4666666667vw 2vw]`}
+
+            ${theme.textSize.textSizeMedium}
         `}
 
     ${({ layout, theme }) =>
         layout === "C" &&
         css`
-            ${tw`flex-col items-start width[calc(100% - 8vw)] padding[4vw 0] mx-auto 
-                  md:padding[3vw 0] 
-                  lg:(padding[2vw 0] width[calc(100% - 2.6666666667vw)])`}
-            border-bottom: 1px solid hsla(0,0%,60%,.3);
+            ${commonLayout}
+            ${tw`flex-col items-start`}
 
             span {
                 ${tw`margin-bottom[0.5em] font-bold`}
@@ -49,15 +55,27 @@ export const ItemContainer = styled.li<ItemProps>`
             }
         `}
 
+    ${({ layout }) =>
+        layout === "D" &&
+        css`
+            ${commonLayout}
+            ${tw`flex-col items-start`}
 
-    ${contentSize}
+            span {
+                ${tw`margin-bottom[0.5em]`}
+                ${subTitleSize}
+            }
+            p {
+            }
+        `}
 `;
 
-const Item: FC<Props> = ({ title, content, layout = "A" }) => {
+const Item: FC<Props> = ({ title, content, layout = "A", children }) => {
     return (
         <ItemContainer layout={layout}>
             {title && <span>{title}</span>}
             <p>{content}</p>
+            {children}
         </ItemContainer>
     );
 };

@@ -16,6 +16,7 @@ import {
     textSizeHeader,
     textSizeMain,
     textSizeSmall,
+    textSizeMedium,
 } from "./utils/typography.styled";
 
 const ThemeUIProvider: FC = ({ children }) => {
@@ -34,6 +35,7 @@ const ThemeUIProvider: FC = ({ children }) => {
             textSizeMain,
             textSizeHeader,
             textSizeSmall,
+            textSizeMedium,
         },
         device: {
             isTouch: isDeviceTouch,

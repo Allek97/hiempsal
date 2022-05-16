@@ -33,6 +33,7 @@ declare module "@mui/material/styles" {
             textSizeMain: SerializedStyles;
             textSizeHeader: SerializedStyles;
             textSizeSmall: SerializedStyles;
+            textSizeMedium: SerializedStyles;
         };
         device: {
             isTouch: boolean;

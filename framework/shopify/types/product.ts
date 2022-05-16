@@ -1,6 +1,8 @@
 import { Product as ShopifyProduct, MediaImage } from "@framework/schema";
 
-// Added Metafields related
+////////////////////////////////////////////////////////////////////////////////
+// NOTE: Metafields
+////////////////////////////////////////////////////////////////////////////////
 type ImageReference = {
     reference: MediaImage;
 };
@@ -17,13 +19,12 @@ export interface Metafields {
     materials: JSONType;
     sustainability: JSONType;
     dimensions: JSONType;
+    shipping: JSONType;
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
 
-///////////////////////////////////////////////////////////////////
-
-export interface ProductFeatures {
+export type ProductFeatures = {
     features: {
         [key: string]: {
             description?: string;
@@ -31,9 +32,9 @@ export interface ProductFeatures {
         };
     };
     descriptions?: string[];
-}
+};
 
-export interface ProductMaterials {
+export type ProductMaterials = {
     technologies?: {
         features?: {
             [key: string]: {
@@ -61,9 +62,9 @@ export interface ProductMaterials {
         };
         descriptions?: string[];
     };
-}
+};
 
-export interface ProductSustainability {
+export type ProductSustainability = {
     features: {
         [key: string]: {
             description?: string;
@@ -71,14 +72,31 @@ export interface ProductSustainability {
         };
     };
     descriptions?: string[];
-}
+};
 
-export interface ProductDimensions {
+export type ProductDimensions = {
     [key: string]: {
         description: string;
         content: string[];
     };
-}
+};
+
+export type ProductShipping = {
+    shipping: {
+        description: string;
+        content: string;
+        notice?: string;
+    };
+    shippingCost: {
+        description: string;
+        content: string;
+        notice?: string;
+    };
+};
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 export interface ProductImage {
     url: string;
     alt?: string;
@@ -128,6 +146,7 @@ export interface Product {
     materials: ProductMaterials;
     sustainability: ProductSustainability;
     dimensions: ProductDimensions;
+    shipping: ProductShipping;
     options: ProductOption[];
     variants: ProductVariant[];
 }

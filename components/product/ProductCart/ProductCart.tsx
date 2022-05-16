@@ -11,6 +11,7 @@ import {
     Dimensions,
     Features,
     Materials,
+    Shipping,
     Sustainability,
 } from "../ProductInformation";
 
@@ -54,6 +55,7 @@ const ProductCart: FC<Props> = ({ product }) => {
                 {isDimensionsOpen && (
                     <Dimensions dimensions={product.dimensions} />
                 )}
+                {isShippingOpen && <Shipping shipping={product.shipping} />}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

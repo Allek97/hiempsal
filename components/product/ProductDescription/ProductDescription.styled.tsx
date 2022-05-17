@@ -54,7 +54,7 @@ export const Root = styled.div`
     }
 `;
 
-export const ReviewContainer = styled(motion.div)`
+export const ReviewBtn = styled(motion.button)`
     ${tw`flex items-center w-max cursor-pointer`}
 `;
 

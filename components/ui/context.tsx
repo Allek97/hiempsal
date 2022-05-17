@@ -7,6 +7,7 @@ interface StateValues {
     isProductAdded: boolean;
     isProductCartOpen: boolean;
     isHelpOpen: boolean;
+    isReviewOpen: boolean;
 }
 
 interface StateModifiers {
@@ -19,6 +20,8 @@ interface StateModifiers {
     setProductNotAdded: () => void;
     openHelp: () => void;
     closeHelp: () => void;
+    openReview: () => void;
+    closeReview: () => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -29,6 +32,7 @@ const initialState: StateValues = {
     isProductAdded: false,
     isProductCartOpen: false,
     isHelpOpen: false,
+    isReviewOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -41,6 +45,8 @@ const stateModifiers: StateModifiers = {
     setProductNotAdded: () => {},
     openHelp: () => {},
     closeHelp: () => {},
+    openReview: () => {},
+    closeReview: () => {},
 };
 
 export const UIContext = createContext<State>({
@@ -58,7 +64,9 @@ type Action = {
         | "OPEN_PRODUCT_CART"
         | "CLOSE_PRODUCT_CART"
         | "OPEN_HELP"
-        | "CLOSE_HELP";
+        | "CLOSE_HELP"
+        | "OPEN_REVIEW"
+        | "CLOSE_REVIEW";
     payload?: any;
 };
 
@@ -87,6 +95,7 @@ function uiReducer(state: StateValues, action: Action) {
                 isPopupOpen: true,
                 isProductAdded: true,
                 isProductCartOpen: false,
+                isReviewOpen: false,
             };
 
         case "SET_PRODUCT_AS_NOT_ADDED":
@@ -98,6 +107,7 @@ function uiReducer(state: StateValues, action: Action) {
                 isPopupOpen: true,
                 isProductCartOpen: true,
                 isProductAdded: false,
+                isReviewOpen: false,
             };
 
         case "CLOSE_PRODUCT_CART":
@@ -107,6 +117,16 @@ function uiReducer(state: StateValues, action: Action) {
             return { ...state, isHelpOpen: true, isPopupOpen: true };
         case "CLOSE_HELP":
             return { ...state, isHelpOpen: false };
+        case "OPEN_REVIEW":
+            return {
+                ...state,
+                isPopupOpen: true,
+                isReviewOpen: true,
+                isProductCartOpen: false,
+                isProductAdded: false,
+            };
+        case "CLOSE_REVIEW":
+            return { ...state, isReviewOpen: false };
 
         default:
             return { ...state };
@@ -128,6 +148,8 @@ const UIProvider: FC = ({ children }) => {
     const closeProductCart = () => dispatch({ type: "CLOSE_PRODUCT_CART" });
     const openHelp = () => dispatch({ type: "OPEN_HELP" });
     const closeHelp = () => dispatch({ type: "CLOSE_HELP" });
+    const openReview = () => dispatch({ type: "OPEN_REVIEW" });
+    const closeReview = () => dispatch({ type: "CLOSE_REVIEW" });
 
     const value: State = useMemo(() => {
         return {
@@ -141,6 +163,8 @@ const UIProvider: FC = ({ children }) => {
             closeProductCart,
             openHelp,
             closeHelp,
+            openReview,
+            closeReview,
         };
     }, [state]);
 

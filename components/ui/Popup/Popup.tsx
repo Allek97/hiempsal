@@ -16,23 +16,30 @@ const Popup: FC<Props> = ({ children }) => {
         isProductCartOpen,
         isProductAdded,
         isHelpOpen,
+        isReviewOpen,
         closePopup,
         closeHelp,
+        closeReview,
     } = useUI();
 
     const { isProductInfoOpen, closeProductInformation } = useProductInfo();
 
     const isOverlay =
-        isProductInfoOpen || isProductCartOpen || isProductAdded || isHelpOpen;
+        isProductInfoOpen ||
+        isProductCartOpen ||
+        isProductAdded ||
+        isReviewOpen ||
+        isHelpOpen;
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     const isScreenLarge = useMediaQueryNext("lg");
     useBodyScroll(ref, isProductCartOpen, isScreenLarge);
 
     function handleOverlay() {
-        if (!isProductInfoOpen && !isHelpOpen) closePopup();
+        if (!isProductInfoOpen && !isHelpOpen && !isReviewOpen) closePopup();
         closeProductInformation();
         closeHelp();
+        closeReview();
     }
 
     return (

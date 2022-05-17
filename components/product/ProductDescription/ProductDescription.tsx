@@ -2,11 +2,8 @@ import { FC } from "react";
 import { motion, Variants } from "framer-motion";
 import CircleIcon from "@mui/icons-material/Circle";
 
-import {
-    ReviewContainer,
-    Root,
-    StyledRating,
-} from "./ProductDescription.styled";
+import { useUI } from "@components/ui/context";
+import { ReviewBtn, Root, StyledRating } from "./ProductDescription.styled";
 
 export interface Props {
     description: string;
@@ -24,12 +21,14 @@ const reviewMotion: Variants = {
 };
 
 const ProductDescription: FC<Props> = ({ description, featureName }) => {
+    const { openReview } = useUI();
+
     return (
         <Root>
             <h2>Product description</h2>
             <h1>{featureName}</h1>
             <p>{description}</p>
-            <ReviewContainer whileHover="hover">
+            <ReviewBtn type="button" whileHover="hover" onClick={openReview}>
                 <StyledRating
                     name="customized-color"
                     defaultValue={3.5}
@@ -40,14 +39,13 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
                     size="small"
                 />
                 <motion.span
-                    className="text-accents-8"
+                    className="text-accents-8 tracking-tighter"
                     variants={reviewMotion}
                     style={{ transformOrigin: "center bottom" }}
-                    // whileHover={{skew}}
                 >
-                    4 Reviews
+                    29 Reviews
                 </motion.span>
-            </ReviewContainer>
+            </ReviewBtn>
         </Root>
     );
 };

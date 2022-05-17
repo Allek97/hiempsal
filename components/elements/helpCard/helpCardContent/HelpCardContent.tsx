@@ -38,7 +38,11 @@ const HelpCardContent: FC = () => {
                 <li className="cursor-pointer">
                     <FiPhoneCall className="mr-6 w-5 h-5" />
                     <div className="flex flex-col">
-                        <motion.h2 variants={textMotion} whileHover="hover">
+                        <motion.h2
+                            variants={textMotion}
+                            whileHover="hover"
+                            style={{ transformOrigin: "center bottom" }}
+                        >
                             Call
                         </motion.h2>
                         <span className="text-accents-7 mb-1">
@@ -50,7 +54,11 @@ const HelpCardContent: FC = () => {
                 <li className="cursor-pointer">
                     <MdOutlineMarkEmailRead className="mr-6 w-6 h-6" />
                     <div className="block">
-                        <motion.h2 variants={textMotion} whileHover="hover">
+                        <motion.h2
+                            variants={textMotion}
+                            whileHover="hover"
+                            style={{ transformOrigin: "center bottom" }}
+                        >
                             Email
                         </motion.h2>
                         <span>{HIEMPSAL_EMAIL}</span>

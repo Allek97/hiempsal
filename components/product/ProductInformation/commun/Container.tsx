@@ -16,31 +16,31 @@ export const Root = styled(motion.div)`
     clip-path: polygon(97% 0, 0 0, 0 100%, 100% 100%, 100% 1.1rem);
 `;
 
+export const containerMotion = (exitCondition: boolean): Variants => ({
+    hidden: { height: 0 },
+    visible: {
+        height: "auto",
+        overflowY: "auto",
+        transition: {
+            duration: 0.45,
+            delay: 0.1,
+        },
+    },
+    exit: {
+        height: 0,
+        overflowY: "hidden",
+        transition: { duration: exitCondition ? 0.35 : 0 },
+    },
+});
+
 const Container: FC = ({ children }) => {
     const { isProductOverviewOpen } = useProductInfo();
-
-    const containerMotion: Variants = {
-        hidden: { height: 0 },
-        visible: {
-            height: "auto",
-            overflowY: "auto",
-            transition: {
-                duration: 0.45,
-                delay: 0.1,
-            },
-        },
-        exit: {
-            height: 0,
-            overflowY: "hidden",
-            transition: { duration: isProductOverviewOpen ? 0.35 : 0 },
-        },
-    };
 
     return (
         <Root
             initial="hidden"
             animate="visible"
-            variants={containerMotion}
+            variants={containerMotion(isProductOverviewOpen)}
             exit="exit"
             key="features"
         >

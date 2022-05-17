@@ -1,23 +1,14 @@
 import Image from "next/image";
 import { FC } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useUI } from "@components/ui/context";
 import { HelpCardBox, HelpCardImage } from "./HelpCard.styled";
+import { textMotion } from "./motions";
 
 interface Props {
     text?: string;
     isOnline?: boolean;
 }
-
-const textMotion: Variants = {
-    hover: {
-        skewX: "-10deg",
-        transition: {
-            duration: 0.3,
-            ease: [0.19, 1, 0.22, 1],
-        },
-    },
-};
 
 const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
     const { openHelp } = useUI();

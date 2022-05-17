@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { FC, ReactNode, useState } from "react";
-import { Variants } from "framer-motion";
+import { AnimatePresence, Variants } from "framer-motion";
 
 import { Product, ProductVariant } from "@framework/types/product";
 
@@ -63,12 +63,18 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
                     )}
                 </Paddings>
             </Container>
+            <div className="bg-white">
+                <Paddings hasPadding>
+                    <AnimatePresence>
+                        {isHelpOpen && <HelpCardContent />}
+                    </AnimatePresence>
+                </Paddings>
+            </div>
 
-            <Paddings hasPadding={hasPadding}>
-                {isHelpOpen && <HelpCardContent />}
-            </Paddings>
-            {/*Add children for custom use*/}
-            <Paddings hasPadding={hasPadding}>{children}</Paddings>
+            <div className="bg-white">
+                {/*Add children for custom use*/}
+                <Paddings hasPadding={hasPadding}>{children}</Paddings>
+            </div>
         </Popup>
     );
 };

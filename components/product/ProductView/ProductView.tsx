@@ -61,7 +61,6 @@ const ProductView: FC<Props> = ({ product }) => {
         isPopupOpen,
         isProductCartOpen,
         isProductAdded,
-
         openPopup,
         closePopup,
     } = useUI();

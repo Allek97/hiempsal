@@ -6,6 +6,7 @@ import tw from "twin.macro";
 import Close from "@components/icons/Close";
 import { useProductInfo } from "@components/product/context";
 import { useUI } from "@components/ui/context";
+import { transientOptions } from "@lib/transientOptions";
 import { titleSize } from "./typography";
 
 interface TitleProps {
@@ -13,17 +14,17 @@ interface TitleProps {
     withSidePaddings: boolean;
 }
 interface CloseProps {
-    withSidePaddings: boolean;
+    $withSidePaddings: boolean;
 }
 
-export const CloseBtn = styled(motion.button)<CloseProps>`
+export const CloseBtn = styled(motion.button, transientOptions)<CloseProps>`
     ${tw`display[none] 
     lg:(absolute top-1/2
      grid place-content-center w-10 h-10)`}
     transform: translateY(-50%);
 
-    ${({ withSidePaddings }) =>
-        withSidePaddings
+    ${({ $withSidePaddings }) =>
+        $withSidePaddings
             ? css`
                   ${tw`lg:right[0.6666666667vw]`}
               `
@@ -80,7 +81,7 @@ const Header: FC<Props> = ({
         <Title withBorder={withBorder} withSidePaddings={withSidePaddings}>
             <h1>{title}</h1>
             <CloseBtn
-                withSidePaddings={withSidePaddings}
+                $withSidePaddings={withSidePaddings}
                 type="button"
                 onClick={() => {
                     closeProductInformation();

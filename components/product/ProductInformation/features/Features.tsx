@@ -17,7 +17,7 @@ const Features: FC<Props> = ({ features }) => {
             <Header title="Features" />
             <motion.ul
                 className="block w-full h-full"
-                exit={{ opacity: 0, transition: { duration: 0 } }}
+                exit={{ opacity: 0, transition: { duration: 0, dalay: 0 } }}
             >
                 {Object.entries(productFeatures).map(([feature, value]) => (
                     <Item

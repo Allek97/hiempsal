@@ -71,10 +71,8 @@ const ProductPopup: FC<Props> = ({ product, children, hasPadding = true }) => {
                 </Paddings>
             </div>
 
-            <div className="bg-white">
-                {/*Add children for custom use*/}
-                <Paddings hasPadding={hasPadding}>{children}</Paddings>
-            </div>
+            {/*Add children for custom use*/}
+            <Paddings hasPadding={hasPadding}>{children}</Paddings>
         </Popup>
     );
 };

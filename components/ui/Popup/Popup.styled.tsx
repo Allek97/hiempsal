@@ -13,7 +13,7 @@ export const Overlay = styled.div`
 `;
 
 export const Container = styled(motion.main)`
-    ${tw`fixed z-index[95] bottom-10 right[15px]
+    ${tw`fixed z-index[95] bottom-10 right[15px] overflow-hidden
     lg:(right[2.6666666667vw] bottom[1.3333333333vw])`}
 
     // Dimensions

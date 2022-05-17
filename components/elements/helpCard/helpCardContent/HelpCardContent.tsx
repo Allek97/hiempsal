@@ -26,16 +26,15 @@ const HelpCardContent: FC = () => {
             exit="exit"
             key="HelpCardContent"
         >
+            <div className="flex items-center">
+                <RiCustomerService2Line className="mr-6 w-6 h-6" />
+                <Header
+                    title="How can we help you ? "
+                    withBorder={false}
+                    withSidePaddings={false}
+                />
+            </div>
             <motion.div exit={{ opacity: 0, transition: { duration: 0 } }}>
-                <div className="flex items-center">
-                    <RiCustomerService2Line className="mr-6 w-6 h-6" />
-                    <Header
-                        title="How can we help you ? "
-                        withBorder={false}
-                        withSidePaddings={false}
-                    />
-                </div>
-
                 <li className="cursor-pointer">
                     <FiPhoneCall className="mr-6 w-5 h-5" />
                     <div className="flex flex-col">

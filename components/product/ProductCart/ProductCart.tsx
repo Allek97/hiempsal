@@ -7,6 +7,7 @@ import { useUI } from "@components/ui/context";
 import { Product } from "@framework/types/product";
 
 import { Review } from "@components/review";
+
 import { ProductOverview } from "..";
 
 import {
@@ -55,7 +56,9 @@ const ProductCart: FC<Props> = ({ product }) => {
         <ProductPopup product={product} hasPadding={false}>
             <AnimatePresence>
                 {isFeaturesOpen && <Features features={product.features} />}
+
                 {isMaterialsOpen && <Materials materials={product.materials} />}
+
                 {isSustainability && (
                     <Sustainability sustainability={product.sustainability} />
                 )}

@@ -29,7 +29,7 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
             <h1>{featureName}</h1>
             <p>{description}</p>
             <ReviewBtn type="button" whileHover="hover" onClick={openReview}>
-                <RatingStyle />
+                <RatingStyle value={4.7} />
                 <motion.span
                     className="text-accents-8 tracking-tighter"
                     variants={reviewMotion}

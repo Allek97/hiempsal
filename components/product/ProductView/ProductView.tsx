@@ -9,6 +9,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { Product } from "@framework/types/product";
 
 import { useUI } from "@components/ui/context";
+import { ReviewProvider } from "@components/review";
 
 import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
 
@@ -61,6 +62,8 @@ const ProductView: FC<Props> = ({ product }) => {
         isPopupOpen,
         isProductCartOpen,
         isProductAdded,
+        isHelpOpen,
+        isReviewOpen,
         openPopup,
         closePopup,
     } = useUI();
@@ -95,7 +98,13 @@ const ProductView: FC<Props> = ({ product }) => {
     // NOTE: Used to interact with <MobileNav />
     useEffect(() => {
         if (!isProductCartOpen && !isProductAdded) {
-            if (isProductOverviewOpen || isProductInfoOpen) openPopup();
+            if (
+                isProductOverviewOpen ||
+                isProductInfoOpen ||
+                isHelpOpen ||
+                isReviewOpen
+            )
+                openPopup();
             else closePopup();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,9 +112,11 @@ const ProductView: FC<Props> = ({ product }) => {
 
     return (
         <Root>
-            {isPopupOpen && (
-                <ProductCart product={product} key="product-cart" />
-            )}
+            <ReviewProvider>
+                {isPopupOpen && (
+                    <ProductCart product={product} key="product-cart" />
+                )}
+            </ReviewProvider>
 
             <ProductOverviewContainer>
                 <SliderContainer>

@@ -6,7 +6,7 @@ import { FC } from "react";
 import tw from "twin.macro";
 
 export const Root = styled(motion.div)`
-    ${tw`max-height[calc(85vh - 4.2rem)] bg-white overflow-y-auto
+    ${tw`relative max-height[calc(85vh - 4.2rem)] bg-white overflow-y-auto
     md:max-height[calc(75vh - 4.2rem)] height[min-content]
     lg:max-height[calc(85vh - 3.61rem)]`}
 

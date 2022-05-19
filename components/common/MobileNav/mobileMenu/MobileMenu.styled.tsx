@@ -26,6 +26,7 @@ export const Root = styled.section<Props>`
               `}
 
     ${customScroll}
+    
 
     @media only screen and (min-width: 40em) {
         padding-top: 18vw;

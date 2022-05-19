@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, Variants } from "framer-motion";
@@ -67,10 +67,12 @@ const MobileNav: FC = () => {
         isProductCartOpen,
         isProductAdded,
         isHelpOpen,
+        isReviewOpen,
         toggleMobileMenu,
         closeProductCart,
         setProductNotAdded,
         closeHelp,
+        closeReview,
     } = useUI();
 
     const {
@@ -84,14 +86,54 @@ const MobileNav: FC = () => {
             isProductCartOpen ||
             isProductAdded ||
             isProductInfoOpen ||
-            isHelpOpen
+            isHelpOpen ||
+            isReviewOpen
         ) {
             closeProductCart();
             setProductNotAdded();
             closeProductInformation();
             closeHelp();
+            closeReview();
         } else toggleMobileMenu();
     };
+
+    const isNavigationOpen: boolean = useMemo(
+        () =>
+            (!isProductCartOpen &&
+                !isProductAdded &&
+                !isProductInfoOpen &&
+                !isProductOverviewOpen &&
+                !isHelpOpen &&
+                !isReviewOpen) ||
+            isMobileMenuOpen,
+        [
+            isHelpOpen,
+            isMobileMenuOpen,
+            isProductAdded,
+            isProductCartOpen,
+            isProductInfoOpen,
+            isProductOverviewOpen,
+            isReviewOpen,
+        ]
+    );
+
+    const isNavOpen: boolean = useMemo(
+        () =>
+            isMobileMenuOpen ||
+            isProductCartOpen ||
+            isProductAdded ||
+            isProductInfoOpen ||
+            isHelpOpen ||
+            isReviewOpen,
+        [
+            isHelpOpen,
+            isMobileMenuOpen,
+            isProductAdded,
+            isProductCartOpen,
+            isProductInfoOpen,
+            isReviewOpen,
+        ]
+    );
 
     return (
         <>
@@ -116,40 +158,21 @@ const MobileNav: FC = () => {
                         isProductCartOpen ||
                         isProductAdded ||
                         isProductInfoOpen ||
-                        isHelpOpen
+                        isHelpOpen ||
+                        isReviewOpen
                     }
                 >
                     <motion.div
-                        animate={
-                            isMobileMenuOpen ||
-                            isProductCartOpen ||
-                            isProductInfoOpen ||
-                            isHelpOpen
-                                ? "openMenu"
-                                : "closeMenu"
-                        }
+                        animate={isNavOpen ? "openMenu" : "closeMenu"}
                         variants={menuBtnVariants}
                         transition={{ duration: 0.2 }}
                     >
-                        {isMobileMenuOpen ||
-                        isProductCartOpen ||
-                        isProductAdded ||
-                        isProductInfoOpen ||
-                        isHelpOpen ? (
-                            <Close />
-                        ) : (
-                            <HiOutlineMenuAlt3 />
-                        )}
+                        {isNavOpen ? <Close /> : <HiOutlineMenuAlt3 />}
                     </motion.div>
                 </MenuBtn>
                 <Navigation>
                     <AnimatePresence>
-                        {((!isProductCartOpen &&
-                            !isProductAdded &&
-                            !isProductInfoOpen &&
-                            !isProductOverviewOpen &&
-                            !isHelpOpen) ||
-                            isMobileMenuOpen) && (
+                        {isNavigationOpen && (
                             <>
                                 <Cart
                                     key="cart"

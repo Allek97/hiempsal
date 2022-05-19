@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { motion, Variants } from "framer-motion";
-import CircleIcon from "@mui/icons-material/Circle";
 
 import { useUI } from "@components/ui/context";
-import { ReviewBtn, Root, StyledRating } from "./ProductDescription.styled";
+import RatingStyle from "@components/elements/RatingStyle";
+import { ReviewBtn, Root } from "./ProductDescription.styled";
 
 export interface Props {
     description: string;
@@ -29,15 +29,7 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
             <h1>{featureName}</h1>
             <p>{description}</p>
             <ReviewBtn type="button" whileHover="hover" onClick={openReview}>
-                <StyledRating
-                    name="customized-color"
-                    defaultValue={3.5}
-                    precision={0.5}
-                    icon={<CircleIcon />}
-                    emptyIcon={<CircleIcon />}
-                    readOnly
-                    size="small"
-                />
+                <RatingStyle />
                 <motion.span
                     className="text-accents-8 tracking-tighter"
                     variants={reviewMotion}

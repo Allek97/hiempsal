@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Rating } from "@mui/material";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 
@@ -56,23 +55,4 @@ export const Root = styled.div`
 
 export const ReviewBtn = styled(motion.button)`
     ${tw`flex items-center w-max cursor-pointer`}
-`;
-
-export const StyledRating = styled(Rating)`
-    ${tw`column-gap[1px] margin-right[2vw] 
-    lg:margin-right[0.66666666666667vw]`}
-
-    svg {
-        height: 10px;
-        width: 10px;
-
-        /* padding-right: 3px; */
-    }
-
-    .MuiRating-iconFilled {
-        color: var(--orange-red);
-    }
-    .MuiRating-iconEmpty {
-        color: #cdcdcd;
-    }
 `;

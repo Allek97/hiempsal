@@ -37,8 +37,8 @@ export const StyledRating = styled(Rating, transientOptions)<StyleProps>`
         ${({ $size }) =>
             $size === "small" &&
             css`
-                height: 8px;
-                width: 8px;
+                height: 9px;
+                width: 9px;
             `}
     }
 

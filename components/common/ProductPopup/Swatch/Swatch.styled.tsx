@@ -148,8 +148,8 @@ export const ImageVariantWrapper = styled.span`
 `;
 
 export const NotifyButton = styled.button`
-    ${tw`relative z-30 mt-3 flex items-end
-    font-size[9px] tracking-normal line-height[1.2em] uppercase`}
+    ${tw`relative z-30 mt-3 flex items-center line-height[1] text-align[start] w-max
+    font-size[9px] tracking-normal uppercase`}
 
     cursor: pointer !important;
 `;

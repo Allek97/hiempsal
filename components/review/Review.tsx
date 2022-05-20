@@ -7,6 +7,9 @@ import {
     ReviewContainer,
     ReviewOverview,
     UtilBtn,
+    CustomerReview,
+    ReviewIdentification,
+    ReviewField,
 } from "./Review.styled";
 import { useReview } from "./context";
 
@@ -42,6 +45,53 @@ const Review: FC = () => {
                         </span>
                     </div>
                 </ReviewOverview>
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((el) => (
+                    <CustomerReview key={el}>
+                        <div className="flex">
+                            <ReviewIdentification>
+                                <div>
+                                    <span>I</span>
+                                </div>
+                                <div>
+                                    <span>Ilias</span>
+                                    <span>Verified Buyer</span>
+                                </div>
+                            </ReviewIdentification>
+                            <RatingStyle size="small" value={4.3} />
+                        </div>
+                        <div>
+                            <div>
+                                <ReviewField>
+                                    <span>Fit:</span>
+                                    <span>True to size</span>
+                                </ReviewField>
+                                <ReviewField>
+                                    <span>Quality:</span>
+                                    <span>Nice quality</span>
+                                </ReviewField>
+                                <ReviewField>
+                                    <span>Durability:</span>
+                                    <span>Very durable</span>
+                                </ReviewField>
+                            </div>
+                            <div className="mb-4">
+                                <p>
+                                    Lorem ipsum dolor, sit amet consectetur
+                                    adipisicing elit. Ducimus dolore placeat
+                                    molestias necessitatibus? Expedita adipisci
+                                    pariatur, provident quidem veniam temporibus
+                                    blanditiis? Dignissimos odio et iure! Aut
+                                    doloremque harum tempore minima. Lorem
+                                    ipsum, dolor sit amet consectetur
+                                    adipisicing elit. Enim, ad vero numquam
+                                    autem iure quaerat nobis soluta molestiae
+                                    placeat maxime mollitia eum, consectetur
+                                    voluptas. Eum ipsum odit sed numquam odio?
+                                </p>
+                            </div>
+                        </div>
+                    </CustomerReview>
+                ))}
             </ReviewContainer>
         </Container>
     );

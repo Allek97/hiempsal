@@ -29,7 +29,7 @@ const defaultImage = {
 function NotifyComponent() {
     return (
         <NotifyButton type="button" role="alert">
-            <MdAddAlert className="mr-1 h-3.5 w-3.5" /> Get notified
+            <MdAddAlert className="mr-0.5 h-3.5 w-3.5" /> Get notified
         </NotifyButton>
     );
 }

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Container } from "@components/product/ProductInformation/commun";
 
-import { ReviewCustomer } from ".";
+import { ReviewCustomer } from "./ReviewCustomer";
 
-import { Header, UtilBtn } from "./Review.styled";
+import { BtnContainer, Header, UtilBtn, FunctionalBtn } from "./Review.styled";
 import { useReview } from "./context";
 
 // NOTE This component will sit beside <ProductInformation /> component
@@ -29,6 +29,22 @@ const Review: FC = () => {
                 </UtilBtn>
             </Header>
             <ReviewCustomer />
+            <BtnContainer>
+                <FunctionalBtn
+                    isHoverActive={false}
+                    $isSelected={isReviewOpen}
+                    onClick={openReview}
+                >
+                    Write A Review
+                </FunctionalBtn>
+                <FunctionalBtn
+                    isHoverActive={false}
+                    $isSelected={!isReviewOpen}
+                    onClick={closeReview}
+                >
+                    Ask A Question
+                </FunctionalBtn>
+            </BtnContainer>
         </Container>
     );
 };

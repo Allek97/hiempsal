@@ -1,22 +1,7 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
-
-export const textMain = css`
-    ${tw`font-size[13px] line-height[17px] tracking-tighter 
-    lg:(font-size[11.25px] letter-spacing[-0.06em])
-    2lg:font-size[1vw]`}
-
-    ${tw`2xl:font-size[15px]`}
-`;
-export const textSmall = css`
-    ${tw`font-size[10px] line-height[17px] tracking-tighter 
-    lg:(font-size[9px] letter-spacing[-0.06em])
-    2lg:font-size[0.8vw]`}
-
-    ${tw`2xl:font-size[12px]`}
-`;
+import { mainFont2, secondaryFont } from "../typography";
 
 export const ReviewContainer = styled.div`
     ${tw`block px-8 bg-white mb-20`}
@@ -37,7 +22,7 @@ export const CustomerReview = styled(motion.div)`
 
     box-shadow: 2px 2px 8px hsl(0deg 0% 79% / 80%);
 
-    ${textMain}
+    ${mainFont2}
 
     & > div:nth-of-type(2) {
         ${tw`md:(flex mt-5)
@@ -67,7 +52,7 @@ export const ReviewIdentification = styled.div`
             lg:mb-0`}
         }
         span:nth-of-type(2) {
-            ${textSmall}
+            ${secondaryFont}
         }
     }
 `;

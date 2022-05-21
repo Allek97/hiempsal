@@ -24,12 +24,10 @@ export const Root = styled.button<Props>`
                     ${tw`text-primary`}
                     background-color: white;
                 }
-            }
-            &:active {
-                ${tw`bg-accents-2 text-primary`}
-            }
-            &:focus {
-                ${tw`outline-none`}
+
+                &:focus {
+                    ${tw`outline-none`}
+                }
             }
         `}
 `;

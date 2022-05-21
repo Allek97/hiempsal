@@ -1,10 +1,16 @@
 import { FC } from "react";
+import { GoPencil } from "react-icons/go";
+import { IoMdChatbubbles } from "react-icons/io";
+
 import { Container } from "@components/product/ProductInformation/commun";
+import RatingStyle from "@components/elements/RatingStyle";
 
-import { ReviewCustomer } from "./ReviewCustomer";
+import { ReviewCustomer as CustomerReviews } from "./ReviewCustomer";
+import { FunctionalBtn } from "./Commun/FunctionalBtn.styled";
 
-import { BtnContainer, Header, UtilBtn, FunctionalBtn } from "./Review.styled";
+import { BtnContainer, Header, UtilBtn, ReviewOverview } from "./Review.styled";
 import { useReview } from "./context";
+import { ReviewForm } from "./ReviewForm";
 
 // NOTE This component will sit beside <ProductInformation /> component
 const Review: FC = () => {
@@ -28,13 +34,24 @@ const Review: FC = () => {
                     Questions
                 </UtilBtn>
             </Header>
-            <ReviewCustomer />
+            <ReviewOverview>
+                <span className="mr-3">4.7</span>
+                <div className="flex flex-col self-center mt-2.5">
+                    <RatingStyle customSize="large" value={4.3} />
+                    <span className="text-xs tracking-normal text-accents-6 mt-2">
+                        5 Reviews
+                    </span>
+                </div>
+            </ReviewOverview>
+            <ReviewForm />
+            <CustomerReviews />
             <BtnContainer>
                 <FunctionalBtn
                     isHoverActive={false}
                     $isSelected={isReviewOpen}
                     onClick={openReview}
                 >
+                    <GoPencil />
                     Write A Review
                 </FunctionalBtn>
                 <FunctionalBtn
@@ -42,6 +59,7 @@ const Review: FC = () => {
                     $isSelected={!isReviewOpen}
                     onClick={closeReview}
                 >
+                    <IoMdChatbubbles />
                     Ask A Question
                 </FunctionalBtn>
             </BtnContainer>

@@ -25,9 +25,6 @@ export const containerMotion = (exitCondition: boolean): Variants => ({
         transition: {
             duration: 0.45,
             delay: 0.1,
-            overflowY: {
-                delay: 0.5,
-            },
         },
     },
     exit: {

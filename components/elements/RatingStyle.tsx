@@ -2,15 +2,16 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { FC } from "react";
 import tw from "twin.macro";
-import { Rating } from "@mui/material";
+import { Rating, RatingProps } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
 import { transientOptions } from "@lib/transientOptions";
 
-interface Props {
-    size?: "small" | "regular" | "large";
+interface Props extends RatingProps {
+    customSize?: "small" | "regular" | "large";
     value: number;
     precision?: number;
+    readOnly?: boolean;
 }
 
 interface StyleProps {
@@ -50,7 +51,13 @@ export const StyledRating = styled(Rating, transientOptions)<StyleProps>`
     }
 `;
 
-const RatingStyle: FC<Props> = ({ size = "regular", value, precision }) => {
+const RatingStyle: FC<Props> = ({
+    customSize = "regular",
+    value,
+    precision,
+    readOnly = true,
+    ...rest
+}) => {
     return (
         <StyledRating
             name="customized-color"
@@ -58,15 +65,17 @@ const RatingStyle: FC<Props> = ({ size = "regular", value, precision }) => {
             precision={precision}
             icon={<CircleIcon />}
             emptyIcon={<CircleIcon />}
-            readOnly
-            $size={size}
+            readOnly={readOnly}
+            $size={customSize}
+            {...rest}
         />
     );
 };
 
 RatingStyle.defaultProps = {
-    size: "regular",
+    customSize: "regular",
     precision: 0.1,
+    readOnly: true,
 };
 
 export default RatingStyle;

@@ -1,19 +1,10 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
-import { mainFont2, secondaryFont } from "../typography";
+import { mainFont2, secondaryFont } from "../Commun/typography";
 
 export const ReviewContainer = styled.div`
     ${tw`block px-8 bg-white mb-20`}
-`;
-
-export const ReviewOverview = styled.div`
-    ${tw`flex items-center w-max py-16 mx-auto
-    lg:py-10`}
-
-    & > span {
-        ${tw`font-size[60px] tracking-tight`}
-    }
 `;
 
 export const CustomerReview = styled(motion.div)`
@@ -25,7 +16,7 @@ export const CustomerReview = styled(motion.div)`
     ${mainFont2}
 
     & > div:nth-of-type(2) {
-        ${tw`md:(flex mt-5)
+        ${tw`md:(flex justify-between mt-5)
         lg:(block mt-0)`}
 
         & > div:first-of-type {

@@ -1,74 +1,58 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FC, useState } from "react";
-import { Checkbox } from "@mui/material";
+
 import RatingStyle from "@components/elements/RatingStyle";
 import { motion, Variants } from "framer-motion";
-import {
-    CheckBoxLabel,
-    Container,
-    FormInput,
-    FormTextArea,
-} from "./ReviewForm.styled";
+import { useForm } from "react-hook-form";
+
+import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
-import { useReview } from "../context";
+import { ReviewFormType, useReview } from "../context";
+import { ReviewFormChecks } from "./reviewFormChecks";
 
-type CheckOptions = {
-    question: string;
-    options: string[];
-};
+const containerMotion = (): Variants => ({
+    hidden: { height: 0, opacity: 0 },
+    visible: {
+        height: "auto",
+        opacity: 1,
+        transition: {
+            duration: 0.45,
+            delay: 0.1,
+        },
+    },
+    exit: {
+        height: 0,
+        transition: { duration: 0.35 },
+    },
+});
 
-const fitOptions: CheckOptions = {
-    question: "How does it fit?",
-    options: ["Too tight", "Too small", "True to size", "Too big"],
-};
-const durabilityOptions: CheckOptions = {
-    question: "How would you rate the product's durability?",
-    options: ["Very poor", "poor", "okay", "durable", "extremely durable"],
-};
-const integrityOptions: CheckOptions = {
-    question: "Does this product look like it's advertised?",
-    options: ["Very misleading", "Small difference", "As advertised"],
-};
+interface Props {
+    isOpen: boolean;
+}
 
-const checkOptions: CheckOptions[] = [
-    fitOptions,
-    durabilityOptions,
-    integrityOptions,
-];
+const ReviewForm: FC<Props> = ({ isOpen }) => {
+    const { isReviewOpen, reviewForm, setReviewForm } = useReview();
 
-const ReviewForm: FC = () => {
-    const [score, setScore] = useState<number>(1);
-    const [reviewTitle, setReviewTitle] = useState<string>("");
-    const [review, setReview] = useState<string>("");
-    const [checked, setChecked] = useState<number[]>(
-        Array(checkOptions.length).fill(-1)
-    );
-    const [reviewName, setReviewName] = useState<string>("");
+    const [score, setScore] = useState<number>(reviewForm.score);
+    const [reviewTitle, setReviewTitle] = useState<string>(reviewForm.title);
+    const [review, setReview] = useState<string>(reviewForm.review);
+
+    const [reviewName, setReviewName] = useState<string>(reviewForm.name);
     const [isNameTyped, setIsNameTyped] = useState<boolean>(false);
-    const [reviewEmail, setReviewEmail] = useState<string>("");
+    const [reviewEmail, setReviewEmail] = useState<string>(reviewForm.email);
 
-    const { isReviewOpen } = useReview();
+    // Validations
 
-    const containerMotion = (): Variants => ({
-        hidden: { height: 0, opacity: 0 },
-        visible: {
-            height: "auto",
-            opacity: 1,
-            transition: {
-                duration: 0.45,
-                delay: 0.1,
-            },
-        },
-        exit: {
-            height: 0,
-            transition: { duration: 0.35 },
-        },
-    });
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm<ReviewFormType>();
 
     return (
         <div>
-            {isReviewOpen && (
+            {isReviewOpen && isOpen && (
                 <motion.div
                     initial="hidden"
                     animate={isReviewOpen ? "visible" : "hidden"}
@@ -77,20 +61,28 @@ const ReviewForm: FC = () => {
                     <form
                         aria-label="Write A Review For This Product"
                         className="block"
+                        onSubmit={handleSubmit((data) => console.log(data))}
                     >
                         <Container>
                             <h2>Write a review</h2>
                             <div className="flex flex-col mb-6 w-max">
                                 <span className="mb-2 font-bold text-accents-8">
-                                    Score:
+                                    Score: {errors.score?.message}
                                 </span>
                                 <RatingStyle
+                                    {...(register("title", {
+                                        required: "Review's score can't be 0",
+                                    }) as unknown)}
                                     customSize="large"
                                     value={score}
                                     readOnly={false}
                                     precision={1}
                                     onChange={(event, newValue) => {
                                         setScore(newValue as number);
+                                        setReviewForm({
+                                            ...reviewForm,
+                                            score: newValue as number,
+                                        });
                                     }}
                                 />
                             </div>
@@ -100,9 +92,13 @@ const ReviewForm: FC = () => {
                                     className="flex flex-col cursor-pointer"
                                 >
                                     <span className="font-bold mb-2">
-                                        Title:
+                                        Title: {errors.title?.message}
                                     </span>
                                     <FormInput
+                                        {...register("title", {
+                                            required:
+                                                "Review's title & body can't be empty",
+                                        })}
                                         id="review-title"
                                         type="text"
                                         value={reviewTitle}
@@ -134,57 +130,8 @@ const ReviewForm: FC = () => {
                                     />
                                 </label>
                             </div>
-                            <div className="mb-6">
-                                {checkOptions &&
-                                    checkOptions.map(
-                                        ({ question, options }, checkIdx) => (
-                                            <div
-                                                className="mb-6 w-max"
-                                                key={question}
-                                            >
-                                                <span className="block font-bold mb-2">
-                                                    {question}
-                                                </span>
-                                                <div className="flex flex-col cursor-pointer">
-                                                    {options.map((el, idx) => (
-                                                        <CheckBoxLabel
-                                                            htmlFor={`review-${el}`}
-                                                            className="flex items-center cursor-pointer"
-                                                            key={el}
-                                                            onChange={() => {
-                                                                setChecked(
-                                                                    (
-                                                                        previous
-                                                                    ) => {
-                                                                        const newChecked =
-                                                                            [
-                                                                                ...previous,
-                                                                            ];
-                                                                        newChecked[
-                                                                            checkIdx
-                                                                        ] = idx;
-                                                                        return newChecked;
-                                                                    }
-                                                                );
-                                                            }}
-                                                        >
-                                                            <Checkbox
-                                                                id={`review-${el}`}
-                                                                checked={
-                                                                    idx ===
-                                                                    checked[
-                                                                        checkIdx
-                                                                    ]
-                                                                }
-                                                            />
-                                                            <span>{el}</span>
-                                                        </CheckBoxLabel>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )
-                                    )}
-                            </div>
+
+                            <ReviewFormChecks />
 
                             <div className="mb-6">
                                 <label

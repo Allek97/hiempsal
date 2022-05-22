@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoMdChatbubbles } from "react-icons/io";
 
@@ -15,6 +15,8 @@ import { ReviewForm } from "./ReviewForm";
 // NOTE This component will sit beside <ProductInformation /> component
 const Review: FC = () => {
     const { isReviewOpen, openReview, closeReview } = useReview();
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return (
         <Container>
@@ -43,13 +45,16 @@ const Review: FC = () => {
                     </span>
                 </div>
             </ReviewOverview>
-            <ReviewForm />
+            <ReviewForm isOpen={isOpen} />
             <CustomerReviews />
             <BtnContainer>
                 <FunctionalBtn
                     isHoverActive={false}
                     $isSelected={isReviewOpen}
-                    onClick={openReview}
+                    onClick={() => {
+                        setIsOpen(true);
+                        openReview();
+                    }}
                 >
                     <GoPencil />
                     Write A Review

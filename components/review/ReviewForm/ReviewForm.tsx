@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FC, useState } from "react";
-
 import RatingStyle from "@components/elements/RatingStyle";
 import { motion, Variants } from "framer-motion";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SchemaOf, string, object, number } from "yup";
 
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
 import { ReviewFormType, useReview } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
+import { FormError } from "../Commun/FormError.styled";
 
 const containerMotion = (): Variants => ({
     hidden: { height: 0, opacity: 0 },
@@ -31,24 +33,44 @@ interface Props {
     isOpen: boolean;
 }
 
+const formSchema: SchemaOf<ReviewFormType> = object({
+    score: number()
+        .min(1, "Review's score is required")
+        .max(5, "Review's score can't exceed 5")
+        .required("Review's score can't be 0"),
+    title: string().required("Review's title & body can't be empty"),
+    review: string().required("Review's title & body can't be empty"),
+    fit: number().positive().required("You need to choose one option"),
+    durability: number().positive().required("You need to choose one option"),
+    integrity: number().positive().required("You need to choose one option"),
+    name: string().required("You need to use your name"),
+    email: string()
+        .matches(
+            // eslint-disable-next-line no-useless-escape
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+        .required("Email address is required"),
+});
+
 const ReviewForm: FC<Props> = ({ isOpen }) => {
     const { isReviewOpen, reviewForm, setReviewForm } = useReview();
 
-    const [score, setScore] = useState<number>(reviewForm.score);
-    const [reviewTitle, setReviewTitle] = useState<string>(reviewForm.title);
-    const [review, setReview] = useState<string>(reviewForm.review);
-
-    const [reviewName, setReviewName] = useState<string>(reviewForm.name);
     const [isNameTyped, setIsNameTyped] = useState<boolean>(false);
-    const [reviewEmail, setReviewEmail] = useState<string>(reviewForm.email);
 
     // Validations
+
+    const methods = useForm<Partial<ReviewFormType>>({
+        resolver: yupResolver(formSchema),
+    });
 
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<ReviewFormType>();
+        control,
+    } = methods;
+
+    // console.log(watch("score"));
 
     return (
         <div>
@@ -57,6 +79,7 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                     initial="hidden"
                     animate={isReviewOpen ? "visible" : "hidden"}
                     variants={containerMotion()}
+                    className="overflow-hidden"
                 >
                     <form
                         aria-label="Write A Review For This Product"
@@ -67,23 +90,38 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                             <h2>Write a review</h2>
                             <div className="flex flex-col mb-6 w-max">
                                 <span className="mb-2 font-bold text-accents-8">
-                                    Score: {errors.score?.message}
+                                    Score:{" "}
+                                    <FormError>
+                                        {errors.score?.message}
+                                    </FormError>
                                 </span>
-                                <RatingStyle
-                                    {...(register("title", {
-                                        required: "Review's score can't be 0",
-                                    }) as unknown)}
-                                    customSize="large"
-                                    value={score}
-                                    readOnly={false}
-                                    precision={1}
-                                    onChange={(event, newValue) => {
-                                        setScore(newValue as number);
-                                        setReviewForm({
-                                            ...reviewForm,
-                                            score: newValue as number,
-                                        });
-                                    }}
+                                <Controller
+                                    name="score"
+                                    control={control}
+                                    defaultValue={reviewForm.score}
+                                    render={({
+                                        field: { value, onChange },
+                                    }) => (
+                                        <RatingStyle
+                                            name="score"
+                                            customSize="large"
+                                            value={Number(
+                                                value ?? reviewForm.score
+                                            )}
+                                            readOnly={false}
+                                            precision={1}
+                                            onChange={(event, newValue) => {
+                                                setReviewForm({
+                                                    ...reviewForm,
+                                                    score: Number(newValue),
+                                                });
+                                                onChange(
+                                                    event,
+                                                    Number(newValue)
+                                                );
+                                            }}
+                                        />
+                                    )}
                                 />
                             </div>
                             <div className="mb-6">
@@ -92,7 +130,10 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     className="flex flex-col cursor-pointer"
                                 >
                                     <span className="font-bold mb-2">
-                                        Title: {errors.title?.message}
+                                        Title:{" "}
+                                        <FormError>
+                                            {errors.title?.message}
+                                        </FormError>
                                     </span>
                                     <FormInput
                                         {...register("title", {
@@ -101,11 +142,14 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                         })}
                                         id="review-title"
                                         type="text"
-                                        value={reviewTitle}
+                                        value={reviewForm.title}
                                         aria-required
                                         maxLength={150}
                                         onChange={(e) => {
-                                            setReviewTitle(e.target.value);
+                                            setReviewForm({
+                                                ...reviewForm,
+                                                title: e.target.value,
+                                            });
                                         }}
                                         autoComplete="review-title"
                                     />
@@ -117,21 +161,32 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     className="flex flex-col cursor-pointer"
                                 >
                                     <span className="font-bold mb-2">
-                                        Review:
+                                        Review:{" "}
+                                        <FormError>
+                                            {errors.review?.message}
+                                        </FormError>
                                     </span>
                                     <FormTextArea
+                                        {...register("review", {
+                                            required:
+                                                "Review's title & body can't be empty",
+                                        })}
                                         id="review-content"
                                         aria-required
-                                        value={review}
+                                        value={reviewForm.review}
                                         onChange={(e) => {
-                                            setReview(e.target.value);
+                                            setReviewForm({
+                                                ...reviewForm,
+                                                review: e.target.value,
+                                            });
                                         }}
                                         autoComplete="review-content"
                                     />
                                 </label>
                             </div>
-
-                            <ReviewFormChecks />
+                            <FormProvider {...methods}>
+                                <ReviewFormChecks />
+                            </FormProvider>
 
                             <div className="mb-6">
                                 <label
@@ -139,18 +194,29 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     className="flex flex-col cursor-pointer"
                                 >
                                     <span className="font-bold mb-2">
-                                        Use your name:
+                                        Use your name:{" "}
+                                        <FormError>
+                                            {errors.name?.message}
+                                        </FormError>
                                     </span>
                                     <FormInput
+                                        {...register("name", {
+                                            required:
+                                                "You need to use your name",
+                                        })}
                                         id="review-name"
                                         type="text"
-                                        value={reviewName}
+                                        value={reviewForm.name}
                                         aria-required
                                         maxLength={150}
                                         onChange={(e) => {
                                             if (e.target.value.length > 0)
                                                 setIsNameTyped(true);
-                                            setReviewName(e.target.value);
+
+                                            setReviewForm({
+                                                ...reviewForm,
+                                                name: e.target.value,
+                                            });
                                         }}
                                         autoComplete="review-name"
                                     />
@@ -166,16 +232,26 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                         className="flex flex-col cursor-pointer"
                                     >
                                         <span className="font-bold mb-2">
-                                            Email:
+                                            Email:{" "}
+                                            <FormError>
+                                                {errors.email?.message}
+                                            </FormError>
                                         </span>
                                         <FormInput
+                                            {...register("email", {
+                                                required:
+                                                    "You need to add you email adress",
+                                            })}
                                             id="review-email"
                                             type="email"
-                                            value={reviewEmail}
+                                            value={reviewForm.email}
                                             aria-required
                                             maxLength={150}
                                             onChange={(e) => {
-                                                setReviewEmail(e.target.value);
+                                                setReviewForm({
+                                                    ...reviewForm,
+                                                    email: e.target.value,
+                                                });
                                             }}
                                             autoComplete="review-email"
                                         />

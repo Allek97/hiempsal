@@ -1,7 +1,9 @@
 import { FC, useState } from "react";
 import { Checkbox } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+
 import { ReviewFormType, useReview } from "@components/review/context";
+import { FormError } from "@components/review/Commun/FormError.styled";
 
 import { CheckBoxLabel } from "./ReviewFormChecks.styled";
 
@@ -47,16 +49,16 @@ const ReviewFormChecks: FC = () => {
     const {
         register,
         formState: { errors },
-    } = useForm<ReviewFormType>();
+    } = useFormContext<Partial<ReviewFormType>>();
 
     return (
         <div className="mb-6">
             {checkOptions &&
                 checkOptions.map(({ id: optionId, question, options }) => (
-                    <div className="mb-6 w-max" key={question}>
+                    <div className="mb-6" key={question}>
                         <span className="block font-bold mb-2">{question}</span>
-                        <span className="block font-bold mb-2">
-                            {errors[optionId]?.message}
+                        <span className="block font-bold mb-2 w-full">
+                            <FormError>{errors[optionId]?.message}</FormError>
                         </span>
                         <div className="flex flex-col cursor-pointer">
                             {options.map((el, idx) => {

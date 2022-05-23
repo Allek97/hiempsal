@@ -45,7 +45,9 @@ const Review: FC = () => {
                     </span>
                 </div>
             </ReviewOverview>
+
             <ReviewForm isOpen={isOpen} />
+
             <CustomerReviews />
             <BtnContainer>
                 <FunctionalBtn

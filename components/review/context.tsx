@@ -1,24 +1,27 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
+export type Checks = "fit" | "durability" | "integrity";
 export type ReviewFormType = {
     score: number;
     title: string;
     review: string;
-    fit: number;
-    durability: number;
-    integrity: number;
+    checks: { [id in Checks]: number };
     name: string;
     email: string;
+};
+
+export type CheckErrors = {
+    [id in Checks]: {
+        message?: string;
+    };
 };
 
 const defaultReviewForm: ReviewFormType = {
     score: 0,
     title: "",
     review: "",
-    fit: -1,
-    durability: -1,
-    integrity: -1,
+    checks: { fit: -1, durability: -1, integrity: -1 },
     name: "",
     email: "",
 };
@@ -26,12 +29,14 @@ const defaultReviewForm: ReviewFormType = {
 interface StateValues {
     isReviewOpen: boolean;
     reviewForm: ReviewFormType;
+    checkErrors: CheckErrors;
 }
 
 interface StateModifiers {
     openReview: () => void;
     closeReview: () => void;
     setReviewForm: (payload: ReviewFormType) => void;
+    setCheckErrors: (payload: CheckErrors) => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -39,12 +44,14 @@ export type State = StateValues & StateModifiers;
 const initialState: StateValues = {
     isReviewOpen: true,
     reviewForm: defaultReviewForm,
+    checkErrors: {} as CheckErrors,
 };
 
 const stateModifiers: StateModifiers = {
     openReview: () => {},
     closeReview: () => {},
     setReviewForm: () => {},
+    setCheckErrors: () => {},
 };
 
 export const ReviewContext = createContext<State>({
@@ -53,8 +60,12 @@ export const ReviewContext = createContext<State>({
 });
 
 type Action = {
-    type: "OPEN_REVIEW" | "CLOSE_REVIEW" | "SET_REVIEW_FORM";
-    payload?: ReviewFormType | any;
+    type:
+        | "OPEN_REVIEW"
+        | "CLOSE_REVIEW"
+        | "SET_REVIEW_FORM"
+        | "SET_CHECK_ERRORS";
+    payload?: ReviewFormType | CheckErrors | any;
 };
 
 function reviewReducer(state: StateValues, action: Action) {
@@ -71,6 +82,11 @@ function reviewReducer(state: StateValues, action: Action) {
                 return { ...state, reviewForm: { ...action.payload } };
             }
             return { ...state };
+        case "SET_CHECK_ERRORS":
+            if (action.payload as CheckErrors) {
+                return { ...state, checkErrors: { ...action.payload } };
+            }
+            return { ...state };
 
         default:
             return { ...state };
@@ -84,6 +100,8 @@ const ReviewProvider: FC = ({ children }) => {
     const closeReview = () => dispatch({ type: "CLOSE_REVIEW" });
     const setReviewForm = (payload: ReviewFormType) =>
         dispatch({ type: "SET_REVIEW_FORM", payload: payload });
+    const setCheckErrors = (payload: CheckErrors) =>
+        dispatch({ type: "SET_CHECK_ERRORS", payload: payload });
 
     const value: State = useMemo(() => {
         return {
@@ -91,6 +109,7 @@ const ReviewProvider: FC = ({ children }) => {
             openReview,
             closeReview,
             setReviewForm,
+            setCheckErrors,
         };
     }, [state]);
 

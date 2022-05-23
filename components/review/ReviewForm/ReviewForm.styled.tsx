@@ -21,7 +21,7 @@ export const FormInput = styled.input`
     }
 `;
 export const FormTextArea = styled.textarea`
-    ${tw`padding[0.95em 1.1em] mt-0 bg-white h-32`}
+    ${tw`padding[0.95em 1.1em] mt-0 bg-white h-32 w-full`}
 
     box-shadow: 2px 2px 11px rgb(0 0 0 / 7%);
     border: 1px solid #f0f0f0;

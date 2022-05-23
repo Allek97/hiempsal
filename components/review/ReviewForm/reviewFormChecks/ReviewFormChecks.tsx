@@ -1,9 +1,8 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Checkbox } from "@mui/material";
-import { useFormContext } from "react-hook-form";
 
-import { ReviewFormType, useReview } from "@components/review/context";
 import { FormError } from "@components/review/Commun/FormError.styled";
+import { useReview } from "@components/review/context";
 
 import { CheckBoxLabel } from "./ReviewFormChecks.styled";
 
@@ -36,20 +35,7 @@ const checkOptions: CheckOptions[] = [
 ];
 
 const ReviewFormChecks: FC = () => {
-    const { reviewForm, setReviewForm } = useReview();
-
-    type ReviewChecks = { id: CheckOptions["id"]; position: number };
-    const [reviewChecks, setReviewChecks] = useState<ReviewChecks[]>(
-        checkOptions.map((option) => ({
-            id: option.id,
-            position: reviewForm[option.id],
-        }))
-    );
-
-    const {
-        register,
-        formState: { errors },
-    } = useFormContext<Partial<ReviewFormType>>();
+    const { reviewForm, setReviewForm, checkErrors } = useReview();
 
     return (
         <div className="mb-6">
@@ -58,44 +44,32 @@ const ReviewFormChecks: FC = () => {
                     <div className="mb-6" key={question}>
                         <span className="block font-bold mb-2">{question}</span>
                         <span className="block font-bold mb-2 w-full">
-                            <FormError>{errors[optionId]?.message}</FormError>
+                            <FormError>
+                                {checkErrors?.[optionId]?.message}
+                            </FormError>
                         </span>
-                        <div className="flex flex-col cursor-pointer">
+                        <div className="flex flex-col cursor-pointer w-max">
                             {options.map((el, idx) => {
-                                const currentReviewCheck: ReviewChecks =
-                                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                                    reviewChecks.find(
-                                        (option) => option.id === optionId
-                                    )!;
                                 return (
                                     <CheckBoxLabel
                                         htmlFor={`review-${el}`}
                                         className="flex items-center cursor-pointer"
                                         key={el}
                                         onChange={() => {
-                                            const newReviewChecks =
-                                                reviewChecks.map((option) => {
-                                                    if (option.id === optionId)
-                                                        option.position = idx;
-                                                    return option;
-                                                });
-
-                                            setReviewChecks(newReviewChecks);
                                             setReviewForm({
                                                 ...reviewForm,
-                                                [currentReviewCheck.id]:
-                                                    currentReviewCheck?.position,
+                                                checks: {
+                                                    ...reviewForm.checks,
+                                                    [optionId]: idx,
+                                                },
                                             });
                                         }}
                                     >
                                         <Checkbox
                                             id={`review-${el}`}
-                                            {...register(optionId, {
-                                                required: `You need to select one ${optionId} option`,
-                                            })}
                                             checked={
                                                 idx ===
-                                                currentReviewCheck?.position
+                                                reviewForm.checks[optionId]
                                             }
                                         />
                                         <span>{el}</span>

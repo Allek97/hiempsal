@@ -9,7 +9,7 @@ import { SchemaOf, string, object, number } from "yup";
 
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
-import { ReviewFormType, useReview } from "../context";
+import { CheckErrors, ReviewFormType, useReview } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
 
@@ -33,27 +33,31 @@ interface Props {
     isOpen: boolean;
 }
 
-const formSchema: SchemaOf<ReviewFormType> = object({
+const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
     score: number()
         .min(1, "Review's score is required")
         .max(5, "Review's score can't exceed 5")
         .required("Review's score can't be 0"),
     title: string().required("Review's title & body can't be empty"),
     review: string().required("Review's title & body can't be empty"),
-    fit: number().positive().required("You need to choose one option"),
-    durability: number().positive().required("You need to choose one option"),
-    integrity: number().positive().required("You need to choose one option"),
     name: string().required("You need to use your name"),
     email: string()
+        .required("Email address is required")
+        .email("Please enter a valid email address")
         .matches(
             // eslint-disable-next-line no-useless-escape
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-        .required("Email address is required"),
+        ),
 });
 
 const ReviewForm: FC<Props> = ({ isOpen }) => {
-    const { isReviewOpen, reviewForm, setReviewForm } = useReview();
+    const {
+        isReviewOpen,
+        reviewForm,
+        setReviewForm,
+        checkErrors,
+        setCheckErrors,
+    } = useReview();
 
     const [isNameTyped, setIsNameTyped] = useState<boolean>(false);
 
@@ -70,7 +74,20 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
         control,
     } = methods;
 
-    // console.log(watch("score"));
+    function handleCheckErrors() {
+        let updatedCheckErrors: CheckErrors = { ...checkErrors };
+        Object.entries(reviewForm.checks).forEach(([key, value]) => {
+            if (value === -1) {
+                updatedCheckErrors = {
+                    ...updatedCheckErrors,
+                    [key]: { message: "You need to select one option" },
+                };
+            }
+        });
+        setCheckErrors(updatedCheckErrors);
+    }
+
+    function onSubmit() {}
 
     return (
         <div>
@@ -84,14 +101,14 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                     <form
                         aria-label="Write A Review For This Product"
                         className="block"
-                        onSubmit={handleSubmit((data) => console.log(data))}
+                        onSubmit={handleSubmit(onSubmit)}
                     >
                         <Container>
-                            <h2>Write a review</h2>
+                            <h2 className="w-max">Write a review</h2>
                             <div className="flex flex-col mb-6 w-max">
-                                <span className="mb-2 font-bold text-accents-8">
+                                <span className="flex mb-2 font-bold text-accents-8">
                                     Score:{" "}
-                                    <FormError>
+                                    <FormError className="ml-1">
                                         {errors.score?.message}
                                     </FormError>
                                 </span>
@@ -129,9 +146,9 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     htmlFor="review-title"
                                     className="flex flex-col cursor-pointer"
                                 >
-                                    <span className="font-bold mb-2">
-                                        Title:{" "}
-                                        <FormError>
+                                    <span className="flex font-bold mb-2">
+                                        Title:
+                                        <FormError className="ml-1">
                                             {errors.title?.message}
                                         </FormError>
                                     </span>
@@ -160,9 +177,9 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     htmlFor="review-content"
                                     className="flex flex-col cursor-pointer"
                                 >
-                                    <span className="font-bold mb-2">
+                                    <span className="flex font-bold mb-2">
                                         Review:{" "}
-                                        <FormError>
+                                        <FormError className="ml-1">
                                             {errors.review?.message}
                                         </FormError>
                                     </span>
@@ -193,9 +210,9 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                     htmlFor="review-name"
                                     className="flex flex-col cursor-pointer"
                                 >
-                                    <span className="font-bold mb-2">
+                                    <span className="flex font-bold mb-2">
                                         Use your name:{" "}
-                                        <FormError>
+                                        <FormError className="ml-1">
                                             {errors.name?.message}
                                         </FormError>
                                     </span>
@@ -231,9 +248,9 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                         htmlFor="review-email"
                                         className="flex flex-col cursor-pointer"
                                     >
-                                        <span className="font-bold mb-2">
+                                        <span className="flex font-bold mb-2">
                                             Email:{" "}
-                                            <FormError>
+                                            <FormError className="ml-1">
                                                 {errors.email?.message}
                                             </FormError>
                                         </span>
@@ -263,6 +280,7 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
                                 $isSelected
                                 type="submit"
                                 className="ml-auto w-1/2"
+                                onClick={() => handleCheckErrors()}
                             >
                                 Post
                             </FunctionalBtn>

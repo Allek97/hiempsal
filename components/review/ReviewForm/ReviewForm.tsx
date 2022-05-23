@@ -5,7 +5,8 @@ import RatingStyle from "@components/elements/RatingStyle";
 import { motion, Variants } from "framer-motion";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SchemaOf, string, object, number } from "yup";
+import { SchemaOf, string, object, number, ValidationError } from "yup";
+import isEmailValidator from "validator/lib/isEmail";
 
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
@@ -41,12 +42,17 @@ const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
     title: string().required("Review's title & body can't be empty"),
     review: string().required("Review's title & body can't be empty"),
     name: string().required("You need to use your name"),
+    // NOTE: https://github.com/jquense/yup/issues/507
     email: string()
-        .required("Email address is required")
         .email("Please enter a valid email address")
-        .matches(
-            // eslint-disable-next-line no-useless-escape
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        .required("Email address is required")
+        .test(
+            "is-valid",
+            () => `Please enter a valid email address`,
+            (value) =>
+                value
+                    ? isEmailValidator(value)
+                    : new ValidationError("Invalid value")
         ),
 });
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { FC } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
@@ -10,7 +11,7 @@ interface Props {
     isReview?: boolean;
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     ${tw`relative flex flex-col items-center width[80%] mx-auto py-12
      text-center
      sm:width[40%]
@@ -65,7 +66,7 @@ const Confirmation: FC<Props> = ({ isReview = true }) => {
     const { setReviewSubmission } = useReview();
     return (
         <div className="px-8">
-            <Container>
+            <Container animate={{ opacity: [0, 1] }}>
                 <CloseBtn
                     type="button"
                     onClick={() => setReviewSubmission(false)}

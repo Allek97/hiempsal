@@ -8,7 +8,7 @@ export const ReviewContainer = styled.div`
     sm:px-8`}
 `;
 
-export const CustomerReview = styled(motion.div)`
+export const CustomerContainer = styled(motion.div)`
     ${tw`flex flex-col w-full padding[1.2em] mx-auto bg-white
     margin-bottom[1.4em] border-radius[5px]`}
 

@@ -3,14 +3,14 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import ReactPaginate from "react-paginate";
 import {
-    CustomerReview,
+    CustomerContainer,
     ReviewIdentification,
     ReviewContainer,
     ReviewField,
     ReviewPagination,
-} from "./ReviewCustomer.styled";
+} from "./CustomerReviews.styled";
 
-const ReviewCustomer: FC = () => {
+const CustomerReviews: FC = () => {
     const itemsPerPage = 4;
     const items: number[] = useMemo(() => Array.from(Array(100).keys()), []);
 
@@ -35,7 +35,7 @@ const ReviewCustomer: FC = () => {
         <ReviewContainer>
             {currentItems &&
                 currentItems.map((el) => (
-                    <CustomerReview
+                    <CustomerContainer
                         animate={{
                             opacity: [0, 1],
                             transition: { ease: "easeIn" },
@@ -89,7 +89,7 @@ const ReviewCustomer: FC = () => {
                                 </p>
                             </div>
                         </div>
-                    </CustomerReview>
+                    </CustomerContainer>
                 ))}
             <ReviewPagination>
                 <ReactPaginate
@@ -118,4 +118,4 @@ const ReviewCustomer: FC = () => {
     );
 };
 
-export default ReviewCustomer;
+export default CustomerReviews;

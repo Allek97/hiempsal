@@ -5,7 +5,7 @@ import { IoMdChatbubbles } from "react-icons/io";
 import { Container } from "@components/product/ProductInformation/commun";
 import RatingStyle from "@components/elements/RatingStyle";
 
-import { ReviewCustomer as CustomerReviews } from "./ReviewCustomer";
+import { CustomerReviews } from "./CustomerReviews";
 import { FunctionalBtn } from "./Commun/FunctionalBtn.styled";
 
 import { BtnContainer, Header, UtilBtn, ReviewOverview } from "./Review.styled";

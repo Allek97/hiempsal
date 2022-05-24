@@ -4,7 +4,8 @@ import tw from "twin.macro";
 import { mainFont2, secondaryFont } from "../Commun/typography";
 
 export const ReviewContainer = styled.div`
-    ${tw`block px-8 bg-white mb-20`}
+    ${tw`block px-6 bg-white mb-20
+    sm:px-8`}
 `;
 
 export const CustomerReview = styled(motion.div)`

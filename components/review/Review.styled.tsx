@@ -12,7 +12,8 @@ interface UtilBtnProps {
 }
 
 export const Header = styled.div`
-    ${tw`flex w-full bg-grey-light py-6 px-8`}
+    ${tw`flex w-full bg-grey-light py-6 px-6
+    sm:px-8`}
 `;
 
 export const UtilBtn = styled(motion.button, transientOptions)<UtilBtnProps>`
@@ -50,5 +51,6 @@ export const ReviewOverview = styled.div`
 `;
 
 export const BtnContainer = styled.div`
-    ${tw`sticky left-0 bottom-10 z-10 flex w-full py-6 px-8`}
+    ${tw`sticky left-0 bottom-10 z-10 flex w-full py-6 px-6
+    sm:px-8`}
 `;

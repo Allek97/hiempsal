@@ -30,6 +30,7 @@ interface StateValues {
     isReviewOpen: boolean;
     reviewForm: ReviewFormType;
     checkErrors: CheckErrors;
+    isReviewSubmitted: boolean;
 }
 
 interface StateModifiers {
@@ -37,6 +38,7 @@ interface StateModifiers {
     closeReview: () => void;
     setReviewForm: (payload: ReviewFormType) => void;
     setCheckErrors: (payload: CheckErrors) => void;
+    setReviewSubmission: (payload: boolean) => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -45,6 +47,7 @@ const initialState: StateValues = {
     isReviewOpen: true,
     reviewForm: defaultReviewForm,
     checkErrors: {} as CheckErrors,
+    isReviewSubmitted: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -52,6 +55,7 @@ const stateModifiers: StateModifiers = {
     closeReview: () => {},
     setReviewForm: () => {},
     setCheckErrors: () => {},
+    setReviewSubmission: () => {},
 };
 
 export const ReviewContext = createContext<State>({
@@ -64,8 +68,9 @@ type Action = {
         | "OPEN_REVIEW"
         | "CLOSE_REVIEW"
         | "SET_REVIEW_FORM"
-        | "SET_CHECK_ERRORS";
-    payload?: ReviewFormType | CheckErrors | any;
+        | "SET_CHECK_ERRORS"
+        | "SET_REVIEW_SUBMISSION_STATUS";
+    payload?: ReviewFormType | CheckErrors | boolean | any;
 };
 
 function reviewReducer(state: StateValues, action: Action) {
@@ -87,6 +92,15 @@ function reviewReducer(state: StateValues, action: Action) {
                 return { ...state, checkErrors: { ...action.payload } };
             }
             return { ...state };
+        case "SET_REVIEW_SUBMISSION_STATUS":
+            if (action.payload as boolean) {
+                return {
+                    ...state,
+                    isReviewSubmitted: true,
+                    isReviewOpen: false,
+                };
+            }
+            return { ...state, isReviewSubmitted: false };
 
         default:
             return { ...state };
@@ -102,6 +116,8 @@ const ReviewProvider: FC = ({ children }) => {
         dispatch({ type: "SET_REVIEW_FORM", payload: payload });
     const setCheckErrors = (payload: CheckErrors) =>
         dispatch({ type: "SET_CHECK_ERRORS", payload: payload });
+    const setReviewSubmission = (payload: boolean) =>
+        dispatch({ type: "SET_REVIEW_SUBMISSION_STATUS", payload: payload });
 
     const value: State = useMemo(() => {
         return {
@@ -110,6 +126,7 @@ const ReviewProvider: FC = ({ children }) => {
             closeReview,
             setReviewForm,
             setCheckErrors,
+            setReviewSubmission,
         };
     }, [state]);
 

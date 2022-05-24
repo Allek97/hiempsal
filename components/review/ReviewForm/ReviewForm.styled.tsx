@@ -3,7 +3,8 @@ import tw from "twin.macro";
 import { mainFont } from "../Commun/typography";
 
 export const Container = styled.div`
-    ${tw`flex flex-col px-8 mb-28`}
+    ${tw`flex flex-col px-6 mb-28
+    md:px-8`}
     ${mainFont}
 
     h2 {

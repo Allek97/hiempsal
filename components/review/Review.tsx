@@ -11,10 +11,12 @@ import { FunctionalBtn } from "./Commun/FunctionalBtn.styled";
 import { BtnContainer, Header, UtilBtn, ReviewOverview } from "./Review.styled";
 import { useReview } from "./context";
 import { ReviewForm } from "./ReviewForm";
+import Confirmation from "./Commun/Confirmation";
 
 // NOTE This component will sit beside <ProductInformation /> component
 const Review: FC = () => {
-    const { isReviewOpen, openReview, closeReview } = useReview();
+    const { isReviewOpen, isReviewSubmitted, openReview, closeReview } =
+        useReview();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -46,9 +48,14 @@ const Review: FC = () => {
                 </div>
             </ReviewOverview>
 
-            <ReviewForm isOpen={isOpen} />
+            {!isReviewSubmitted ? (
+                <Confirmation />
+            ) : (
+                <ReviewForm isOpen={isOpen} />
+            )}
 
             <CustomerReviews />
+
             <BtnContainer>
                 <FunctionalBtn
                     isHoverActive={false}

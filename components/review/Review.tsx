@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoMdChatbubbles } from "react-icons/io";
 
@@ -15,10 +15,13 @@ import Confirmation from "./Commun/Confirmation";
 
 // NOTE This component will sit beside <ProductInformation /> component
 const Review: FC = () => {
-    const { isReviewOpen, isReviewSubmitted, openReview, closeReview } =
-        useReview();
-
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const {
+        isReviewOpen,
+        isReviewSubmitted,
+        openReview,
+        openReviewUI,
+        closeReview,
+    } = useReview();
 
     return (
         <Container>
@@ -48,11 +51,7 @@ const Review: FC = () => {
                 </div>
             </ReviewOverview>
 
-            {!isReviewSubmitted ? (
-                <Confirmation />
-            ) : (
-                <ReviewForm isOpen={isOpen} />
-            )}
+            {isReviewSubmitted ? <Confirmation isReview /> : <ReviewForm />}
 
             <CustomerReviews />
 
@@ -61,8 +60,7 @@ const Review: FC = () => {
                     isHoverActive={false}
                     $isSelected={isReviewOpen}
                     onClick={() => {
-                        setIsOpen(true);
-                        openReview();
+                        openReviewUI();
                     }}
                 >
                     <GoPencil />

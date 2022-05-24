@@ -4,6 +4,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import tw from "twin.macro";
+import { useReview } from "../context";
 
 interface Props {
     isReview?: boolean;
@@ -44,7 +45,7 @@ const SocialContainer = styled.div`
         }
     }
 `;
-const CloseWrapper = styled.div`
+const CloseBtn = styled.button`
     ${tw`flex items-center`}
 
     svg {
@@ -61,12 +62,16 @@ const CloseWrapper = styled.div`
 `;
 
 const Confirmation: FC<Props> = ({ isReview = true }) => {
+    const { setReviewSubmission } = useReview();
     return (
         <div className="px-8">
             <Container>
-                <CloseWrapper>
+                <CloseBtn
+                    type="button"
+                    onClick={() => setReviewSubmission(false)}
+                >
                     <IoClose />
-                </CloseWrapper>
+                </CloseBtn>
                 <div className="mb-2">
                     <AiFillHeart
                         className="h-7 w-7"

@@ -10,7 +10,12 @@ import isEmailValidator from "validator/lib/isEmail";
 
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
-import { CheckErrors, ReviewFormType, useReview } from "../context";
+import {
+    CheckErrors,
+    defaultReviewForm,
+    ReviewFormType,
+    useReview,
+} from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
 
@@ -29,10 +34,6 @@ const containerMotion = (): Variants => ({
         transition: { duration: 0.35 },
     },
 });
-
-interface Props {
-    isOpen: boolean;
-}
 
 const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
     score: number()
@@ -56,12 +57,13 @@ const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
         ),
 });
 
-const ReviewForm: FC<Props> = ({ isOpen }) => {
+const ReviewForm: FC = () => {
     const {
-        isReviewOpen,
+        isReviewUIOpen,
         reviewForm,
-        setReviewForm,
         checkErrors,
+        setReviewSubmission,
+        setReviewForm,
         setCheckErrors,
     } = useReview();
 
@@ -93,14 +95,18 @@ const ReviewForm: FC<Props> = ({ isOpen }) => {
         setCheckErrors(updatedCheckErrors);
     }
 
-    function onSubmit() {}
+    function onSubmit() {
+        setReviewSubmission(true);
+        setReviewForm(defaultReviewForm);
+        setCheckErrors({});
+    }
 
     return (
         <div>
-            {isReviewOpen && isOpen && (
+            {isReviewUIOpen && (
                 <motion.div
                     initial="hidden"
-                    animate={isReviewOpen ? "visible" : "hidden"}
+                    animate={isReviewUIOpen ? "visible" : "hidden"}
                     variants={containerMotion()}
                     className="overflow-hidden"
                 >

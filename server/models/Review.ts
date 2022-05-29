@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, ObjectId } from "mongoose";
 import validator from "validator";
 
 type Checks = "fit" | "durability" | "integrity";
@@ -14,6 +14,7 @@ interface IReview {
     name: string;
     email: string;
     checks?: IChecks;
+    product: ObjectId;
 }
 
 const checkSchema = new Schema<IChecks>({
@@ -50,6 +51,13 @@ const reviewSchema = new Schema<IReview>({
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, "You need to provide a valid email"],
+    },
+    product: {
+        type: mongoose.Types.ObjectId,
+        required: [
+            true,
+            "You must enter the unique id of the product associated with this review",
+        ],
     },
 });
 

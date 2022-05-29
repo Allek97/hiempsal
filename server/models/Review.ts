@@ -1,21 +1,6 @@
-import mongoose, { Schema, ObjectId } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { IChecks, IReview } from "server/types/review";
 import validator from "validator";
-
-type Checks = "fit" | "durability" | "integrity";
-
-type IChecks = {
-    [id in Checks]?: number;
-};
-
-interface IReview {
-    score: number;
-    review: string;
-    title: string;
-    name: string;
-    email: string;
-    checks?: IChecks;
-    product: ObjectId;
-}
 
 const checkSchema = new Schema<IChecks>({
     fit: { String, required: false },

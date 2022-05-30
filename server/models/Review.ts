@@ -1,11 +1,16 @@
 import mongoose, { Schema } from "mongoose";
-import { IChecks, IReview } from "server/types/review";
+import { IChecksCloth, IReview } from "server/types/review";
 import validator from "validator";
 
-const checkSchema = new Schema<IChecks>({
-    fit: { String, required: false },
-    durability: { String, required: false },
-    integrity: { String, required: false },
+const checkClothSchema = new Schema<IChecksCloth>({
+    fit: { type: String, required: true },
+    durability: { type: String, required: true },
+    integrity: { type: String, required: true },
+});
+const checkTechSchema = new Schema<IChecksCloth>({
+    fit: { type: String, required: true },
+    durability: { type: String, required: true },
+    integrity: { type: String, required: true },
 });
 
 const reviewSchema = new Schema<IReview>({
@@ -23,8 +28,16 @@ const reviewSchema = new Schema<IReview>({
         type: String,
         required: [true, "Review title cannot be empty"],
     },
-    checks: {
-        type: [checkSchema],
+
+    clothChecks: {
+        type: checkClothSchema,
+        required: function () {
+            return (this as IReview).productType === "clothing";
+        },
+    },
+    techChecks: {
+        type: checkTechSchema,
+        required: [true, "You must enter the check options"],
     },
     name: {
         type: String,
@@ -37,11 +50,20 @@ const reviewSchema = new Schema<IReview>({
         lowercase: true,
         validate: [validator.isEmail, "You need to provide a valid email"],
     },
-    product: {
-        type: mongoose.Types.ObjectId,
+    productId: {
+        type: String,
+        unique: true,
         required: [
             true,
             "You must enter the unique id of the product associated with this review",
+        ],
+    },
+    productType: {
+        type: String,
+        enum: ["clothing", "technology"],
+        required: [
+            true,
+            "You need to provide the type of the product, it's either clothing or technology",
         ],
     },
 });

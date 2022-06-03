@@ -37,7 +37,9 @@ const reviewSchema = new Schema<IReview>({
     },
     techChecks: {
         type: checkTechSchema,
-        required: [true, "You must enter the check options"],
+        required: function () {
+            return (this as IReview).productType === "technology";
+        },
     },
     name: {
         type: String,

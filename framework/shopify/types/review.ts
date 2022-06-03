@@ -1,22 +1,22 @@
-export type IChecksCloth = {
+export type ChecksCloth = {
     fit: string;
     durability: string;
     integrity: string;
 };
-export type IChecksTech = {
+export type ChecksTech = {
     fit: string;
     durability: string;
     integrity: string;
 };
 
-export interface IReview {
+export interface Review {
     score: number;
     review: string;
     title: string;
     name: string;
     email: string;
-    clothChecks: any;
-    techChecks: any;
+    clothChecks?: ChecksCloth;
+    techChecks?: ChecksTech;
     productId: string;
     productType: "clothing" | "technology";
 }

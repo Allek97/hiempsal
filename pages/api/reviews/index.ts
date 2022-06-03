@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             res.status(201).json({
                 status: "success",
-                data: doc,
+                data: { review: doc },
             });
         } catch (err) {
             assertIsError(err);

@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { Plus } from "@components/icons";
 import { HelpCard } from "@components/elements";
 import { useUI } from "@components/ui/context";
-import { useProductInfo } from "../context";
+import { useProduct } from "../context";
 
 import { InfoBox, InfoBtn, List, Root } from "./ProductInformation.styled";
 
@@ -39,7 +39,7 @@ const Info: FC<InfoProps> = ({ infoName }) => {
         openMaterials,
         openShipping,
         openSustainability,
-    } = useProductInfo();
+    } = useProduct();
 
     const { openPopup } = useUI();
 

@@ -2,7 +2,7 @@ import { FC, MutableRefObject, ReactNode, useRef } from "react";
 
 import { useBodyScroll, useMediaQueryNext } from "@hooks";
 
-import { useProductInfo } from "@components/product/context";
+import { useProduct } from "@components/product/context";
 import { useUI } from "../context";
 
 import { Container, Overlay, Root } from "./Popup.styled";
@@ -22,7 +22,7 @@ const Popup: FC<Props> = ({ children }) => {
         closeReview,
     } = useUI();
 
-    const { isProductInfoOpen, closeProductInformation } = useProductInfo();
+    const { isProductInfoOpen, closeProductInformation } = useProduct();
 
     const isOverlay =
         isProductInfoOpen ||

@@ -12,8 +12,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // NOTE: This needs to be writter directely in getStaticProps
     if (method === "GET") {
-        const doc: ReviewType[] = await Review.find({});
-        res.status(200).json({
+        let query = {};
+        if (req.query.productId) query = { productId: req.query.productId };
+        if (req.query.email) query = { ...query, email: req.query.email };
+
+        const doc: ReviewType[] = await Review.find(query);
+        return res.status(200).json({
             status: "success",
             data: doc,
         });
@@ -26,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             const doc = await Review.create(reviewBody);
 
-            res.status(201).json({
+            return res.status(201).json({
                 status: "success",
                 data: { review: doc },
             });
@@ -38,6 +42,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
     }
+
+    res.status(400).json({
+        status: "Wrong request",
+    });
 };
 
 export default handler;

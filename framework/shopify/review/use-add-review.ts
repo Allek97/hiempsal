@@ -17,19 +17,26 @@ type UseAddReview = (input: Review) => Promise<Review>;
 const useAddReview = (): UseAddReview => {
     const { fetchRest } = getConfig();
 
-    const { mutate } = useReview();
     return async (input: Review) => {
         try {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            // const { mutate } = useReview()({
+            //     productId: input.productId,
+            //     userEmail: input.email,
+            // });
             const { data } = await fetchRest<Review>({
                 url: "/api/reviews",
                 body: input,
             });
-            await mutate();
+            // await mutate();
             return data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw error as AxiosError;
-            } else throw new Error("different error than axios");
+            } else {
+                console.log(error);
+                throw new Error("different error than axios");
+            }
         }
     };
 };

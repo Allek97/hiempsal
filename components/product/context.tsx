@@ -1,5 +1,7 @@
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
+type ProductType = "clothing" | "technology";
+
 interface StateValues {
     isFeaturesOpen: boolean;
     isMaterialsOpen: boolean;
@@ -8,6 +10,8 @@ interface StateValues {
     isShippingOpen: boolean;
     isProductOverviewOpen: boolean;
     isProductInfoOpen: boolean;
+    productId: string;
+    productType: ProductType;
 }
 
 interface StateModifiers {
@@ -18,6 +22,8 @@ interface StateModifiers {
     openShipping: () => void;
     closeProductInformation: () => void;
     setProductOverview: (condition: boolean) => void;
+    setProductId: (id: string) => void;
+    setProductType: (type: ProductType) => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -30,6 +36,8 @@ const initialState: StateValues = {
     isShippingOpen: false,
     isProductInfoOpen: false,
     isProductOverviewOpen: false,
+    productId: "",
+    productType: "clothing",
 };
 
 const stateModifiers: StateModifiers = {
@@ -40,6 +48,8 @@ const stateModifiers: StateModifiers = {
     openShipping: () => {},
     closeProductInformation: () => {},
     setProductOverview: () => {},
+    setProductId: () => {},
+    setProductType: () => {},
 };
 
 const PIContext = createContext<State>({ ...initialState, ...stateModifiers });
@@ -52,8 +62,10 @@ type Action = {
         | "OPEN_DIMENSIONS"
         | "OPEN_SHIPPING"
         | "CLOSE_PRODUCT_INFORMATION"
-        | "SET_PRODUCT_OVERVIEW";
-    payload?: boolean;
+        | "SET_PRODUCT_OVERVIEW"
+        | "SET_PRODUCT_ID"
+        | "SET_PRODUCT_TYPE";
+    payload?: boolean | string | any;
 };
 
 function piReducer(state: StateValues, action: Action) {
@@ -118,7 +130,7 @@ function piReducer(state: StateValues, action: Action) {
                 isShippingOpen: false,
             };
         case "SET_PRODUCT_OVERVIEW":
-            if (action.payload)
+            if (action.payload as boolean)
                 return {
                     ...state,
                     isProductOverviewOpen: true,
@@ -127,6 +139,26 @@ function piReducer(state: StateValues, action: Action) {
             return {
                 ...state,
                 isProductOverviewOpen: false,
+            };
+        case "SET_PRODUCT_ID":
+            if (action.payload as string)
+                return {
+                    ...state,
+                    productId: action.payload,
+                };
+
+            return {
+                ...state,
+            };
+        case "SET_PRODUCT_TYPE":
+            if (action.payload as ProductType)
+                return {
+                    ...state,
+                    productType: action.payload,
+                };
+
+            return {
+                ...state,
             };
         default:
             return {
@@ -147,6 +179,10 @@ const ProductInfoProvider: FC = ({ children }) => {
         dispatch({ type: "CLOSE_PRODUCT_INFORMATION" });
     const setProductOverview = (condition: boolean) =>
         dispatch({ type: "SET_PRODUCT_OVERVIEW", payload: condition });
+    const setProductId = (id: string) =>
+        dispatch({ type: "SET_PRODUCT_ID", payload: id });
+    const setProductType = (type: ProductType) =>
+        dispatch({ type: "SET_PRODUCT_TYPE", payload: type });
 
     const {
         isDimensionsOpen,
@@ -183,6 +219,8 @@ const ProductInfoProvider: FC = ({ children }) => {
             openShipping,
             closeProductInformation,
             setProductOverview,
+            setProductId,
+            setProductType,
         }),
         [state, isProductInfoOpen]
     );
@@ -190,7 +228,7 @@ const ProductInfoProvider: FC = ({ children }) => {
     return <PIContext.Provider value={value}>{children}</PIContext.Provider>;
 };
 
-export const useProductInfo = (): State => {
+export const useProduct = (): State => {
     const context = useContext(PIContext);
     return context;
 };

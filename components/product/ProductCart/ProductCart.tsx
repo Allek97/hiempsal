@@ -18,7 +18,7 @@ import {
     Sustainability,
 } from "../ProductInformation";
 
-import { useProductInfo } from "../context";
+import { useProduct } from "../context";
 
 interface Props {
     product: Product;
@@ -41,7 +41,7 @@ const ProductCart: FC<Props> = ({ product }) => {
         isSustainability,
         isProductOverviewOpen,
         isProductInfoOpen,
-    } = useProductInfo();
+    } = useProduct();
 
     const isOverviewOpen =
         !isProductCartOpen &&

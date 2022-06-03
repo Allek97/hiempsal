@@ -11,13 +11,13 @@ import {
     HIEMPSAL_WORKING_HOURS,
 } from "@lib/const/contact";
 import { containerMotion } from "@components/product/ProductInformation/commun/Container";
-import { useProductInfo } from "@components/product/context";
+import { useProduct } from "@components/product/context";
 
 import { Root } from "./HelpCardContent.styled";
 import { textMotion } from "../motions";
 
 const HelpCardContent: FC = () => {
-    const { isProductOverviewOpen } = useProductInfo();
+    const { isProductOverviewOpen } = useProduct();
     return (
         <Root
             initial="hidden"

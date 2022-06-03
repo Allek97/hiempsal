@@ -8,16 +8,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SchemaOf, string, object, number, ValidationError } from "yup";
 import isEmailValidator from "validator/lib/isEmail";
 
+import useAddReview from "@framework/review/use-add-review";
+
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
 import {
     CheckErrors,
     defaultReviewForm,
     ReviewFormType,
-    useReview,
+    useReviewContext,
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
+import { Review } from "@framework/types/review";
+import { useProduct } from "@components/product/context";
 
 const containerMotion = (): Variants => ({
     hidden: { height: 0, opacity: 0 },
@@ -65,7 +69,8 @@ const ReviewForm: FC = () => {
         setReviewSubmission,
         setReviewForm,
         setCheckErrors,
-    } = useReview();
+    } = useReviewContext();
+    const { productId, productType } = useProduct();
 
     const [isNameTyped, setIsNameTyped] = useState<boolean>(false);
 
@@ -85,7 +90,7 @@ const ReviewForm: FC = () => {
     function handleCheckErrors() {
         let updatedCheckErrors: CheckErrors = { ...checkErrors };
         Object.entries(reviewForm.checks).forEach(([key, value]) => {
-            if (value === -1) {
+            if (value === "") {
                 updatedCheckErrors = {
                     ...updatedCheckErrors,
                     [key]: { message: "You need to select one option" },
@@ -95,10 +100,35 @@ const ReviewForm: FC = () => {
         setCheckErrors(updatedCheckErrors);
     }
 
-    function onSubmit() {
-        setReviewSubmission(true);
-        setReviewForm(defaultReviewForm);
-        setCheckErrors({});
+    const addReview = useAddReview();
+    async function onSubmit() {
+        try {
+            setReviewSubmission(true);
+            // setReviewForm(defaultReviewForm);
+            // setCheckErrors({});
+
+            console.log(productId, productType);
+
+            const { checks, ...rest } = reviewForm;
+
+            const review: Review = {
+                ...rest,
+                productId: productId,
+                productType: productType,
+                clothChecks:
+                    productType === "clothing"
+                        ? ({ ...checks } as Review["clothChecks"])
+                        : undefined,
+                techChecks:
+                    productType === "technology"
+                        ? ({ ...checks } as Review["techChecks"])
+                        : undefined,
+            };
+
+            await addReview(review);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

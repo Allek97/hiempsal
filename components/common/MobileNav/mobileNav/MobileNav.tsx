@@ -9,7 +9,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Close from "@components/icons/Close";
 
 import { useUI } from "@components/ui/context";
-import { useProductInfo } from "@components/product/context";
+import { useProduct } from "@components/product/context";
 
 import {
     Cart,
@@ -79,7 +79,7 @@ const MobileNav: FC = () => {
         isProductInfoOpen,
         closeProductInformation,
         isProductOverviewOpen,
-    } = useProductInfo();
+    } = useProduct();
 
     const toggleMenu = () => {
         if (

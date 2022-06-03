@@ -36,7 +36,7 @@ import {
     WishlistBtn,
 } from "./ProductView.styled";
 import ProductCart from "../ProductCart/ProductCart";
-import { useProductInfo } from "../context";
+import { useProduct } from "../context";
 
 interface Props {
     product: Product;
@@ -68,8 +68,19 @@ const ProductView: FC<Props> = ({ product }) => {
         closePopup,
     } = useUI();
 
-    const { setProductOverview, isProductOverviewOpen, isProductInfoOpen } =
-        useProductInfo();
+    const {
+        setProductOverview,
+        setProductId,
+        setProductType,
+        isProductOverviewOpen,
+        isProductInfoOpen,
+    } = useProduct();
+
+    useEffect(() => {
+        setProductId(product.id);
+        setProductType(product.type);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product.id, product.type]);
 
     const { direction } = useScrollDirectionNext();
     const { ref, inView, entry } = useInView({

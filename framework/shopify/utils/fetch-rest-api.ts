@@ -8,12 +8,10 @@ const fetchRestApi = async <T>({
     const res = await axios({
         method: body ? "POST" : "GET",
         url: url,
-        data: body && {
-            body,
-        },
+        data: body && body,
     });
 
-    const { data } = res;
+    const { data } = res.data;
 
     return { data };
 };

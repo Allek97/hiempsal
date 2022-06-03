@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import Close from "@components/icons/Close";
-import { useProductInfo } from "@components/product/context";
+import { useProduct } from "@components/product/context";
 import { useUI } from "@components/ui/context";
 import { transientOptions } from "@lib/transientOptions";
 import { titleSize } from "./typography";
@@ -75,7 +75,7 @@ const Header: FC<Props> = ({
     withBorder = true,
     withSidePaddings = true,
 }) => {
-    const { closeProductInformation } = useProductInfo();
+    const { closeProductInformation } = useProduct();
     const { closeHelp } = useUI();
     return (
         <Title withBorder={withBorder} withSidePaddings={withSidePaddings}>

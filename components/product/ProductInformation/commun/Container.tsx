@@ -1,4 +1,4 @@
-import { useProductInfo } from "@components/product/context";
+import { useProduct } from "@components/product/context";
 import styled from "@emotion/styled";
 import customScroll from "@styles/customScroll.styled";
 import { motion, Variants } from "framer-motion";
@@ -34,7 +34,7 @@ export const containerMotion = (exitCondition: boolean): Variants => ({
 });
 
 const Container: FC = ({ children }) => {
-    const { isProductOverviewOpen } = useProductInfo();
+    const { isProductOverviewOpen } = useProduct();
 
     return (
         <motion.div

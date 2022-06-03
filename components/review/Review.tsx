@@ -9,7 +9,7 @@ import { CustomerReviews } from "./CustomerReviews";
 import { FunctionalBtn } from "./Commun/FunctionalBtn.styled";
 
 import { BtnContainer, Header, UtilBtn, ReviewOverview } from "./Review.styled";
-import { useReview } from "./context";
+import { useReviewContext } from "./context";
 import { ReviewForm } from "./ReviewForm";
 import Confirmation from "./Commun/Confirmation";
 
@@ -21,7 +21,7 @@ const Review: FC = () => {
         openReview,
         openReviewUI,
         closeReview,
-    } = useReview();
+    } = useReviewContext();
 
     return (
         <Container>

@@ -1,4 +1,6 @@
 import RatingStyle from "@components/elements/RatingStyle";
+import { useProduct } from "@components/product/context";
+import useReview from "@framework/review/use-review";
 import { FC, useEffect, useMemo, useState } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import ReactPaginate from "react-paginate";
@@ -11,6 +13,11 @@ import {
 } from "./CustomerReviews.styled";
 
 const CustomerReviews: FC = () => {
+    const { productId } = useProduct();
+    const getReview = useReview();
+
+    const { data: reviews, isEmpty } = getReview({ productId: productId });
+
     const itemsPerPage = 4;
     const items: number[] = useMemo(() => Array.from(Array(100).keys()), []);
 

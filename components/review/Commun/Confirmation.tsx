@@ -5,7 +5,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import tw from "twin.macro";
-import { useReview } from "../context";
+import { useReviewContext } from "../context";
 
 interface Props {
     isReview?: boolean;
@@ -63,7 +63,7 @@ const CloseBtn = styled.button`
 `;
 
 const Confirmation: FC<Props> = ({ isReview = true }) => {
-    const { setReviewSubmission } = useReview();
+    const { setReviewSubmission } = useReviewContext();
     return (
         <div className="px-8">
             <Container animate={{ opacity: [0, 1] }}>

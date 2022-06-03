@@ -1,18 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
 
-export type Checks = "fit" | "durability" | "integrity";
 export type ReviewFormType = {
     score: number;
     title: string;
     review: string;
-    checks: { [id in Checks]: number };
+    checks: { [id: string]: string };
     name: string;
     email: string;
 };
 
 export type CheckErrors = {
-    [id in Checks]?: {
+    [id: string]: {
         message?: string;
     };
 };
@@ -21,7 +20,7 @@ export const defaultReviewForm: ReviewFormType = {
     score: 0,
     title: "",
     review: "",
-    checks: { fit: -1, durability: -1, integrity: -1 },
+    checks: { fit: "", durability: "", integrity: "" },
     name: "",
     email: "",
 };
@@ -161,7 +160,7 @@ const ReviewProvider: FC = ({ children }) => {
     );
 };
 
-export const useReview = () => {
+export const useReviewContext = () => {
     const context = useContext(ReviewContext);
     return context;
 };

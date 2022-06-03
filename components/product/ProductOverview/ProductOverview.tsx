@@ -17,7 +17,7 @@ import {
     ProductInfo,
     Root,
 } from "./ProductOverview.styled";
-import { useProductInfo } from "../context";
+import { useProduct } from "../context";
 
 interface Props {
     productImage: ProductImage;
@@ -48,7 +48,7 @@ const ProductOverview: FC<Props> = ({
         closeHelp,
         openProductCart,
     } = useUI();
-    const { closeProductInformation, isProductInfoOpen } = useProductInfo();
+    const { closeProductInformation, isProductInfoOpen } = useProduct();
 
     return (
         <Root

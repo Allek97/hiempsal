@@ -20,6 +20,9 @@ export interface Metafields {
     sustainability: JSONType;
     dimensions: JSONType;
     shipping: JSONType;
+    type: {
+        value: "clothing" | "technology";
+    };
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
@@ -147,6 +150,7 @@ export interface Product {
     sustainability: ProductSustainability;
     dimensions: ProductDimensions;
     shipping: ProductShipping;
+    type: "clothing" | "technology";
     options: ProductOption[];
     variants: ProductVariant[];
 }

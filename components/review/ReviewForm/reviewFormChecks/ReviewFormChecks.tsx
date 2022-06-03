@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Checkbox } from "@mui/material";
 
 import { FormError } from "@components/review/Commun/FormError.styled";
-import { useReview } from "@components/review/context";
+import { useReviewContext } from "@components/review/context";
 
 import { CheckBoxLabel } from "./ReviewFormChecks.styled";
 
@@ -35,7 +35,7 @@ const checkOptions: CheckOptions[] = [
 ];
 
 const ReviewFormChecks: FC = () => {
-    const { reviewForm, setReviewForm, checkErrors } = useReview();
+    const { reviewForm, setReviewForm, checkErrors } = useReviewContext();
 
     return (
         <div className="mb-6">
@@ -49,7 +49,7 @@ const ReviewFormChecks: FC = () => {
                             </FormError>
                         </span>
                         <div className="flex flex-col cursor-pointer w-max">
-                            {options.map((el, idx) => {
+                            {options.map((el) => {
                                 return (
                                     <CheckBoxLabel
                                         htmlFor={`review-${el}`}
@@ -60,7 +60,7 @@ const ReviewFormChecks: FC = () => {
                                                 ...reviewForm,
                                                 checks: {
                                                     ...reviewForm.checks,
-                                                    [optionId]: idx,
+                                                    [optionId]: el,
                                                 },
                                             });
                                         }}
@@ -68,7 +68,7 @@ const ReviewFormChecks: FC = () => {
                                         <Checkbox
                                             id={`review-${el}`}
                                             checked={
-                                                idx ===
+                                                el ===
                                                 reviewForm.checks[optionId]
                                             }
                                         />

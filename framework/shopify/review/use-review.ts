@@ -25,9 +25,7 @@ const useReview = (): UseReview => {
         }
     };
 
-    const result = useSWR("/api/reviews", hookFetcher, {
-        revalidateIfStale: false,
-    });
+    const result = useSWR("/api/reviews", hookFetcher);
 
     return useMemo(() => {
         return {

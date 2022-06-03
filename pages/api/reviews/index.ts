@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { Review as ReviewType } from "@framework/types/review";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Review from "server/models/Review";
 import { IReview } from "server/types/review";
@@ -11,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // NOTE: This needs to be writter directely in getStaticProps
     if (method === "GET") {
-        const doc = await Review.find({});
+        const doc: ReviewType[] = await Review.find({});
         res.status(200).json({
             status: "success",
             data: doc,

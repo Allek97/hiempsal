@@ -11,9 +11,9 @@ import { getConfig } from "@framework/api/config";
 import { Review } from "@framework/types/review";
 import axios, { AxiosError } from "axios";
 
-type ReviewReturn = (input: Review) => Promise<Review>;
+type UseAddReview = (input: Review) => Promise<Review>;
 
-const useAddReview = (): ReviewReturn => {
+const useAddReview = (): UseAddReview => {
     const { fetchRest } = getConfig();
 
     return async (input: Review) => {
@@ -26,8 +26,7 @@ const useAddReview = (): ReviewReturn => {
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw error as AxiosError;
-            }
-            throw new Error("different error than axios");
+            } else throw new Error("different error than axios");
         }
     };
 };

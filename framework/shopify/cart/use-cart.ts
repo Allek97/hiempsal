@@ -59,7 +59,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
             const { checkoutCookie } = getConfig();
             const result = useData({
                 swrOptions: {
-                    revalidata: false,
+                    revalidate: false,
                 },
             });
 

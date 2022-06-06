@@ -60,7 +60,7 @@ const ReviewFormChecks: FC = () => {
                                                 ...reviewForm,
                                                 checks: {
                                                     ...reviewForm.checks,
-                                                    [optionId]: el,
+                                                    [optionId]: el.trim(),
                                                 },
                                             });
                                         }}

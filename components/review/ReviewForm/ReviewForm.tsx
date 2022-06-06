@@ -10,6 +10,9 @@ import isEmailValidator from "validator/lib/isEmail";
 
 import useAddReview from "@framework/review/use-add-review";
 
+import { Review } from "@framework/types/review";
+import { useProduct } from "@components/product/context";
+
 import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
 import {
@@ -20,8 +23,6 @@ import {
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
-import { Review } from "@framework/types/review";
-import { useProduct } from "@components/product/context";
 
 const containerMotion = (): Variants => ({
     hidden: { height: 0, opacity: 0 },
@@ -104,8 +105,8 @@ const ReviewForm: FC = () => {
     async function onSubmit() {
         try {
             setReviewSubmission(true);
-            // setReviewForm(defaultReviewForm);
-            // setCheckErrors({});
+            setReviewForm(defaultReviewForm);
+            setCheckErrors({});
 
             console.log(productId, productType);
 
@@ -207,7 +208,7 @@ const ReviewForm: FC = () => {
                                         onChange={(e) => {
                                             setReviewForm({
                                                 ...reviewForm,
-                                                title: e.target.value,
+                                                title: e.target.value.trim(),
                                             });
                                         }}
                                         autoComplete="review-title"
@@ -236,7 +237,7 @@ const ReviewForm: FC = () => {
                                         onChange={(e) => {
                                             setReviewForm({
                                                 ...reviewForm,
-                                                review: e.target.value,
+                                                review: e.target.value.trim(),
                                             });
                                         }}
                                         autoComplete="review-content"
@@ -274,7 +275,7 @@ const ReviewForm: FC = () => {
 
                                             setReviewForm({
                                                 ...reviewForm,
-                                                name: e.target.value,
+                                                name: e.target.value.trim(),
                                             });
                                         }}
                                         autoComplete="review-name"
@@ -309,7 +310,7 @@ const ReviewForm: FC = () => {
                                             onChange={(e) => {
                                                 setReviewForm({
                                                     ...reviewForm,
-                                                    email: e.target.value,
+                                                    email: e.target.value.trim(),
                                                 });
                                             }}
                                             autoComplete="review-email"

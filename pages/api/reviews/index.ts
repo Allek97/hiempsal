@@ -38,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             assertIsError(err);
             return res.status(400).json({
                 status: "error",
-                message: err.stack,
+                err: err,
             });
         }
     }

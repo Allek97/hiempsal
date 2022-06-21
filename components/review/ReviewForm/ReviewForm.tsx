@@ -128,7 +128,7 @@ const ReviewForm: FC = () => {
 
             await addReview(review);
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
         }
     }
 

@@ -42,7 +42,7 @@ const useReview = (): UseReview => {
     };
 
     return (input: FetcherContext) => {
-        const swr = useData(input);
+        const swr: SWRResponse<Review[], any> = useData(input);
 
         const memoSwr = useMemo(() => {
             return {

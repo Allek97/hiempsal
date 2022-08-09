@@ -54,7 +54,6 @@ const reviewSchema = new Schema<IReview>({
     },
     productId: {
         type: String,
-        unique: true,
         required: [
             true,
             "You must enter the unique id of the product associated with this review",

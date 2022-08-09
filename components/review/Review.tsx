@@ -2,6 +2,8 @@ import { FC } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoMdChatbubbles } from "react-icons/io";
 
+import { useProduct } from "@components/product/context";
+import useReview from "@framework/review/use-review";
 import { Container } from "@components/product/ProductInformation/commun";
 import RatingStyle from "@components/elements/RatingStyle";
 
@@ -22,6 +24,10 @@ const Review: FC = () => {
         openReviewUI,
         closeReview,
     } = useReviewContext();
+
+    const { productId } = useProduct();
+    const getReview = useReview();
+    const { data: reviews, isEmpty } = getReview({ productId: productId });
 
     return (
         <Container>
@@ -53,7 +59,11 @@ const Review: FC = () => {
 
             {isReviewSubmitted ? <Confirmation isReview /> : <ReviewForm />}
 
-            <CustomerReviews />
+            {reviews ? (
+                <CustomerReviews reviews={reviews} isEmpty={isEmpty} />
+            ) : (
+                <div>These was a problem in the server please reload !</div>
+            )}
 
             <BtnContainer>
                 <FunctionalBtn

@@ -23,6 +23,7 @@ import {
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
+import axios from "axios";
 
 const containerMotion = (): Variants => ({
     hidden: { height: 0, opacity: 0 },
@@ -89,6 +90,7 @@ const ReviewForm: FC = () => {
     } = methods;
 
     function handleCheckErrors() {
+        setCheckErrors({});
         let updatedCheckErrors: CheckErrors = { ...checkErrors };
         Object.entries(reviewForm.checks).forEach(([key, value]) => {
             if (value === "") {
@@ -106,7 +108,6 @@ const ReviewForm: FC = () => {
         try {
             setReviewSubmission(true);
             setReviewForm(defaultReviewForm);
-            setCheckErrors({});
 
             console.log(productId, productType);
 
@@ -128,7 +129,11 @@ const ReviewForm: FC = () => {
 
             await addReview(review);
         } catch (error) {
-            console.log(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                console.log((error.response?.data as any).err.message);
+            } else {
+                console.log("Server error please retry");
+            }
         }
     }
 

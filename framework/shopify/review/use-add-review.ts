@@ -34,7 +34,6 @@ const useAddReview = (): UseAddReview => {
             if (axios.isAxiosError(error)) {
                 throw error as AxiosError;
             } else {
-                console.log(error);
                 throw new Error("different error than axios");
             }
         }

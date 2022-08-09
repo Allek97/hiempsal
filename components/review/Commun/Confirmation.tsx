@@ -11,7 +11,7 @@ interface Props {
     isReview?: boolean;
 }
 
-const Container = styled(motion.div)`
+export const Container = styled(motion.div)`
     ${tw`relative flex flex-col items-center width[80%] mx-auto py-12
      text-center
      sm:width[40%]

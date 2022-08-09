@@ -98,3 +98,18 @@ export const ReviewPagination = styled.div`
         }
     }
 `;
+
+export const EmptyReviews = styled.div`
+    ${tw`relative flex flex-col items-center width[80%] mx-auto py-12
+     text-center
+     sm:width[40%]
+     lg:width[80%]`}
+
+    h2 {
+        ${tw`font-size[21px]`}
+    }
+
+    span {
+        ${tw`font-size[14px] text-accents-6`}
+    }
+`;

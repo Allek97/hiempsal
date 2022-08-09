@@ -74,8 +74,6 @@ const ReviewForm: FC = () => {
     } = useReviewContext();
     const { productId, productType } = useProduct();
 
-    const [isNameTyped, setIsNameTyped] = useState<boolean>(false);
-
     // Validations
 
     const methods = useForm<Partial<ReviewFormType>>({
@@ -274,20 +272,18 @@ const ReviewForm: FC = () => {
                                         value={reviewForm.name}
                                         aria-required
                                         maxLength={150}
-                                        onChange={(e) => {
-                                            if (e.target.value.length > 0)
-                                                setIsNameTyped(true);
-
+                                        onChange={(e) =>
                                             setReviewForm({
                                                 ...reviewForm,
                                                 name: e.target.value.trim(),
-                                            });
-                                        }}
+                                            })
+                                        }
                                         autoComplete="review-name"
                                     />
                                 </label>
                             </div>
-                            {isNameTyped && (
+                            {(reviewForm.email.length > 0 ||
+                                reviewForm.name.length > 0) && (
                                 <motion.div
                                     className="mb-6"
                                     animate={{ opacity: [0, 1] }}

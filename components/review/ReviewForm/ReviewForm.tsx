@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import axios from "axios";
 import { FC, useState } from "react";
 import RatingStyle from "@components/elements/RatingStyle";
 import { motion, Variants } from "framer-motion";
@@ -23,7 +24,6 @@ import {
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
-import axios from "axios";
 
 const containerMotion = (): Variants => ({
     hidden: { height: 0, opacity: 0 },
@@ -90,7 +90,6 @@ const ReviewForm: FC = () => {
     } = methods;
 
     function handleCheckErrors() {
-        setCheckErrors({});
         let updatedCheckErrors: CheckErrors = { ...checkErrors };
         Object.entries(reviewForm.checks).forEach(([key, value]) => {
             if (value === "") {
@@ -98,7 +97,7 @@ const ReviewForm: FC = () => {
                     ...updatedCheckErrors,
                     [key]: { message: "You need to select one option" },
                 };
-            }
+            } else delete updatedCheckErrors[key];
         });
         setCheckErrors(updatedCheckErrors);
     }
@@ -106,10 +105,7 @@ const ReviewForm: FC = () => {
     const addReview = useAddReview();
     async function onSubmit() {
         try {
-            setReviewSubmission(true);
-            setReviewForm(defaultReviewForm);
-
-            console.log(productId, productType);
+            handleCheckErrors();
 
             const { checks, ...rest } = reviewForm;
 
@@ -128,6 +124,10 @@ const ReviewForm: FC = () => {
             };
 
             await addReview(review);
+
+            setReviewSubmission(true);
+            setReviewForm(defaultReviewForm);
+            setCheckErrors({});
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.log((error.response?.data as any).err.message);
@@ -328,7 +328,7 @@ const ReviewForm: FC = () => {
                                 $isSelected
                                 type="submit"
                                 className="ml-auto w-1/2"
-                                onClick={() => handleCheckErrors()}
+                                // onClick={() => handleCheckErrors()}
                             >
                                 Post
                             </FunctionalBtn>

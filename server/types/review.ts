@@ -19,4 +19,5 @@ export interface IReview {
     techChecks: any;
     productId: string;
     productType: "clothing" | "technology";
+    ratingsAverage: number;
 }

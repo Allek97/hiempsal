@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from "axios";
-import { FC, useState } from "react";
+import { FC } from "react";
 import RatingStyle from "@components/elements/RatingStyle";
 import { motion, Variants } from "framer-motion";
 import { FormProvider, useForm, Controller } from "react-hook-form";

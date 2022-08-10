@@ -104,12 +104,4 @@ export const EmptyReviews = styled.div`
      text-center
      sm:width[40%]
      lg:width[80%]`}
-
-    h2 {
-        ${tw`font-size[21px]`}
-    }
-
-    span {
-        ${tw`font-size[14px] text-accents-6`}
-    }
 `;

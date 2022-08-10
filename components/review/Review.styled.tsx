@@ -45,7 +45,7 @@ export const ReviewOverview = styled.div`
     ${tw`flex items-center w-max pt-16 pb-10 mx-auto
     lg:(pt-10 pb-7)`}
 
-    & > span {
+    & > h3 {
         ${tw`font-size[60px] tracking-tight`}
     }
 `;

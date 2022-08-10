@@ -9,6 +9,7 @@ import {
     ReviewContainer,
     ReviewField,
     ReviewPagination,
+    EmptyReviews,
 } from "./CustomerReviews.styled";
 
 interface Props {
@@ -39,7 +40,11 @@ const CustomerReviews: FC<Props> = ({ reviews, isEmpty }) => {
     return (
         <ReviewContainer>
             {isEmpty ? (
-                <div>Be the first</div>
+                <EmptyReviews>
+                    <h1 className="text-md text-accents-6">
+                        Be the first to engage with us and share your experience
+                    </h1>
+                </EmptyReviews>
             ) : (
                 <>
                     {currentItems &&

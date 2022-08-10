@@ -48,11 +48,11 @@ const Review: FC = () => {
                 </UtilBtn>
             </Header>
             <ReviewOverview>
-                <span className="mr-3">4.7</span>
+                {!isEmpty && <h3 className="mr-3">0</h3>}
                 <div className="flex flex-col self-center mt-2.5">
-                    <RatingStyle customSize="large" value={4.3} />
+                    <RatingStyle customSize="large" value={0} />
                     <span className="text-xs tracking-normal text-accents-6 mt-2">
-                        5 Reviews
+                        0 Reviews
                     </span>
                 </div>
             </ReviewOverview>

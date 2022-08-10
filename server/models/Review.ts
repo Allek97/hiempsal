@@ -67,6 +67,11 @@ const reviewSchema = new Schema<IReview>({
             "You need to provide the type of the product, it's either clothing or technology",
         ],
     },
+    ratingsAverage: {
+        type: Number,
+        default: 0,
+        set: (val: number) => Math.round(val * 10) / 10,
+    },
 });
 
 // reviewSchema.statics.calcAverageRatings = async function(tourId) {

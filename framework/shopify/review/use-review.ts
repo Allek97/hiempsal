@@ -34,7 +34,13 @@ const useReview = (): UseReview => {
 
     const useData = (context: FetcherContext): SWRResponse<Review[], any> => {
         const { productId, userEmail } = context;
-        const query = `?/${productId}&${userEmail}`;
+        let query = "";
+
+        if (productId && userEmail)
+            query = `?productId=${productId}&email=${userEmail}`;
+        else if (productId) query = `?productId=${productId}`;
+        else if (userEmail) query = `?email=${userEmail}`;
+        else query = "";
 
         const result = useSWR(`/api/reviews${query}`, hookFetcher);
 

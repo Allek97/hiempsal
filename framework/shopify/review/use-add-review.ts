@@ -11,7 +11,6 @@
 import { getConfig } from "@framework/api/config";
 import { Review } from "@framework/types/review";
 import axios, { AxiosError } from "axios";
-import useReview from "./use-review";
 
 type UseAddReview = (
     input: Omit<Review, "ratingsAverage">

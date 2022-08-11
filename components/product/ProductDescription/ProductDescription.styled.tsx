@@ -56,3 +56,17 @@ export const Root = styled.div`
 export const ReviewBtn = styled(motion.button)`
     ${tw`flex items-center w-max cursor-pointer`}
 `;
+
+export const WriteReviewBtn = styled(motion.button)`
+    ${tw`flex items-center w-max cursor-pointer padding[0.7vw 1.4vw] 
+    border[1px solid #f0f0f0] border-radius[500px] text-accents-8 tracking-tighter`}
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+
+    @media (hover: hover) and (pointer: fine) {
+        transition: background 0.3s;
+        &:hover {
+            ${tw`background[#f0f0f0]`}
+            transition: background 0.3s;
+        }
+    }
+`;

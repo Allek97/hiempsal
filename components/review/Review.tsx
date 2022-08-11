@@ -48,17 +48,16 @@ const Review: FC = () => {
                 </UtilBtn>
             </Header>
             <ReviewOverview>
-                {reviews?.length && (
-                    <h3 className="mr-3">
-                        {reviews[0].ratingsAverage.toFixed(1)}
-                    </h3>
-                )}
+                <h3 className="mr-3">
+                    {reviews?.length
+                        ? reviews[0].ratingsAverage.toFixed(1)
+                        : ""}
+                </h3>
+
                 <div className="flex flex-col self-center mt-2.5">
                     <RatingStyle
                         customSize="large"
-                        value={
-                            reviews?.length ? reviews[0].ratingsAverage ?? 0 : 0
-                        }
+                        value={reviews?.length ? reviews[0].ratingsAverage : 0}
                     />
                     <span className="text-xs tracking-normal text-accents-6 mt-2">
                         {`${reviews?.length ?? 0} Reviews`}

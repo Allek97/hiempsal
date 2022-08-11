@@ -19,4 +19,5 @@ export interface Review {
     techChecks?: ChecksTech;
     productId: string;
     productType: "clothing" | "technology";
+    ratingsAverage: number;
 }

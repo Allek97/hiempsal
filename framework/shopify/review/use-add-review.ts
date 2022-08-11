@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
 
 // NOTE I'm just gonna use a simple post request when creating a review
@@ -12,29 +13,27 @@ import { Review } from "@framework/types/review";
 import axios, { AxiosError } from "axios";
 import useReview from "./use-review";
 
-type UseAddReview = (input: Review) => Promise<Review>;
+type UseAddReview = (
+    input: Omit<Review, "ratingsAverage">
+) => Promise<Omit<Review, "ratingsAverage">>;
 
 const useAddReview = (): UseAddReview => {
     const { fetchRest } = getConfig();
 
-    return async (input: Review) => {
+    return async (input: Omit<Review, "ratingsAverage">) => {
         try {
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            // const { mutate } = useReview()({
-            //     productId: input.productId,
-            //     userEmail: input.email,
-            // });
-            const { data } = await fetchRest<Review>({
+            const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
                 url: "/api/reviews",
                 body: input,
             });
-            // await mutate();
+
             return data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw error as AxiosError;
             } else {
-                throw new Error("different error than axios");
+                throw error;
             }
         }
     };

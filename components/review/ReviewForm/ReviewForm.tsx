@@ -10,6 +10,7 @@ import { SchemaOf, string, object, number, ValidationError } from "yup";
 import isEmailValidator from "validator/lib/isEmail";
 
 import useAddReview from "@framework/review/use-add-review";
+import useReview from "@framework/review/use-review";
 
 import { Review } from "@framework/types/review";
 import { useProduct } from "@components/product/context";
@@ -101,13 +102,16 @@ const ReviewForm: FC = () => {
     }
 
     const addReview = useAddReview();
+    const getReviews = useReview();
+    const { mutate } = getReviews({ productId: productId });
+
     async function onSubmit() {
         try {
             handleCheckErrors();
 
             const { checks, ...rest } = reviewForm;
 
-            const review: Review = {
+            const review: Omit<Review, "ratingsAverage"> = {
                 ...rest,
                 productId: productId,
                 productType: productType,
@@ -122,6 +126,7 @@ const ReviewForm: FC = () => {
             };
 
             await addReview(review);
+            mutate();
 
             setReviewSubmission(true);
             setReviewForm(defaultReviewForm);

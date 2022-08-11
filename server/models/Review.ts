@@ -74,32 +74,35 @@ const reviewSchema = new Schema<IReview>({
     },
 });
 
-// reviewSchema.statics.calcAverageRatings = async function(tourId) {
-//     const stats = await this.aggregate([
-//         {
-//             $match: { tour: tourId },
-//         },
-//         {
-//             $group: {
-//                 _id: "$tour",
-//                 nRating: { $sum: 1 },
-//                 avgRating: { $avg: "$rating" },
-//             },
-//         },
-//     ]);
+reviewSchema.statics.calcAverageRatings = async function (productId: string) {
+    const stats = await this.aggregate([
+        {
+            $match: { productId: productId },
+        },
+        {
+            $group: {
+                _id: "$product",
+                avgRating: { $avg: "$score" },
+            },
+        },
+    ]);
 
-//     if (stats.length > 0) {
-//         await Tour.findByIdAndUpdate(tourId, {
-//             ratingsQuantity: stats[0].nRating,
-//             ratingsAverage: stats[0].avgRating,
-//         });
-//     } else {
-//         await Tour.findByIdAndUpdate(tourId, {
-//             ratingsQuantity: 0,
-//             ratingsAverage: 4.5,
-//         });
-//     }
-// };
+    const filter = { productId: productId };
+
+    if (stats.length > 0) {
+        await this.findOneAndUpdate(filter, {
+            ratingsAverage: stats[0].avgRating,
+        });
+    } else {
+        await this.findOneAndUpdate(filter, {
+            ratingsAverage: 0,
+        });
+    }
+};
+
+reviewSchema.post("save", async function () {
+    await (this as any).constructor.calcAverageRatings(this.productId);
+});
 
 const Review =
     mongoose.models.Review || mongoose.model<IReview>("Review", reviewSchema);

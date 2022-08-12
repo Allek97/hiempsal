@@ -22,10 +22,6 @@ export const FunctionalBtn = styled(Button)<FunctionalProps>`
                   ${tw`bg-primary text-primary`}
               `}
 
-    &:first-of-type {
-        ${tw`mr-3.5`}
-    }
-
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             ${({ $isSelected }) =>

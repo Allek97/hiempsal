@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from "axios";
-import { FC } from "react";
+import { FC, useState } from "react";
 import RatingStyle from "@components/elements/RatingStyle";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SchemaOf, string, object, number, ValidationError } from "yup";
@@ -25,22 +25,8 @@ import {
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
 import { FormError } from "../Commun/FormError.styled";
-
-const containerMotion = (): Variants => ({
-    hidden: { height: 0, opacity: 0 },
-    visible: {
-        height: "auto",
-        opacity: 1,
-        transition: {
-            duration: 0.45,
-            delay: 0.1,
-        },
-    },
-    exit: {
-        height: 0,
-        transition: { duration: 0.35 },
-    },
-});
+import Confirmation from "../Commun/Confirmation";
+import { formMotion } from "../Commun/FormMotions";
 
 const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
     score: number()
@@ -69,14 +55,16 @@ const ReviewForm: FC = () => {
         isReviewUIOpen,
         reviewForm,
         checkErrors,
+        isReviewSubmitted,
         setReviewSubmission,
         setReviewForm,
         setCheckErrors,
     } = useReviewContext();
     const { productId, productType } = useProduct();
 
-    // Validations
+    const [serverError, setServerError] = useState<string>("");
 
+    // Validations
     const methods = useForm<Partial<ReviewFormType>>({
         resolver: yupResolver(formSchema),
     });
@@ -86,6 +74,7 @@ const ReviewForm: FC = () => {
         formState: { errors },
         handleSubmit,
         control,
+        reset,
     } = methods;
 
     function handleCheckErrors() {
@@ -109,10 +98,21 @@ const ReviewForm: FC = () => {
         try {
             handleCheckErrors();
 
-            const { checks, ...rest } = reviewForm;
+            const {
+                checks,
+                name,
+                email,
+                title,
+                review: formReview,
+                score,
+            } = reviewForm;
 
             const review: Omit<Review, "ratingsAverage"> = {
-                ...rest,
+                score,
+                email: email.trim(),
+                name: name.trim(),
+                title: title.trim(),
+                review: formReview.trim(),
                 productId: productId,
                 productType: productType,
                 clothChecks:
@@ -128,25 +128,26 @@ const ReviewForm: FC = () => {
             await addReview(review);
             mutate();
 
-            setReviewSubmission(true);
-            setReviewForm(defaultReviewForm);
             setCheckErrors({});
+            setServerError("");
+            setReviewSubmission(true);
+            reset(defaultReviewForm);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.log((error.response?.data as any).err.message);
-            } else {
-                console.log("Server error please retry");
-            }
+                if ((error.response as any)?.data.err.code === 11000)
+                    setServerError("This email has already been used");
+            } else setServerError("Server error please retry in few moments");
         }
     }
 
     return (
         <div>
-            {isReviewUIOpen && (
+            {isReviewSubmitted && <Confirmation isReview />}
+            {isReviewUIOpen ? (
                 <motion.div
                     initial="hidden"
                     animate={isReviewUIOpen ? "visible" : "hidden"}
-                    variants={containerMotion()}
+                    variants={formMotion()}
                     className="overflow-hidden"
                 >
                     <form
@@ -216,7 +217,7 @@ const ReviewForm: FC = () => {
                                         onChange={(e) => {
                                             setReviewForm({
                                                 ...reviewForm,
-                                                title: e.target.value.trim(),
+                                                title: e.target.value,
                                             });
                                         }}
                                         autoComplete="review-title"
@@ -245,7 +246,7 @@ const ReviewForm: FC = () => {
                                         onChange={(e) => {
                                             setReviewForm({
                                                 ...reviewForm,
-                                                review: e.target.value.trim(),
+                                                review: e.target.value,
                                             });
                                         }}
                                         autoComplete="review-content"
@@ -280,7 +281,7 @@ const ReviewForm: FC = () => {
                                         onChange={(e) =>
                                             setReviewForm({
                                                 ...reviewForm,
-                                                name: e.target.value.trim(),
+                                                name: e.target.value,
                                             })
                                         }
                                         autoComplete="review-name"
@@ -300,13 +301,18 @@ const ReviewForm: FC = () => {
                                         <span className="flex font-bold mb-2">
                                             Email:{" "}
                                             <FormError className="ml-1">
-                                                {errors.email?.message}
+                                                {errors.email?.message}{" "}
+                                                {serverError.startsWith(
+                                                    "This email"
+                                                )
+                                                    ? serverError
+                                                    : ""}
                                             </FormError>
                                         </span>
                                         <FormInput
                                             {...register("email", {
                                                 required:
-                                                    "You need to add you email adress",
+                                                    "You need to add you email address",
                                             })}
                                             id="review-email"
                                             type="email"
@@ -316,7 +322,7 @@ const ReviewForm: FC = () => {
                                             onChange={(e) => {
                                                 setReviewForm({
                                                     ...reviewForm,
-                                                    email: e.target.value.trim(),
+                                                    email: e.target.value,
                                                 });
                                             }}
                                             autoComplete="review-email"
@@ -324,19 +330,26 @@ const ReviewForm: FC = () => {
                                     </label>
                                 </motion.div>
                             )}
-                            <FunctionalBtn
-                                isHoverActive={false}
-                                $isSelected
-                                type="submit"
-                                className="ml-auto w-1/2"
-                                // onClick={() => handleCheckErrors()}
-                            >
-                                Post
-                            </FunctionalBtn>
+                            <div className="flex items-center justify-center flex-1">
+                                <FormError className="w-1/2">
+                                    {!serverError.startsWith("This email")
+                                        ? serverError
+                                        : ""}
+                                </FormError>
+                                <FunctionalBtn
+                                    isHoverActive={false}
+                                    $isSelected
+                                    type="submit"
+                                    className="ml-auto w-1/2"
+                                    // onClick={() => handleCheckErrors()}
+                                >
+                                    Post
+                                </FunctionalBtn>
+                            </div>
                         </Container>
                     </form>
                 </motion.div>
-            )}
+            ) : null}
         </div>
     );
 };

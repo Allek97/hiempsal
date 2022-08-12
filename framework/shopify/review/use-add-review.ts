@@ -10,7 +10,6 @@
 
 import { getConfig } from "@framework/api/config";
 import { Review } from "@framework/types/review";
-import axios, { AxiosError } from "axios";
 
 type UseAddReview = (
     input: Omit<Review, "ratingsAverage">
@@ -20,21 +19,13 @@ const useAddReview = (): UseAddReview => {
     const { fetchRest } = getConfig();
 
     return async (input: Omit<Review, "ratingsAverage">) => {
-        try {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
-                url: "/api/reviews",
-                body: input,
-            });
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
+            url: "/api/reviews",
+            body: input,
+        });
 
-            return data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw error as AxiosError;
-            } else {
-                throw error;
-            }
-        }
+        return data;
     };
 };
 

@@ -28,6 +28,7 @@ export const defaultReviewForm: ReviewFormType = {
 interface StateValues {
     isReviewOpen: boolean;
     isReviewUIOpen: boolean;
+    isQuestionUIOpen: boolean;
     reviewForm: ReviewFormType;
     checkErrors: CheckErrors;
     isReviewSubmitted: boolean;
@@ -37,7 +38,9 @@ interface StateModifiers {
     openReview: () => void;
     closeReview: () => void;
     openReviewUI: () => void;
-    closeReviewUI: () => void;
+
+    openQuestionUI: () => void;
+
     setReviewForm: (payload: ReviewFormType) => void;
     setCheckErrors: (payload: CheckErrors) => void;
     setReviewSubmission: (payload: boolean) => void;
@@ -51,6 +54,7 @@ const initialState: StateValues = {
     checkErrors: {},
     isReviewSubmitted: false,
     isReviewUIOpen: false,
+    isQuestionUIOpen: false,
 };
 
 const stateModifiers: StateModifiers = {
@@ -60,7 +64,7 @@ const stateModifiers: StateModifiers = {
     setCheckErrors: () => {},
     setReviewSubmission: () => {},
     openReviewUI: () => {},
-    closeReviewUI: () => {},
+    openQuestionUI: () => {},
 };
 
 export const ReviewContext = createContext<State>({
@@ -73,7 +77,7 @@ type Action = {
         | "OPEN_REVIEW"
         | "CLOSE_REVIEW"
         | "OPEN_REVIEW_UI"
-        | "CLOSE_REVIEW_UI"
+        | "OPEN_QUESTION_UI"
         | "SET_REVIEW_FORM"
         | "SET_CHECK_ERRORS"
         | "SET_REVIEW_SUBMISSION_STATUS";
@@ -92,11 +96,16 @@ function reviewReducer(state: StateValues, action: Action) {
         case "OPEN_REVIEW_UI":
             return {
                 ...state,
-                isReviewUIOpen: true,
                 isReviewOpen: true,
+                isReviewUIOpen: true,
+                isQuestionUI: false,
             };
-        case "CLOSE_REVIEW_UI":
-            return { ...state, isReviewUIOpen: false };
+        case "OPEN_QUESTION_UI":
+            return {
+                ...state,
+                isQuestionUI: true,
+                isReviewUIOpen: false,
+            };
         case "SET_REVIEW_FORM":
             if (action.payload as ReviewFormType) {
                 return { ...state, reviewForm: { ...action.payload } };
@@ -113,6 +122,7 @@ function reviewReducer(state: StateValues, action: Action) {
                     ...state,
                     isReviewSubmitted: true,
                     isReviewUIOpen: false,
+                    reviewForm: defaultReviewForm,
                 };
             }
             return {
@@ -138,7 +148,7 @@ const ReviewProvider: FC = ({ children }) => {
     const setReviewSubmission = (payload: boolean) =>
         dispatch({ type: "SET_REVIEW_SUBMISSION_STATUS", payload: payload });
     const openReviewUI = () => dispatch({ type: "OPEN_REVIEW_UI" });
-    const closeReviewUI = () => dispatch({ type: "CLOSE_REVIEW_UI" });
+    const openQuestionUI = () => dispatch({ type: "OPEN_QUESTION_UI" });
 
     const value: State = useMemo(() => {
         return {
@@ -146,7 +156,7 @@ const ReviewProvider: FC = ({ children }) => {
             openReview,
             closeReview,
             openReviewUI,
-            closeReviewUI,
+            openQuestionUI,
             setReviewForm,
             setCheckErrors,
             setReviewSubmission,

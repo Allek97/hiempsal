@@ -15,17 +15,6 @@ export const CustomerContainer = styled(motion.div)`
     box-shadow: 2px 2px 8px hsl(0deg 0% 79% / 80%);
 
     ${mainFont2}
-
-    & > div:nth-of-type(2) {
-        ${tw`md:(flex justify-between mt-5)
-        lg:(block mt-0)`}
-
-        & > div:first-of-type {
-            ${tw`flex flex-col mt-4 mb-6 w-max whitespace-nowrap
-            md:(ml-40 my-0 order-2)
-            lg:(order-1 w-auto ml-0 mt-4 mb-6)`}
-        }
-    }
 `;
 
 export const ReviewIdentification = styled.div`
@@ -49,21 +38,6 @@ export const ReviewIdentification = styled.div`
     }
 `;
 
-export const ReviewField = styled.div`
-    ${tw`flex`}
-
-    span {
-        line-height: 17px !important;
-    }
-
-    span:first-of-type {
-        ${tw`text-accents-8 font-bold margin-right[0.3em]`}
-    }
-
-    &:not(:last-of-type) {
-        ${tw`mb-1`}
-    }
-`;
 export const ReviewPagination = styled.div`
     ${tw`mx-auto w-max my-5 font-size[14px] tracking-tighter`}
 

@@ -13,7 +13,7 @@ export interface Props {
     featureName: string;
 }
 
-const reviewMotion = {
+const reviewMotion: Variants = {
     hover: {
         skewX: "-10deg",
 
@@ -47,7 +47,9 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
                         style={{ transformOrigin: "center bottom" }}
                         variants={reviewMotion}
                     >
-                        {`${reviews?.length ?? 0} Reviews`}
+                        {`${reviews?.length ?? 0} ${
+                            (reviews?.length ?? 0) <= 1 ? `Review` : `Reviews`
+                        }`}
                     </motion.span>
                 </ReviewBtn>
             ) : (

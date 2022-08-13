@@ -1,10 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-for */
+import axios from "axios";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { object, SchemaOf, string, ValidationError } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import isEmailValidator from "validator/lib/isEmail";
+
+import useQuestion from "@framework/question/use-question";
+import useAddQuestion from "@framework/question/use-add-question";
+import { useProduct } from "@components/product/context";
 
 import {
     Container,
@@ -46,6 +51,9 @@ const QuestionForm: FC = () => {
         setQuestionForm,
         setQuestionSubmission,
     } = useReviewContext();
+    const { productId } = useProduct();
+
+    const [serverError, setServerError] = useState<string>("");
 
     const {
         register,
@@ -54,9 +62,25 @@ const QuestionForm: FC = () => {
         reset,
     } = useForm<QuestionFormType>({ resolver: yupResolver(formSchema) });
 
-    function onSubmit() {
-        setQuestionSubmission(true);
-        reset(defaultQuestionForm);
+    const addQuestion = useAddQuestion();
+    const getQuestions = useQuestion();
+    const { mutate } = getQuestions({ productId: productId });
+    async function onSubmit(): Promise<void> {
+        try {
+            await addQuestion(questionForm);
+            mutate();
+
+            setServerError("");
+            setQuestionSubmission(true);
+            reset(defaultQuestionForm);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if ((error.response as any)?.data.err.code === 11000)
+                    setServerError("This email has already been used");
+            } else if ((error as Error).message)
+                setServerError((error as Error).message);
+            else setServerError("Server error please retry in few moments");
+        }
     }
 
     return (
@@ -162,7 +186,11 @@ const QuestionForm: FC = () => {
                                 </label>
                             </div>
                             <div className="flex items-center justify-center flex-1">
-                                <FormError className="w-1/2">{}</FormError>
+                                <FormError className="w-1/2">
+                                    {!serverError.startsWith("This email")
+                                        ? serverError
+                                        : ""}
+                                </FormError>
                                 <FunctionalBtn
                                     isHoverActive={false}
                                     $isSelected

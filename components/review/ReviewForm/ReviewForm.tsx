@@ -142,7 +142,6 @@ const ReviewForm: FC = () => {
             reset(defaultReviewForm);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.log(error);
                 if ((error.response as any)?.data.err.code === 11000)
                     setServerError("This email has already been used");
             } else if ((error as Error).message)

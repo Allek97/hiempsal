@@ -5,19 +5,19 @@
 // SWR Hook
 
 import { getConfig } from "@framework/api/config";
-import { Review } from "@framework/types/review";
+import { Question } from "@framework/types/question";
 
-type UseAddReview = (
-    input: Omit<Review, "ratingsAverage">
-) => Promise<Omit<Review, "ratingsAverage">>;
+type UseAddQuestion = (
+    input: Omit<Question, "answer">
+) => Promise<Omit<Question, "answer">>;
 
-const useAddReview = (): UseAddReview => {
+const useAddQuestion = (): UseAddQuestion => {
     const { fetchRest } = getConfig();
 
-    return async (input: Omit<Review, "ratingsAverage">) => {
+    return async (input: Omit<Question, "answer">) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
-            url: "/api/reviews",
+        const { data } = await fetchRest<Omit<Question, "answer">>({
+            url: "/api/questions",
             body: input,
         });
 
@@ -25,4 +25,4 @@ const useAddReview = (): UseAddReview => {
     };
 };
 
-export default useAddReview;
+export default useAddQuestion;

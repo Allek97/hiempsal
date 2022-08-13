@@ -1,4 +1,5 @@
 import RatingStyle from "@components/elements/RatingStyle";
+import { Question } from "@framework/types/question";
 import { Review } from "@framework/types/review";
 import { FC, useEffect, useState } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
@@ -13,15 +14,17 @@ import {
 import { CustomerQuestions } from "./Questions";
 import { CustomerReviews } from "./Reviews";
 
+type Data = Review | Question;
+
 interface Props {
-    data: Review[];
+    data: Data[];
     type: "review" | "question";
 }
 
 const Customer: FC<Props> = ({ data, type }) => {
     const itemsPerPage = 4;
 
-    const [currentItems, setCurrentItems] = useState<Review[]>(data ?? []);
+    const [currentItems, setCurrentItems] = useState<Data[]>(data ?? []);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
 
@@ -49,24 +52,24 @@ const Customer: FC<Props> = ({ data, type }) => {
             ) : (
                 <>
                     {currentItems &&
-                        currentItems.map((review) => (
+                        currentItems.map((item) => (
                             <CustomerContainer
                                 animate={{
                                     opacity: [0, 1],
                                     transition: { ease: "easeIn" },
                                 }}
-                                key={review.email}
+                                key={item.email}
                             >
                                 <div className="flex">
                                     <ReviewIdentification>
                                         <div>
                                             <span>
-                                                {review.name[0].toUpperCase()}
+                                                {item.name[0].toUpperCase()}
                                             </span>
                                         </div>
                                         <div>
                                             <span className="capitalize">
-                                                {review.name.split(" ")[0]}
+                                                {item.name.split(" ")[0]}
                                             </span>
                                             <span>Verified Buyer</span>
                                         </div>
@@ -74,14 +77,16 @@ const Customer: FC<Props> = ({ data, type }) => {
                                     {type === "review" && (
                                         <RatingStyle
                                             customSize="small"
-                                            value={review.score}
+                                            value={(item as Review).score}
                                         />
                                     )}
                                 </div>
                                 {type === "review" ? (
-                                    <CustomerReviews review={review} />
+                                    <CustomerReviews review={item as Review} />
                                 ) : (
-                                    <CustomerQuestions question={review} />
+                                    <CustomerQuestions
+                                        question={item as Question}
+                                    />
                                 )}
                             </CustomerContainer>
                         ))}
@@ -95,15 +100,15 @@ const Customer: FC<Props> = ({ data, type }) => {
                             marginPagesDisplayed={0}
                             pageCount={pageCount}
                             renderOnZeroPageCount={() => null}
-                            pageClassName="review-page-item"
-                            pageLinkClassName="review-page-link"
-                            previousClassName="review-page-item"
-                            previousLinkClassName="review-page-link"
-                            nextClassName="review-page-item"
-                            nextLinkClassName="review-page-link"
-                            breakClassName="review-page-item"
-                            breakLinkClassName="review-page-link"
-                            containerClassName="review-pagination"
+                            pageClassName="item-page-item"
+                            pageLinkClassName="item-page-link"
+                            previousClassName="item-page-item"
+                            previousLinkClassName="item-page-link"
+                            nextClassName="item-page-item"
+                            nextLinkClassName="item-page-link"
+                            breakClassName="item-page-item"
+                            breakLinkClassName="item-page-link"
+                            containerClassName="item-pagination"
                             activeClassName="active"
                             disabledClassName="disabled"
                         />

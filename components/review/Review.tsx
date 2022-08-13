@@ -4,6 +4,7 @@ import { IoMdChatbubbles } from "react-icons/io";
 
 import { useProduct } from "@components/product/context";
 import useReview from "@framework/review/use-review";
+import useQuestion from "@framework/question/use-question";
 import { Container } from "@components/product/ProductInformation/commun";
 import RatingStyle from "@components/elements/RatingStyle";
 
@@ -31,8 +32,13 @@ const Review: FC = () => {
     const ref = useRef<HTMLDivElement>(null);
 
     const { productId } = useProduct();
+    // NOTE Get the reviews
     const getReview = useReview();
     const { data: reviews } = getReview({ productId: productId });
+
+    // NOTE Get the questions
+    const getQuestion = useQuestion();
+    const { data: questions } = getQuestion({ productId: productId });
 
     useEffect(() => {
         if (ref.current) {
@@ -100,7 +106,7 @@ const Review: FC = () => {
                 ) : (
                     <div>
                         <QuestionForm />
-                        <Customer data={reviews!} type="question" />
+                        <Customer data={questions!} type="question" />
                     </div>
                 )}
             </div>

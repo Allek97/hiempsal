@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoMdChatbubbles } from "react-icons/io";
 
@@ -13,24 +13,45 @@ import { FunctionalBtn } from "./Commun/FunctionalBtn.styled";
 import { BtnContainer, Header, UtilBtn, ReviewOverview } from "./Review.styled";
 import { useReviewContext } from "./context";
 import { ReviewForm } from "./ReviewForm";
+import { QuestionForm } from "./QuestionForm";
 
 // NOTE This component will sit beside <ProductInformation /> component
 const Review: FC = () => {
     const {
         isReviewOpen,
-
+        isReviewUIOpen,
+        isQuestionUIOpen,
+        isReviewSubmitted,
+        isQuestionSubmitted,
         openReview,
         openQuestionUI,
         openReviewUI,
         closeReview,
     } = useReviewContext();
+    const ref = useRef<HTMLDivElement>(null);
 
     const { productId } = useProduct();
     const getReview = useReview();
     const { data: reviews } = getReview({ productId: productId });
 
+    useEffect(() => {
+        if (ref.current) {
+            if (
+                isReviewSubmitted ||
+                isQuestionSubmitted ||
+                isReviewUIOpen ||
+                isQuestionUIOpen
+            ) {
+                ref.current.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            }
+        }
+    }, [isReviewSubmitted, isReviewUIOpen, isQuestionUIOpen]);
+
     return (
-        <Container>
+        <Container ref={ref}>
             <Header>
                 <UtilBtn
                     type="button"
@@ -73,7 +94,7 @@ const Review: FC = () => {
                     </div>
                 ) : (
                     <div>
-                        <ReviewForm />
+                        <QuestionForm />
                         <Customer data={reviews!} type="question" />
                     </div>
                 )}
@@ -95,7 +116,6 @@ const Review: FC = () => {
                     isHoverActive={false}
                     $isSelected={!isReviewOpen}
                     onClick={() => {
-                        closeReview();
                         openQuestionUI();
                     }}
                 >

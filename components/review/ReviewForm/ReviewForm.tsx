@@ -3,7 +3,7 @@
 import axios from "axios";
 import { FC, useState } from "react";
 import RatingStyle from "@components/elements/RatingStyle";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SchemaOf, string, object, number, ValidationError } from "yup";
@@ -15,7 +15,6 @@ import useReview from "@framework/review/use-review";
 import { Review } from "@framework/types/review";
 import { useProduct } from "@components/product/context";
 
-import { Container, FormInput, FormTextArea } from "./ReviewForm.styled";
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
 import {
     CheckErrors,
@@ -24,9 +23,14 @@ import {
     useReviewContext,
 } from "../context";
 import { ReviewFormChecks } from "./reviewFormChecks";
-import { FormError } from "../Commun/FormError.styled";
 import Confirmation from "../Commun/Confirmation";
 import { formMotion } from "../Commun/FormMotions";
+import {
+    Container,
+    FormError,
+    FormInput,
+    FormTextArea,
+} from "../Commun/Form.styled";
 
 const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
     score: number()
@@ -87,14 +91,18 @@ const ReviewForm: FC = () => {
                 };
             } else delete updatedCheckErrors[key];
         });
+
         setCheckErrors(updatedCheckErrors);
+
+        if (Object.keys(updatedCheckErrors).length >= 1)
+            throw Error("You need to select the options above");
     }
 
     const addReview = useAddReview();
     const getReviews = useReview();
     const { mutate } = getReviews({ productId: productId });
 
-    async function onSubmit() {
+    async function onSubmit(): Promise<void> {
         try {
             handleCheckErrors();
 
@@ -134,222 +142,217 @@ const ReviewForm: FC = () => {
             reset(defaultReviewForm);
         } catch (error) {
             if (axios.isAxiosError(error)) {
+                console.log(error);
                 if ((error.response as any)?.data.err.code === 11000)
                     setServerError("This email has already been used");
-            } else setServerError("Server error please retry in few moments");
+            } else if ((error as Error).message)
+                setServerError((error as Error).message);
+            else setServerError("Server error please retry in few moments");
         }
     }
 
     return (
         <div>
             {isReviewSubmitted && <Confirmation isReview />}
-            {isReviewUIOpen ? (
-                <motion.div
-                    initial="hidden"
-                    animate={isReviewUIOpen ? "visible" : "hidden"}
-                    variants={formMotion()}
-                    className="overflow-hidden"
-                >
-                    <form
-                        aria-label="Write A Review For This Product"
-                        className="block"
-                        onSubmit={handleSubmit(onSubmit)}
+            <AnimatePresence>
+                {isReviewUIOpen ? (
+                    <motion.div
+                        initial="hidden"
+                        animate={isReviewUIOpen ? "visible" : "hidden"}
+                        exit="exit"
+                        variants={formMotion}
+                        className="overflow-hidden"
                     >
-                        <Container>
-                            <h2 className="w-max">Write a review</h2>
-                            <div className="flex flex-col mb-6 w-max">
-                                <span className="flex mb-2 font-bold text-accents-8">
-                                    Score:{" "}
-                                    <FormError className="ml-1">
-                                        {errors.score?.message}
-                                    </FormError>
-                                </span>
-                                <Controller
-                                    name="score"
-                                    control={control}
-                                    defaultValue={reviewForm.score}
-                                    render={({
-                                        field: { value, onChange },
-                                    }) => (
-                                        <RatingStyle
-                                            name="score"
-                                            customSize="large"
-                                            value={Number(
-                                                value ?? reviewForm.score
-                                            )}
-                                            readOnly={false}
-                                            precision={1}
-                                            onChange={(event, newValue) => {
-                                                setReviewForm({
-                                                    ...reviewForm,
-                                                    score: Number(newValue),
-                                                });
-                                                onChange(
-                                                    event,
-                                                    Number(newValue)
-                                                );
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </div>
-                            <div className="mb-6">
-                                <label
-                                    htmlFor="review-title"
-                                    className="flex flex-col cursor-pointer"
-                                >
-                                    <span className="flex font-bold mb-2">
-                                        Title:
+                        <form
+                            aria-label="Write A Review"
+                            className="block"
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
+                            <Container>
+                                <h2 className="w-max mb-6 font-bold text-accents-8">
+                                    Write a review
+                                </h2>
+                                <div className="flex flex-col mb-6 w-max">
+                                    <span className="flex mb-2 font-bold text-accents-8">
+                                        Score:{" "}
                                         <FormError className="ml-1">
-                                            {errors.title?.message}
+                                            {errors.score?.message}
                                         </FormError>
                                     </span>
-                                    <FormInput
-                                        {...register("title", {
-                                            required:
-                                                "Review's title & body can't be empty",
-                                        })}
-                                        id="review-title"
-                                        type="text"
-                                        value={reviewForm.title}
-                                        aria-required
-                                        maxLength={150}
-                                        onChange={(e) => {
-                                            setReviewForm({
-                                                ...reviewForm,
-                                                title: e.target.value,
-                                            });
-                                        }}
-                                        autoComplete="review-title"
+                                    <Controller
+                                        name="score"
+                                        control={control}
+                                        defaultValue={reviewForm.score}
+                                        render={({
+                                            field: { value, onChange },
+                                        }) => (
+                                            <RatingStyle
+                                                name="score"
+                                                customSize="large"
+                                                value={Number(
+                                                    value ?? reviewForm.score
+                                                )}
+                                                readOnly={false}
+                                                precision={1}
+                                                onChange={(event, newValue) => {
+                                                    setReviewForm({
+                                                        ...reviewForm,
+                                                        score: Number(newValue),
+                                                    });
+                                                    onChange(
+                                                        event,
+                                                        Number(newValue)
+                                                    );
+                                                }}
+                                            />
+                                        )}
                                     />
-                                </label>
-                            </div>
-                            <div className="mb-6">
-                                <label
-                                    htmlFor="review-content"
-                                    className="flex flex-col cursor-pointer"
-                                >
-                                    <span className="flex font-bold mb-2">
-                                        Review:{" "}
-                                        <FormError className="ml-1">
-                                            {errors.review?.message}
-                                        </FormError>
-                                    </span>
-                                    <FormTextArea
-                                        {...register("review", {
-                                            required:
-                                                "Review's title & body can't be empty",
-                                        })}
-                                        id="review-content"
-                                        aria-required
-                                        value={reviewForm.review}
-                                        onChange={(e) => {
-                                            setReviewForm({
-                                                ...reviewForm,
-                                                review: e.target.value,
-                                            });
-                                        }}
-                                        autoComplete="review-content"
-                                    />
-                                </label>
-                            </div>
-                            <FormProvider {...methods}>
-                                <ReviewFormChecks />
-                            </FormProvider>
-
-                            <div className="mb-6">
-                                <label
-                                    htmlFor="review-name"
-                                    className="flex flex-col cursor-pointer"
-                                >
-                                    <span className="flex font-bold mb-2">
-                                        Use your name:{" "}
-                                        <FormError className="ml-1">
-                                            {errors.name?.message}
-                                        </FormError>
-                                    </span>
-                                    <FormInput
-                                        {...register("name", {
-                                            required:
-                                                "You need to use your name",
-                                        })}
-                                        id="review-name"
-                                        type="text"
-                                        value={reviewForm.name}
-                                        aria-required
-                                        maxLength={150}
-                                        onChange={(e) =>
-                                            setReviewForm({
-                                                ...reviewForm,
-                                                name: e.target.value,
-                                            })
-                                        }
-                                        autoComplete="review-name"
-                                    />
-                                </label>
-                            </div>
-                            {(reviewForm.email.length > 0 ||
-                                reviewForm.name.length > 0) && (
-                                <motion.div
-                                    className="mb-6"
-                                    animate={{ opacity: [0, 1] }}
-                                >
+                                </div>
+                                <div className="mb-6">
                                     <label
-                                        htmlFor="review-email"
+                                        htmlFor="review-title"
                                         className="flex flex-col cursor-pointer"
                                     >
                                         <span className="flex font-bold mb-2">
-                                            Email:{" "}
+                                            Title:
                                             <FormError className="ml-1">
-                                                {errors.email?.message}{" "}
-                                                {serverError.startsWith(
-                                                    "This email"
-                                                )
-                                                    ? serverError
-                                                    : ""}
+                                                {errors.title?.message}
                                             </FormError>
                                         </span>
                                         <FormInput
-                                            {...register("email", {
-                                                required:
-                                                    "You need to add you email address",
-                                            })}
-                                            id="review-email"
-                                            type="email"
-                                            value={reviewForm.email}
+                                            {...register("title")}
+                                            id="review-title"
+                                            type="text"
+                                            value={reviewForm.title}
                                             aria-required
                                             maxLength={150}
                                             onChange={(e) => {
                                                 setReviewForm({
                                                     ...reviewForm,
-                                                    email: e.target.value,
+                                                    title: e.target.value,
                                                 });
                                             }}
-                                            autoComplete="review-email"
+                                            autoComplete="review-title"
                                         />
                                     </label>
-                                </motion.div>
-                            )}
-                            <div className="flex items-center justify-center flex-1">
-                                <FormError className="w-1/2">
-                                    {!serverError.startsWith("This email")
-                                        ? serverError
-                                        : ""}
-                                </FormError>
-                                <FunctionalBtn
-                                    isHoverActive={false}
-                                    $isSelected
-                                    type="submit"
-                                    className="ml-auto w-1/2"
-                                    // onClick={() => handleCheckErrors()}
-                                >
-                                    Post
-                                </FunctionalBtn>
-                            </div>
-                        </Container>
-                    </form>
-                </motion.div>
-            ) : null}
+                                </div>
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="review-content"
+                                        className="flex flex-col cursor-pointer"
+                                    >
+                                        <span className="flex font-bold mb-2">
+                                            Review:{" "}
+                                            <FormError className="ml-1">
+                                                {errors.review?.message}
+                                            </FormError>
+                                        </span>
+                                        <FormTextArea
+                                            {...register("review")}
+                                            id="review-content"
+                                            aria-required
+                                            value={reviewForm.review}
+                                            onChange={(e) => {
+                                                setReviewForm({
+                                                    ...reviewForm,
+                                                    review: e.target.value,
+                                                });
+                                            }}
+                                            autoComplete="review-content"
+                                        />
+                                    </label>
+                                </div>
+                                <FormProvider {...methods}>
+                                    <ReviewFormChecks />
+                                </FormProvider>
+
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="review-name"
+                                        className="flex flex-col cursor-pointer"
+                                    >
+                                        <span className="flex font-bold mb-2">
+                                            Use your name:{" "}
+                                            <FormError className="ml-1">
+                                                {errors.name?.message}
+                                            </FormError>
+                                        </span>
+                                        <FormInput
+                                            {...register("name")}
+                                            id="review-name"
+                                            type="text"
+                                            value={reviewForm.name}
+                                            aria-required
+                                            maxLength={150}
+                                            onChange={(e) =>
+                                                setReviewForm({
+                                                    ...reviewForm,
+                                                    name: e.target.value,
+                                                })
+                                            }
+                                            autoComplete="review-name"
+                                        />
+                                    </label>
+                                </div>
+                                {(reviewForm.email.length > 0 ||
+                                    reviewForm.name.length > 0) && (
+                                    <motion.div
+                                        className="mb-6"
+                                        animate={{ opacity: [0, 1] }}
+                                    >
+                                        <label
+                                            htmlFor="review-email"
+                                            className="flex flex-col cursor-pointer"
+                                        >
+                                            <span className="flex font-bold mb-2">
+                                                Email:{" "}
+                                                <FormError className="ml-1">
+                                                    {errors.email?.message}{" "}
+                                                    {serverError.startsWith(
+                                                        "This email"
+                                                    )
+                                                        ? serverError
+                                                        : ""}
+                                                </FormError>
+                                            </span>
+                                            <FormInput
+                                                {...register("email")}
+                                                id="review-email"
+                                                type="email"
+                                                value={reviewForm.email}
+                                                aria-required
+                                                maxLength={150}
+                                                onChange={(e) => {
+                                                    setReviewForm({
+                                                        ...reviewForm,
+                                                        email: e.target.value,
+                                                    });
+                                                }}
+                                                autoComplete="review-email"
+                                            />
+                                        </label>
+                                    </motion.div>
+                                )}
+                                <div className="flex items-center justify-center flex-1">
+                                    <FormError className="w-1/2">
+                                        {!serverError.startsWith("This email")
+                                            ? serverError
+                                            : ""}
+                                    </FormError>
+                                    <FunctionalBtn
+                                        isHoverActive={false}
+                                        $isSelected
+                                        type="submit"
+                                        className="ml-auto w-1/2"
+                                    >
+                                        Post
+                                    </FunctionalBtn>
+                                </div>
+                            </Container>
+                        </form>
+                    </motion.div>
+                ) : null}
+            </AnimatePresence>
         </div>
     );
 };

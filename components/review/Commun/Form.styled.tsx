@@ -1,15 +1,11 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import { mainFont } from "../Commun/typography";
+import { mainFont } from "./typography";
 
 export const Container = styled.div`
     ${tw`flex flex-col px-6 mb-28
     md:px-8`}
     ${mainFont}
-
-    h2 {
-        ${tw`mb-6 font-bold text-accents-8`}
-    }
 `;
 export const FormInput = styled.input`
     ${tw`padding[0.95em 1.1em] mt-0 bg-white `}
@@ -30,4 +26,9 @@ export const FormTextArea = styled.textarea`
     &:focus {
         outline: none;
     }
+`;
+
+export const FormError = styled.span`
+    ${tw`block text-red-light font-family[whyte inktrap] 
+    overflow-wrap[break-word] font-weight[600]`}
 `;

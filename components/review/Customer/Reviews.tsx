@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Review } from "@framework/types/review";
 import { FC } from "react";
 import tw from "twin.macro";
-import { ReviewField } from "../Commun/ReviewField.styled";
+import { ReviewField } from "./Customer.styled";
 
 interface Props {
     review: Review;

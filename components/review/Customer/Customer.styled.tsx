@@ -38,6 +38,22 @@ export const ReviewIdentification = styled.div`
     }
 `;
 
+export const ReviewField = styled.div`
+    ${tw`flex`}
+
+    span {
+        line-height: 17px !important;
+    }
+
+    span:first-of-type {
+        ${tw`text-accents-8 font-bold margin-right[0.3em]`}
+    }
+
+    &:not(:last-of-type) {
+        ${tw`mb-1`}
+    }
+`;
+
 export const ReviewPagination = styled.div`
     ${tw`mx-auto w-max my-5 font-size[14px] tracking-tighter`}
 

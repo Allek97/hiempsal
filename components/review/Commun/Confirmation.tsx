@@ -63,14 +63,15 @@ const CloseBtn = styled.button`
 `;
 
 const Confirmation: FC<Props> = ({ isReview = true }) => {
-    const { setReviewSubmission } = useReviewContext();
+    const { setReviewSubmission, setQuestionSubmission } = useReviewContext();
+    function handleSubmissions(): void {
+        if (isReview) setReviewSubmission(false);
+        else setQuestionSubmission(false);
+    }
     return (
         <div className="px-8">
             <Container animate={{ opacity: [0, 1] }}>
-                <CloseBtn
-                    type="button"
-                    onClick={() => setReviewSubmission(false)}
-                >
+                <CloseBtn type="button" onClick={() => handleSubmissions()}>
                     <IoClose />
                 </CloseBtn>
                 <div className="mb-2">

@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useProduct } from "@components/product/context";
 import styled from "@emotion/styled";
 import customScroll from "@styles/customScroll.styled";
 import { motion, Variants } from "framer-motion";
-import { FC } from "react";
+import { forwardRef, ReactNode } from "react";
 import tw from "twin.macro";
 
 export const Root = styled(motion.div)`
@@ -33,7 +34,11 @@ export const containerMotion = (exitCondition: boolean): Variants => ({
     },
 });
 
-const Container: FC = ({ children }) => {
+interface Props {
+    children: ReactNode | ReactNode[];
+}
+
+const Container = forwardRef<HTMLDivElement, Props>(({ children }, ref) => {
     const { isProductOverviewOpen } = useProduct();
 
     return (
@@ -44,9 +49,11 @@ const Container: FC = ({ children }) => {
             exit="exit"
             key="features"
         >
-            <Root>{children}</Root>
+            <Root ref={ref}>{children}</Root>
         </motion.div>
     );
-};
+});
+
+Container.displayName = "Container";
 
 export default Container;

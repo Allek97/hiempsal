@@ -1,6 +1,6 @@
 import { Variants } from "framer-motion";
 
-const formMotion = (): Variants => ({
+const formMotion: Variants = {
     hidden: { height: 0, opacity: 0 },
     visible: {
         height: "auto",
@@ -12,8 +12,8 @@ const formMotion = (): Variants => ({
     },
     exit: {
         height: 0,
-        transition: { duration: 0.35 },
+        transition: { duration: 1 },
     },
-});
+};
 
 export { formMotion };

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Checkbox } from "@mui/material";
 
-import { FormError } from "@components/review/Commun/FormError.styled";
+import { FormError } from "@components/review/Commun/Form.styled";
 import { useReviewContext } from "@components/review/context";
 
 import { CheckBoxLabel } from "./ReviewFormChecks.styled";

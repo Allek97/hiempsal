@@ -48,7 +48,12 @@ const Review: FC = () => {
                 });
             }
         }
-    }, [isReviewSubmitted, isReviewUIOpen, isQuestionUIOpen]);
+    }, [
+        isReviewSubmitted,
+        isQuestionSubmitted,
+        isReviewUIOpen,
+        isQuestionUIOpen,
+    ]);
 
     return (
         <Container ref={ref}>

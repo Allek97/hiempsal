@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import Answer from "server/models/Answer";
+import { IAnswer } from "server/types/answer";
 
-import Question from "server/models/Question";
-import { IQuestion } from "server/types/question";
 import { assertIsError, dbConnect } from "server/utils";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,10 +12,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (method === "GET") {
         try {
             let query = {};
-            if (req.query.productId) query = { productId: req.query.productId };
-            if (req.query.email) query = { ...query, email: req.query.email };
+            if (req.query.question) query = { question: req.query.question };
 
-            const doc: IQuestion[] = await Question.find(query);
+            const doc: IAnswer[] = await Answer.find(query);
 
             return res.status(200).json({
                 status: "success",
@@ -32,14 +31,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (method === "POST") {
         const { body } = req;
-        const questionBody = body as IQuestion;
+        const answerBody = body as IAnswer;
 
         try {
-            const doc = await Question.create(questionBody);
+            const doc = await Answer.create(answerBody);
 
             return res.status(201).json({
                 status: "success",
-                data: { question: doc },
+                data: { asnwer: doc },
             });
         } catch (err) {
             assertIsError(err);

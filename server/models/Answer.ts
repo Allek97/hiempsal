@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IAnswer } from "server/types/answer";
+import Question from "./Question";
 
 const answerSchema = new Schema<IAnswer>({
     answer: {
@@ -12,6 +13,17 @@ const answerSchema = new Schema<IAnswer>({
         ref: "Question",
         required: [true, "Answer must belong to a specific question"],
     },
+});
+
+answerSchema.pre(/^find/, function (next) {
+    this.populate("question");
+    next();
+});
+
+answerSchema.pre("save", async function () {
+    await Question.findByIdAndUpdate(this.question, {
+        answer: this.answer,
+    });
 });
 
 const Answer =

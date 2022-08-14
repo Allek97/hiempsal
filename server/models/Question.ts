@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 
 import { IQuestion } from "server/types/question";
 import validator from "validator";
-import Answer from "./Answer";
 
 const questionSchema = new Schema<IQuestion>({
     question: {
@@ -23,25 +22,11 @@ const questionSchema = new Schema<IQuestion>({
     answer: {
         type: String,
         default: "",
-        required: false,
     },
 });
 
 const Question =
     mongoose.models.Question ||
     mongoose.model<IQuestion>("Question", questionSchema);
-
-questionSchema.pre(/^findOneAnd/, async function () {
-    const answer = await Answer.find({
-        question: new mongoose.Types.ObjectId(this._id),
-    });
-
-    await Question.findOneAndUpdate(
-        { email: this.email },
-        {
-            answer: answer[0].answer,
-        }
-    );
-});
 
 export default Question;

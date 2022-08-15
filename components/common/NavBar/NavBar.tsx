@@ -7,7 +7,7 @@ import { useUI } from "@components/ui/context";
 import { useHistory } from "@contexts/History";
 
 import { Media } from "@lib/media";
-import { useMediaQueryNext, useScroll } from "@hooks";
+import { useMediaQueryNext, useScroll, useScrollDirectionNext } from "@hooks";
 
 import {
     Bag,
@@ -41,12 +41,16 @@ const Navbar: FC = () => {
 
     const isScrolled = useScroll(scrollThreshold);
 
+    const isHidden = useScroll(300);
+    const { direction } = useScrollDirectionNext();
+
     return (
         <NavbarRoot
             isScrolled={isScrolled}
             isMobileMenuOpen={isMobileMenuOpen}
             isPopupOpen={isPopupOpen}
             isUsernavOpen={isUsernavOpen}
+            isHidden={isHidden && direction === "down"}
         >
             <Container
                 isScrolled={isScrolled}

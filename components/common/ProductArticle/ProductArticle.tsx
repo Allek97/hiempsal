@@ -5,8 +5,6 @@ import { MdLocalOffer } from "react-icons/md";
 import { FaHeartBroken } from "react-icons/fa";
 import { RiHeartAddFill } from "react-icons/ri";
 
-import { ProductPopup } from "@components/common";
-
 import { useUI } from "@components/ui/context";
 import { FunctionalLink } from "@components/utils";
 
@@ -45,7 +43,7 @@ const ProductArticle: FC<Props> = ({
 
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
 
-    const { isPopupOpen, openPopup } = useUI();
+    const { openPopup } = useUI();
 
     function addToWishlist() {
         if (isAddedToWishlist) {
@@ -74,7 +72,6 @@ const ProductArticle: FC<Props> = ({
 
     return (
         <Root>
-            {isPopupOpen && <ProductPopup product={product} />}
             <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
                     <FunctionalLink>
@@ -135,7 +132,7 @@ const ProductArticle: FC<Props> = ({
 
                     <ProductBonus>
                         <MdLocalOffer />
-                        <p>Winter Offer</p>
+                        <p>Summer Offer</p>
                     </ProductBonus>
 
                     {(variant === "wishlist" || variant === "product") &&

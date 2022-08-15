@@ -32,13 +32,13 @@ const ImageSizeB = css`
     ${tw`height[90vw]
         md:height[75vw]
         lg:height[35vw]
-        3xl:height[36.8vw]`}
+        3xl:height[32vw]`}
 `;
 const imageSizeDisplay = css`
     ${tw`height[90vw]
         md:height[75vw]
         lg:height[65vw]
-        3xl:height[55vw]`}
+        3xl:height[50vw]`}
 `;
 
 const commonTypoSmall = css`

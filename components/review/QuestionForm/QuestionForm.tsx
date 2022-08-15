@@ -165,7 +165,12 @@ const QuestionForm: FC = () => {
                                     <span className="flex font-bold mb-2">
                                         Use your email:{" "}
                                         <FormError className="ml-1">
-                                            {errors.email?.message}
+                                            {errors.email?.message}{" "}
+                                            {serverError.startsWith(
+                                                "This email"
+                                            )
+                                                ? serverError
+                                                : ""}
                                         </FormError>
                                     </span>
                                     <FormInput

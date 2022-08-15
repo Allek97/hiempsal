@@ -7,6 +7,7 @@ interface RootProps {
     isMobileMenuOpen: boolean;
     isPopupOpen: boolean;
     isUsernavOpen: boolean;
+    isHidden: boolean;
 }
 
 interface ContainerProps {
@@ -34,6 +35,15 @@ const fadeIn = keyframes`
 
 export const NavbarRoot = styled.div<RootProps>`
     ${tw`sticky top-0 z-50 bg-transparent`}
+
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+    ${({ isHidden }) =>
+        isHidden &&
+        css`
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translateY(-100%);
+        `}
 
     &:before {
         content: "";
@@ -65,6 +75,8 @@ export const NavbarRoot = styled.div<RootProps>`
                 : css`
                       transform: scaleY(0);
                   `}
+
+                  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     &:after {
@@ -90,6 +102,8 @@ export const NavbarRoot = styled.div<RootProps>`
                       transform: scaleX(0);
                       transform-origin: right;
                   `}
+
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 `;
 
@@ -98,6 +112,7 @@ export const Container = styled.div<ContainerProps>`
 
     ${({ theme }) => theme.layout.mainPadding}
 
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
     &:before {
         content: "";

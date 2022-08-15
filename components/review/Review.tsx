@@ -92,7 +92,12 @@ const Review: FC = () => {
                         value={reviews?.length ? reviews[0].ratingsAverage : 0}
                     />
                     <span className="text-xs tracking-normal text-accents-6 mt-2">
-                        {`${reviews?.length ?? 0} Reviews`}, 3 Q&As
+                        {`${reviews?.length ?? 0} Reviews`}
+                        {`${
+                            (questions?.length ?? 0) > 0
+                                ? `, ${questions?.length} Q&As`
+                                : ``
+                        }`}
                     </span>
                 </div>
             </ReviewOverview>

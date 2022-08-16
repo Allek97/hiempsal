@@ -9,7 +9,7 @@ import { ProductVariant } from "@framework/types/product";
 import { FunctionalLink } from "@components/utils";
 import { currencyMap } from "@framework/utils/optionMapping";
 
-import { Choices } from "../helpers";
+import { Choices } from "@components/common/helpers";
 
 import {
     ProductInfo,

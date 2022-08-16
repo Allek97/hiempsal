@@ -41,7 +41,7 @@ const Navbar: FC = () => {
 
     const isScrolled = useScroll(scrollThreshold);
 
-    const isHidden = useScroll(300);
+    const isHidden = useScroll(150);
     const { direction } = useScrollDirectionNext();
 
     return (

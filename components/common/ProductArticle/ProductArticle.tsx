@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdLocalOffer } from "react-icons/md";
@@ -23,7 +23,10 @@ import {
     ProductBtn,
     ImageContainer,
     QuickViewBtn,
+    VariantVisualizers,
+    VariantVisualizerBox,
 } from "./ProductArticle.styled";
+import { getVariantImages } from "../helpers";
 
 interface Props {
     product: Product;
@@ -39,6 +42,9 @@ const ProductArticle: FC<Props> = ({
     isDisplayed = false,
 }) => {
     const { name, slug, images, price } = product;
+
+    const variantImages = useMemo(() => getVariantImages(product), [product]);
+
     const placeHolder = "/product-image-placeholder.svg";
 
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
@@ -98,6 +104,25 @@ const ProductArticle: FC<Props> = ({
                 <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
                     <div className="flex items-start justify-between sm:items-center">
                         <div>
+                            <VariantVisualizerBox>
+                                {variantImages.map((varaintImage, idx) => (
+                                    <VariantVisualizers
+                                        key={varaintImage?.url ?? idx}
+                                        type="button"
+                                    >
+                                        <Image
+                                            src={
+                                                varaintImage?.url ?? placeHolder
+                                            }
+                                            alt={varaintImage?.alt ?? "product"}
+                                            layout="fill"
+                                            objectFit="contain"
+                                            quality="100"
+                                            priority
+                                        />
+                                    </VariantVisualizers>
+                                ))}
+                            </VariantVisualizerBox>
                             <Media greaterThanOrEqual="lg">
                                 <h6>
                                     All-rounder and breathable hoodie for every

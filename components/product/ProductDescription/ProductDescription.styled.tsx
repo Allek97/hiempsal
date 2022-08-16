@@ -59,8 +59,8 @@ export const ReviewBtn = styled(motion.button)`
 
 export const WriteReviewBtn = styled(motion.button)`
     ${tw`flex items-center w-max cursor-pointer py-3.5 px-7
-    border[1px solid #f0f0f0] border-radius[500px] text-accents-8 tracking-tighter`}
-    box-shadow: 1px 1px 4px rgb(0 0 0 / 15%);
+    border[1px solid #f0f0f0] border-radius[500px] text-accents-9 tracking-tighter`}
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 12%);
 
     @media (hover: hover) and (pointer: fine) {
         transition: background 0.3s;

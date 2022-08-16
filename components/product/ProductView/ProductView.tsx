@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
@@ -7,7 +7,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
+import { getQueryProducts } from "@framework/product";
+import { getConfig } from "@framework/api/config";
 
+import { Grid } from "@components/ui";
 import { useUI } from "@components/ui/context";
 import { ReviewProvider } from "@components/review";
 
@@ -29,6 +32,7 @@ import {
     ProductDetailsBox,
     ProductInfo,
     ProductOverviewContainer,
+    ProductSimilarBox,
     Root,
     SliderContainer,
     VariantButton,
@@ -37,6 +41,7 @@ import {
 } from "./ProductView.styled";
 import ProductCart from "../ProductCart/ProductCart";
 import { useProduct } from "../context";
+import { ProductCard } from "../ProductCard";
 
 interface Props {
     product: Product;
@@ -74,12 +79,36 @@ const ProductView: FC<Props> = ({ product }) => {
         setProductType,
         isProductOverviewOpen,
         isProductInfoOpen,
+        productType,
     } = useProduct();
 
+    const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
+
     useEffect(() => {
+        let active = true;
+        async function getSimilarProduct(): Promise<void> {
+            try {
+                const config = getConfig();
+                const query = `product_type:${productType}`;
+
+                const products: Product[] = await getQueryProducts({
+                    config,
+                    variables: { querySearch: query },
+                });
+                if (active) setSimilarProducts(products);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        getSimilarProduct();
         setProductId(product.id);
         setProductType(product.type);
         // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        return () => {
+            active = false;
+        };
     }, [product.id, product.type]);
 
     const { direction } = useScrollDirectionNext();
@@ -215,6 +244,30 @@ const ProductView: FC<Props> = ({ product }) => {
                     hasSustainability={!!product.sustainability}
                 />
             </ProductDetailsBox>
+            <ProductSimilarBox>
+                <header>
+                    <div className="relative w-20 h-20">
+                        <Image
+                            src={product.images[1].url}
+                            alt={product.images[1].alt || "product"}
+                            layout="fill"
+                            objectFit="contain"
+                            quality="100"
+                            priority
+                        />
+                    </div>
+                    <h1>You may also like</h1>
+                </header>
+                <Grid layout="technology">
+                    {similarProducts.map((similarProduct) => (
+                        <ProductCard
+                            product={similarProduct}
+                            key={similarProduct.id}
+                            variant="complex"
+                        />
+                    ))}
+                </Grid>
+            </ProductSimilarBox>
         </Root>
     );
 };

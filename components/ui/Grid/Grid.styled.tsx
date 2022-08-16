@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface Props {
-    layout: "clothing" | "technology";
+    layout: "clothing" | "technology" | "similar";
 }
 
 const layoutA = css`

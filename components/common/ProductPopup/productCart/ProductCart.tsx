@@ -12,7 +12,6 @@ import { currencyMap } from "@framework/utils/optionMapping";
 import { RiErrorWarningLine } from "react-icons/ri";
 
 import Close from "@components/icons/Close";
-import { Swatch } from "../swatch";
 
 import {
     AvailableChoices,
@@ -21,7 +20,10 @@ import {
     getVariantImage,
     hasAllVariantsForSale,
     isOptionAvailable,
-} from "../helpers";
+} from "@components/common/helpers";
+
+import { Swatch } from "../swatch";
+
 import {
     CloseWrapper,
     Form,
@@ -143,6 +145,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                                                       optValue.label
                                                   )
                                                 : undefined;
+                                            console.log(optValue.label);
 
                                             const value = optValue.label;
 

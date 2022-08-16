@@ -8,9 +8,9 @@ import { currencyMap } from "@framework/utils/optionMapping";
 
 import useAddItem from "@framework/cart/use-add-item";
 import { checkoutServer } from "@mocks/api";
+import { Choices } from "@components/common/helpers";
 import { product as productMock } from "../__mocks__/variables";
 import ProductPopup, { Props as ProductPopupProps } from "./ProductPopup";
-import { Choices } from "../helpers";
 
 // jest.mock("@framework/utils/fetch-api.ts");
 

@@ -91,3 +91,10 @@ export const getVariantImage = (
             );
         })
     )?.image;
+
+export const getVariantImages = (
+    product: Product
+): (ProductImage | undefined)[] =>
+    product.options
+        .filter((option) => option.displayName.match(/colou?r/gi))[0]
+        .values.map((value) => getVariantImage(product, value.label));

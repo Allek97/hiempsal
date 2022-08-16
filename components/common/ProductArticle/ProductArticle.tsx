@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdLocalOffer } from "react-icons/md";
@@ -8,10 +8,11 @@ import { RiHeartAddFill } from "react-icons/ri";
 import { useUI } from "@components/ui/context";
 import { FunctionalLink } from "@components/utils";
 
-import { Product } from "@framework/types/product";
+import { Product, ProductImage } from "@framework/types/product";
 
 import { Media } from "@lib/media";
 import { Plus } from "@components/icons";
+import { ImageVisualizer } from "@components/elements";
 
 import {
     AddToCartBtn,
@@ -23,10 +24,7 @@ import {
     ProductBtn,
     ImageContainer,
     QuickViewBtn,
-    VariantVisualizers,
-    VariantVisualizerBox,
 } from "./ProductArticle.styled";
-import { getVariantImages } from "../helpers";
 
 interface Props {
     product: Product;
@@ -43,11 +41,10 @@ const ProductArticle: FC<Props> = ({
 }) => {
     const { name, slug, images, price } = product;
 
-    const variantImages = useMemo(() => getVariantImages(product), [product]);
-
     const placeHolder = "/product-image-placeholder.svg";
 
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = useState<ProductImage>(images[0]);
 
     const { openPopup } = useUI();
 
@@ -88,7 +85,7 @@ const ProductArticle: FC<Props> = ({
                             >
                                 <div>
                                     <Image
-                                        src={images[0].url ?? placeHolder}
+                                        src={selectedImage.url ?? placeHolder}
                                         alt="Black hoodie"
                                         quality="80"
                                         layout="fill"
@@ -104,25 +101,11 @@ const ProductArticle: FC<Props> = ({
                 <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
                     <div className="flex items-start justify-between sm:items-center">
                         <div>
-                            <VariantVisualizerBox>
-                                {variantImages.map((varaintImage, idx) => (
-                                    <VariantVisualizers
-                                        key={varaintImage?.url ?? idx}
-                                        type="button"
-                                    >
-                                        <Image
-                                            src={
-                                                varaintImage?.url ?? placeHolder
-                                            }
-                                            alt={varaintImage?.alt ?? "product"}
-                                            layout="fill"
-                                            objectFit="contain"
-                                            quality="100"
-                                            priority
-                                        />
-                                    </VariantVisualizers>
-                                ))}
-                            </VariantVisualizerBox>
+                            <ImageVisualizer
+                                product={product}
+                                selectedImage={selectedImage}
+                                setSelectedImage={setSelectedImage}
+                            />
                             <Media greaterThanOrEqual="lg">
                                 <h6>
                                     All-rounder and breathable hoodie for every

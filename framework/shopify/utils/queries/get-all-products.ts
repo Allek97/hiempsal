@@ -11,6 +11,11 @@ const productConnection = `
             handle
             description
             availableForSale
+            options {
+                id
+                name
+                values
+              }
             priceRange {
                 minVariantPrice {
                 amount
@@ -31,6 +36,39 @@ const productConnection = `
                 }
                 }
             }
+            variants(first: 250) {
+                pageInfo {
+                  hasNextPage
+                  hasPreviousPage
+                }
+                edges {
+                  node {
+                    id
+                    title
+                    sku
+                    requiresShipping
+                    availableForSale
+                    selectedOptions {
+                      name
+                      value
+                    }
+                    priceV2 {
+                      amount
+                      currencyCode
+                    }
+                    compareAtPriceV2 {
+                      amount
+                      currencyCode
+                    }
+                    image {
+                      url
+                      altText
+                      width
+                      height
+                    }
+                  }
+                }
+              }
         }
     }
 `;

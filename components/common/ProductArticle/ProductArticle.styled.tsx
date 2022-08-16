@@ -304,16 +304,3 @@ export const AddToCartBtn = styled(Button)`
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
 `;
-
-export const VariantVisualizerBox = styled.div`
-    ${tw`flex justify-center items-center w-max gap[1.5vw]
-    lg:(pt-3 gap[0.2666666667vw])`}
-`;
-
-export const VariantVisualizers = styled.button`
-    ${tw`relative w-9 h-9 border-radius[3px]
-    lg:(w-10 h-10)`}
-
-    box-shadow: 1px 1px 2px rgb(0 0 0 / 10%);
-    border: 1px solid transparent;
-`;

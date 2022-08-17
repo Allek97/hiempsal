@@ -67,7 +67,7 @@ const QuestionForm: FC = () => {
     const { mutate } = getQuestions({ productId: productId });
     async function onSubmit(): Promise<void> {
         try {
-            await addQuestion(questionForm);
+            await addQuestion({ productId, ...questionForm });
             mutate();
 
             setServerError("");

@@ -15,15 +15,23 @@ const questionSchema = new Schema<IQuestion>({
     email: {
         type: String,
         required: [true, "You need to provide an email"],
-        unique: true,
         lowercase: true,
         validate: [validator.isEmail, "You need to provide a valid email"],
+    },
+    productId: {
+        type: String,
+        required: [
+            true,
+            "You must enter the id of the product associated with this review",
+        ],
     },
     answer: {
         type: String,
         default: "",
     },
 });
+
+questionSchema.index({ email: 1, productId: 1 }, { unique: true });
 
 const Question =
     mongoose.models.Question ||

@@ -4,4 +4,5 @@ export interface IQuestion {
     question: string;
     name: string;
     email: string;
+    productId: string;
 }

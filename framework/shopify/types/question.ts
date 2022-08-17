@@ -3,4 +3,5 @@ export interface Question {
     question: string;
     name: string;
     email: string;
+    productId: string;
 }

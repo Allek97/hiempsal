@@ -44,7 +44,6 @@ const ProductSimilar: FC<Props> = ({ product }) => {
         }
 
         getSimilarProduct();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
 
         return () => {
             active = false;

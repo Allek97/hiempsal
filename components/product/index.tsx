@@ -1,4 +1,5 @@
 export { ProductView, VariantButtonPopup } from "./ProductView";
+export { ProductSimilar } from "./ProductSimilar";
 export { ProductCard } from "./ProductCard";
 export { ProductSlider } from "./ProductSlider";
 export { ProductSliderControl } from "./ProductSliderControl";

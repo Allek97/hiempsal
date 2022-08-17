@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { motion, Variants } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import useReview from "@framework/review/use-review";
 
@@ -28,20 +29,36 @@ const ProductDescription: FC<Props> = ({ description, featureName }) => {
     const { openReview } = useUI();
     const { productId } = useProduct();
     const getReviews = useReview();
-    const { data: reviews, isEmpty } = getReviews({ productId });
+    const { data: reviews } = getReviews({ productId });
+
+    const { ref: contentRef, inView: isContentInView } = useInView({
+        threshold: 0.25,
+        triggerOnce: true,
+    });
 
     return (
         <Root>
             <h2>Product description</h2>
-            <h1>{featureName}</h1>
-            <p>{description}</p>
-            {!isEmpty ? (
+            <motion.div
+                ref={contentRef}
+                initial={{ opacity: 0 }}
+                animate={isContentInView && { opacity: 1 }}
+                transition={{
+                    delay: 0.1,
+                    duration: 0.3,
+                    ease: [0.7, 0.09, 0.71, 0.09],
+                }}
+            >
+                <h1>{featureName}</h1>
+                <p>{description}</p>
+            </motion.div>
+            {reviews?.length ? (
                 <ReviewBtn
                     type="button"
                     whileHover="hover"
                     onClick={openReview}
                 >
-                    <RatingStyle value={4.7} />
+                    <RatingStyle value={reviews[0].ratingsAverage} />
                     <motion.span
                         className="text-accents-8 tracking-tighter"
                         style={{ transformOrigin: "center bottom" }}

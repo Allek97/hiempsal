@@ -62,7 +62,7 @@ const AnimatedCharacters = ({ type, text }: AnimatedTextProps) => {
         <Tag
             style={{ lineHeight: "normal", marginTop: "3px", fontWeight: 500 }}
         >
-            {words.map((word, index) => {
+            {words.map((_, index) => {
                 return (
                     // Wrap each word in the Wrapper component
                     <Wrapper key={index}>

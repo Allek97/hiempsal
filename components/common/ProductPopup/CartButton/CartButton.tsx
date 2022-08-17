@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC } from "react";
 import { motion, Variants } from "framer-motion";
 
 import { AnimatedText } from "@components/utils";
-import { AnimatedTextProps } from "@components/utils/AnimatedText";
+import { AnimatedTextProps } from "@components/utils/animations/AnimatedText";
 
 import { CartBtn, CartBtnWrapper } from "./CartButton.styled";
 

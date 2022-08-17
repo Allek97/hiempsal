@@ -1,2 +1,2 @@
-export { default as AnimatedText } from "./AnimatedText";
+export { default as AnimatedText } from "./animations/AnimatedText";
 export { FunctionalLink } from "./FunctionalLink";

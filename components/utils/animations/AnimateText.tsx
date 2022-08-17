@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -7,24 +8,24 @@ import AnimateLetters from "./AnimateLetters";
 import { Type, Version } from "./type";
 
 interface Props {
-    isAnimate: boolean;
-    text: string;
-    type: Type;
-    version: Version;
-    staggerValue: number;
+    isAnimate?: boolean;
+    text?: string;
+    type?: Type;
+    version?: Version;
+    staggerValue?: number;
     refAnimation: Ref<HTMLDivElement>;
-    delayValue: number;
-    letterDuration: number;
+    delayValue?: number;
+    letterDuration?: number;
 }
 
 const AnimateText: FC<Props> = ({
-    isAnimate,
-    type,
-    text,
-    staggerValue,
-    delayValue,
-    version,
-    letterDuration,
+    isAnimate = true,
+    type = "heading1",
+    text = "",
+    staggerValue = 0.025,
+    delayValue = 0,
+    version = "slideUp",
+    letterDuration = 0.2,
     refAnimation,
     // eslint-disable-next-line react/prop-types
 }) => {

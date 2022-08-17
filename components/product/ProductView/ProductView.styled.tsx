@@ -169,24 +169,3 @@ export const ProductDetailsBox = styled.div`
     ${({ theme }) => theme.layout.mainPadding}
     ${bottomMargin}
 `;
-
-const fontSizeHeader = css`
-    ${tw`font-size[25px] line-height[1.3em] tracking-tighter
-        lg:(font-size[30px] line-height[1em] letter-spacing[-0.06em])
-        2lg:(font-size[2.7vw])`}
-
-    ${tw`2xl:font-size[40px]`}
-`;
-
-export const ProductSimilarBox = styled.section`
-    ${tw`block`}
-
-    header {
-        ${tw`flex flex-col justify-center items-center mb-10 
-        lg:margin-bottom[70px]`}
-
-        h1 {
-            ${fontSizeHeader}
-        }
-    }
-`;

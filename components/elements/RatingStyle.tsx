@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import { FC } from "react";
 import tw from "twin.macro";
 import { Rating, RatingProps } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
 import { transientOptions } from "@lib/transientOptions";
+import { useInView } from "react-intersection-observer";
 
 interface Props extends RatingProps {
     customSize?: "small" | "regular" | "large";
@@ -16,7 +17,15 @@ interface Props extends RatingProps {
 
 interface StyleProps {
     $size: "small" | "regular" | "large";
+    $isAnimate: boolean;
 }
+
+const slideUp = keyframes`
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 
 export const StyledRating = styled(Rating, transientOptions)<StyleProps>`
     ${tw`column-gap[1px] margin-right[2vw] 
@@ -49,6 +58,29 @@ export const StyledRating = styled(Rating, transientOptions)<StyleProps>`
     .MuiRating-iconEmpty {
         color: #cdcdcd;
     }
+
+    & > span {
+        ${({ $isAnimate }) =>
+            $isAnimate &&
+            css`
+                opacity: 0;
+                transform: translateY(50%);
+                animation: ${slideUp} 0.3s ease 1 forwards;
+
+                &:nth-of-type(2) {
+                    animation-delay: 0.1s;
+                }
+                &:nth-of-type(3) {
+                    animation-delay: 0.2s;
+                }
+                &:nth-of-type(4) {
+                    animation-delay: 0.3s;
+                }
+                &:nth-of-type(5) {
+                    animation-delay: 0.4s;
+                }
+            `}
+    }
 `;
 
 const RatingStyle: FC<Props> = ({
@@ -58,6 +90,11 @@ const RatingStyle: FC<Props> = ({
     readOnly = true,
     ...rest
 }) => {
+    const { ref: ratingRef, inView: isRatingInView } = useInView({
+        threshold: 0.25,
+        triggerOnce: true,
+    });
+
     return (
         <StyledRating
             name="customized-color"
@@ -67,6 +104,8 @@ const RatingStyle: FC<Props> = ({
             emptyIcon={<CircleIcon />}
             readOnly={readOnly}
             $size={customSize}
+            $isAnimate={isRatingInView}
+            ref={ratingRef}
             {...rest}
         />
     );

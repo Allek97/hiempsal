@@ -80,9 +80,7 @@ const ProductSimilar: FC<Props> = ({ product }) => {
                     staggerValue={0.02}
                     letterDuration={0.4}
                     refAnimation={titleRef}
-                >
-                    You may also like
-                </AnimateText>
+                />
             </header>
             <Grid layout="technology">
                 {similarProducts.map((similarProduct) => (

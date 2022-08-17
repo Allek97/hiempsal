@@ -14,6 +14,7 @@ export const Root = styled.li`
 
 export const ImageWrapper = styled.div`
     ${tw`relative flex justify-center items-center w-full height[56vw] mx-auto
+    sm:(height[45vw])
     md:(height[28vw])
     lg:(height[21vw])
     2xl:(height[21.5rem])`}

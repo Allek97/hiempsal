@@ -50,7 +50,7 @@ const Navbar: FC = () => {
             isMobileMenuOpen={isMobileMenuOpen}
             isPopupOpen={isPopupOpen}
             isUsernavOpen={isUsernavOpen}
-            isHidden={isHidden && direction === "down"}
+            isHidden={isHidden && direction === "down" && !isMobileMenuOpen}
         >
             <Container
                 isScrolled={isScrolled}

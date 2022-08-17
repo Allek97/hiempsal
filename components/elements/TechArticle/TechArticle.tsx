@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import Link from "next/link";
 import { FC } from "react";
 import Rating from "@mui/material/Rating";
@@ -22,9 +23,13 @@ import {
     Root,
 } from "./TechArticle.styled";
 
-const TechArticle: FC = () => {
+interface Props {
+    className?: string;
+}
+
+const TechArticle: FC<Props> = ({ className }) => {
     return (
-        <Root>
+        <Root className={className}>
             <ImageWrapper>
                 <ImageSlider />
             </ImageWrapper>

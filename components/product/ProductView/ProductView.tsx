@@ -38,6 +38,7 @@ import {
 import ProductCart from "../ProductCart/ProductCart";
 import { useProduct } from "../context";
 import { ProductSimilar } from "../ProductSimilar";
+import { ProductBoutique } from "../ProductBoutique";
 
 interface Props {
     product: Product;
@@ -217,6 +218,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 />
             </ProductDetailsBox>
             <ProductSimilar product={product} />
+            <ProductBoutique />
         </Root>
     );
 };

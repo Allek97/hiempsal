@@ -6,6 +6,7 @@ import ThemeUIProvider from "@components/ui/themeContext";
 import HistoryProvider from "@contexts/History";
 import ProductInfoProvider from "@components/product/context";
 import { MediaContextProvider } from "@lib/media";
+import { useScollToTop } from "@hooks";
 
 import "../styles/globals.scss";
 import "../assets/base.css";
@@ -18,6 +19,8 @@ function MyApp({
     pageProps,
 }: AppProps & { Component: { Layout: FC } }) {
     const Layout = Component.Layout ?? Noop;
+
+    useScollToTop();
 
     return (
         <UIProvider>

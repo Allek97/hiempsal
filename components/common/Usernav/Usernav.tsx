@@ -40,6 +40,7 @@ const Usernav: FC<Props> = ({ children }) => {
                             <NavBtn
                                 $isFirst
                                 $isSelected={isCartSelected}
+                                isSelected={isCartSelected}
                                 type="button"
                                 aria-label="Cart"
                             >
@@ -52,6 +53,7 @@ const Usernav: FC<Props> = ({ children }) => {
                         <FunctionalLink>
                             <NavBtn
                                 $isSelected={isWishlistSelected}
+                                isSelected={isWishlistSelected}
                                 type="button"
                                 aria-label="Wish list"
                             >
@@ -64,6 +66,7 @@ const Usernav: FC<Props> = ({ children }) => {
                         <FunctionalLink>
                             <NavBtn
                                 $isSelected={isViewedProductSelected}
+                                isSelected={isViewedProductSelected}
                                 type="button"
                                 aria-label="Viewed products"
                             >

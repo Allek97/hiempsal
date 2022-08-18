@@ -11,7 +11,8 @@ interface StateValues {
 }
 
 interface StateModifiers {
-    toggleMobileMenu: () => void;
+    openMobileMenu: () => void;
+    closeMobileMenu: () => void;
     openPopup: () => void;
     closePopup: () => void;
     openProductCart: () => void;
@@ -36,7 +37,8 @@ const initialState: StateValues = {
 };
 
 const stateModifiers: StateModifiers = {
-    toggleMobileMenu: () => {},
+    openMobileMenu: () => {},
+    closeMobileMenu: () => {},
     openPopup: () => {},
     closePopup: () => {},
     openProductCart: () => {},
@@ -56,7 +58,8 @@ export const UIContext = createContext<State>({
 
 type Action = {
     type:
-        | "TOGGLE_MOBILE_MENU"
+        | "OPEN_MOBILE_MENU"
+        | "CLOSE_MOBILE_MENU"
         | "OPEN_POPUP"
         | "CLOSE_POPUP"
         | "SET_PRODUCT_AS_ADDED"
@@ -72,10 +75,15 @@ type Action = {
 
 function uiReducer(state: StateValues, action: Action) {
     switch (action.type) {
-        case "TOGGLE_MOBILE_MENU":
+        case "OPEN_MOBILE_MENU":
             return {
                 ...state,
-                isMobileMenuOpen: !state.isMobileMenuOpen,
+                isMobileMenuOpen: true,
+            };
+        case "CLOSE_MOBILE_MENU":
+            return {
+                ...state,
+                isMobileMenuOpen: false,
             };
         case "OPEN_POPUP":
             return { ...state, isPopupOpen: true };
@@ -136,8 +144,11 @@ function uiReducer(state: StateValues, action: Action) {
 const UIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);
 
-    const toggleMobileMenu = () => {
-        dispatch({ type: "TOGGLE_MOBILE_MENU" });
+    const openMobileMenu = () => {
+        dispatch({ type: "OPEN_MOBILE_MENU" });
+    };
+    const closeMobileMenu = () => {
+        dispatch({ type: "CLOSE_MOBILE_MENU" });
     };
     const openPopup = () => dispatch({ type: "OPEN_POPUP" });
     const closePopup = () => dispatch({ type: "CLOSE_POPUP" });
@@ -154,7 +165,8 @@ const UIProvider: FC = ({ children }) => {
     const value: State = useMemo(() => {
         return {
             ...state,
-            toggleMobileMenu,
+            openMobileMenu,
+            closeMobileMenu,
             openPopup,
             closePopup,
             setProductAdded,

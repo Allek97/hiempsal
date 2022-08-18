@@ -12,6 +12,7 @@ import { Media } from "@lib/media";
 import { MobileNav, NavBar } from "..";
 
 import { Fit, Root } from "./Layout.styled";
+import { Footer } from "../Footer";
 
 const Layout: FC = ({ children }) => {
     const { isMobileMenuOpen } = useUI();
@@ -36,7 +37,7 @@ const Layout: FC = ({ children }) => {
             </Media>
 
             <Fit>{children}</Fit>
-            <footer className="h-96 bg-red">asdasd</footer>
+            <Footer />
         </Root>
     );
 };

@@ -101,6 +101,28 @@ export const HeroBtn = styled(EffectButton)`
     ${tw``}
 
     ${({ theme }) => theme.textSize.textSizeMain}
+
+    // Target smartphones, touchscreens, still on W3C draft
+    @media (hover: none) and (pointer: coarse) {
+        svg {
+            ${tw`opacity-100`}
+            transform: translateX(0);
+        }
+        h1 {
+            transform: translateX(1.4em);
+        }
+    }
+    // Target desktop ,mouse, touch pad
+    @media (hover: hover) and (pointer: fine) {
+        &:hover svg {
+            opacity: 1;
+            transform: none;
+        }
+
+        &:hover h1 {
+            transform: translateX(1.4em);
+        }
+    }
 `;
 
 export const DecorationBottom = styled.span<Props>`

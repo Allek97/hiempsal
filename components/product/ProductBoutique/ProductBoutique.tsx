@@ -30,8 +30,13 @@ const ProductBoutique: FC = () => {
                         refAnimation={titleRef}
                     />
                     <motion.span
-                        className="block h-2 w-2 bg-red"
+                        className="blinking-dot"
                         style={{ marginTop: "0.35em", borderRadius: "50%" }}
+                        animate={{ opacity: [0, 1, 1, 0, 0] }}
+                        transition={{
+                            repeat: Infinity,
+                            repeatDelay: 0.75,
+                        }}
                     />
                 </div>
             </header>

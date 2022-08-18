@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Userlist: FC<Props> = ({ products, variant }) => {
-    const [isWishlistEmpty, _] = useState<boolean>(false);
+    const [isWishlistEmpty, setIsWishlistEmpty] = useState<boolean>(false);
     return (
         <Root>
             {isWishlistEmpty ? (

@@ -68,7 +68,8 @@ const MobileNav: FC = () => {
         isProductAdded,
         isHelpOpen,
         isReviewOpen,
-        toggleMobileMenu,
+        openMobileMenu,
+        closeMobileMenu,
         closeProductCart,
         setProductNotAdded,
         closeHelp,
@@ -94,7 +95,8 @@ const MobileNav: FC = () => {
             closeProductInformation();
             closeHelp();
             closeReview();
-        } else toggleMobileMenu();
+        } else if (isMobileMenuOpen) closeMobileMenu();
+        else openMobileMenu();
     };
 
     const isNavigationOpen: boolean = useMemo(
@@ -183,6 +185,7 @@ const MobileNav: FC = () => {
                                     animate="expand"
                                     exit="collapse"
                                     variants={cartVariants}
+                                    onClick={closeMobileMenu}
                                 >
                                     <Link href="/cart/bag" passHref>
                                         <button aria-label="Cart" type="button">

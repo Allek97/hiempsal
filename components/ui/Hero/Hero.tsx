@@ -68,11 +68,7 @@ const Hero: FC<Props> = ({ variant }) => {
                     <div className="flex space-x-10">
                         <Link href="/jacket" passHref>
                             <FunctionalLink>
-                                <HeroBtn
-                                    type="button"
-                                    aria-label="jacket"
-                                    breakpointEffect="lg"
-                                >
+                                <HeroBtn type="button" aria-label="jacket">
                                     <HiOutlineArrowNarrowRight />
                                     <h1>
                                         {variant === "clothing"
@@ -85,11 +81,7 @@ const Hero: FC<Props> = ({ variant }) => {
 
                         <Link href="/hoodie" passHref>
                             <FunctionalLink>
-                                <HeroBtn
-                                    type="button"
-                                    aria-label="hoodie"
-                                    breakpointEffect="lg"
-                                >
+                                <HeroBtn type="button" aria-label="hoodie">
                                     <HiOutlineArrowNarrowRight />
                                     <h1>
                                         {variant === "clothing"
@@ -102,11 +94,7 @@ const Hero: FC<Props> = ({ variant }) => {
                         <Link href="/shirt" passHref>
                             <FunctionalLink>
                                 {" "}
-                                <HeroBtn
-                                    type="button"
-                                    aria-label="shirt"
-                                    breakpointEffect="lg"
-                                >
+                                <HeroBtn type="button" aria-label="shirt">
                                     <HiOutlineArrowNarrowRight />
                                     <h1>
                                         {variant === "clothing"

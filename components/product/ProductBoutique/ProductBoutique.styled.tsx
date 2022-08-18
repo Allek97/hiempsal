@@ -21,6 +21,11 @@ export const ProductBoutiqueBox = styled.section`
         h1 {
             ${fontSizeHeader}
         }
+
+        .blinking-dot {
+            ${tw`block h-1.5 w-1.5 bg-red margin-top[0.35em] border-radius[50%]
+            lg:(h-2 w-2)`}
+        }
     }
 `;
 export const ProductBoutiqueGrid = styled.ul`

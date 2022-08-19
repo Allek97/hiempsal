@@ -14,6 +14,7 @@ module.exports = {
             "cdn.shopify.com",
             "hiempsal.s3.amazonaws.com",
             "upload.wikimedia.org",
+            "images.ctfassets.net",
         ],
     },
     sassOptions: {

@@ -145,7 +145,6 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                                                       optValue.label
                                                   )
                                                 : undefined;
-                                            console.log(optValue.label);
 
                                             const value = optValue.label;
 

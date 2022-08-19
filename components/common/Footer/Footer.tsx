@@ -1,4 +1,3 @@
-import { EffectButton } from "@components/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FC } from "react";
@@ -80,8 +79,8 @@ const Footer: FC = () => {
                     <p>
                         Hiempsal is a Canadian premium boutique company founded
                         in 2022 providing high quality products and unique brand
-                        experiences to clothing and technology enthusiasts
-                        around the globe.
+                        experiences to clothing and tech enthusiasts around the
+                        globe.
                     </p>
                 </FooterInfo>
                 <FooterSocialBox>

@@ -76,7 +76,7 @@ export const NavbarRoot = styled.div<RootProps>`
                       transform: scaleY(0);
                   `}
 
-                  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+                  transition: transform 0.4s ease-in;
     }
 
     &:after {

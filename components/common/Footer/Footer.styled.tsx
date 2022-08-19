@@ -173,8 +173,8 @@ export const FooterLocation = styled.div`
 `;
 
 export const FooterSub = styled.nav`
-    ${tw`flex justify-center flex-wrap w-max text-secondary
-    lg:(justify-start width[50%])
+    ${tw`flex justify-center mx-auto flex-wrap w-max text-secondary
+    lg:(justify-start width[50%] mx-0)
     xl:width[45%]`}
 
     ${({ theme }) => theme.textSize.textSizeSmall}
@@ -194,7 +194,7 @@ export const FooterPayments = styled.div`
 `;
 
 export const MoreBtn = styled(EffectButton)`
-    ${fontFooterMain}
+    ${({ theme }) => theme.textSize.textSizeHeader}
 
     @media (hover: hover) and (pointer: fine) {
         svg {

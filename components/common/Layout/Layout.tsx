@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { FC, MutableRefObject, useEffect, useRef } from "react";
 import {
     clearAllBodyScrollLocks,
@@ -14,7 +15,12 @@ import { MobileNav, NavBar } from "..";
 import { Fit, Root } from "./Layout.styled";
 import { Footer } from "../Footer";
 
-const Layout: FC = ({ children }) => {
+interface Props {
+    isNavbar?: boolean;
+    isFooter?: boolean;
+}
+
+const Layout: FC<Props> = ({ children, isNavbar = true, isFooter = true }) => {
     const { isMobileMenuOpen } = useUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -31,13 +37,14 @@ const Layout: FC = ({ children }) => {
 
     return (
         <Root ref={ref}>
-            <NavBar />
+            {isNavbar && <NavBar />}
+
             <Media lessThan="lg">
                 <MobileNav />
             </Media>
 
             <Fit>{children}</Fit>
-            <Footer />
+            {isFooter && <Footer />}
         </Root>
     );
 };

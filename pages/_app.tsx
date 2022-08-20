@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { FC } from "react";
 import type { AppProps } from "next/app";
 
@@ -17,7 +18,9 @@ const Noop: FC = ({ children }) => <>{children}</>;
 function MyApp({
     Component,
     pageProps,
-}: AppProps & { Component: { Layout: FC } }) {
+}: AppProps & {
+    Component: { Layout: FC; Variables?: { [key: string]: any } };
+}) {
     const Layout = Component.Layout ?? Noop;
 
     useScollToTop();
@@ -28,7 +31,7 @@ function MyApp({
                 <HistoryProvider>
                     <MediaContextProvider>
                         <ProductInfoProvider>
-                            <Layout>
+                            <Layout {...Component.Variables}>
                                 <Component {...pageProps} />
                             </Layout>
                         </ProductInfoProvider>

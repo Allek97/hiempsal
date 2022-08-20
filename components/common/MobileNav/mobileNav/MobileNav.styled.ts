@@ -33,13 +33,6 @@ export const MenuBtn = styled(motion.button, transientOptions)<BtnProps>`
                   `}
 
         ${(props) =>
-            (props.$isUsernavOpen || props.$isProfileOpen) &&
-            !props.$isMobileMenuOpen &&
-            css`
-                ${tw`text-accents-6`}
-            `}
-
-            ${(props) =>
             props.$isPopupOpen &&
             css`
                 fill: black;
@@ -66,7 +59,7 @@ export const Cart = styled(motion.div, transientOptions)<BtnProps>`
         ${tw`transition-colors ml-auto mr-5`}
 
         ${(props) =>
-            (props.$isMobileMenuOpen || props.$isProfileOpen) &&
+            props.$isUsernavOpen &&
             css`
                 ${tw`text-accents-6`}
             `}
@@ -94,7 +87,7 @@ export const Profile = styled(motion.div, transientOptions)<BtnProps>`
         ${tw`transition-colors mr-auto ml-3.5`}
 
         ${(props) =>
-            (props.$isMobileMenuOpen || props.$isUsernavOpen) &&
+            props.$isProfileOpen &&
             css`
                 ${tw`text-accents-6`}
             `}

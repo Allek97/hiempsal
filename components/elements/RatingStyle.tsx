@@ -23,7 +23,7 @@ interface StyleProps {
 const slideUp = keyframes`
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 `;
 
@@ -64,7 +64,7 @@ export const StyledRating = styled(Rating, transientOptions)<StyleProps>`
             $isAnimate &&
             css`
                 opacity: 0;
-                transform: translateY(50%);
+                transform: translateY(3px);
                 animation: ${slideUp} 0.3s ease 1 forwards;
 
                 &:nth-of-type(2) {

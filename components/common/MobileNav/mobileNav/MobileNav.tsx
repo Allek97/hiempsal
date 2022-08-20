@@ -60,7 +60,8 @@ const profileVariants: Variants = {
 
 const MobileNav: FC = () => {
     const router = useRouter();
-    const isUsernavOpen = router.pathname.includes("cart");
+    const isUsernavOpen: boolean = router.pathname.includes("cart");
+    const isLoginOpen: boolean = router.pathname.includes("login");
 
     const {
         isMobileMenuOpen,
@@ -180,7 +181,7 @@ const MobileNav: FC = () => {
                                     key="cart"
                                     $isUsernavOpen={isUsernavOpen}
                                     $isMobileMenuOpen={isMobileMenuOpen}
-                                    $isProfileOpen={false}
+                                    $isProfileOpen={isLoginOpen}
                                     initial="collapse"
                                     animate="expand"
                                     exit="collapse"
@@ -195,15 +196,16 @@ const MobileNav: FC = () => {
                                 </Cart>
                                 <Profile
                                     key="profile"
-                                    $isProfileOpen={false}
+                                    $isProfileOpen={isLoginOpen}
                                     $isMobileMenuOpen={isMobileMenuOpen}
                                     $isUsernavOpen={isUsernavOpen}
                                     initial="collapse"
                                     animate="expand"
                                     exit="collapse"
                                     variants={profileVariants}
+                                    onClick={closeMobileMenu}
                                 >
-                                    <Link href="/cart/wishlist" passHref>
+                                    <Link href="/login" passHref>
                                         <button
                                             aria-label="Profile"
                                             type="button"

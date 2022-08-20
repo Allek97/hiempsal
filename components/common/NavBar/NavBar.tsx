@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -9,28 +9,52 @@ import { useHistory } from "@contexts/History";
 import { Media } from "@lib/media";
 import { useMediaQueryNext, useScroll, useScrollDirectionNext } from "@hooks";
 
+import { BsPerson } from "react-icons/bs";
+import { FaRegHeart } from "react-icons/fa";
+
 import {
     Bag,
-    Heart,
     Logo,
     TextLogo as Hiempsal,
+    TextLogoRed as HiempsalRed,
     Arrow,
 } from "@components/icons";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 
 import {
     HiemsalWrapper,
     NavbarItem,
     Navigation,
-    Profile,
     NavbarRoot,
     UtilWrapper,
     Container,
     WrapperBtn,
+    BackBtn,
 } from "./NavBar.styled";
+
+const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
+    return (
+        <div>
+            {isLogin ? (
+                <BackBtn className="block">
+                    <HiOutlineArrowLeft />
+                </BackBtn>
+            ) : (
+                <Arrow />
+            )}
+        </div>
+    );
+};
 
 const Navbar: FC = () => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
+    const isLoginOpen = router.pathname.includes("login");
+
+    const isHistoric: boolean = useMemo(
+        () => isLoginOpen || isUsernavOpen,
+        [isLoginOpen, isUsernavOpen]
+    );
 
     const { isPopupOpen, isMobileMenuOpen } = useUI();
     const { back } = useHistory();
@@ -55,79 +79,85 @@ const Navbar: FC = () => {
             <Container
                 isScrolled={isScrolled}
                 isMobileMenuOpen={isMobileMenuOpen}
+                isLoginOpen={isLoginOpen}
             >
                 <Navigation>
                     <div className="flex items-center">
                         {!isMobileMenuOpen && (
                             <WrapperBtn
-                                onClick={
-                                    isUsernavOpen ? () => back("/") : () => {}
-                                }
-                                isUsernavOpen={isUsernavOpen}
+                                onClick={() => back("/")}
+                                isHistoric={isHistoric}
                                 type="button"
                             >
-                                {isUsernavOpen ? <Arrow /> : <Logo />}
+                                {isHistoric ? (
+                                    <Back isLogin={isLoginOpen} />
+                                ) : (
+                                    <Logo />
+                                )}
                             </WrapperBtn>
                         )}
-                        <Media greaterThanOrEqual="lg">
-                            <nav>
-                                <Link href="/" passHref>
-                                    <NavbarItem
-                                        isUsernavOpen
-                                        isUsernavScrolled={false}
-                                        type="button"
-                                        aria-label="All"
-                                    >
-                                        All
-                                    </NavbarItem>
-                                </Link>
-                                <Link href="/" passHref>
-                                    <NavbarItem
-                                        isUsernavOpen
-                                        isUsernavScrolled={false}
-                                        type="button"
-                                        aria-label="Clothes"
-                                    >
-                                        Clothes
-                                    </NavbarItem>
-                                </Link>
-                                <Link href="/" passHref>
-                                    <NavbarItem
-                                        isUsernavOpen
-                                        isUsernavScrolled={false}
-                                        type="button"
-                                        aria-label="Technologies"
-                                    >
-                                        Technologies
-                                    </NavbarItem>
-                                </Link>
-                                <Link href="/" passHref>
-                                    <NavbarItem
-                                        isUsernavOpen
-                                        isUsernavScrolled={false}
-                                        type="button"
-                                        aria-label="More"
-                                    >
-                                        More
-                                    </NavbarItem>
-                                </Link>
-                            </nav>
-                        </Media>
+                        {!isLoginOpen && (
+                            <Media greaterThanOrEqual="lg">
+                                <nav>
+                                    <Link href="/" passHref>
+                                        <NavbarItem
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
+                                            type="button"
+                                            aria-label="All"
+                                        >
+                                            All
+                                        </NavbarItem>
+                                    </Link>
+                                    <Link href="/" passHref>
+                                        <NavbarItem
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
+                                            type="button"
+                                            aria-label="Clothes"
+                                        >
+                                            Clothes
+                                        </NavbarItem>
+                                    </Link>
+                                    <Link href="/" passHref>
+                                        <NavbarItem
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
+                                            type="button"
+                                            aria-label="Technologies"
+                                        >
+                                            Technologies
+                                        </NavbarItem>
+                                    </Link>
+                                    <Link href="/" passHref>
+                                        <NavbarItem
+                                            isUsernavOpen
+                                            isUsernavScrolled={false}
+                                            type="button"
+                                            aria-label="More"
+                                        >
+                                            More
+                                        </NavbarItem>
+                                    </Link>
+                                </nav>
+                            </Media>
+                        )}
                     </div>
                     <Link href="/" passHref>
                         <HiemsalWrapper
                             isUsernavOpen
+                            isLoginOpen={isLoginOpen}
                             isScrolled={isScrolled}
                             role="button"
                         >
-                            <Hiempsal />
+                            {isLoginOpen ? <HiempsalRed /> : <Hiempsal />}
                         </HiemsalWrapper>
                     </Link>
                     <Media greaterThanOrEqual="lg">
                         <UtilWrapper>
                             <Link href="/cart/wishlist" passHref>
                                 <button aria-label="Wish list" type="button">
-                                    <Heart />
+                                    <FaRegHeart />
                                 </button>
                             </Link>
                             <Link href="/cart/bag" passHref>
@@ -135,9 +165,9 @@ const Navbar: FC = () => {
                                     <Bag />
                                 </button>
                             </Link>
-                            <Link href="/" passHref>
+                            <Link href="/login" passHref>
                                 <button aria-label="Profile" type="button">
-                                    <Profile />
+                                    <BsPerson />
                                 </button>
                             </Link>
                         </UtilWrapper>

@@ -1,5 +1,6 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import tw from "twin.macro";
 
 interface RootProps {
@@ -13,9 +14,10 @@ interface RootProps {
 interface ContainerProps {
     isScrolled?: boolean;
     isMobileMenuOpen?: boolean;
+    isLoginOpen: boolean;
 }
 interface WrapperProps {
-    isUsernavOpen: boolean;
+    isHistoric: boolean;
 }
 
 interface NavbarItemProps {
@@ -24,6 +26,7 @@ interface NavbarItemProps {
 }
 interface HiemsalProps {
     isUsernavOpen: boolean;
+    isLoginOpen: boolean;
     isScrolled: boolean;
 }
 
@@ -108,7 +111,17 @@ export const NavbarRoot = styled.div<RootProps>`
 `;
 
 export const Container = styled.div<ContainerProps>`
-    ${tw`relative padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
+    ${tw`padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
+
+    ${({ isLoginOpen }) =>
+        isLoginOpen
+            ? css`
+                  position: absolute;
+                  width: 100%;
+              `
+            : css`
+                  position: relative;
+              `}
 
     ${({ theme }) => theme.layout.mainPadding}
 
@@ -149,15 +162,15 @@ export const Navigation = styled.nav`
 `;
 
 export const WrapperBtn = styled.button<WrapperProps>`
-    ${tw`self-center margin-right[0.7vw] transition-transform cursor-pointer`}
+    ${tw`self-center margin-right[0.7vw] transition-all cursor-pointer`}
 
     svg {
-        ${tw`h-full text-primary`}
+        ${tw`mx-auto h-full text-primary`}
 
-        ${({ isUsernavOpen }) =>
-            isUsernavOpen
+        ${({ isHistoric }) =>
+            isHistoric
                 ? css`
-                      ${tw`max-width[20px] width[5.6vw]
+                      ${tw`max-width[20px] width[5.6vw] 
                            md:width[2.4vw]
                            lg:width[1.2vw]`}
                   `
@@ -173,9 +186,9 @@ export const WrapperBtn = styled.button<WrapperProps>`
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             ${(props) =>
-                props.isUsernavOpen
+                props.isHistoric
                     ? css`
-                          transform: scale(0.95);
+                          transform: translateX(-5px);
                       `
                     : css`
                           transform: scale(1.05);
@@ -231,15 +244,19 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
 export const UtilWrapper = styled.div`
     ${tw`flex items-center space-x-6`}
 
-    svg {
-        ${tw`width[19px] transition-colors cursor-pointer hover:text-accents-7`}
-    }
-
     & > button {
-        &:first-of-type {
-            svg {
-                ${tw`width[21px]`}
-            }
+        svg {
+            ${tw`h-auto transition-colors cursor-pointer hover:text-orange-red`}
+        }
+
+        &:first-of-type > svg {
+            width: 22px;
+        }
+        &:nth-of-type(2) > svg {
+            width: 19px;
+        }
+        &:nth-of-type(3) > svg {
+            width: 25px;
         }
     }
 `;
@@ -250,4 +267,23 @@ export const Profile = styled.div`
     focus:border-secondary transition-colors ease-linear`}
 
     background-image: linear-gradient(140deg, rgb(121, 40, 202), rgb(121, 255, 225) 100%);
+`;
+
+export const BackBtn = styled(motion.div)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 10.4vw;
+    height: 10.4vw;
+    max-width: 40px;
+    max-height: 40px;
+    margin-right: 2vw;
+    background-color: #ffffff;
+    color: #191919;
+    border-radius: 50%;
+    border: 1px solid #f0f0f0;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+    color: #191919;
 `;

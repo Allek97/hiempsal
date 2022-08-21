@@ -1,4 +1,3 @@
-import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { transientOptions } from "@lib/transientOptions";
@@ -34,94 +33,47 @@ interface UtilityBtnProps {
 
 export const Main = styled.main`
     ${tw`block w-full min-h-screen
-    background-color[#f5f5f5]`}
-
-    ${({ theme }) => theme.layout.mainPadding}
+    background-color[#f5f5f5]
+    lg:(flex)`}
 `;
 
-export const LoginForm = styled.form`
-    ${tw`flex flex-col padding[7rem 0] max-width[520px] mx-auto`}
+export const ImageWrapper = styled.div`
+    ${tw`display[none]
+    lg:(relative block w-1/2 h-auto)
+    2xl:w-2/3`}
+`;
+
+export const AccountContainer = styled.div`
+    ${tw`flex flex-col padding[7rem 0] max-width[520px] mx-auto
+    lg:(w-1/2 padding[12rem 0] max-width[100%])
+    2xl:w-1/3`}
 
     h1 {
-        ${tw`margin-bottom[3rem] font-size[28px]`}
+        ${tw`margin-bottom[3rem]
+        lg:margin-bottom[6rem]`}
         ${textSizeTitle}
     }
+
+    ${({ theme }) => theme.layout.mainPadding}
 `;
 
 export const UtilityBtn = styled(
     motion.button,
     transientOptions
 )<UtilityBtnProps>`
-    ${tw`flex items-center justify-between padding[0.6em 1.5em] w-max`}
+    ${tw`flex items-center justify-between padding[0.7em 1.5em] w-max`}
 
     ${({ $isActive }) =>
         $isActive
             ? css`
-                  ${tw`flex border-radius[500px] bg-white`}
+                  ${tw`flex border-radius[500px] bg-white font-size[15px]`}
                   box-shadow: 1px 1px 3px rgb(0 0 0 / 17%);
                   border: 1px solid #f0f0f0;
               `
             : css`
-                  ${tw`color[#676767]`}
-                  ${textSizeInactive}
+                  ${tw`color[#676767] font-size[16px]`}
                   svg {
                       display: none;
                   }
               `}
-`;
-
-export const FormLabel = styled(motion.label)`
-    ${tw`relative`}
-`;
-
-export const FormInput = styled(motion.input)`
-    ${tw`padding[25px 20px 13px] w-full height[52px]
-    border-radius[3px] bg-white font-bold`}
-
-    ${textSizePlaceholder}
-    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
-    border: 1.5px solid #f0f0f0;
-
-    &:focus + span {
-        transition: transform 0.3s ease, font-size 0.3s ease;
-        transform: translateY(-35%);
-        font-size: 10px;
-        left: 22px;
-    }
-    &:focus {
-        outline: none;
-    }
-`;
-
-export const InputPlaceholder = styled(motion.span)`
-    ${tw`absolute left[20px] top[-11px] z-10 line-height[0]
-    text-grey font-size[17px] cursor-text`}
-
-    transition: transform 0.3s ease, font-size 0.3s ease;
-    ${textSizePlaceholder}
-
-    user-select: none;
-`;
-
-export const ForgotPassword = styled(motion.button)`
-    ${tw`flex flex-col ml-auto w-max font-size[10px]`}
-
-    &:after {
-        ${tw`content w-1/2 height[1px] mt-0.5 ml-auto bg-accents-7`}
-        transition: width 0.3s ease;
-    }
-    @media (hover: hover) and (pointer: fine) {
-        &:hover:after {
-            ${tw`w-full`}
-            transition: width 0.3s ease;
-        }
-    }
-`;
-
-export const FormSubmitBtn = styled(Button)`
-    ${tw`padding[1em 0] margin[0.25em] font-bold`}
-`;
-
-export const ImageWrapper = styled.div`
-    ${tw`display[none] lg:relative`}
 `;

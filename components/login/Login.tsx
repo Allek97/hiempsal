@@ -1,19 +1,19 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useReducer } from "react";
 import { HiArrowRight } from "react-icons/hi";
 import {
     Main,
-    LoginForm,
+    AccountContainer,
     UtilityBtn,
     FormInput,
     InputPlaceholder,
-    FormLabel,
     ForgotPassword,
     FormSubmitBtn,
     ImageWrapper,
 } from "./Login.styled";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 type State = {
     isLoginOpen: boolean;
@@ -67,11 +67,15 @@ const Login = () => {
     return (
         <Main>
             <ImageWrapper>
-                <Image src="" />
+                <Image
+                    src="/images/amazigh-art-2.jpg"
+                    alt="Amazigh art"
+                    layout="fill"
+                />
             </ImageWrapper>
-            <LoginForm>
+            <AccountContainer>
                 <h1>Account</h1>
-                <div className="flex mb-4">
+                <div className="flex mb-4 lg:mb-10">
                     <UtilityBtn
                         type="button"
                         $isActive={isLoginOpen}
@@ -89,95 +93,9 @@ const Login = () => {
                         <span>Sign up</span>
                     </UtilityBtn>
                 </div>
-                <div className="w-full mb-2">
-                    <FormLabel htmlFor="login-email">
-                        <FormInput
-                            id="login-email"
-                            type="email"
-                            aria-required
-                            maxLength={150}
-                            autoComplete="login-email"
-                            whileHover={{
-                                backgroundColor: "#f0f0f0",
-                                borderColor: "rgba(0, 0, 0, 0.1)",
-                                transition: {
-                                    duration: 0.15,
-                                    ease: "linear",
-                                },
-                            }}
-                        />
-                        <InputPlaceholder>Email Address</InputPlaceholder>
-                    </FormLabel>
-                </div>
-                <div className="w-full mb-2">
-                    <FormLabel htmlFor="login-email">
-                        <FormInput
-                            id="login-email"
-                            type="email"
-                            aria-required
-                            maxLength={150}
-                            autoComplete="login-email"
-                            whileHover={{
-                                backgroundColor: "#f0f0f0",
-                                borderColor: "rgba(0, 0, 0, 0.1)",
-                                transition: {
-                                    duration: 0.15,
-                                    ease: "linear",
-                                },
-                            }}
-                        />
-                        <InputPlaceholder>Email Address</InputPlaceholder>
-                    </FormLabel>
-                </div>
-                <div className="w-full mb-2">
-                    <FormLabel htmlFor="login-email">
-                        <FormInput
-                            id="login-email"
-                            type="email"
-                            aria-required
-                            maxLength={150}
-                            autoComplete="login-email"
-                            whileHover={{
-                                backgroundColor: "#f0f0f0",
-                                borderColor: "rgba(0, 0, 0, 0.1)",
-                                transition: {
-                                    duration: 0.15,
-                                    ease: "linear",
-                                },
-                            }}
-                        />
-                        <InputPlaceholder>Email Address</InputPlaceholder>
-                    </FormLabel>
-                </div>
-                <div className="w-full mb-2">
-                    <FormLabel htmlFor="login-password">
-                        <FormInput
-                            id="login-password"
-                            type="password"
-                            aria-required
-                            maxLength={150}
-                            autoComplete="login-password"
-                            whileHover={{
-                                backgroundColor: "#f0f0f0",
-                                borderColor: "rgba(0, 0, 0, 0.1)",
-                                transition: {
-                                    duration: 0.15,
-                                    ease: "linear",
-                                },
-                            }}
-                        />
-                        <InputPlaceholder>Password</InputPlaceholder>
-                    </FormLabel>
-                </div>
-                <div className="w-max ml-auto mb-2">
-                    <ForgotPassword type="button" onClick={openPWForgot}>
-                        Forgot password?
-                    </ForgotPassword>
-                </div>
-                <div className="w-full mt-8 ml-auto">
-                    <FormSubmitBtn isHoverActive={false}>Login</FormSubmitBtn>
-                </div>
-            </LoginForm>
+                {isLoginOpen && <LoginForm openPWForgot={openPWForgot} />}
+                {isSignupOpen && <SignupForm openPWForgot={openPWForgot} />}
+            </AccountContainer>
         </Main>
     );
 };

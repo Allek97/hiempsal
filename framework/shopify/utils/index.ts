@@ -5,5 +5,6 @@ export { default as fetchRestApi } from "./fetch-rest-api";
 export { default as creteCheckout } from "./create-checkout";
 export { default as checkoutToCart } from "./checkout-to-cart";
 export { default as getCheckoutId } from "./get-checkout-id";
+export { getCustomerToken, setCustomerToken } from "./customer-token";
 export * from "./queries";
 export * from "./normalize";

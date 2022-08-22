@@ -37,7 +37,7 @@ export type UseDataContext = {
 export type UseData<Data> = (context: UseDataContext) => Data;
 
 export type SWRHookResponse<Data> = SWRResponse<Data, any> & {
-    isEmpty: boolean;
+    isEmpty?: boolean;
 };
 
 export type SWRHook<H extends HookDescriptor = any> = {

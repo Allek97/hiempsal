@@ -1,49 +1,67 @@
-import { Customer } from "@framework/schema";
-import { Customer as ShopifyCustomer } from "@framework/types/customer";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { CustomerAccessTokenCreatePayload } from "@framework/schema";
+
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
-import { normalizeCustomer } from "@framework/utils/normalize-customer";
-import getCustomerQuery from "@framework/utils/queries/get-customer";
+import { setCustomerToken } from "@framework/utils";
+import customerCreateAccessTokenMutation from "@framework/utils/mutations/customer-create-access-token";
+
 import { useMutationHook } from "@framework/utils/use-hooks";
 
 interface CustomerCreateHookDescriptor extends HookDescriptor {
     fetcherInput: {
-        customerAccessToken: string;
+        email: string;
+        password: string;
     };
     fetcherOutput: {
-        customer: Customer;
+        customerAccessTokenCreate: CustomerAccessTokenCreatePayload;
     };
-    data: ShopifyCustomer;
+    data: null;
 }
 
-type UseCustomer<H extends MutationHook> = ReturnType<H["useHook"]>;
+type UseLogin<H extends MutationHook> = ReturnType<H["useHook"]>;
 
 const handler: MutationHook<CustomerCreateHookDescriptor> = {
     fetcherOptions: {
-        query: getCustomerQuery,
+        query: customerCreateAccessTokenMutation,
     },
-    fetcher: async ({ fetch, options, input }) => {
+    fetcher: async ({ fetch, options, input: { email, password } }) => {
+        if (!(email && password)) {
+            throw new Error("An email and password are required to login");
+        }
         const { data } = await fetch({
             ...options,
-            variables: input,
+            variables: {
+                input: {
+                    email,
+                    password,
+                },
+            },
         });
 
-        if (!data || !data?.customer) {
-            throw Error("Customer doesn't exist");
-        }
+        const { customerAccessTokenCreate } = data;
 
-        const customer = normalizeCustomer(data.customer);
+        if (customerAccessTokenCreate?.customerUserErrors)
+            throw new Error("Unidentified customer. Wrong email or password !");
 
-        return customer;
+        const { customerAccessToken } = customerAccessTokenCreate;
+        const accessToken = customerAccessToken?.accessToken;
+
+        if (accessToken)
+            setCustomerToken(accessToken, customerAccessToken.expiresAt);
+
+        return null;
     },
     useHook:
         ({ fetch }) =>
-        () =>
-        async (input) => {
-            return fetch(input);
+        () => {
+            return async function login(input) {
+                const data = await fetch(input);
+                return data;
+            };
         },
 };
 
-const useLogin: UseCustomer<typeof handler> = () => {
+const useLogin: UseLogin<typeof handler> = () => {
     return useMutationHook({ ...handler })();
 };
 

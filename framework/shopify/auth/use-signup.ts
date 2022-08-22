@@ -1,14 +1,20 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import useCustomer from "@framework/customer/use-customer";
 import { CustomerCreatePayload } from "@framework/schema";
 import { Customer } from "@framework/types/customer";
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
 import { customerCreateMutation } from "@framework/utils/mutations";
 import { normalizeCustomer } from "@framework/utils/normalize-customer";
 import { useMutationHook } from "@framework/utils/use-hooks";
+import { useCallback } from "react";
+import useLogin from "./use-login";
 
 interface CustomerCreateHookDescriptor extends HookDescriptor {
     fetcherInput: {
+        firstName: string;
         email: string;
         password: string;
+        phone: string;
     };
     fetcherOutput: {
         customerCreate: CustomerCreatePayload;
@@ -22,11 +28,22 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
     fetcherOptions: {
         query: customerCreateMutation,
     },
-    fetcher: async ({ fetch, options, input: { email, password } }) => {
+    fetcher: async ({
+        fetch,
+        options,
+        input: { email, password, firstName, phone },
+    }) => {
+        if (!(email && password && firstName && phone)) {
+            throw new Error(
+                "You need to prtovide email,password,firstname and phone in order to signup"
+            );
+        }
         const variables = {
             input: {
-                email: email,
-                password: password,
+                email,
+                password,
+                firstName,
+                phone,
             },
         };
 
@@ -35,13 +52,16 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
             variables,
         });
 
-        if (!data || !data.customerCreate?.customer) {
-            throw new Error("Customer cannot be created, please retry again !");
-        }
-
-        if (data.customerCreate.customerUserErrors.length) {
+        if (data.customerCreate.customerUserErrors)
             throw new Error("Email has already been taken");
-        }
+
+        if (!data || !data.customerCreate?.customer)
+            throw new Error(
+                "Limit exceeded. Customer cannot be created, please retry again !"
+            );
+
+        const login = useLogin();
+        await login({ email, password });
 
         const customer = normalizeCustomer(data.customerCreate.customer);
 
@@ -49,9 +69,16 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
     },
     useHook:
         ({ fetch }) =>
-        () =>
-        async (input) => {
-            return fetch(input);
+        () => {
+            const { mutate } = useCustomer();
+            return useCallback(
+                async function signup(input) {
+                    const data = await fetch(input);
+                    mutate(data, false);
+                    return data;
+                },
+                [mutate]
+            );
         },
 };
 

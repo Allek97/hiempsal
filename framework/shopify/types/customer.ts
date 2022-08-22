@@ -6,4 +6,5 @@ export interface Customer {
     acceptsMarketing?: boolean;
     lastName?: string;
     defaultAddress?: any;
+    password?: string;
 }

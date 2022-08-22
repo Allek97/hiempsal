@@ -20,15 +20,15 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
     return (
         <form style={isDisplayed ? { display: "block" } : { display: "none" }}>
             <div className="w-full mb-2">
-                <motion.label htmlFor="login-name" className="relative">
+                <motion.label htmlFor="login-firstName" className="relative">
                     <FormInput
-                        id="login-name"
+                        id="login-firstName"
                         type="text"
                         required
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-name"
+                        autoComplete="login-firstName"
                         whileHover={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
@@ -46,7 +46,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
                             },
                         }}
                     />
-                    <InputPlaceholder>Name</InputPlaceholder>
+                    <InputPlaceholder>First Name</InputPlaceholder>
                 </motion.label>
             </div>
             <div className="w-full mb-2">

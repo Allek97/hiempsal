@@ -72,7 +72,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
         () => {
             const { mutate } = useCustomer();
             return useCallback(
-                async function signup(input) {
+                async (input) => {
                     const data = await fetch(input);
                     mutate(data, false);
                     return data;

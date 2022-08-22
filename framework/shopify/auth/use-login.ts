@@ -54,7 +54,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
     useHook:
         ({ fetch }) =>
         () => {
-            return async function login(input) {
+            return async (input) => {
                 const data = await fetch(input);
                 return data;
             };

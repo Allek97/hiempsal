@@ -4,3 +4,5 @@ export { default as checkoutLineItemsRemoveMutation } from "./checkout-line-item
 export { default as checkoutLineItemsUpdateMutation } from "./checkout-line-items-update";
 export { default as customerCreateMutation } from "./customer-create";
 export { default as customerAccessTokenCreateMutation } from "./customer-create-access-token";
+export { default as customerRecoverPasswordMutation } from "./customer-recover-password";
+export { default as customerResetPasswordMutation } from "./customer-reset-password";

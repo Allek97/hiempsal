@@ -8,3 +8,9 @@ export interface Customer {
     defaultAddress?: any;
     password?: string;
 }
+
+export interface CustomerError {
+    code: string;
+    field: string[];
+    message: string;
+}

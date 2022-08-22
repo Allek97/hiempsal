@@ -45,12 +45,12 @@ export const ImageWrapper = styled.div`
 
 export const AccountContainer = styled.div`
     ${tw`flex flex-col padding[7rem 0] max-width[520px] mx-auto
-    lg:(w-1/2 padding[12rem 0] max-width[100%])
+    lg:(w-1/2 padding[12rem 0 0] max-width[100%])
     2xl:w-1/3`}
 
     h1 {
         ${tw`margin-bottom[3rem]
-        lg:margin-bottom[6rem]`}
+        lg:margin-bottom[5rem]`}
         ${textSizeTitle}
     }
 

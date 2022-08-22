@@ -14,7 +14,7 @@ interface RootProps {
 interface ContainerProps {
     isScrolled?: boolean;
     isMobileMenuOpen?: boolean;
-    isLoginOpen: boolean;
+    isAuthentificationOpen: boolean;
 }
 interface WrapperProps {
     isHistoric: boolean;
@@ -26,7 +26,7 @@ interface NavbarItemProps {
 }
 interface HiemsalProps {
     isUsernavOpen: boolean;
-    isLoginOpen: boolean;
+    isAuthentificationOpen: boolean;
     isScrolled: boolean;
 }
 
@@ -113,8 +113,8 @@ export const NavbarRoot = styled.div<RootProps>`
 export const Container = styled.div<ContainerProps>`
     ${tw`padding-top[1.1rem] padding-bottom[1.1rem] mx-auto `}
 
-    ${({ isLoginOpen }) =>
-        isLoginOpen
+    ${({ isAuthentificationOpen }) =>
+        isAuthentificationOpen
             ? css`
                   position: absolute;
                   width: 100%;

@@ -49,11 +49,11 @@ const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
 const Navbar: FC = () => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
-    const isLoginOpen = router.pathname.includes("login");
+    const isAuthentificationOpen = router.pathname.includes("authentification");
 
     const isHistoric: boolean = useMemo(
-        () => isLoginOpen || isUsernavOpen,
-        [isLoginOpen, isUsernavOpen]
+        () => isAuthentificationOpen || isUsernavOpen,
+        [isAuthentificationOpen, isUsernavOpen]
     );
 
     const { isPopupOpen, isMobileMenuOpen } = useUI();
@@ -79,7 +79,7 @@ const Navbar: FC = () => {
             <Container
                 isScrolled={isScrolled}
                 isMobileMenuOpen={isMobileMenuOpen}
-                isLoginOpen={isLoginOpen}
+                isAuthentificationOpen={isAuthentificationOpen}
             >
                 <Navigation>
                     <div className="flex items-center">
@@ -90,13 +90,13 @@ const Navbar: FC = () => {
                                 type="button"
                             >
                                 {isHistoric ? (
-                                    <Back isLogin={isLoginOpen} />
+                                    <Back isLogin={isAuthentificationOpen} />
                                 ) : (
                                     <Logo />
                                 )}
                             </WrapperBtn>
                         )}
-                        {!isLoginOpen && (
+                        {!isAuthentificationOpen && (
                             <Media greaterThanOrEqual="lg">
                                 <nav>
                                     <Link href="/" passHref>
@@ -146,11 +146,15 @@ const Navbar: FC = () => {
                     <Link href="/" passHref>
                         <HiemsalWrapper
                             isUsernavOpen
-                            isLoginOpen={isLoginOpen}
+                            isAuthentificationOpen={isAuthentificationOpen}
                             isScrolled={isScrolled}
                             role="button"
                         >
-                            {isLoginOpen ? <HiempsalRed /> : <Hiempsal />}
+                            {isAuthentificationOpen ? (
+                                <HiempsalRed />
+                            ) : (
+                                <Hiempsal />
+                            )}
                         </HiemsalWrapper>
                     </Link>
                     <Media greaterThanOrEqual="lg">
@@ -165,7 +169,7 @@ const Navbar: FC = () => {
                                     <Bag />
                                 </button>
                             </Link>
-                            <Link href="/login" passHref>
+                            <Link href="/authentification" passHref>
                                 <button aria-label="Profile" type="button">
                                     <BsPerson />
                                 </button>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FC } from "react";
+import { object, SchemaOf } from "yup";
 import {
     ForgotPassword,
     FormInput,
@@ -8,12 +9,15 @@ import {
 } from "./Commun/Form.styled";
 
 interface Props {
+    isDisplayed: boolean;
     openPWForgot: () => void;
 }
 
-const LoginForm: FC<Props> = ({ openPWForgot }) => {
+const formSchema: SchemaOf<any> = object({});
+
+const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
     return (
-        <form>
+        <form style={isDisplayed ? { display: "block" } : { display: "none" }}>
             <div className="w-full mb-2">
                 <motion.label htmlFor="login-email" className="relative">
                     <FormInput
@@ -25,6 +29,14 @@ const LoginForm: FC<Props> = ({ openPWForgot }) => {
                         maxLength={150}
                         autoComplete="login-email"
                         whileHover={{
+                            backgroundColor: "#f0f0f0",
+                            borderColor: "rgba(0, 0, 0, 0.1)",
+                            transition: {
+                                duration: 0.15,
+                                ease: "linear",
+                            },
+                        }}
+                        whileFocus={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
                             transition: {
@@ -47,6 +59,14 @@ const LoginForm: FC<Props> = ({ openPWForgot }) => {
                         maxLength={150}
                         autoComplete="login-password"
                         whileHover={{
+                            backgroundColor: "#f0f0f0",
+                            borderColor: "rgba(0, 0, 0, 0.1)",
+                            transition: {
+                                duration: 0.15,
+                                ease: "linear",
+                            },
+                        }}
+                        whileFocus={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
                             transition: {

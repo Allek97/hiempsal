@@ -1,18 +1,14 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { useReducer } from "react";
+import { FC, useReducer } from "react";
 import { HiArrowRight } from "react-icons/hi";
 import {
     Main,
     AccountContainer,
     UtilityBtn,
-    FormInput,
-    InputPlaceholder,
-    ForgotPassword,
-    FormSubmitBtn,
     ImageWrapper,
-} from "./Login.styled";
+} from "./Authentification.styled";
 import LoginForm from "./LoginForm";
+import PasswordRecoverForm from "./PasswordRecoverForm";
 import SignupForm from "./SignupForm";
 
 type State = {
@@ -55,7 +51,7 @@ function reducer(state: State, action: Action) {
     }
 }
 
-const Login = () => {
+const Authentification: FC = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const { isLoginOpen, isSignupOpen, isForgotPWOpen } = state;
@@ -93,11 +89,21 @@ const Login = () => {
                         <span>Sign up</span>
                     </UtilityBtn>
                 </div>
-                {isLoginOpen && <LoginForm openPWForgot={openPWForgot} />}
-                {isSignupOpen && <SignupForm openPWForgot={openPWForgot} />}
+                <LoginForm
+                    isDisplayed={isLoginOpen}
+                    openPWForgot={openPWForgot}
+                />
+                <SignupForm
+                    isDisplayed={isSignupOpen}
+                    openPWForgot={openPWForgot}
+                />
+                <PasswordRecoverForm
+                    isDisplayed={isForgotPWOpen}
+                    openPWForgot={openPWForgot}
+                />
             </AccountContainer>
         </Main>
     );
 };
 
-export default Login;
+export default Authentification;

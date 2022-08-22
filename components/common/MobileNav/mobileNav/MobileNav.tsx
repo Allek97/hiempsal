@@ -205,7 +205,7 @@ const MobileNav: FC = () => {
                                     variants={profileVariants}
                                     onClick={closeMobileMenu}
                                 >
-                                    <Link href="/login" passHref>
+                                    <Link href="/authentification" passHref>
                                         <button
                                             aria-label="Profile"
                                             type="button"

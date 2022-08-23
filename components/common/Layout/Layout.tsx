@@ -18,9 +18,15 @@ import { Footer } from "../Footer";
 interface Props {
     isNavbar?: boolean;
     isFooter?: boolean;
+    isMobileNav?: boolean;
 }
 
-const Layout: FC<Props> = ({ children, isNavbar = true, isFooter = true }) => {
+const Layout: FC<Props> = ({
+    children,
+    isNavbar = true,
+    isFooter = true,
+    isMobileNav = true,
+}) => {
     const { isMobileMenuOpen } = useUI();
 
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -39,9 +45,11 @@ const Layout: FC<Props> = ({ children, isNavbar = true, isFooter = true }) => {
         <Root ref={ref}>
             {isNavbar && <NavBar />}
 
-            <Media lessThan="lg">
-                <MobileNav />
-            </Media>
+            {isMobileNav && (
+                <Media lessThan="lg">
+                    <MobileNav />
+                </Media>
+            )}
 
             <Fit>{children}</Fit>
             {isFooter && <Footer />}

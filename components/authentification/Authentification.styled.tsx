@@ -12,21 +12,6 @@ export const textSizeTitle = css`
     ${tw`2xl:font-size[48px]`}
 `;
 
-export const textSizeInactive = css`
-    ${tw`font-size[16px] line-height[1.3em] tracking-tighter 
-    lg:font-size[14.5px]
-    2lg:font-size[1.3333333333vw]`}
-
-    ${tw`2xl:font-size[20px]`}
-`;
-export const textSizePlaceholder = css`
-    ${tw`font-size[17px] line-height[1.3em] tracking-tighter 
-    lg:font-size[15px]
-    2lg:font-size[1.4vw]`}
-
-    ${tw`2xl:font-size[20px]`}
-`;
-
 interface UtilityBtnProps {
     $isActive: boolean;
 }

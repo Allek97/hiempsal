@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { FC, useState } from "react";
 import PhoneInput from "react-phone-input-2";
@@ -70,6 +71,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
         control,
     } = methods;
 
+    const router = useRouter();
     const signup = useSignup();
     async function onSubmit(): Promise<void> {
         try {
@@ -85,6 +87,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
             await signup(input);
             setServerError("");
             setPhoneError("");
+            router.push("/account/overview");
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message.includes("phone"))

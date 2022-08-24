@@ -1,9 +1,10 @@
 import { Layout } from "@components/common";
-import { Authentification } from "@components/authentification";
-import getCustomer from "@framework/customer/get-customer";
 import { getConfig } from "@framework/api/config";
 import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
-import { GetServerSideProps } from "next";
+import getCustomer from "@framework/customer/get-customer";
+import { getCustomerQuery } from "@framework/utils";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { SWRConfig } from "swr";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const config = getConfig();
@@ -11,10 +12,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
     const customer = await getCustomer({ config, customerAccessToken });
 
-    if (customer) {
+    if (!customer) {
         return {
             redirect: {
-                destination: "/account/overview",
+                destination: "/authentification",
                 permanent: false,
             },
         };
@@ -23,14 +24,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         `${SHOPIFY_CUSTOMER_TOKEN_COOKIE}=deleted; Max-Age=0`,
     ]);
     return {
-        props: {},
+        props: {
+            fallback: {
+                [getCustomerQuery]: customer,
+            },
+        },
     };
 };
 
-const AuthentificationPage = () => {
-    return <Authentification />;
-};
-AuthentificationPage.Variables = { isFooter: false };
-AuthentificationPage.Layout = Layout;
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export default AuthentificationPage;
+const Overview = ({ fallback }: Props) => {
+    return (
+        <SWRConfig value={{ fallback }}>
+            <div />
+        </SWRConfig>
+    );
+};
+
+Overview.Layout = Layout;
+
+export default Overview;

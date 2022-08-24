@@ -169,7 +169,7 @@ const Navbar: FC = () => {
                                     <Bag />
                                 </button>
                             </Link>
-                            <Link href="/authentification" passHref>
+                            <Link href="/account/overview" passHref>
                                 <button aria-label="Profile" type="button">
                                     <BsPerson />
                                 </button>

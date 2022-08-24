@@ -3,6 +3,7 @@ import { Customer as ShopifyCustomer } from "@framework/schema";
 import { Customer } from "@framework/types/customer";
 import { HookDescriptor, SWRHook } from "@framework/types/hooks";
 import { getCustomerToken } from "@framework/utils";
+import { removeCustomerToken } from "@framework/utils/customer-token";
 import { normalizeCustomer } from "@framework/utils/normalize-customer";
 import getCustomerQuery from "@framework/utils/queries/get-customer";
 import { useSWRHook } from "@framework/utils/use-hooks";
@@ -32,7 +33,8 @@ const handler: SWRHook<CustomerCreateHookDescriptor> = {
             });
 
             if (!data || !data?.customer) {
-                throw Error("Customer doesn't exist");
+                removeCustomerToken();
+                return null;
             }
 
             const customer = normalizeCustomer(data.customer);

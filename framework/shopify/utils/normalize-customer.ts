@@ -5,8 +5,8 @@ export const normalizeCustomer = (customer: Customer): ShopifyCustomer => {
     const { id, email, firstName, phone } = customer;
     return {
         id: id,
-        email: email!,
-        firstName: firstName!,
-        phone: phone!,
+        email: email ?? "",
+        firstName: firstName ?? "",
+        phone: phone ?? "",
     };
 };

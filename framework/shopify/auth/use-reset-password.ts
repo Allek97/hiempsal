@@ -1,6 +1,7 @@
 import { CustomerResetPayload } from "@framework/schema";
 import { CustomerError } from "@framework/types/customer";
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
+import { removeCustomerToken } from "@framework/utils/customer-token";
 import { customerResetPasswordMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
 
@@ -68,6 +69,7 @@ const handler: MutationHook<CustomerResetPasswordDescription> = {
                 );
         }
 
+        removeCustomerToken();
         return null;
     },
     useHook:

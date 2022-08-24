@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -46,6 +47,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
         handleSubmit,
     } = methods;
 
+    const router = useRouter();
     const login = useLogin();
     async function onSubmit(): Promise<void> {
         try {
@@ -56,6 +58,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
             };
 
             await login(input);
+            router.push("/account/overview");
         } catch (error) {
             if (error instanceof Error) setLoginError(error.message);
         }

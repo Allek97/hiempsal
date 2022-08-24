@@ -52,7 +52,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
             variables,
         });
 
-        if (data.customerCreate.customerUserErrors)
+        if (data.customerCreate.customerUserErrors.length)
             throw new Error("Email has already been taken");
 
         if (!data || !data.customerCreate?.customer)

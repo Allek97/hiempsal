@@ -28,7 +28,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
         if (!(email && password)) {
             throw new Error("An email and password are required to login");
         }
-        const { data } = await fetch({
+        const { data, errors } = await fetch({
             ...options,
             variables: {
                 input: {
@@ -38,10 +38,11 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
             },
         });
 
-        const { customerAccessTokenCreate } = data;
+        if (errors) throw new Error(errors[0].message);
 
-        if (customerAccessTokenCreate?.customerUserErrors)
-            throw new Error("Unidentified customer. Wrong email or password !");
+        const { customerAccessTokenCreate } = data;
+        if (customerAccessTokenCreate?.customerUserErrors.length)
+            throw new Error("Wrong email or password");
 
         const { customerAccessToken } = customerAccessTokenCreate;
         const accessToken = customerAccessToken?.accessToken;

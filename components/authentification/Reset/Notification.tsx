@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { BsCheck2Circle } from "react-icons/bs";
-import { VscError, VscPassFilled } from "react-icons/vsc";
+import { VscPassFilled } from "react-icons/vsc";
 import { FcExpired } from "react-icons/fc";
 
 interface Props {

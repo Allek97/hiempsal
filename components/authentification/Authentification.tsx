@@ -7,9 +7,7 @@ import {
     UtilityBtn,
     ImageWrapper,
 } from "./Authentification.styled";
-import LoginForm from "./LoginForm";
-import PasswordRecoverForm from "./PasswordRecoverForm";
-import SignupForm from "./SignupForm";
+import { LoginForm, SignupForm, PasswordRecoverForm } from "./Form";
 
 type State = {
     isLoginOpen: boolean;

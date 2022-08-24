@@ -52,7 +52,7 @@ const handler: MutationHook<CustomerResetPasswordDescription> = {
             variables,
         });
 
-        if (data.customerReset.customerUserErrors) throw new Error("");
+        if (data.customerReset.customerUserErrors.length) throw new Error("");
 
         const {
             customerReset: { customerUserErrors },

@@ -115,3 +115,9 @@ export const PhoneInputContainer = styled.div`
         }
     }
 `;
+
+export const ErrorForm = styled.div`
+    span {
+        ${({ theme }) => theme.textSize.textSizeSmall}
+    }
+`;

@@ -13,6 +13,7 @@ export type Body = {
 export type ApiFetcherResults<T> = {
     data: T;
     status?: string;
+    errors?: any;
 };
 
 export type ApiFetcherOptions = {

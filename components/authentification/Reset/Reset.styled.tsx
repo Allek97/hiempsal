@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
-import { textSizePlaceholder } from "../Commun/Form.styled";
 
 const fadeIn = keyframes`
     100% {
@@ -103,15 +102,6 @@ export const InputPlaceholder = styled(motion.span)`
     user-select: none;
 `;
 
-export const FormError = styled.div`
-    ${tw`flex items-center mb-2.5 font-size[14px] text-orange-red`}
-    svg {
-        ${tw`height[18px] width[18px]`}
-        fill: var(--orange-red);
-        margin-right: 12px;
-    }
-`;
-
 interface PasswordBtnProps {
     isHidden: boolean;
 }
@@ -187,5 +177,14 @@ export const ResetSubmitBtn = styled(Button)`
             transition: filter 0.3s ease;
             filter: brightness(0.95);
         }
+    }
+`;
+
+export const FormError = styled.div`
+    ${tw`flex items-center mb-2.5 font-size[14px] text-orange-red`}
+    svg {
+        ${tw`height[18px] width[18px]`}
+        fill: var(--orange-red);
+        margin-right: 12px;
     }
 `;

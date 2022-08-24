@@ -25,16 +25,20 @@ const handler: MutationHook<CustomerRecoverPasswordDescription> = {
                 "Email is required for your first step in the reset password process"
             );
 
-        const { data } = await fetch({
+        const { data, errors } = await fetch({
             ...options,
             variables: {
                 email,
             },
         });
 
+        if (errors) throw new Error(errors[0].message);
+
         const { customerRecover } = data;
-        if (customerRecover.customerUserErrors)
-            throw new Error("Could not find customer in our database");
+        if (customerRecover.customerUserErrors.length)
+            throw new Error(
+                "This email is not associated to any of our customers."
+            );
 
         return null;
     },

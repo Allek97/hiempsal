@@ -95,6 +95,8 @@ const Reset: FC = () => {
     const resetPassword = useResetPassword();
     async function onSubmit(): Promise<void> {
         try {
+            setIsSessionSuccess(false);
+            setIsSessionExpired(false);
             const input: ResetPasswordInput = {
                 id: id ?? "",
                 input: {
@@ -121,9 +123,7 @@ const Reset: FC = () => {
     return (
         <Main
             className={
-                isSessionSuccess || isSessionExpired
-                    ? "flex items-center"
-                    : "block"
+                isSessionSuccess || isSessionExpired ? "flex items-center" : ""
             }
         >
             <Container>

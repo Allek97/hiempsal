@@ -47,23 +47,20 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
             },
         };
 
-        const { data } = await fetch({
+        const { data, errors } = await fetch({
             ...options,
             variables,
         });
 
-        if (data.customerCreate.customerUserErrors.length)
-            throw new Error("Email has already been taken");
+        if (errors) throw new Error(errors[0].message);
 
-        if (!data || !data.customerCreate?.customer)
-            throw new Error(
-                "Limit exceeded. Customer cannot be created, please retry again !"
-            );
+        if (data.customerCreate.customerUserErrors.length)
+            throw new Error(data.customerCreate.customerUserErrors[0].message);
 
         const login = useLogin();
         await login({ email, password });
 
-        const customer = normalizeCustomer(data.customerCreate.customer);
+        const customer = normalizeCustomer(data.customerCreate.customer!);
 
         return customer;
     },

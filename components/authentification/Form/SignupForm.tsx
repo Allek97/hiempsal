@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, SchemaOf, string, ValidationError } from "yup";
+import isEmailValidator from "validator/lib/isEmail";
+import useSignup from "@framework/auth/use-signup";
 
 import {
     ForgotPassword,
@@ -9,6 +14,7 @@ import {
     PhoneInputContainer,
     FormSubmitBtn,
     InputPlaceholder,
+    ErrorForm,
 } from "../Commun/Form.styled";
 
 interface Props {
@@ -16,19 +22,104 @@ interface Props {
     openPWForgot: () => void;
 }
 
+type Signup = {
+    firstName: string;
+    email: string;
+    password: string;
+    phone: string;
+};
+
+const formSchema: SchemaOf<Signup> = object({
+    firstName: string()
+        .matches(/^[A-Za-z ]*$/, "Please enter valid name")
+        .max(40)
+        .required("You need to provide a valid first name"),
+    email: string()
+        .email("Please enter a valid email address")
+        .required("Email address is required")
+        .test(
+            "is-valid",
+            () => `Please enter a valid email address`,
+            (value) =>
+                value
+                    ? isEmailValidator(value)
+                    : new ValidationError("Invalid value")
+        ),
+    password: string()
+        .required("Password is required")
+        .min(8, "At least 8 characters"),
+    phone: string().required("You need to enter a phone number"),
+});
+
 const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
+    const [firstName, setFirstName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [phoneError, setPhoneError] = useState<string>("");
+    const [serverError, setServerError] = useState<string>("");
+
+    const methods = useForm<Signup>({
+        resolver: yupResolver(formSchema),
+    });
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        control,
+    } = methods;
+
+    const signup = useSignup();
+    async function onSubmit(): Promise<void> {
+        try {
+            setServerError("");
+            setPhoneError("");
+            const input: Signup = {
+                firstName,
+                email,
+                password,
+                phone,
+            };
+
+            await signup(input);
+            setServerError("");
+            setPhoneError("");
+        } catch (error) {
+            if (error instanceof Error) {
+                if (error.message.includes("phone"))
+                    setPhoneError("Phone number is not valid");
+                else setServerError(error.message);
+            }
+        }
+    }
+
     return (
-        <form style={isDisplayed ? { display: "block" } : { display: "none" }}>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            style={isDisplayed ? { display: "block" } : { display: "none" }}
+        >
             <div className="w-full mb-2">
-                <motion.label htmlFor="login-firstName" className="relative">
+                {errors.firstName?.message && (
+                    <ErrorForm className="my-2 font-bold">
+                        <span className="mr-auto text-orange-red">
+                            {errors.firstName?.message}
+                        </span>
+                    </ErrorForm>
+                )}
+
+                <motion.label htmlFor="signup-firstName" className="relative">
                     <FormInput
-                        id="login-firstName"
+                        {...register("firstName")}
+                        id="signup-firstName"
                         type="text"
                         required
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-firstName"
+                        autoComplete="signup-firstName"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         whileHover={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
@@ -50,15 +141,26 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
                 </motion.label>
             </div>
             <div className="w-full mb-2">
-                <motion.label htmlFor="login-email" className="relative">
+                {errors.email?.message && (
+                    <ErrorForm className="my-2 font-bold">
+                        <span className="mr-auto text-orange-red">
+                            {errors.email?.message}
+                        </span>
+                    </ErrorForm>
+                )}
+
+                <motion.label htmlFor="signup-email" className="relative">
                     <FormInput
-                        id="login-email"
+                        {...register("email")}
+                        id="signup-email"
                         type="email"
                         required
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-email"
+                        autoComplete="signup-email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         whileHover={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
@@ -80,15 +182,25 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
                 </motion.label>
             </div>
             <div className="w-full mb-2">
-                <motion.label htmlFor="login-password" className="relative">
+                {errors.password?.message && (
+                    <ErrorForm className="my-2 font-bold">
+                        <span className="mr-auto text-orange-red">
+                            {errors.password?.message}
+                        </span>
+                    </ErrorForm>
+                )}
+                <motion.label htmlFor="signup-password" className="relative">
                     <FormInput
-                        id="login-password"
+                        {...register("password")}
+                        id="signup-password"
                         type="password"
                         required
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-password"
+                        autoComplete="signup-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         whileHover={{
                             backgroundColor: "#f0f0f0",
                             borderColor: "rgba(0, 0, 0, 0.1)",
@@ -110,11 +222,32 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
                 </motion.label>
             </div>
             <div className="w-full mb-2">
-                <motion.label htmlFor="login-phone" className="relative">
+                {(phoneError || errors.phone?.message) && (
+                    <ErrorForm className="my-2 font-bold">
+                        <span className="mr-auto text-orange-red">
+                            {phoneError || errors.phone?.message}
+                        </span>
+                    </ErrorForm>
+                )}
+
+                <motion.label htmlFor="signup-phone" className="relative">
                     <PhoneInputContainer>
-                        <PhoneInput
-                            country="ca"
-                            placeholder="+1 438 998 0902"
+                        <Controller
+                            name="phone"
+                            control={control}
+                            defaultValue=""
+                            render={({ field: { onChange } }) => (
+                                <PhoneInput
+                                    {...register("phone")}
+                                    country="ca"
+                                    placeholder="+1 123 456 7890"
+                                    value={`+${phone}`}
+                                    onChange={(e) => {
+                                        onChange("+" + e);
+                                        setPhone("+" + e);
+                                    }}
+                                />
+                            )}
                         />
                     </PhoneInputContainer>
                 </motion.label>
@@ -125,8 +258,17 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
                 </ForgotPassword>
             </div>
             <div className="w-full mt-8 ml-auto">
-                <FormSubmitBtn isHoverActive={false}>Sign up</FormSubmitBtn>
+                <FormSubmitBtn isHoverActive={false} type="submit">
+                    Sign up
+                </FormSubmitBtn>
             </div>
+            {serverError && (
+                <ErrorForm className="mt-4">
+                    <span className="mr-auto text-orange-red">
+                        {serverError}
+                    </span>
+                </ErrorForm>
+            )}
         </form>
     );
 };

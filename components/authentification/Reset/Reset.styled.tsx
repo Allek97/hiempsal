@@ -1,6 +1,7 @@
 import { Button } from "@components/ui";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import { textSizePlaceholder } from "../Commun/Form.styled";
@@ -20,7 +21,7 @@ export const Main = styled.main`
 `;
 export const Container = styled.div`
     ${tw`flex flex-col`}
-
+    min-height: 540px;
     form {
         ${tw`padding[0 40px 20px]`}
     }
@@ -50,25 +51,31 @@ export const ImageContainer = styled.div`
     ${tw`relative height[52px] w-full mb-6`}
 `;
 
-export const FormLabel = styled(motion.label)`
+interface FormLabelProps {
+    $isError: boolean;
+}
+
+export const FormLabel = styled(motion.label, transientOptions)<FormLabelProps>`
     ${tw`relative flex justify-around items-center h-full
     border-radius[3px]`}
-    border: 1.5px solid var(--accents-5);
+    border: 1.5px solid ${({ $isError }) =>
+        $isError ? "var(--orange-red)" : "var(--accents-5)"};
 
     &:focus-within {
-        outline: 2px solid #007bad;
+        outline: 2px solid
+            ${({ $isError }) => ($isError ? "var(--orange-red)" : "#007bad")};
         border: 1.5px solid transparent;
 
         span {
-            color: #007bad;
+            color: ${({ $isError }) =>
+                $isError ? "var(--orange-red)" : "#007bad"};
         }
     }
 `;
 
-export const FormInput = styled(motion.input)`
+export const FormInput = styled(motion.input, transientOptions)`
     ${tw`padding[0 18px] w-full bg-white font-size[16px]`}
 
-    ${textSizePlaceholder} 
     &:focus + span,
     &:not(:placeholder-shown) + span {
         transform: translateY(-175%);
@@ -78,7 +85,7 @@ export const FormInput = styled(motion.input)`
         transition: all 0.15s ease;
         background-color: white;
         font-size: 14px;
-        ${tw`lg:font-size[12px]`}
+        ${tw`lg:(transform[translateY(-185%)] font-size[12px])`}
     }
     &:focus {
         outline: none;
@@ -96,11 +103,20 @@ export const InputPlaceholder = styled(motion.span)`
     user-select: none;
 `;
 
+export const FormError = styled.div`
+    ${tw`flex items-center mb-2.5 font-size[14px] text-orange-red`}
+    svg {
+        ${tw`height[18px] width[18px]`}
+        fill: var(--orange-red);
+        margin-right: 12px;
+    }
+`;
+
 interface PasswordBtnProps {
     isHidden: boolean;
 }
 
-export const PasswordBtn = styled(motion.button)<PasswordBtnProps>`
+export const PasswordBtn = styled.button<PasswordBtnProps>`
     ${tw`relative height[52px]`}
     svg {
         ${tw`h-auto w-6 mx-2.5`}
@@ -155,9 +171,9 @@ export const PasswordWarn = styled.div`
         }
     }
     div {
-        ${tw`flex color[#3b976f]`}
+        ${tw`flex`}
         span {
-            ${tw`flex ml-4`}
+            ${tw`flex ml-3`}
         }
     }
 `;

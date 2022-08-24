@@ -4,23 +4,25 @@ import { HookDescriptor, MutationHook } from "@framework/types/hooks";
 import { customerResetPasswordMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
 
-interface CustomerRecoverPasswordDescription extends HookDescriptor {
-    fetcherInput: {
-        id: string;
-        input: {
-            resetToken: string;
-            password: string;
-        };
+export type ResetPasswordInput = {
+    id: string;
+    input: {
+        resetToken: string;
+        password: string;
     };
+};
+
+interface CustomerResetPasswordDescription extends HookDescriptor {
+    fetcherInput: ResetPasswordInput;
     fetcherOutput: {
         customerReset: CustomerResetPayload;
     };
     data: null;
 }
 
-type UseRecoverPassword<H extends MutationHook> = ReturnType<H["useHook"]>;
+type UseResetPassword<H extends MutationHook> = ReturnType<H["useHook"]>;
 
-const handler: MutationHook<CustomerRecoverPasswordDescription> = {
+const handler: MutationHook<CustomerResetPasswordDescription> = {
     fetcherOptions: {
         query: customerResetPasswordMutation,
     },
@@ -37,7 +39,7 @@ const handler: MutationHook<CustomerRecoverPasswordDescription> = {
                 "A Customer id, a reset token and a new password are required to reset the password"
             );
 
-        const variables = {
+        const variables: ResetPasswordInput = {
             id: `gid://shopify/Customer/${id}`,
             input: {
                 resetToken,
@@ -78,8 +80,8 @@ const handler: MutationHook<CustomerRecoverPasswordDescription> = {
         },
 };
 
-const useRecoverPassword: UseRecoverPassword<typeof handler> = () => {
+const useResetPassword: UseResetPassword<typeof handler> = () => {
     return useMutationHook(handler)();
 };
 
-export default useRecoverPassword;
+export default useResetPassword;

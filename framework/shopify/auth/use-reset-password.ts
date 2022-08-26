@@ -58,7 +58,7 @@ const handler: MutationHook<CustomerResetPasswordDescription> = {
         const {
             customerReset: { customerUserErrors },
         } = data;
-        if (customerUserErrors) {
+        if (customerUserErrors.length) {
             if ((customerUserErrors[0] as CustomerError).message)
                 throw new Error(
                     (customerUserErrors[0] as CustomerError).message

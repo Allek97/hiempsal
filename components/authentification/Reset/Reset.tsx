@@ -17,6 +17,8 @@ import useResetPassword, {
     ResetPasswordInput,
 } from "@framework/auth/use-reset-password";
 
+import Notification from "./Notification";
+
 import {
     Container,
     Header,
@@ -30,7 +32,6 @@ import {
     ResetSubmitBtn,
     FormError,
 } from "./Reset.styled";
-import Notification from "./Notification";
 
 type ResetForm = {
     password: string;
@@ -112,6 +113,7 @@ const Reset: FC = () => {
                 passwordConfirm: "",
             });
         } catch (error) {
+            console.log(error);
             reset({
                 password: "",
                 passwordConfirm: "",

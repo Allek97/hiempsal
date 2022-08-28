@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Product } from "@framework/types/product";
 
 import Heart from "@components/icons/Heart";
-import { ProductArticle } from "@components/common/ProductArticle";
+import { ProductArticle } from "@components/common";
 
 import {
     ProductBg,

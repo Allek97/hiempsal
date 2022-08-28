@@ -12,12 +12,14 @@ export const EffectBtnRoot = styled.button<Props>`
     svg {
         ${tw`opacity-0`}
 
-        transform: translateX(1.06em);
+        transform: translateX(-0.75em);
         transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
             opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
     h1 {
-        ${tw`transition-transform font-normal tracking-tighter margin-left[-1.06em]`}
+        ${tw`font-normal tracking-tighter margin-left[-1.06em]`}
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+            opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     ${({ isSelected }) =>
@@ -41,10 +43,14 @@ export const EffectBtnRoot = styled.button<Props>`
         &:hover svg {
             opacity: 1;
             transform: none;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s,
+                opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
         }
 
         &:hover h1 {
             transform: translateX(1.4em);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
     }
 `;

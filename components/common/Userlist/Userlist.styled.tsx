@@ -87,10 +87,8 @@ export const UserlistFull = styled.article`
 `;
 
 export const UserlistBox = styled.ul`
-    ${tw`w-full flex justify-between flex-wrap`}
-
-    & > li {
+    ${tw`w-full flex justify-between flex-wrap`}/* & > li {
         ${tw`width[calc(50% - 1vw)] margin[1vw 0 10vw]
         lg:(width[calc(50% - 0.75rem)] margin[1vw 0 5.5vw])`}
-    }
+    } */
 `;

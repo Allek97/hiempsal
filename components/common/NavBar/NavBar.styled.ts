@@ -60,17 +60,6 @@ export const NavbarRoot = styled.div<RootProps>`
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 5px;
 
         ${(props) =>
-            props.isUsernavOpen &&
-            css`
-                ${tw`lg:background[linear-gradient(90deg, rgba(233,236,239,1) 0%, 
-                    rgba(233,236,239,1) 33.333333333333333%, rgba(255,255,255,1) 33.333333333333333%, 
-                    rgba(255,255,255,1) 100%)]
-                4xl:background[linear-gradient(90deg, rgba(233,236,239,1) 0%, 
-                    rgba(233,236,239,1) 25%, rgba(255,255,255,1) 25%, 
-                    rgba(255,255,255,1) 100%)]`}
-            `}
-
-        ${(props) =>
             props.isScrolled || props.isMobileMenuOpen
                 ? css`
                       transform: scaleY(1);
@@ -79,7 +68,7 @@ export const NavbarRoot = styled.div<RootProps>`
                       transform: scaleY(0);
                   `}
 
-                  transition: transform 0.4s ease-in;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     &:after {

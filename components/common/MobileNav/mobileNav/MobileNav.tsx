@@ -61,7 +61,9 @@ const profileVariants: Variants = {
 const MobileNav: FC = () => {
     const router = useRouter();
     const isUsernavOpen: boolean = router.pathname.includes("cart");
-    const isAuthOpen: boolean = router.pathname.includes("authentification");
+    const isProfileOpen: boolean =
+        router.pathname.includes("authentification") ||
+        router.pathname.includes("account");
 
     const {
         isMobileMenuOpen,
@@ -181,7 +183,7 @@ const MobileNav: FC = () => {
                                     key="cart"
                                     $isUsernavOpen={isUsernavOpen}
                                     $isMobileMenuOpen={isMobileMenuOpen}
-                                    $isProfileOpen={isAuthOpen}
+                                    $isProfileOpen={isProfileOpen}
                                     initial="collapse"
                                     animate="expand"
                                     exit="collapse"
@@ -196,7 +198,7 @@ const MobileNav: FC = () => {
                                 </Cart>
                                 <Profile
                                     key="profile"
-                                    $isProfileOpen={isAuthOpen}
+                                    $isProfileOpen={isProfileOpen}
                                     $isMobileMenuOpen={isMobileMenuOpen}
                                     $isUsernavOpen={isUsernavOpen}
                                     initial="collapse"

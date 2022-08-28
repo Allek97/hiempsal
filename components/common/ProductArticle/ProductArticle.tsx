@@ -28,7 +28,7 @@ import {
 
 interface Props {
     product: Product;
-    variant: "product" | "wishlist" | "product-viewed";
+    variant: "product" | "wishlist" | "product-viewed" | "order";
     layout?: "A" | "B";
     isDisplayed?: boolean;
 }

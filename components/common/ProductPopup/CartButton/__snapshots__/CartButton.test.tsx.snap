@@ -2,6 +2,7 @@
 
 exports[`should display add to cart before loading 1`] = `
 .emotion-0 {
+  position: -webkit-sticky;
   position: sticky;
   bottom: 2.5rem;
   z-index: 150;
@@ -26,6 +27,9 @@ exports[`should display add to cart before loading 1`] = `
 }
 
 .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -37,13 +41,14 @@ exports[`should display add to cart before loading 1`] = `
   justify-content: center;
   width: 100%;
   --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+  border-radius: 0.125rem;
+  background-color: var(--secondary);
   line-height: 1em;
   color: var(--accents-1);
   text-align: center;
   cursor: pointer;
+  box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
   -webkit-transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   position: relative;
@@ -51,8 +56,10 @@ exports[`should display add to cart before loading 1`] = `
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
   font-size: 16.5px;
   letter-spacing: -0.06em;
+  border-radius: 4px;
 }
 
 @media (min-width: 64em) {
@@ -98,6 +105,9 @@ exports[`should display add to cart before loading 1`] = `
 }
 
 .emotion-3>div:nth-of-type(2) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -363,6 +373,7 @@ exports[`should display add to cart before loading 1`] = `
 
 exports[`should display adding after loading 1`] = `
 .emotion-0 {
+  position: -webkit-sticky;
   position: sticky;
   bottom: 2.5rem;
   z-index: 150;
@@ -387,6 +398,9 @@ exports[`should display adding after loading 1`] = `
 }
 
 .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -398,13 +412,14 @@ exports[`should display adding after loading 1`] = `
   justify-content: center;
   width: 100%;
   --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+  border-radius: 0.125rem;
+  background-color: var(--secondary);
   line-height: 1em;
   color: var(--accents-1);
   text-align: center;
   cursor: pointer;
+  box-shadow: rgb(0 0 0 / 28%) 0.785217px 0.785217px 3.14087px;
   -webkit-transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   position: relative;
@@ -412,8 +427,10 @@ exports[`should display adding after loading 1`] = `
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
   font-size: 16.5px;
   letter-spacing: -0.06em;
+  border-radius: 4px;
 }
 
 @media (min-width: 64em) {
@@ -459,6 +476,9 @@ exports[`should display adding after loading 1`] = `
 }
 
 .emotion-3>div:nth-of-type(2) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;

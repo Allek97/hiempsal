@@ -15,9 +15,11 @@ import {
     UserlistFull,
 } from "./Userlist.styled";
 import { ProductArticle } from "../ProductArticle";
+import { Grid } from "@components/ui";
+import { ProductCard } from "@components/product";
 
 interface Props {
-    variant: "wishlist" | "product-viewed";
+    variant: "wishlist" | "product-viewed" | "order";
     products: Product[];
 }
 
@@ -51,15 +53,15 @@ const Userlist: FC<Props> = ({ products, variant }) => {
                             ? "Your Wish List"
                             : "Recently Viewed"}
                     </h1>
-                    <UserlistBox>
+                    <Grid layout="technology">
                         {products.map((product) => (
-                            <ProductArticle
+                            <ProductCard
                                 key={product.id}
-                                variant={variant}
+                                variant="complex"
                                 product={product}
                             />
                         ))}
-                    </UserlistBox>
+                    </Grid>
                 </UserlistFull>
             )}
         </Root>

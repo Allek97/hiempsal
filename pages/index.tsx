@@ -9,6 +9,11 @@ import { TechArticle } from "@components/elements/TechArticle";
 import { Grid } from "@components/ui/Grid";
 import { ProductCard } from "@components/product";
 import { Layout } from "@components/common";
+import styled from "@emotion/styled";
+
+const Paddings = styled.section`
+    ${({ theme }) => theme.layout.mainPadding}
+`;
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -27,16 +32,18 @@ const Home = ({ products }: Props) => {
     return (
         <main>
             <Hero variant="clothing" />
-            <Grid layout="clothing">
-                {products.slice(0, 3).map((product, idx) => (
-                    <ProductCard
-                        product={product}
-                        key={product.id}
-                        variant="complex"
-                        isDisplayed={idx % 2 === 0 && idx !== 0}
-                    />
-                ))}
-            </Grid>
+            <Paddings>
+                <Grid layout="clothing">
+                    {products.slice(0, 3).map((product, idx) => (
+                        <ProductCard
+                            product={product}
+                            key={product.id}
+                            variant="complex"
+                            isDisplayed={idx % 2 === 0 && idx !== 0}
+                        />
+                    ))}
+                </Grid>
+            </Paddings>
             <Partner />
             <Hero variant="technology" />
 

@@ -1,3 +1,4 @@
+import { Account } from "@components/account";
 import { Layout } from "@components/common";
 import { getConfig } from "@framework/api/config";
 import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
@@ -20,9 +21,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             },
         };
     }
+
     context.res.setHeader("Set-Cookie", [
         `${SHOPIFY_CUSTOMER_TOKEN_COOKIE}=deleted; Max-Age=0`,
     ]);
+
     return {
         props: {
             fallback: {
@@ -37,7 +40,7 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 const Overview = ({ fallback }: Props) => {
     return (
         <SWRConfig value={{ fallback }}>
-            <div />
+            <Account />
         </SWRConfig>
     );
 };

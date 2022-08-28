@@ -3,7 +3,7 @@ import { GridRoot } from "./Grid.styled";
 
 interface Props {
     children: ReactNode | ReactNode[];
-    layout?: "clothing" | "technology";
+    layout?: "clothing" | "technology" | "userlist";
 }
 
 const Grid: FC<Props> = ({ children, layout = "clothing" }) => {

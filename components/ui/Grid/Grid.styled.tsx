@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 
 interface Props {
-    layout: "clothing" | "technology" | "similar";
+    layout: "clothing" | "technology" | "userlist";
 }
 
 const layoutA = css`
@@ -27,7 +27,7 @@ const layoutA = css`
 const layoutB = css`
     ${tw`grid grid-cols-1
     md:(grid-cols-2 column-gap[1.5rem])
-    lg:(grid-cols-3 px-11)
+    lg:(grid-cols-3)
     2xl:(grid-cols-3)`}
 
     & > li {
@@ -35,6 +35,19 @@ const layoutB = css`
     }
 `;
 
+const layoutC = css`
+    ${tw`grid grid-cols-1
+    md:(grid-cols-2 column-gap[1.5rem])
+    lg:(grid-cols-3 column-gap[0.8rem])
+    3xl:(grid-cols-4)`}
+
+    & > li {
+        ${tw`mb-12`}
+    }
+`;
+
 export const GridRoot = styled.ul<Props>`
-    ${(props) => (props.layout === "clothing" ? layoutA : layoutB)}
+    ${(props) => props.layout === "clothing" && layoutA}
+    ${(props) => props.layout === "technology" && layoutB}
+    ${(props) => props.layout === "userlist" && layoutC}
 `;

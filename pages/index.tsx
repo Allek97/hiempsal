@@ -9,11 +9,7 @@ import { TechArticle } from "@components/elements/TechArticle";
 import { Grid } from "@components/ui/Grid";
 import { ProductCard } from "@components/product";
 import { Layout } from "@components/common";
-import styled from "@emotion/styled";
-
-const Paddings = styled.section`
-    ${({ theme }) => theme.layout.mainPadding}
-`;
+import { Paddings } from "@components/ui";
 
 export async function getStaticProps() {
     const config = getConfig();
@@ -46,13 +42,14 @@ const Home = ({ products }: Props) => {
             </Paddings>
             <Partner />
             <Hero variant="technology" />
-
-            <Grid layout="technology">
-                <TechArticle />
-                <TechArticle />
-                <TechArticle />
-                <TechArticle />
-            </Grid>
+            <Paddings>
+                <Grid layout="technology">
+                    <TechArticle />
+                    <TechArticle />
+                    <TechArticle />
+                    <TechArticle />
+                </Grid>
+            </Paddings>
         </main>
     );
 };

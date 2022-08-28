@@ -6,3 +6,4 @@ export { EffectButton } from "./EffectButton";
 export { Marquee } from "./Marquee";
 export { Popup } from "./Popup";
 export { Ripple } from "./Ripple";
+export { Paddings } from "./Paddings";

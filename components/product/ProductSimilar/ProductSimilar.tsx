@@ -1,4 +1,4 @@
-import { Grid } from "@components/ui";
+import { Grid, Paddings } from "@components/ui";
 
 import { AnimateText } from "@components/utils/animations";
 import { getConfig } from "@framework/api/config";
@@ -82,15 +82,17 @@ const ProductSimilar: FC<Props> = ({ product }) => {
                     refAnimation={titleRef}
                 />
             </header>
-            <Grid layout="technology">
-                {similarProducts.map((similarProduct) => (
-                    <ProductCard
-                        product={similarProduct}
-                        key={similarProduct.id}
-                        variant="complex"
-                    />
-                ))}
-            </Grid>
+            <Paddings>
+                <Grid layout="technology">
+                    {similarProducts.map((similarProduct) => (
+                        <ProductCard
+                            product={similarProduct}
+                            key={similarProduct.id}
+                            variant="complex"
+                        />
+                    ))}
+                </Grid>
+            </Paddings>
         </ProductSimilarBox>
     );
 };

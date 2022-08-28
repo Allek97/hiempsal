@@ -9,7 +9,7 @@ interface FeatureProps {
 }
 
 export const Root = styled.div`
-    ${tw`relative padding-bottom[45rem]`}
+    ${tw`relative`}
 `;
 
 ////////////////////////////////////////////////

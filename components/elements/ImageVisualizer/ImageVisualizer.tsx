@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { getVariantImages } from "@components/common/helpers";
 import { Product, ProductImage } from "@framework/types/product";
 import Image from "next/image";
@@ -11,12 +12,14 @@ interface Props {
     product: Product;
     selectedImage: ProductImage;
     setSelectedImage: Dispatch<SetStateAction<ProductImage>>;
+    variant?: "product" | "userlist";
 }
 
 const ImageVisualizer: FC<Props> = ({
     product,
     selectedImage,
     setSelectedImage,
+    variant = "product",
 }) => {
     const { images } = product;
     const placeHolder = "/product-image-placeholder.svg";
@@ -55,6 +58,7 @@ const ImageVisualizer: FC<Props> = ({
                               }
                             : {}
                     }
+                    $variant={variant}
                 >
                     <Image
                         src={variantImage?.url ?? placeHolder}

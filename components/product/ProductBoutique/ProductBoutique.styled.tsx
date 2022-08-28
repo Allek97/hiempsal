@@ -34,7 +34,7 @@ export const ProductBoutiqueGrid = styled.ul`
     pt-1 overflow-x-auto column-gap[1.5rem]
     sm:grid-auto-columns[minmax(65%,1fr)]
     md:grid-auto-columns[minmax(50%,1fr)]
-    lg:(grid-cols-3 px-11 overflow-x-hidden)
+    lg:(grid-cols-3 overflow-x-hidden)
     2xl:(grid-cols-3)`}
 
     & > li {

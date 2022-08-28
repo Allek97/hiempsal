@@ -2,7 +2,9 @@ import { FC, useState } from "react";
 
 import { AiTwotoneFire } from "react-icons/ai";
 
+import { Grid } from "@components/ui";
 import { Product } from "@framework/types/product";
+import { ProductArticle } from "../ProductArticle";
 
 import {
     BrowsingBtn,
@@ -11,15 +13,11 @@ import {
     DecorationOneTop,
     Root,
     RootEmpty,
-    UserlistBox,
     UserlistFull,
 } from "./Userlist.styled";
-import { ProductArticle } from "../ProductArticle";
-import { Grid } from "@components/ui";
-import { ProductCard } from "@components/product";
 
 interface Props {
-    variant: "wishlist" | "product-viewed" | "order";
+    variant: "product" | "wishlist" | "product-viewed" | "order";
     products: Product[];
 }
 
@@ -53,12 +51,13 @@ const Userlist: FC<Props> = ({ products, variant }) => {
                             ? "Your Wish List"
                             : "Recently Viewed"}
                     </h1>
-                    <Grid layout="technology">
+                    <Grid layout="userlist">
                         {products.map((product) => (
-                            <ProductCard
-                                key={product.id}
-                                variant="complex"
+                            <ProductArticle
                                 product={product}
+                                variant={variant}
+                                layout="A"
+                                key={product.id}
                             />
                         ))}
                     </Grid>

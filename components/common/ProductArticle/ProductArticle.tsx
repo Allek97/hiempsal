@@ -99,13 +99,33 @@ const ProductArticle: FC<Props> = ({
                 </Link>
 
                 <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
-                    <div className="flex items-start justify-between sm:items-center">
-                        <div>
-                            <ImageVisualizer
-                                product={product}
-                                selectedImage={selectedImage}
-                                setSelectedImage={setSelectedImage}
-                            />
+                    <div className="flex items-start justify-between w-full sm:items-center">
+                        <div className="w-full">
+                            <div className="flex">
+                                <ImageVisualizer
+                                    product={product}
+                                    selectedImage={selectedImage}
+                                    setSelectedImage={setSelectedImage}
+                                    variant={
+                                        variant === "product"
+                                            ? "product"
+                                            : "userlist"
+                                    }
+                                />
+                                <ProductBtn
+                                    onClick={manageProductAction}
+                                    type="button"
+                                    isWishlist={variant === "wishlist"}
+                                    isAddedToWishlist={isAddedToWishlist}
+                                >
+                                    {variant === "product" ||
+                                    variant === "product-viewed" ? (
+                                        <RiHeartAddFill />
+                                    ) : (
+                                        <FaHeartBroken />
+                                    )}
+                                </ProductBtn>
+                            </div>
                             <Media greaterThanOrEqual="lg">
                                 <h6>
                                     All-rounder and breathable hoodie for every
@@ -120,20 +140,6 @@ const ProductArticle: FC<Props> = ({
                                 </a>
                             </Link>
                         </div>
-
-                        <ProductBtn
-                            onClick={manageProductAction}
-                            type="button"
-                            isWishlist={variant === "wishlist"}
-                            isAddedToWishlist={isAddedToWishlist}
-                        >
-                            {variant === "product" ||
-                            variant === "product-viewed" ? (
-                                <RiHeartAddFill />
-                            ) : (
-                                <FaHeartBroken />
-                            )}
-                        </ProductBtn>
                     </div>
 
                     <span>${price.value}</span>

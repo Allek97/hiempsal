@@ -131,7 +131,7 @@ const Account: FC = ({ children }) => {
             </Navigation>
 
             <Content>
-                <Userlist variant="wishlist" products={products} />
+                <Userlist variant="userlist" products={products} />
             </Content>
         </Root>
     );

@@ -24,12 +24,13 @@ interface InfoProps {
 }
 
 const ImageSizeA = css`
-    ${tw`height[35vw]
-        lg:height[25vw]
-        3xl:height[36.8vw]`}
+    ${tw`height[80vw]
+        md:height[75vw]
+        lg:height[21vw]
+        3xl:height[16vw]`}
 `;
 const ImageSizeB = css`
-    ${tw`height[90vw]
+    ${tw`height[80vw]
         md:height[75vw]
         lg:height[35vw]
         3xl:height[32vw]`}
@@ -50,7 +51,7 @@ const commonTypoSmall = css`
 `;
 const commonTypoLarge = css`
     ${tw`font-size[18px] 
-        lg:font-size[18.5px]
+        lg:font-size[18.5px] 
         xl:font-size[1.45vw]
         3xl:font-size[23px]`}
 `;
@@ -64,17 +65,17 @@ const productInfoTypoA = css`
     }
 
     h3 {
-        ${tw`font-size[12.5px] 
-        lg:font-size[18.5px]
-        xl:font-size[1.45vw]
-        3xl:font-size[23px]`}
+        ${tw`font-size[17px] 
+        lg:font-size[16.5px]
+        xl:font-size[1.47vw]
+        3xl:font-size[18px]`}
     }
 
     span {
-        ${tw`font-size[11px] letter-spacing[-0.04em] line-height[1.3em]
-        lg:font-size[13px]
-        xl:font-size[1.1vw]
-        3xl:font-size[17.5px]`}
+        ${tw`font-size[13px] letter-spacing[-0.04em] line-height[1.3em]
+        lg:font-size[11.25px]
+        xl:font-size[1vw]
+        3xl:font-size[15px]`}
     }
 `;
 
@@ -235,7 +236,7 @@ export const ProductImageWrapper = styled.div<ImageProps>`
 /////////////////////////////////////////////
 
 export const ProductInfo = styled.div<InfoProps>`
-    ${tw`relative flex flex-col padding[2vw 2vw 0] capitalize
+    ${tw`relative flex flex-col w-full padding[2vw 2vw 0] capitalize
     lg:(p-0 flex-1)`}
 
     ${(props) => productInfoTypoObj[props.textLayout]}
@@ -250,7 +251,7 @@ export const ProductInfo = styled.div<InfoProps>`
 
         ${tw`pr-2 margin[6px 0 8px] 
         text-accents-9 tracking-tighter cursor-pointer 
-        lg:(margin[0.35em 0 0.65em] w-max mr-auto)`}
+        lg:(margin[0.35em 0 0.65em] w-full mr-auto)`}
 
         @media (hover: hover) and (pointer: fine) {
             &:hover {

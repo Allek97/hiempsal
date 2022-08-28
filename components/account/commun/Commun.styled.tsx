@@ -44,9 +44,9 @@ export const NavBtn = styled(EffectButton)`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full min-height[calc(100vh + 1rem)] padding-bottom[4vw] 
+    ${tw`max-w-full  min-height[calc(100vh + 1rem)] padding-bottom[4vw] 
         opacity-0 outline-none order-1
-      lg:(width[66%] padding-top[3.5vw] padding-bottom[2.6666666667vw] ml-auto margin-top[-5rem] background-color[#f5f5f5])
+      lg:(width[66%] padding-top[8.5vw] padding-bottom[2.6666666667vw] ml-auto margin-top[-5rem] background-color[#f5f5f5])
       3xl:w-2/3
       4xl:w-3/4`}
 

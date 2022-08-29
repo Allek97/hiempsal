@@ -6,6 +6,7 @@ import tw from "twin.macro";
 
 interface Props {
     isDisplayed: boolean;
+    isOrder?: boolean;
 }
 
 interface ProductBtnProps {
@@ -205,7 +206,16 @@ export const ProductWrapper = styled.article<Props>`
 `;
 
 export const ImageContainer = styled.div<Props>`
-    ${tw`relative flex justify-center items-center w-full bg-accents-1 cursor-pointer`}
+    ${tw`relative flex justify-center items-center w-full cursor-pointer`}
+
+    ${({ isOrder }) =>
+        isOrder
+            ? css`
+                  ${tw`bg-accents-3`}
+              `
+            : css`
+                  ${tw`bg-accents-1`}
+              `}
 
     ${(props) =>
         props.isDisplayed &&
@@ -299,9 +309,9 @@ export const ProductBonus = styled.div`
 `;
 
 export const AddToCartBtn = styled(Button)`
-    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-1 
-    bg-white capitalize text-primary tracking-tighter
-    lg:(mt-7 mb-0 py-12)`}
+    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-3 
+    bg-accents-3 capitalize text-primary tracking-tighter
+    lg:(mt-7 mb-0 py-4)`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
 `;

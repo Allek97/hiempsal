@@ -1,4 +1,3 @@
-import { Userlist } from "@components/common";
 import { HelpCard } from "@components/elements";
 import { FunctionalLink } from "@components/utils";
 import { getConfig } from "@framework/api/config";
@@ -15,7 +14,7 @@ import {
     NavBtn,
     Navigation,
     Root,
-} from "./commun/Commun.styled";
+} from "./Commun.styled";
 
 const Account: FC = ({ children }) => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -130,9 +129,7 @@ const Account: FC = ({ children }) => {
                 </nav>
             </Navigation>
 
-            <Content>
-                <Userlist variant="userlist" products={products} />
-            </Content>
+            <Content>{children}</Content>
         </Root>
     );
 };

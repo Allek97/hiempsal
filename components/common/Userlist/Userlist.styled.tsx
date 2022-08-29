@@ -1,6 +1,6 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import tw, { theme } from "twin.macro";
+import tw from "twin.macro";
 
 const opaqueAnimation = keyframes`
     100% {
@@ -23,21 +23,18 @@ export const RootEmpty = styled.div`
     lg:(border-0 font-size[2.7vw])
     2xl:font-size[2.7rem]`}
 
-    h1:first-child {
+    & > h1:first-of-type {
         ${tw`mb-3 lg:mb-5`}
     }
 `;
 
 export const ContainerEmpty = styled.div<Record<string, unknown>>`
-    ${tw`relative w-full h-full`}
+    ${tw`relative w-full h-full
+    xl:margin-top[-1.5rem]
+    2xl:margin-top[-2.5rem]
+    4xl:margin-top[-4.5rem]`}
 
-    padding-left: 4vw;
-    padding-right: 4vw;
-
-    @media only screen and (min-width: ${theme`screens.lg`}) {
-        padding-left: 2.66666666667vw;
-        padding-right: 2.66666666667vw;
-    }
+    ${({ theme }) => theme.layout.mainPadding}
 `;
 
 export const BrowsingBtn = styled.button`
@@ -70,6 +67,17 @@ export const DecorationOneBottom = styled(DecorationOneTop)`
     ${tw`top[2rem] right[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
 `;
 
+export const DecorationTwoTop = styled.span`
+    ${tw`absolute block bottom[1rem] left[4vw] 
+    height[1.7rem] width[8rem] p-0 bg-accents-9`}
+
+    transform: skewY(-10deg);
+`;
+
+export const DecorationTwoBottom = styled(DecorationTwoTop)`
+    ${tw`bottom[2rem] left[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
+`;
+
 ///////////////////////////////////////
 // Userlist articles
 //////////////////////////////////////
@@ -78,7 +86,7 @@ export const UserlistFull = styled.article`
     ${tw`flex flex-col`}
 
     & > h1:first-of-type {
-        ${tw`py-4 margin-left[4vw] border-t-2 border-t-secondary 
+        ${tw`pt-4 pb-10 margin-left[4vw] border-t-2 border-t-secondary 
         font-size[27px] font-family["Whyte Inktrap"] tracking-tighter
         lg:(ml-0 pt-0 border-0 font-size[29px] )
         xl:(font-size[2.25vw])

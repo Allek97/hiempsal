@@ -18,8 +18,8 @@ export const Root = styled.main`
 `;
 
 export const Navigation = styled.section<Record<string, unknown>>`
-    ${tw`padding-top[35px] text-primary bg-primary mb-28 order-2
-      lg:(absolute -top-20 left-0 height[calc(100% + 5rem)] w-1/3)
+    ${tw`text-primary bg-primary mb-16 order-2
+      lg:(absolute -top-20 left-0 height[calc(100% + 5rem)] w-1/3 mb-28)
       4xl:w-1/4`}
 
     nav {
@@ -44,7 +44,7 @@ export const NavBtn = styled(EffectButton)`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full  min-height[calc(100vh + 1rem)] padding-bottom[4vw] 
+    ${tw`max-w-full  min-height[calc(100vh + 1rem)]
         opacity-0 outline-none order-1
       lg:(width[66%] padding-top[8.5vw] padding-bottom[2.6666666667vw] ml-auto margin-top[-5rem] background-color[#f5f5f5])
       3xl:w-2/3

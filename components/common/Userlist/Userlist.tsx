@@ -1,4 +1,6 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+import Link from "next/link";
+import { FunctionalLink } from "@components/utils";
 
 import { AiTwotoneFire } from "react-icons/ai";
 
@@ -11,6 +13,8 @@ import {
     ContainerEmpty,
     DecorationOneBottom,
     DecorationOneTop,
+    DecorationTwoBottom,
+    DecorationTwoTop,
     Root,
     RootEmpty,
     UserlistFull,
@@ -22,34 +26,44 @@ interface Props {
 }
 
 const Userlist: FC<Props> = ({ products, variant }) => {
-    const [isWishlistEmpty, setIsWishlistEmpty] = useState<boolean>(false);
     return (
         <Root>
-            {isWishlistEmpty ? (
+            {!products.length ? (
                 <ContainerEmpty>
-                    <>
-                        <DecorationOneTop />
-                        <DecorationOneBottom />
-                    </>
+                    <DecorationOneTop />
+                    <DecorationOneBottom />
+                    <DecorationTwoTop />
+                    <DecorationTwoBottom />
 
                     <RootEmpty>
                         <h1>
-                            {variant === "wishlist"
-                                ? "The products on your wish list will appear here"
-                                : "Your visited products will appear here"}
+                            {variant === "wishlist" &&
+                                "The products on your wish list will appear here"}
+                            {variant === "product-viewed" &&
+                                "Your visited products will appear here"}
+                            {variant === "order" &&
+                                "No orders yet. Look for inspiration"}
                         </h1>
-                        <BrowsingBtn onClick={() => alert("close")}>
-                            <AiTwotoneFire />
-                            <h1>Start browsing</h1>
-                        </BrowsingBtn>
+                        <Link href="/" passHref>
+                            <FunctionalLink>
+                                <BrowsingBtn>
+                                    <AiTwotoneFire />
+                                    <h1>
+                                        {variant === "order"
+                                            ? "Search for an inspiration"
+                                            : "Start browsing"}
+                                    </h1>
+                                </BrowsingBtn>
+                            </FunctionalLink>
+                        </Link>
                     </RootEmpty>
                 </ContainerEmpty>
             ) : (
                 <UserlistFull>
                     <h1>
-                        {variant === "wishlist"
-                            ? "Your Wish List"
-                            : "Recently Viewed"}
+                        {variant === "wishlist" && "Your Wish List"}
+                        {variant === "product-viewed" && "Recently Viewed"}
+                        {variant === "order" && "Your Orders"}
                     </h1>
                     <Grid layout="userlist">
                         {products.map((product) => (

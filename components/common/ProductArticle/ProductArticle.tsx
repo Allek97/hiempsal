@@ -78,7 +78,10 @@ const ProductArticle: FC<Props> = ({
             <ProductWrapper isDisplayed={isDisplayed}>
                 <Link href={`/products/${slug}`} passHref>
                     <FunctionalLink>
-                        <ImageContainer isDisplayed={isDisplayed}>
+                        <ImageContainer
+                            isDisplayed={isDisplayed}
+                            isOrder={variant === "order"}
+                        >
                             <ProductImageWrapper
                                 imageSize={layout}
                                 isDisplayed={isDisplayed}
@@ -118,8 +121,7 @@ const ProductArticle: FC<Props> = ({
                                     isWishlist={variant === "wishlist"}
                                     isAddedToWishlist={isAddedToWishlist}
                                 >
-                                    {variant === "product" ||
-                                    variant === "product-viewed" ? (
+                                    {variant !== "wishlist" ? (
                                         <RiHeartAddFill />
                                     ) : (
                                         <FaHeartBroken />
@@ -149,23 +151,22 @@ const ProductArticle: FC<Props> = ({
                         <p>Summer Offer</p>
                     </ProductBonus>
 
-                    {(variant === "wishlist" || variant === "product") &&
-                        (variant === "wishlist" ? (
-                            <AddToCartBtn
-                                onClick={
-                                    variant === "wishlist"
-                                        ? openPopup
-                                        : // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                          () => {}
-                                }
-                            >
-                                Add To Cart
-                            </AddToCartBtn>
-                        ) : (
-                            <QuickViewBtn type="button" onClick={openPopup}>
-                                <Plus /> <h5>Quick View</h5>
-                            </QuickViewBtn>
-                        ))}
+                    {variant !== "product" ? (
+                        <AddToCartBtn
+                            onClick={
+                                variant === "wishlist"
+                                    ? openPopup
+                                    : // eslint-disable-next-line @typescript-eslint/no-empty-function
+                                      () => {}
+                            }
+                        >
+                            Add To Cart
+                        </AddToCartBtn>
+                    ) : (
+                        <QuickViewBtn type="button" onClick={openPopup}>
+                            <Plus /> <h5>Quick View</h5>
+                        </QuickViewBtn>
+                    )}
                 </ProductInfo>
             </ProductWrapper>
         </Root>

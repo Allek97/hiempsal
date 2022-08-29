@@ -22,10 +22,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         };
     }
 
-    context.res.setHeader("Set-Cookie", [
-        `${SHOPIFY_CUSTOMER_TOKEN_COOKIE}=deleted; Max-Age=0`,
-    ]);
-
     return {
         props: {
             fallback: {

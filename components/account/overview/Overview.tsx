@@ -1,7 +1,11 @@
 import { FC } from "react";
+import useCustomer from "@framework/customer/use-customer";
+import { Account } from "../commun";
 
-const overview: FC = () => {
-    return <div>overview</div>;
+const Overview: FC = () => {
+    const { data: customer } = useCustomer();
+
+    return <Account>OVERVIEW</Account>;
 };
 
-export default overview;
+export default Overview;

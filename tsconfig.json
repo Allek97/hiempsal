@@ -23,6 +23,7 @@
             "@assets/*": ["assets/*"],
             "@lib/*": ["lib/*"],
             "@contexts/*": ["contexts/*"],
+            "@auth/*": ["auth/*"],
             "@tests/*": ["tests/*"],
             "@hooks": ["hooks"],
             "@hooks/*": ["hooks/*"],

@@ -1,7 +1,22 @@
-import { FC } from "react";
+import { Account } from "@components/account";
+import { Layout } from "@components/common";
+import { withAuthServerSideProps } from "auth/withAuthServerSide";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { SWRConfig } from "swr";
 
-const orders: FC = () => {
-    return <div>orders</div>;
+export const getServerSideProps: GetServerSideProps = withAuthServerSideProps(
+    {}
+);
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const OrderPage = ({ fallback }: Props) => {
+    return (
+        <SWRConfig value={{ fallback }}>
+            <Account />
+        </SWRConfig>
+    );
 };
 
-export default orders;
+OrderPage.Layout = Layout;
+
+export default OrderPage;

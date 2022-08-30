@@ -60,6 +60,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
         const login = useLogin();
         await login({ email, password });
 
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const customer = normalizeCustomer(data.customerCreate.customer!);
 
         return customer;

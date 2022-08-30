@@ -7,7 +7,7 @@ const paddingY = css`
     ${tw`padding-top[8vw] padding-bottom[32vw]
     md:(padding-top[4vw] padding-bottom[24vw])
     lg:(padding-top[7.5vw] padding-bottom[10vw])
-    xl:padding-bottom[7vw]`}
+    xl:padding-bottom[5vw]`}
 `;
 
 const fontFooterMain = css`

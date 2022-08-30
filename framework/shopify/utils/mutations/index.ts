@@ -6,3 +6,5 @@ export { default as customerCreateMutation } from "./customer-create";
 export { default as customerAccessTokenCreateMutation } from "./customer-create-access-token";
 export { default as customerRecoverPasswordMutation } from "./customer-recover-password";
 export { default as customerResetPasswordMutation } from "./customer-reset-password";
+export { default as checkoutCustomerAssociateMutation } from "./checkout-customer-associate";
+export { default as checkoutCustomerDisassociateMutation } from "./checkout-customer-disassociate";

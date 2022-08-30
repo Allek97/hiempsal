@@ -32,6 +32,7 @@ export interface ApiConfig {
     fetch<T>(options: ApiFetcherOptions): Promise<ApiFetcherResults<T>>;
     fetchRest<T>(options: ApiFetcherOptionsRest): Promise<ApiFetcherResults<T>>;
     checkoutCookie: string;
+    customerTokenCookie: string;
 }
 
 export interface ApiProviderContext {

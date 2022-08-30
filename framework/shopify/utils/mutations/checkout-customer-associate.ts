@@ -1,14 +1,16 @@
 const checkoutCustomerAssociateMutation = ` 
-    mutation checkoutCustomerAssociateV2($checkoutId: , $customerAccessToken: ) {
+    mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: String!) {
         checkoutCustomerAssociateV2(checkoutId: $checkoutId, customerAccessToken: $customerAccessToken) {
             checkout {
-                # Checkout fields
+                id
             }
             checkoutUserErrors {
-                # CheckoutUserError fields
+                code
+                field
+                message
             }
             customer {
-                # Customer fields
+                id
             }
         }
     }

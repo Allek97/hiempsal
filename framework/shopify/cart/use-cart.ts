@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line import/no-cycle
 import { getConfig } from "@framework/api/config";
+import { SHOPIFY_CHECKOUT_URL_COOKIE } from "@framework/const";
 import { Checkout, CheckoutCreatePayload } from "@framework/schema";
 import { ApiFetcher } from "@framework/types/api";
 import { Cart } from "@framework/types/cart";
@@ -15,7 +16,7 @@ import { useMemo } from "react";
 
 type UseCartHookDescriptor = {
     fetcherInput: {
-        checkoutId: string;
+        checkoutId: string | null;
     };
     fetcherOutput: {
         node: Checkout;
@@ -41,6 +42,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
             });
 
             checkout = data.node;
+            Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options);
         } else {
             checkout = await createCheckout(
                 fetch as unknown as ApiFetcher<{
@@ -50,6 +52,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
         }
 
         const cart = checkoutToCart(checkout);
+        // Associate and disassociate customer to the checkout
 
         return cart;
     },
@@ -63,9 +66,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
                 },
             });
 
-            if (result.data?.completedAt) {
-                Cookies.remove(checkoutCookie);
-            }
+            if (result.data?.completedAt) Cookies.remove(checkoutCookie);
 
             return useMemo(() => {
                 return {

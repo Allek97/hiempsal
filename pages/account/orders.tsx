@@ -1,4 +1,4 @@
-import { Account } from "@components/account";
+import { Orders } from "@components/account";
 import { Layout } from "@components/common";
 import { withAuthServerSideProps } from "auth/withAuthServerSide";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -12,7 +12,7 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 const OrderPage = ({ fallback }: Props) => {
     return (
         <SWRConfig value={{ fallback }}>
-            <Account />
+            <Orders />
         </SWRConfig>
     );
 };

@@ -1,11 +1,8 @@
 import { HelpCard } from "@components/elements";
 import { FunctionalLink } from "@components/utils";
-import { getConfig } from "@framework/api/config";
-import { getAllProducts } from "@framework/product";
-import { Product } from "@framework/types/product";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { ImExit } from "react-icons/im";
 import {
@@ -17,30 +14,11 @@ import {
 } from "./Commun.styled";
 
 const Account: FC = ({ children }) => {
-    const [products, setProducts] = useState<Product[]>([]);
-
     const router = useRouter();
     const isOverviewSelected = router.pathname === "/account/overview";
     const isOrderSelected = router.pathname === "/account/orders";
     const isSettingSelected = router.pathname === "/account/settings";
     const isNotificationSelected = router.pathname === "/account/notifications";
-
-    useEffect(() => {
-        let flag = true;
-
-        async function fetcher() {
-            const config = getConfig();
-            const data: Product[] = await getAllProducts(config);
-
-            if (flag) setProducts(data);
-        }
-
-        fetcher();
-
-        return () => {
-            flag = false;
-        };
-    }, []);
 
     return (
         <Root>

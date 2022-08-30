@@ -9,3 +9,4 @@ export { ProductCart } from "./ProductCart";
 export { ProductDescription } from "./ProductDescription";
 export { ProductInformation } from "./ProductInformation";
 export { default as Certification } from "./Certification";
+export { default as ProductInfoProvider } from "./context";

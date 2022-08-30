@@ -9,7 +9,6 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { Product } from "@framework/types/product";
 
 import { useUI } from "@components/ui/context";
-import { ReviewProvider } from "@components/review";
 
 import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
 
@@ -125,11 +124,9 @@ const ProductView: FC<Props> = ({ product }) => {
 
     return (
         <Root>
-            <ReviewProvider>
-                {isPopupOpen && (
-                    <ProductCart product={product} key="product-cart" />
-                )}
-            </ReviewProvider>
+            {isPopupOpen && (
+                <ProductCart product={product} key="product-cart" />
+            )}
 
             <ProductOverviewContainer>
                 <SliderContainer>

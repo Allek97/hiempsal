@@ -49,7 +49,7 @@ export type SWRHook<H extends HookDescriptor = any> = {
 };
 
 export type MutationHookContext<Input, Output> = {
-    fetch: (input: Input) => Promise<Output>;
+    fetch: (input?: Input) => Promise<Output>;
 };
 
 export type MutationHook<H extends HookDescriptor = any> = {
@@ -57,5 +57,5 @@ export type MutationHook<H extends HookDescriptor = any> = {
     fetcher: HookFetcherFn<H["fetcherInput"], H["fetcherOutput"], H["data"]>;
     useHook(
         context: MutationHookContext<H["fetcherInput"], H["data"]>
-    ): () => (input: H["fetcherInput"]) => Promise<H["data"]>;
+    ): () => (input?: H["fetcherInput"]) => Promise<H["data"]>;
 };

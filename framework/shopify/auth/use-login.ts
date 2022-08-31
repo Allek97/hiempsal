@@ -3,7 +3,7 @@ import { CustomerAccessTokenCreatePayload } from "@framework/schema";
 
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
 import { setCustomerToken } from "@framework/utils";
-import customerCreateAccessTokenMutation from "@framework/utils/mutations/customer-create-access-token";
+import { customerCreateAccessTokenMutation } from "@framework/utils/mutations";
 
 import { useMutationHook } from "@framework/utils/use-hooks";
 

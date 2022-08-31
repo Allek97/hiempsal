@@ -1,5 +1,6 @@
 import { HelpCard } from "@components/elements";
 import { FunctionalLink } from "@components/utils";
+import useLogout from "@framework/auth/use-logout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -19,6 +20,16 @@ const Account: FC = ({ children }) => {
     const isOrderSelected = router.pathname === "/account/orders";
     const isSettingSelected = router.pathname === "/account/settings";
     const isNotificationSelected = router.pathname === "/account/notifications";
+
+    const logout = useLogout();
+    async function logingOut() {
+        try {
+            await logout();
+            router.push("/");
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <Root>
@@ -92,14 +103,11 @@ const Account: FC = ({ children }) => {
                             </NavBtn>
                         </FunctionalLink>
                     </Link>
-                    <Link href="/account/logout" passHref>
-                        <FunctionalLink>
-                            <NavBtn>
-                                <ImExit />
-                                <h1>Logout</h1>
-                            </NavBtn>
-                        </FunctionalLink>
-                    </Link>
+
+                    <NavBtn onClick={() => logingOut()}>
+                        <ImExit />
+                        <h1>Logout</h1>
+                    </NavBtn>
 
                     <HelpCardWrapper>
                         <HelpCard />

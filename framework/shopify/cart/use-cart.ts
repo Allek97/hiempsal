@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line import/no-cycle
 import { getConfig } from "@framework/api/config";
-import { SHOPIFY_CHECKOUT_URL_COOKIE } from "@framework/const";
+import getCustomer from "@framework/customer/get-customer";
 import { Checkout, CheckoutCreatePayload } from "@framework/schema";
 import { ApiFetcher } from "@framework/types/api";
 import { Cart } from "@framework/types/cart";
 import { SWRHook } from "@framework/types/hooks";
-import { checkoutToCart } from "@framework/utils";
+import { checkoutToCart, setCheckout } from "@framework/utils";
 import createCheckout from "@framework/utils/create-checkout";
 import { getCheckoutQuery } from "@framework/utils/queries";
 import { useSWRHook } from "@framework/utils/use-hooks";
 
 import Cookies from "js-cookie";
 import { useMemo } from "react";
+import useAssociateCustomer from "./use-associate-customer";
 
 type UseCartHookDescriptor = {
     fetcherInput: {
-        checkoutId: string | null;
+        checkoutId: string | undefined;
+        customerAccessToken: string | undefined;
     };
     fetcherOutput: {
         node: Checkout;
@@ -30,27 +32,57 @@ const handler: SWRHook<UseCartHookDescriptor> = {
     fetcherOptions: {
         query: getCheckoutQuery,
     },
-    async fetcher({ fetch, options, input: { checkoutId } }) {
-        let checkout;
-
-        if (checkoutId) {
-            const { data } = await fetch({
-                ...options,
-                variables: {
-                    checkoutId,
-                },
+    async fetcher({
+        fetch,
+        options,
+        input: { checkoutId, customerAccessToken },
+    }) {
+        let checkout: Checkout | null = null;
+        if (customerAccessToken) {
+            const config = getConfig();
+            const customer = await getCustomer({
+                config,
+                customerAccessToken,
             });
+            if (customer?.lastIncompleteCheckout)
+                checkout = customer?.lastIncompleteCheckout;
+            console.log(customerAccessToken, customer?.lastIncompleteCheckout);
+        }
+        console.log(customerAccessToken, checkout);
 
-            checkout = data.node;
-            Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options);
-        } else {
-            checkout = await createCheckout(
-                fetch as unknown as ApiFetcher<{
-                    checkoutCreate: CheckoutCreatePayload;
-                }>
-            );
+        if (!checkout) {
+            if (checkoutId) {
+                const { data } = await fetch({
+                    ...options,
+                    variables: {
+                        checkoutId,
+                    },
+                });
+
+                if (data.node) checkout = data.node;
+            }
+
+            if (!checkout) {
+                checkout = await createCheckout(
+                    fetch as unknown as ApiFetcher<{
+                        checkoutCreate: CheckoutCreatePayload;
+                    }>
+                );
+            }
+
+            if (customerAccessToken) {
+                const associateCustomer = useAssociateCustomer();
+                await associateCustomer({
+                    checkoutId: checkout.id,
+                    customerAccessToken,
+                });
+            }
         }
 
+        setCheckout({
+            checkoutId: checkout.id,
+            checkoutUrl: checkout.webUrl,
+        });
         const cart = checkoutToCart(checkout);
         // Associate and disassociate customer to the checkout
 
@@ -62,7 +94,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
             const { checkoutCookie } = getConfig();
             const result = useData({
                 swrOptions: {
-                    revalidate: false,
+                    revalidateOnFocus: false,
                 },
             });
 
@@ -78,10 +110,11 @@ const handler: SWRHook<UseCartHookDescriptor> = {
 };
 
 const useCart: UseCart<typeof handler> = () => {
-    const { checkoutCookie } = getConfig();
+    const { checkoutCookie, customerTokenCookie } = getConfig();
 
     const fetcherWrapper: typeof handler.fetcher = (context: any) => {
         context.input.checkoutId = Cookies.get(checkoutCookie);
+        context.input.customerAccessToken = Cookies.get(customerTokenCookie);
         return handler.fetcher(context);
     };
 

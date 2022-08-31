@@ -1,7 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import Cookies from "js-cookie";
 
 import payments from "@lib/const/payments";
 import { Media } from "@lib/media";
@@ -9,9 +8,6 @@ import { Media } from "@lib/media";
 import { FunctionalLink } from "@components/utils";
 
 import useCart from "@framework/cart/use-cart";
-import useAssociateCustomer from "@framework/cart/use-associate-customer";
-import useDisassociateCustomer from "@framework/cart/use-disassociate-customer";
-import { getConfig } from "@framework/api/config";
 
 import { currencyMap } from "@framework/utils/optionMapping";
 
@@ -48,31 +44,6 @@ const containerVariant: Variants = {
 
 const Cart: FC = () => {
     const { data, isEmpty } = useCart();
-    const associateCustomer = useAssociateCustomer();
-    const disassociateCustomer = useDisassociateCustomer();
-    useEffect(() => {
-        async function customerCheckout() {
-            const { checkoutCookie, customerTokenCookie } = getConfig();
-            try {
-                const checkoutId = Cookies.get(checkoutCookie);
-                const customerAccessToken = Cookies.get(customerTokenCookie);
-                if (customerAccessToken) {
-                    await associateCustomer({
-                        checkoutId,
-                        customerAccessToken,
-                    });
-                } else {
-                    await disassociateCustomer({ checkoutId });
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        customerCheckout();
-
-        return () => {};
-    }, [associateCustomer, disassociateCustomer]);
 
     return (
         <Root>

@@ -4,6 +4,7 @@ import useCustomer from "@framework/customer/use-customer";
 import { CustomerAccessTokenDeletePayload } from "@framework/schema";
 
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
+import { removeCheckoutTokens } from "@framework/utils/checkout-token";
 
 import {
     removeCustomerToken,
@@ -47,6 +48,7 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
             );
 
         removeCustomerToken();
+        removeCheckoutTokens();
 
         return null;
     },

@@ -44,9 +44,10 @@ export const NavBtn = styled(EffectButton)`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full  min-height[calc(100vh + 1rem)]
-        opacity-0 outline-none order-1
-      lg:(width[66%] padding-top[8.5vw] padding-bottom[2.6666666667vw] ml-auto margin-top[-5rem] background-color[#f5f5f5])
+    ${tw`flex flex-col justify-between max-w-full opacity-0 outline-none order-1
+      lg:(width[66%] min-height[calc(100vh + 1rem)] padding-top[8.5vw] 
+      padding-bottom[2.6666666667vw] ml-auto 
+      margin-top[-5rem] background-color[#f5f5f5])
       3xl:w-2/3
       4xl:w-3/4`}
 
@@ -54,9 +55,15 @@ export const Content = styled.section<Record<string, unknown>>`
 
     animation: ${opaqueAnimation} 2s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
 `;
+export const AdvertisementBoxIn = styled.div`
+    ${tw`display[none] lg:(block order-3)`}
+`;
+export const AdvertisementBoxOut = styled.div`
+    ${tw`order-3 mb-10 lg:display[none]`}
+`;
 
 export const HelpCardWrapper = styled.div`
-    ${tw`display[none] lg:(block absolute bottom[2.6666666667vw])`}
+    ${tw`block mt-10 lg:(absolute bottom[2.6666666667vw])`}
 `;
 
 export const ShopPolicy = styled.div`

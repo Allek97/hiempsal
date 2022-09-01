@@ -31,7 +31,7 @@ export const ProductBoutiqueBox = styled.section`
 export const ProductBoutiqueGrid = styled.ul`
     ${({ theme }) => theme.layout.mainPadding}
     ${tw`grid grid-flow-col grid-auto-columns[minmax(90%,1fr)]  
-    pt-1 overflow-x-auto column-gap[1.5rem]
+    pt-1 overflow-x-auto column-gap[1.5rem] scroll-behavior["smooth"]
     sm:grid-auto-columns[minmax(65%,1fr)]
     md:grid-auto-columns[minmax(50%,1fr)]
     lg:(grid-cols-3 overflow-x-hidden)

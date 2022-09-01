@@ -18,6 +18,7 @@ declare module "@emotion/react" {
             textSizeHeader: SerializedStyles;
             textSizeSmall: SerializedStyles;
             textSizeMedium: SerializedStyles;
+            textSizeLarge: SerializedStyles;
         };
         device: {
             isTouch: boolean;

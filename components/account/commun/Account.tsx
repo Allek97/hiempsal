@@ -6,7 +6,10 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { ImExit } from "react-icons/im";
+import Advertisement from "./Advertisement";
 import {
+    AdvertisementBoxIn,
+    AdvertisementBoxOut,
     Content,
     HelpCardWrapper,
     NavBtn,
@@ -114,8 +117,19 @@ const Account: FC = ({ children }) => {
                     </HelpCardWrapper>
                 </nav>
             </Navigation>
-
-            <Content>{children}</Content>
+            {isOverviewSelected && (
+                <AdvertisementBoxOut>
+                    <Advertisement />
+                </AdvertisementBoxOut>
+            )}
+            <Content>
+                {children}
+                {isOverviewSelected && (
+                    <AdvertisementBoxIn>
+                        <Advertisement />
+                    </AdvertisementBoxIn>
+                )}
+            </Content>
         </Root>
     );
 };

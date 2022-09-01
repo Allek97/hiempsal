@@ -17,6 +17,14 @@ export const textSizeMain = css`
     lg:letter-spacing[-0.06em]`}
 `;
 
+export const textSizeLarge = css`
+    ${tw`font-size[17px] line-height[1em] tracking-tighter 
+    lg:(font-size[16.5px] line-height[1.5em] letter-spacing[-0.06em])
+    2lg:font-size[1.47vw]`}
+
+    ${tw`2xl:font-size[22px]`}
+`;
+
 export const textSizeMedium = css`
     ${tw`font-size[13px] line-height[1em] tracking-tighter 
     lg:(font-size[14px] line-height[1.5em] letter-spacing[-0.06em])

@@ -85,8 +85,8 @@ export const NavBtn = styled(EffectButton, transientOptions)<NavBtnProps>`
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
-    ${tw`max-w-full min-height[calc(100vh - 4rem)] padding-bottom[4vw] opacity-0 bg-primary outline-none
-      lg:(width[66%] padding-top[3.5vw] padding-bottom[2.6666666667vw] ml-auto)
+    ${tw`max-w-full  padding-bottom[4vw] opacity-0 bg-primary outline-none
+      lg:(width[66%] min-height[calc(100vh - 4rem)] padding-top[3.5vw] padding-bottom[2.6666666667vw] ml-auto)
       3xl:w-2/3
       4xl:w-3/4`}
 

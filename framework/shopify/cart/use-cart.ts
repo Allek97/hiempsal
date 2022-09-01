@@ -46,9 +46,7 @@ const handler: SWRHook<UseCartHookDescriptor> = {
             });
             if (customer?.lastIncompleteCheckout)
                 checkout = customer?.lastIncompleteCheckout;
-            console.log(customerAccessToken, customer?.lastIncompleteCheckout);
         }
-        console.log(customerAccessToken, checkout);
 
         if (!checkout) {
             if (checkoutId) {
@@ -69,14 +67,14 @@ const handler: SWRHook<UseCartHookDescriptor> = {
                     }>
                 );
             }
+        }
 
-            if (customerAccessToken) {
-                const associateCustomer = useAssociateCustomer();
-                await associateCustomer({
-                    checkoutId: checkout.id,
-                    customerAccessToken,
-                });
-            }
+        if (customerAccessToken) {
+            const associateCustomer = useAssociateCustomer();
+            await associateCustomer({
+                checkoutId: checkout.id,
+                customerAccessToken,
+            });
         }
 
         setCheckout({

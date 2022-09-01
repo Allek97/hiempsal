@@ -1,20 +1,22 @@
-import {
-    Checkout,
-    MailingAddress,
-    MailingAddressConnection,
-} from "@framework/schema";
+import { Checkout, MailingAddress } from "@framework/schema";
+import { Address } from "./address";
+import { Maybe } from "./commun";
+import { Order } from "./order";
 
 export interface Customer {
     id: string;
-    email: string;
-    firstName: string;
-    phone: string;
-    acceptsMarketing?: boolean;
-    lastName?: string;
-    addresses?: MailingAddressConnection;
-    defaultAddress?: MailingAddress;
-    password?: string;
-    lastIncompleteCheckout: Checkout | null;
+    email: Maybe<string>;
+    firstName: Maybe<string>;
+    lastName: Maybe<string>;
+    displayName: string;
+    phone: Maybe<string>;
+    acceptsMarketing: boolean;
+    orders: Order[];
+    addresses: Address[];
+    defaultAddress: Maybe<Address>;
+    lastIncompleteCheckout: Maybe<Checkout>;
+    updatedAt: string | null;
+    createdAt: string | null;
 }
 
 export interface CustomerError {

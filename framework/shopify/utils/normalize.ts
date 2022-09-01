@@ -30,7 +30,7 @@ const normalizeProductImages = ({ edges }: ImageConnection): ProductImage[] =>
         ...rest,
     }));
 
-const normalizeProductImage = (
+export const normalizeProductImage = (
     image: Maybe<Image> | undefined
 ): ProductImage => ({
     url: image?.url ?? "/product-image-placeholder",
@@ -44,7 +44,7 @@ const normalizeProductPrice = ({
     currencyCode,
 });
 
-const normalizeProductOption = ({
+export const normalizeProductOption = ({
     id,
     name: displayName,
     values,

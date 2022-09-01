@@ -54,14 +54,17 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
 
         if (errors) throw new Error(errors[0].message);
 
-        if (data.customerCreate.customerUserErrors.length)
+        if (
+            data.customerCreate.customerUserErrors.length ||
+            !data.customerCreate.customer
+        )
             throw new Error(data.customerCreate.customerUserErrors[0].message);
 
         const login = useLogin();
         await login({ email, password });
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const customer = normalizeCustomer(data.customerCreate.customer!);
+        const customer = normalizeCustomer(data.customerCreate.customer);
 
         return customer;
     },

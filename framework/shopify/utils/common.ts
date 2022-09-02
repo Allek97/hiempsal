@@ -56,3 +56,24 @@ export const checkoutDetailFragment = `
     }
   }
 `;
+
+export const addressFragment = `
+    address1
+    address2
+    city
+    name
+    company
+    country
+    countryCodeV2
+    firstName
+    lastName
+    id
+    latitude
+    longitude
+    phone
+    province
+    provinceCode
+    zip
+    formattedArea
+    formatted
+`;

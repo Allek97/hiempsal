@@ -1,4 +1,4 @@
-import { Checkout, MailingAddress } from "@framework/schema";
+import { Checkout } from "@framework/schema";
 import { Address } from "./address";
 import { Maybe } from "./commun";
 import { Order } from "./order";

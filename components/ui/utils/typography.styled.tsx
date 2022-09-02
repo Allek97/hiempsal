@@ -43,7 +43,7 @@ export const textSizeSmall = css`
 
 // NOTE Uernav(Navbtn)
 export const textSizeHeader = css`
-    ${tw`font-size[26px] line-height[1.1em] letter-spacing[-0.2em] 
+    ${tw`font-size[26px] line-height[1.1em] letter-spacing[-0.02em] 
         lg:font-size[17.25px]
         2lg:font-size[1.53333333333vw]`}
 

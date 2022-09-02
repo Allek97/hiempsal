@@ -6,10 +6,12 @@ query ($customerAccessToken: String!) {
       id
       firstName
       lastName
-      acceptsMarketing
+      displayName
       email
       phone
+      acceptsMarketing
       updatedAt
+      createdAt
       tags
       addresses(first: 250) {
         edges {
@@ -68,22 +70,27 @@ query ($customerAccessToken: String!) {
                   variant {
                     id
                     title
-                    image {
-                      id
-                      url
-                      altText
-                    }
+                    sku
+                    requiresShipping
+                    availableForSale
                     selectedOptions {
                       name
                       value
                     }
-                    barcode
                     priceV2 {
                       amount
                       currencyCode
                     }
-                    currentlyNotInStock
-                    weight
+                    compareAtPriceV2 {
+                      amount
+                      currencyCode
+                    }
+                    image {
+                      url
+                      altText
+                      width
+                      height
+                    }
                   }
                 }
               }

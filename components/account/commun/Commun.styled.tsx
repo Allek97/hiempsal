@@ -1,6 +1,6 @@
 import customScroll from "@styles/customScroll.styled";
 import { EffectButton } from "@components/ui";
-import { keyframes } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 
@@ -8,6 +8,14 @@ const opaqueAnimation = keyframes`
     100% {
         opacity: 1;
     }
+`;
+
+export const textSizeMain = css`
+    ${tw`font-size[28px] line-height[1.2em] tracking-tighter 
+    lg:(font-size[30px] line-height[1.5em] letter-spacing[-0.06em])
+    2lg:font-size[2.7vw]`}
+
+    ${tw`2xl:font-size[40px]`}
 `;
 
 export const Root = styled.main`
@@ -79,4 +87,50 @@ export const ShopPolicy = styled.div`
     span {
         margin-bottom: 0.5rem;
     }
+`;
+// Empty Userlist
+
+export const BrowsingBtn = styled.button`
+    span {
+        ${tw`flex items-center ml-1.5 text-orange-red`}
+    }
+
+    svg {
+        ${tw`fill[var(--orange-red)] h-5 w-5 mr-1.5
+            md:(h-6 w-6)
+            2xl:(h-7 w-7)`}
+
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    &:hover svg {
+        transform: translateX(20%);
+    }
+
+    ${textSizeMain}
+`;
+
+export const DecorationOneTop = styled.span`
+    ${tw`absolute block top[1rem] right[4vw] 
+    height[1.7rem] width[8rem] bg-accents-9
+    lg:(display[none])`}
+
+    transform: skewY(-10deg);
+`;
+
+export const DecorationOneBottom = styled(DecorationOneTop)`
+    ${tw`top[2rem] right[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
+`;
+
+export const DecorationTwoTop = styled.span`
+    ${tw`absolute block bottom[1rem] left[4vw] 
+    height[1.7rem] width[8rem] bg-accents-9
+    lg:(display[none])`}
+
+    transform: skewY(-10deg);
+`;
+
+export const DecorationTwoBottom = styled(DecorationTwoTop)`
+    ${tw`bottom[2rem] left[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
 `;

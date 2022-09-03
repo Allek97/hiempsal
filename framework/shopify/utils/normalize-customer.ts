@@ -5,6 +5,7 @@ import {
     OrderConnection,
     OrderLineItemEdge,
     ProductVariant as ShopifyProductVariant,
+    Order as ShopifyOrder,
 } from "@framework/schema";
 import { Address } from "@framework/types/address";
 import { Customer as ShopifyCustomer } from "@framework/types/customer";
@@ -110,6 +111,58 @@ export const normalizeAddress = (address: MailingAddress): Address => {
         latitude: latitude ?? null,
         longitude: longitude ?? null,
         company,
+    };
+};
+
+export const normalizeOrder = (node: ShopifyOrder): Order => {
+    const {
+        id,
+        name: orderName,
+        email,
+        phone,
+        orderNumber,
+        statusUrl,
+        lineItems,
+        totalPriceV2,
+        totalTaxV2,
+        subtotalPriceV2,
+        totalShippingPriceV2,
+        shippingAddress,
+        currencyCode,
+        fulfillmentStatus,
+        financialStatus,
+        processedAt,
+        cancelReason,
+        canceledAt,
+        customerLocale,
+    } = node;
+
+    return {
+        id,
+        email: email,
+        phone: phone,
+        orderName,
+        orderNumber,
+        statusUrl: String(statusUrl),
+        lineItems: lineItems.edges.map((item) => normalizeOrderLineItem(item)),
+        totalPrice: normalizeOrderPrice(totalPriceV2),
+        totalTax: totalTaxV2 ? normalizeOrderPrice(totalTaxV2) : null,
+        subtotalPrice: subtotalPriceV2
+            ? normalizeOrderPrice(subtotalPriceV2)
+            : null,
+        shippingPrice: totalShippingPriceV2
+            ? normalizeOrderPrice(totalShippingPriceV2)
+            : null,
+        shippingAddress: shippingAddress
+            ? normalizeAddress(shippingAddress)
+            : null,
+        currencyCode,
+        fulfillmentStatus: fulfillmentStatus,
+        financialStatus,
+        processedAt,
+        cancelReason,
+        canceledAt,
+        customerLocale,
     };
 };
 

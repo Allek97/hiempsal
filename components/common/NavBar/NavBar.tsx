@@ -50,10 +50,11 @@ const Navbar: FC = () => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
     const isAuthentificationOpen = router.pathname.includes("authentification");
+    const isAccount = router.pathname.includes("account");
 
     const isHistoric: boolean = useMemo(
-        () => isAuthentificationOpen || isUsernavOpen,
-        [isAuthentificationOpen, isUsernavOpen]
+        () => isAuthentificationOpen || isUsernavOpen || isAccount,
+        [isAuthentificationOpen, isUsernavOpen, isAccount]
     );
 
     const { isPopupOpen, isMobileMenuOpen } = useUI();

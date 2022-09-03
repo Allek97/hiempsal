@@ -38,19 +38,41 @@ export const OrderContent = styled.div`
 `;
 
 export const OrderImageContainer = styled.div`
-    ${tw`relative w-24 h-24 border-radius[3px]`}
+    ${tw`relative w-24 h-24 border-radius[3px] bg-accents-2`}
+    span {
+        img {
+            padding: 5px !important;
+        }
+    }
+`;
+
+export const QuantityIndicator = styled.div`
+    ${tw`absolute -top-3.5 -right-3.5 z-20 flex items-center justify-center
+    w-7 h-7 bg-accents-5 border-radius[50%] 
+    font-size[12px] text-white`}
+`;
+
+export const DetailBtnWrapper = styled.div`
+    ${tw`mt-6 width[60%] max-width[15rem]
+     md:(ml-auto mt-auto) 
+     lg:mb-0`}
+
+    & > div {
+        ${tw`w-full`}
+    }
 `;
 
 export const DetailBtn = styled(Button)`
-    ${tw`padding-top[1em] padding-bottom[1em] mt-6
-    width[60%] max-width[15rem] height[max-content]
+    ${tw`padding-top[1em] padding-bottom[1em]
+    height[max-content]
     capitalize text-secondary tracking-tighter
-    md:(ml-auto mt-auto)
-    lg:(mb-0 py-4)`}
+    lg:py-4`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);
     /* ${({ theme }) => theme.textSize.textSizeLarge} */
 `;
+
+// NOTE Empty component
 
 export const RootEmpty = styled.div`
     ${tw`flex flex-row items-center justify-center w-full h-full height[40vh] min-height[20rem]

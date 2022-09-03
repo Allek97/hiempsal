@@ -17,12 +17,14 @@ import {
     RootEmpty,
     OrderBox,
     OrderImageContainer,
+    DetailBtnWrapper,
     DetailBtn,
     OrderContent,
     DecorationOneBottom,
     DecorationOneTop,
     DecorationTwoTop,
     DecorationTwoBottom,
+    QuantityIndicator,
 } from "./Orders.styled";
 
 const Orders: FC = () => {
@@ -31,7 +33,7 @@ const Orders: FC = () => {
 
     return (
         <Account>
-            {customer!.orders && customer!.orders.length > 0 ? (
+            {customer && customer.orders && customer.orders.length > 0 ? (
                 <OrderContainer>
                     <h2>Order History</h2>
                     <OrderBox>
@@ -45,31 +47,56 @@ const Orders: FC = () => {
                             <OrderContent>
                                 <div>
                                     <OrderImageContainer>
+                                        <QuantityIndicator>
+                                            <span>3</span>
+                                        </QuantityIndicator>
                                         <Image
-                                            src="/images/amazigh-art.jpg"
+                                            src="/images/macbook-pro-5.png"
                                             alt="order"
                                             layout="fill"
+                                            objectFit="contain"
                                         />
                                     </OrderImageContainer>
                                     <OrderImageContainer>
+                                        <QuantityIndicator>
+                                            <span>2</span>
+                                        </QuantityIndicator>
                                         <Image
-                                            src="/images/amazigh-art-2.jpg"
+                                            src="/images/Men-Hoodie-Black-Front.png"
                                             alt="order"
                                             layout="fill"
+                                            objectFit="contain"
                                         />
                                     </OrderImageContainer>
                                     <OrderImageContainer>
+                                        <QuantityIndicator>
+                                            <span>5</span>
+                                        </QuantityIndicator>
                                         <Image
-                                            src="/images/amazigh-art-3.jpg"
+                                            src="/images/iphone.png"
                                             alt="order"
                                             layout="fill"
+                                            objectFit="contain"
                                         />
                                     </OrderImageContainer>
                                 </div>
-                                <DetailBtn>
-                                    <span className="mr-2">View Details</span>
-                                    <SiOpennebula />
-                                </DetailBtn>
+                                <DetailBtnWrapper>
+                                    <Link
+                                        href={`/account/orders/${customer.orders[0].id
+                                            .split("/")
+                                            .pop()}`}
+                                        passHref
+                                    >
+                                        <FunctionalLink>
+                                            <DetailBtn>
+                                                <span className="mr-2">
+                                                    View Details
+                                                </span>
+                                                <SiOpennebula />
+                                            </DetailBtn>
+                                        </FunctionalLink>
+                                    </Link>
+                                </DetailBtnWrapper>
                             </OrderContent>
                         </div>
                     </OrderBox>

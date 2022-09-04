@@ -54,7 +54,11 @@ const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
         ),
 });
 
-const ReviewForm: FC = () => {
+interface Props {
+    productId: string;
+}
+
+const ReviewForm: FC<Props> = ({ productId }) => {
     const {
         isReviewUIOpen,
         reviewForm,
@@ -64,7 +68,7 @@ const ReviewForm: FC = () => {
         setReviewForm,
         setCheckErrors,
     } = useReviewContext();
-    const { productId, productType } = useProduct();
+    const { productType } = useProduct();
 
     const [serverError, setServerError] = useState<string>("");
 
@@ -105,6 +109,7 @@ const ReviewForm: FC = () => {
     async function onSubmit(): Promise<void> {
         try {
             handleCheckErrors();
+            setServerError("");
 
             const {
                 checks,
@@ -144,6 +149,7 @@ const ReviewForm: FC = () => {
             if (axios.isAxiosError(error)) {
                 if ((error.response as any)?.data.err.code === 11000)
                     setServerError("This email has already been used");
+                else setServerError("Server error please retry in few moments");
             } else if ((error as Error).message)
                 setServerError((error as Error).message);
             else setServerError("Server error please retry in few moments");

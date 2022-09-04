@@ -42,6 +42,8 @@ const Popup: FC<Props> = ({ children }) => {
         closeReview();
     }
 
+    console.log(isReviewOpen);
+
     return (
         <Root ref={ref} data-testid="product-popup">
             <>

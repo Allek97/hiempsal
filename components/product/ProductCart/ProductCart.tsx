@@ -34,6 +34,7 @@ const ProductCart: FC<Props> = ({ product }) => {
     } = useUI();
 
     const {
+        productId,
         isFeaturesOpen,
         isDimensionsOpen,
         isMaterialsOpen,
@@ -66,7 +67,7 @@ const ProductCart: FC<Props> = ({ product }) => {
                     <Dimensions dimensions={product.dimensions} />
                 )}
                 {isShippingOpen && <Shipping shipping={product.shipping} />}
-                {isReviewOpen && <Review />}
+                {isReviewOpen && <Review productId={productId} />}
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview

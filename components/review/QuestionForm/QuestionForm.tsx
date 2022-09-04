@@ -9,7 +9,6 @@ import isEmailValidator from "validator/lib/isEmail";
 
 import useQuestion from "@framework/question/use-question";
 import useAddQuestion from "@framework/question/use-add-question";
-import { useProduct } from "@components/product/context";
 
 import {
     Container,
@@ -43,7 +42,11 @@ const formSchema: SchemaOf<QuestionFormType> = object({
         ),
 });
 
-const QuestionForm: FC = () => {
+interface Props {
+    productId: string;
+}
+
+const QuestionForm: FC<Props> = ({ productId }) => {
     const {
         questionForm,
         isQuestionUIOpen,
@@ -51,7 +54,6 @@ const QuestionForm: FC = () => {
         setQuestionForm,
         setQuestionSubmission,
     } = useReviewContext();
-    const { productId } = useProduct();
 
     const [serverError, setServerError] = useState<string>("");
 

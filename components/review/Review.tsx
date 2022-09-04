@@ -2,7 +2,6 @@ import { FC, useEffect, useRef } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoMdChatbubbles } from "react-icons/io";
 
-import { useProduct } from "@components/product/context";
 import useReview from "@framework/review/use-review";
 import useQuestion from "@framework/question/use-question";
 import { Container } from "@components/product/ProductInformation/commun";
@@ -16,8 +15,13 @@ import { useReviewContext } from "./context";
 import { ReviewForm } from "./ReviewForm";
 import { QuestionForm } from "./QuestionForm";
 
+interface Props {
+    productId: string;
+}
+
 // NOTE This component will sit beside <ProductInformation /> component
-const Review: FC = () => {
+// NOTE This component will also be reused in order page to write review about the product
+const Review: FC<Props> = ({ productId }) => {
     const {
         isReviewOpen,
         isReviewUIOpen,
@@ -31,7 +35,6 @@ const Review: FC = () => {
     } = useReviewContext();
     const ref = useRef<HTMLDivElement>(null);
 
-    const { productId } = useProduct();
     // NOTE Get the reviews
     const getReview = useReview();
     const { data: reviews } = getReview({ productId: productId });
@@ -105,13 +108,13 @@ const Review: FC = () => {
             <div>
                 {isReviewOpen ? (
                     <div>
-                        <ReviewForm />
-                        <Customer data={reviews!} type="review" />
+                        <ReviewForm productId={productId} />
+                        <Customer data={reviews ?? []} type="review" />
                     </div>
                 ) : (
                     <div>
-                        <QuestionForm />
-                        <Customer data={questions!} type="question" />
+                        <QuestionForm productId={productId} />
+                        <Customer data={questions ?? []} type="question" />
                     </div>
                 )}
             </div>

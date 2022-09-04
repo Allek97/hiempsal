@@ -18,6 +18,7 @@ import {
 } from "./OrderView.styled";
 import { QuantityIndicator } from "../../commun/Commun.styled";
 import { OrderReview } from "../OrderReview";
+import { useUI } from "@components/ui/context";
 
 interface Props {
     order: Order;
@@ -36,6 +37,7 @@ const textMotion: Variants = {
 };
 
 const OrderView: FC<Props> = ({ order }) => {
+    const { openReview } = useUI();
     return (
         <>
             <OrderReview />
@@ -128,6 +130,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                         type="button"
                                         whileHover="hover"
                                         variants={textMotion}
+                                        onClick={() => openReview()}
                                     >
                                         <IoMdChatbubbles className="mr-1.5" />
                                         Write a review
@@ -221,6 +224,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                         type="button"
                                         whileHover="hover"
                                         variants={textMotion}
+                                        onClick={() => openReview()}
                                     >
                                         <IoMdChatbubbles className="mr-1.5" />
                                         Write a review

@@ -5,64 +5,32 @@ import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
 import getCustomer from "@framework/customer/get-customer";
 import getOrder from "@framework/order/get-order";
 import { Order } from "@framework/types/order";
-import Cookies from "js-cookie";
-import {
-    GetStaticPaths,
-    GetStaticPropsContext,
-    InferGetStaticPropsType,
-} from "next";
+import { getShopifyId } from "@lib/getShopifyId";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-const NOT_CONNECTED = "NOT_CONNECTED";
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const config = getConfig();
-    const customerAccessToken = Cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE);
+    const customerAccessToken: string | undefined =
+        context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
     const customer = await getCustomer({ config, customerAccessToken });
 
     if (!customer) {
         return {
-            paths: [
-                {
-                    params: {
-                        id: NOT_CONNECTED,
-                    },
-                },
-            ],
-            fallback: false,
-        };
-    }
-
-    console.log(customer.orders);
-
-    return {
-        paths: customer.orders.map((order) => ({
-            params: {
-                id: order.id.split("/").pop(),
-            },
-        })),
-
-        fallback: false,
-    };
-};
-
-export const getStaticProps = async ({
-    params,
-}: GetStaticPropsContext<{
-    id: string;
-}>) => {
-    if (params?.id === NOT_CONNECTED) {
-        return {
             redirect: {
-                destination: "authentification",
+                destination: "/authentification",
                 permanent: false,
             },
         };
     }
-    const ORDER_ID_PREFIX = "gid://shopify/Order/";
-    const config = getConfig();
+
+    const orderId = customer.orders.filter(
+        (object) => getShopifyId(object.id) === context.params?.id
+    )[0]?.id;
+
     const { order } = await getOrder({
         config,
         variables: {
-            orderId: params?.id ? `${ORDER_ID_PREFIX}${params.id}` : "",
+            orderId,
         },
     });
 
@@ -73,7 +41,7 @@ export const getStaticProps = async ({
     };
 };
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const OrderIdPage = ({ order }: Props) => {
     return <OrderView order={order as Order} />;

@@ -20,7 +20,7 @@ import {
 const Account: FC = ({ children }) => {
     const router = useRouter();
     const isOverviewSelected = router.pathname === "/account/overview";
-    const isOrderSelected = router.pathname === "/account/orders";
+    const isOrderSelected = router.pathname.includes("/account/orders");
     const isSettingSelected = router.pathname === "/account/settings";
     const isNotificationSelected = router.pathname === "/account/notifications";
 

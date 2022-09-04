@@ -8,7 +8,8 @@ export const OrderContainer = styled.div`
     h2 {
         ${tw`mt-5 mb-10 font-family[Whyte Inktrap] font-size[19px]
         lg:mt-0
-        xl:font-size[23px]`}
+        xl:font-size[21px]
+        3xl:font-size[23px]`}
     }
 `;
 
@@ -38,18 +39,12 @@ export const OrderContent = styled.div`
 `;
 
 export const OrderImageContainer = styled.div`
-    ${tw`relative w-24 h-24 border-radius[3px] bg-accents-2`}
+    ${tw`relative w-24 h-24 border-radius[3px] bg-accents-4`}
     span {
         img {
             padding: 5px !important;
         }
     }
-`;
-
-export const QuantityIndicator = styled.div`
-    ${tw`absolute -top-3.5 -right-3.5 z-20 flex items-center justify-center
-    w-7 h-7 bg-accents-5 border-radius[50%] 
-    font-size[12px] text-white`}
 `;
 
 export const DetailBtnWrapper = styled.div`

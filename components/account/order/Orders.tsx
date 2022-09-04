@@ -7,9 +7,10 @@ import { SiOpennebula } from "react-icons/si";
 
 import useCustomer from "@framework/customer/use-customer";
 import { FunctionalLink } from "@components/utils";
+import { getShopifyId } from "@lib/getShopifyId";
 
 import { Account } from "../commun";
-import { BrowsingBtn } from "../commun/Commun.styled";
+import { BrowsingBtn, QuantityIndicator } from "../commun/Commun.styled";
 
 import {
     ContainerEmpty,
@@ -24,7 +25,6 @@ import {
     DecorationOneTop,
     DecorationTwoTop,
     DecorationTwoBottom,
-    QuantityIndicator,
 } from "./Orders.styled";
 
 const Orders: FC = () => {
@@ -62,7 +62,7 @@ const Orders: FC = () => {
                                             <span>2</span>
                                         </QuantityIndicator>
                                         <Image
-                                            src="/images/Men-Hoodie-Black-Front.png"
+                                            src="/images/Men-Hoodie-White-Front.png"
                                             alt="order"
                                             layout="fill"
                                             objectFit="contain"
@@ -82,9 +82,9 @@ const Orders: FC = () => {
                                 </div>
                                 <DetailBtnWrapper>
                                     <Link
-                                        href={`/account/orders/${customer.orders[0].id
-                                            .split("/")
-                                            .pop()}`}
+                                        href={`/account/orders/${getShopifyId(
+                                            customer.orders[0].id
+                                        )}`}
                                         passHref
                                     >
                                         <FunctionalLink>

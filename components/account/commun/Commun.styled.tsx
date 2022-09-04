@@ -48,7 +48,8 @@ export const NavBtn = styled(EffectButton)`
     border-solid text-primary font-size[19px]
     lg:(padding-top[18px] padding-bottom[18px] 
         border-color[#999999])
-    xl:font-size[23px]`}
+    xl:font-size[21px]
+    3xl:font-size[23px]`}
 `;
 
 export const Content = styled.section<Record<string, unknown>>`
@@ -133,4 +134,10 @@ export const DecorationTwoTop = styled.span`
 
 export const DecorationTwoBottom = styled(DecorationTwoTop)`
     ${tw`bottom[2rem] left[6vw] opacity-70 background-color[rgb(202, 40, 40)]`}
+`;
+
+export const QuantityIndicator = styled.div`
+    ${tw`absolute -top-3.5 -right-3.5 z-20 flex items-center justify-center
+    w-7 h-7 bg-accents-5 border-radius[50%] 
+    font-size[12px] text-white`}
 `;

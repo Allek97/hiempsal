@@ -120,6 +120,10 @@ lineItems(first: 250) {
       variant {
         id
         title
+        product{
+            id
+            handle
+        }
         sku
         requiresShipping
         availableForSale

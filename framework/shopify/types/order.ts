@@ -13,6 +13,8 @@ export interface OrderLineItem {
     quantity: number;
     price: ProductPrice;
     variant: ProductVariant | null;
+    productId: string;
+    productSlug: string;
 }
 
 export interface Order {

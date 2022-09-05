@@ -74,3 +74,35 @@ export const PackageContent = styled.div`
         }
     }
 `;
+
+export const OrderDetails = styled.div`
+    ${tw`flex flex-col py-9 border-b border-black w-2/3 
+    lg:(flex-row justify-between items-end)`}
+`;
+
+export const DetailBloc = styled.div`
+    ${tw`flex flex-col`}
+    &:not(:last-of-type) {
+        ${tw`mb-5`}
+    }
+
+    &:nth-of-type(2) {
+        ${tw`lg:mr-40`}
+    }
+    h2 {
+        ${({ theme }) => theme.textSize.textSizeLarge}
+    }
+
+    p {
+        ${tw`mb-5 font-bold`}
+    }
+    span {
+        &:not(:last-of-type) {
+            ${tw`mb-1.5`}
+        }
+    }
+
+    div {
+        ${tw`flex justify-between`}
+    }
+`;

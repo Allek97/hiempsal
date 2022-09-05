@@ -67,6 +67,8 @@ export const normalizeOrderLineItem = (
         quantity,
         price: normalizeOrderPrice(originalTotalPrice),
         variant: variant ? normalizeOrderVariant(variant) : null,
+        productId: variant?.product.id ?? "",
+        productSlug: variant?.product.handle ?? "",
     };
 };
 

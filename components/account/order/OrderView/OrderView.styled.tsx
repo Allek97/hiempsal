@@ -59,7 +59,7 @@ export const PackageContent = styled.div`
     & > div:first-of-type {
         ${tw`relative flex flex-col`}
         img {
-            padding: 4px !important;
+            transform: scale(1.15);
         }
 
         button {

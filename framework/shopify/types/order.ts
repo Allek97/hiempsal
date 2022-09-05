@@ -16,6 +16,11 @@ export interface OrderLineItem {
     productId: string;
     productSlug: string;
 }
+export interface OrderFulfillment {
+    trackingCompany: string | null;
+    trackingNumber: string | null;
+    trackingUrl: string | null;
+}
 
 export interface Order {
     id: string;
@@ -25,6 +30,7 @@ export interface Order {
     orderNumber: number;
     statusUrl: string;
     lineItems: OrderLineItem[];
+    successfulFulfillments: OrderFulfillment | null;
     totalPrice: ProductPrice;
     totalTax: ProductPrice | null;
     subtotalPrice: ProductPrice | null;

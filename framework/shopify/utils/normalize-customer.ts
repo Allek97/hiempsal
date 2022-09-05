@@ -6,10 +6,11 @@ import {
     OrderLineItemEdge,
     ProductVariant as ShopifyProductVariant,
     Order as ShopifyOrder,
+    Fulfillment,
 } from "@framework/schema";
 import { Address } from "@framework/types/address";
 import { Customer as ShopifyCustomer } from "@framework/types/customer";
-import { Order, OrderLineItem } from "@framework/types/order";
+import { Order, OrderFulfillment, OrderLineItem } from "@framework/types/order";
 import { ProductPrice, ProductVariant } from "@framework/types/product";
 import { normalizeProductImage, normalizeProductOption } from "./normalize";
 
@@ -71,6 +72,17 @@ export const normalizeOrderLineItem = (
         productSlug: variant?.product.handle ?? "",
     };
 };
+export const normalizeOrderFulfillment = (
+    fulfillment: Fulfillment
+): OrderFulfillment => {
+    const { trackingCompany, trackingInfo } = fulfillment;
+
+    return {
+        trackingCompany: trackingCompany ?? null,
+        trackingNumber: trackingInfo[0].number ?? null,
+        trackingUrl: trackingInfo[0].url ?? null,
+    };
+};
 
 export const normalizeAddress = (address: MailingAddress): Address => {
     const {
@@ -125,6 +137,7 @@ export const normalizeOrder = (node: ShopifyOrder): Order => {
         orderNumber,
         statusUrl,
         lineItems,
+        successfulFulfillments,
         totalPriceV2,
         totalTaxV2,
         subtotalPriceV2,
@@ -147,6 +160,9 @@ export const normalizeOrder = (node: ShopifyOrder): Order => {
         orderNumber,
         statusUrl: String(statusUrl),
         lineItems: lineItems.edges.map((item) => normalizeOrderLineItem(item)),
+        successfulFulfillments: successfulFulfillments
+            ? normalizeOrderFulfillment(successfulFulfillments[0])
+            : null,
         totalPrice: normalizeOrderPrice(totalPriceV2),
         totalTax: totalTaxV2 ? normalizeOrderPrice(totalTaxV2) : null,
         subtotalPrice: subtotalPriceV2
@@ -171,59 +187,7 @@ export const normalizeOrder = (node: ShopifyOrder): Order => {
 export const normalizeCustomerOrders = ({
     edges,
 }: OrderConnection): Order[] => {
-    return edges.map(({ node }) => {
-        const {
-            id,
-            name: orderName,
-            email,
-            phone,
-            orderNumber,
-            statusUrl,
-            lineItems,
-            totalPriceV2,
-            totalTaxV2,
-            subtotalPriceV2,
-            totalShippingPriceV2,
-            shippingAddress,
-            currencyCode,
-            fulfillmentStatus,
-            financialStatus,
-            processedAt,
-            cancelReason,
-            canceledAt,
-            customerLocale,
-        } = node;
-
-        return {
-            id,
-            email: email,
-            phone: phone,
-            orderName,
-            orderNumber,
-            statusUrl: String(statusUrl),
-            lineItems: lineItems.edges.map((item) =>
-                normalizeOrderLineItem(item)
-            ),
-            totalPrice: normalizeOrderPrice(totalPriceV2),
-            totalTax: totalTaxV2 ? normalizeOrderPrice(totalTaxV2) : null,
-            subtotalPrice: subtotalPriceV2
-                ? normalizeOrderPrice(subtotalPriceV2)
-                : null,
-            shippingPrice: totalShippingPriceV2
-                ? normalizeOrderPrice(totalShippingPriceV2)
-                : null,
-            shippingAddress: shippingAddress
-                ? normalizeAddress(shippingAddress)
-                : null,
-            currencyCode,
-            fulfillmentStatus: fulfillmentStatus,
-            financialStatus,
-            processedAt,
-            cancelReason,
-            canceledAt,
-            customerLocale,
-        };
-    });
+    return edges.map((order) => normalizeOrder(order.node));
 };
 
 export const normalizeCustomer = (customer: Customer): ShopifyCustomer => {

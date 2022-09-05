@@ -66,7 +66,8 @@ const Orders: FC = () => {
                                             order.processedAt ?? Date.now(),
                                             "longDate"
                                         )}{" "}
-                                        | {currency} {order.totalPrice.value} |{" "}
+                                        | {currency}{" "}
+                                        {order.totalPrice.value.toFixed(2)} |{" "}
                                         {totalItems}{" "}
                                         {setTextPlural(
                                             "item",

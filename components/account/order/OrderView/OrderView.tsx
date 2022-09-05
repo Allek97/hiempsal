@@ -1,12 +1,14 @@
 import { motion, Variants } from "framer-motion";
+import dateFormat from "dateformat";
 import { Account } from "@components/account/commun";
 import { Order } from "@framework/types/order";
-import { FC } from "react";
+import { FC, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineSubdirectoryArrowLeft } from "react-icons/md";
 import { IoMdChatbubbles } from "react-icons/io";
-import { RiTruckFill } from "react-icons/ri";
+import { FaTruckLoading, FaTruckMoving } from "react-icons/fa";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 import { FunctionalLink } from "@components/utils";
 import { useUI } from "@components/ui/context";
@@ -39,11 +41,29 @@ const textMotion: Variants = {
     },
 };
 
+const placeholder = "product-image-placeholder.svg";
+
 const OrderView: FC<Props> = ({ order }) => {
     const { openReview } = useUI();
+    const [selectedProductId, setSelectedProductId] = useState<string>("");
+
+    const totalItems: number = useMemo(
+        () => order.lineItems.reduce((prev, curr) => prev + curr.quantity, 0),
+        [order]
+    );
+
+    const currency: string = useMemo(
+        () =>
+            order.currencyCode === "CAD"
+                ? "C" + getSymbolFromCurrency(order.currencyCode)
+                : order.currencyCode +
+                  getSymbolFromCurrency(order.currencyCode),
+        [order.currencyCode]
+    );
+
     return (
         <>
-            <OrderReview productId="gid://shopify/Product/7096221368509" />
+            <OrderReview productId={selectedProductId} />
             <Account>
                 <Container>
                     <Link href="/account/orders" passHref>
@@ -61,198 +81,212 @@ const OrderView: FC<Props> = ({ order }) => {
                         </FunctionalLink>
                     </Link>
 
-                    <h2>Your full order has arrived</h2>
+                    <h2>
+                        {order.fulfillmentStatus === "FULFILLED"
+                            ? "Your full order has arrived"
+                            : "You order is being fulfilled"}
+                    </h2>
                     <Content>
-                        <Package>
-                            <div className="mb-4">
-                                <h3 className="mb-2">Package 1</h3>
-                                <span
-                                    className="block mb-2"
-                                    style={{ color: "orange" }}
-                                >
-                                    On Delivery
-                                </span>
-                                <div className="flex flex-col">
-                                    <span className="mb-2">Processed on:</span>
-                                    <span className="mb-2 uppercase font-bold">
-                                        THU, NOVEMBER 11
-                                    </span>
-                                    <span className="mb-2">
-                                        Estimated delivery:
-                                    </span>
-                                    <span className="uppercase font-bold">
-                                        T.B.D
-                                    </span>
-                                </div>
-                            </div>
-                            <div>
-                                <span className="mr-2 leading-normal">
-                                    Looking for your package?
-                                </span>
-                                <motion.a
-                                    className="p-0.5 underline"
-                                    href="https://www.framer.com/docs/component/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    whileHover="hover"
-                                    variants={textMotion}
-                                >
-                                    Track it
-                                </motion.a>
-                            </div>
-                            <PackageContent>
-                                <div>
-                                    <div className="relative h-28 w-28 mr-5 bg-accents-4">
-                                        <Link href="/" passHref>
-                                            <FunctionalLink>
-                                                <Image
-                                                    src="/images/Men-Hoodie-Black-Front.png"
-                                                    alt="hoodie"
-                                                    layout="fill"
-                                                    objectFit="contain"
-                                                />
-                                            </FunctionalLink>
-                                        </Link>
-                                        <QuantityIndicator>3</QuantityIndicator>
+                        {order.lineItems.map((orderItem, idx) => {
+                            const estimatedDeliveryDate: string =
+                                order.processedAt
+                                    ? dateFormat(
+                                          new Date(order.processedAt).setDate(
+                                              new Date(
+                                                  order.processedAt
+                                              ).getDate() + 14
+                                          ),
+                                          "ddd, mmmm dS"
+                                      )
+                                    : "T.B.D";
+
+                            return (
+                                <Package key={orderItem.variant?.id ?? idx}>
+                                    <div className="mb-4">
+                                        <h3 className="mb-2">
+                                            Package {idx + 1}
+                                        </h3>
+                                        <span
+                                            className="block mb-2"
+                                            style={{
+                                                color:
+                                                    order.fulfillmentStatus ===
+                                                    "FULFILLED"
+                                                        ? "var(--green)"
+                                                        : "orange",
+                                            }}
+                                        >
+                                            {order.fulfillmentStatus ===
+                                            "FULFILLED"
+                                                ? "Deliver"
+                                                : "On Delivery"}
+                                        </span>
+                                        <div className="flex flex-col">
+                                            <span className="mb-2">
+                                                Processed on:
+                                            </span>
+                                            <span className="mb-2 uppercase font-bold">
+                                                {dateFormat(
+                                                    order.processedAt ??
+                                                        Date.now(),
+                                                    "ddd, mmmm dS"
+                                                )}
+                                            </span>
+                                            <span className="mb-2">
+                                                {order.fulfillmentStatus ===
+                                                "FULFILLED"
+                                                    ? "Already Delivered"
+                                                    : "Estimated delivery:"}
+                                            </span>
+                                            {order.fulfillmentStatus !==
+                                                "FULFILLED" && (
+                                                <span className="uppercase font-bold">
+                                                    {estimatedDeliveryDate}
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                    <motion.button
-                                        className="flex items-center mt-2.5 w-max mb-auto p-0.5 underline"
-                                        type="button"
-                                        whileHover="hover"
-                                        variants={textMotion}
-                                        onClick={() => openReview()}
-                                    >
-                                        <IoMdChatbubbles className="mr-1.5" />
-                                        Write a review
-                                    </motion.button>
-                                </div>
-                                <div>
-                                    <Link href="/" passHref>
-                                        <FunctionalLink>
-                                            <motion.h2
-                                                className="mb-3.5 text-accents-9 uppercase"
-                                                style={{
-                                                    transformOrigin:
-                                                        "bottom center",
-                                                }}
-                                                whileHover={{
-                                                    skewX: "-10deg",
+                                    <PackageContent>
+                                        <div>
+                                            <div className="relative h-28 w-28 mr-5 bg-accents-4">
+                                                <Link
+                                                    href={`/products/${orderItem.productSlug}`}
+                                                    passHref
+                                                >
+                                                    <FunctionalLink>
+                                                        <Image
+                                                            src={
+                                                                orderItem
+                                                                    .variant
+                                                                    ?.image
+                                                                    ?.url ??
+                                                                placeholder
+                                                            }
+                                                            alt={
+                                                                orderItem
+                                                                    .variant
+                                                                    ?.image
+                                                                    ?.alt ??
+                                                                "package order"
+                                                            }
+                                                            layout="fill"
+                                                            objectFit="contain"
+                                                        />
+                                                    </FunctionalLink>
+                                                </Link>
+                                                <QuantityIndicator>
+                                                    {orderItem.quantity}
+                                                </QuantityIndicator>
+                                            </div>
+                                            <motion.button
+                                                className="flex items-center mt-auto w-max p-0.5 underline"
+                                                type="button"
+                                                whileHover="hover"
+                                                variants={textMotion}
+                                                onClick={() => {
+                                                    setSelectedProductId(
+                                                        orderItem.productId
+                                                    );
+                                                    openReview();
                                                 }}
                                             >
-                                                Essentials 3-stripes tricot
-                                                track top
-                                            </motion.h2>
-                                        </FunctionalLink>
-                                    </Link>
-                                    <span className="mb-0.5">#1003</span>
-                                    <span className="mb-0.5">
-                                        Black / White
-                                    </span>
-                                    <span className="mb-0.5">M (Men)</span>
-                                    <span className="mb-1">$C 100.90</span>
-                                    <span className="italic">
-                                        This item cannot be returned or
-                                        exchanged
-                                    </span>
-                                </div>
-                            </PackageContent>
-                        </Package>
-                        <Package>
-                            <div className="mb-4">
-                                <h3 className="mb-2">Package 2</h3>
-                                <span
-                                    className="block mb-2"
-                                    style={{ color: "orange" }}
-                                >
-                                    On Delivery
-                                </span>
-                                <div className="flex flex-col">
-                                    <span className="mb-2">Processed on:</span>
-                                    <span className="mb-2 uppercase font-bold">
-                                        THU, NOVEMBER 11
-                                    </span>
-                                    <span className="mb-2">
-                                        Estimated delivery:
-                                    </span>
-                                    <span className="uppercase font-bold">
-                                        T.B.D
-                                    </span>
-                                </div>
-                            </div>
-                            <div>
-                                <span className="mr-2 leading-normal">
-                                    Looking for your package?
-                                </span>
-                                <motion.a
-                                    className="p-0.5 underline"
-                                    href="https://www.framer.com/docs/component/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    whileHover="hover"
-                                    variants={textMotion}
-                                >
-                                    Track it
-                                </motion.a>
-                            </div>
-                            <PackageContent>
-                                <div>
-                                    <div className="relative h-28 w-28 mr-5 bg-accents-4">
-                                        <Image
-                                            src="/images/iphone.png"
-                                            alt="hoodie"
-                                            layout="fill"
-                                            objectFit="contain"
-                                        />
-                                        <QuantityIndicator>3</QuantityIndicator>
-                                    </div>
-                                    <motion.button
-                                        className="flex items-center mt-2.5 w-max mb-auto p-0.5 underline"
-                                        type="button"
-                                        whileHover="hover"
-                                        variants={textMotion}
-                                        onClick={() => openReview()}
-                                    >
-                                        <IoMdChatbubbles className="mr-1.5" />
-                                        Write a review
-                                    </motion.button>
-                                </div>
-                                <div>
-                                    <h2 className="mb-3.5 text-accents-9 uppercase">
-                                        Essentials 3-stripes tricot track top
-                                    </h2>
-                                    <span className="mb-0.5">#1003</span>
-                                    <span className="mb-0.5">
-                                        Black / White
-                                    </span>
-                                    <span className="mb-0.5">M (Men)</span>
-                                    <span className="mb-1">$C 100.90</span>
-                                    <span className="italic">
-                                        This item cannot be returned or
-                                        exchanged
-                                    </span>
-                                </div>
-                            </PackageContent>
-                        </Package>
+                                                <IoMdChatbubbles className="mr-1.5" />
+                                                Write a review
+                                            </motion.button>
+                                        </div>
+                                        <div>
+                                            <Link href="/" passHref>
+                                                <FunctionalLink>
+                                                    <motion.h2
+                                                        className="mb-3.5 text-accents-9 uppercase tracking-normal"
+                                                        style={{
+                                                            transformOrigin:
+                                                                "bottom center",
+                                                        }}
+                                                        whileHover={{
+                                                            skewX: "-10deg",
+                                                        }}
+                                                    >
+                                                        {orderItem.name}
+                                                    </motion.h2>
+                                                </FunctionalLink>
+                                            </Link>
+
+                                            {orderItem.variant?.options.map(
+                                                (option) => (
+                                                    <span
+                                                        className="mb-0.5"
+                                                        key={option.id}
+                                                    >
+                                                        {option.values[0].label}
+                                                    </span>
+                                                )
+                                            )}
+
+                                            <span className="mb-1">
+                                                {currency}{" "}
+                                                {orderItem.price.value.toFixed(
+                                                    2
+                                                )}
+                                            </span>
+                                            <span className="italic">
+                                                This item cannot be returned or
+                                                exchanged
+                                            </span>
+                                        </div>
+                                    </PackageContent>
+                                </Package>
+                            );
+                        })}
                         <OrderDetails>
                             <DetailBloc>
                                 <h2 className="font-bold uppercase mb-2">
                                     Details
                                 </h2>
                                 <p>Order</p>
-                                <span>#1001</span>
-                                <span>2021-11-08</span>
-                            </DetailBloc>
-                            <DetailBloc>
-                                <p>Carrier</p>
-                                <span className="flex items-center">
-                                    <RiTruckFill
-                                        className="mr-2"
-                                        style={{ fill: "var(--accents-7)" }}
-                                    />
-                                    DHL Express
+                                <span>{order.orderName}</span>
+                                <span>
+                                    {dateFormat(
+                                        order.processedAt ?? Date.now(),
+                                        "isoDate"
+                                    )}
                                 </span>
-                                <span>Standard Delivery</span>
-                                <span>JJD01234234</span>
+                            </DetailBloc>
+                            <DetailBloc className="self-center">
+                                <p>Carrier</p>
+                                {order.successfulFulfillments
+                                    ?.trackingCompany ? (
+                                    <>
+                                        <span className="flex items-center capitalize">
+                                            <FaTruckMoving
+                                                className="mr-2"
+                                                style={{
+                                                    fill: "var(--accents-7)",
+                                                }}
+                                            />
+                                            {order.successfulFulfillments
+                                                ?.trackingCompany ??
+                                                "To be determined soon"}
+                                        </span>
+                                        <span>Standard Delivery</span>
+                                        <span>
+                                            Tracking Number:{" "}
+                                            {order.successfulFulfillments
+                                                ?.trackingNumber ??
+                                                "Not Issued Yet"}
+                                        </span>
+                                    </>
+                                ) : (
+                                    <span className="flex items-center capitalize">
+                                        <FaTruckLoading
+                                            className="mr-2"
+                                            style={{ fill: "var(--accents-7)" }}
+                                        />
+                                        {order.successfulFulfillments
+                                            ?.trackingCompany ??
+                                            "To be determined soon"}
+                                    </span>
+                                )}
                             </DetailBloc>
                         </OrderDetails>
                         <OrderDetails>
@@ -260,11 +294,14 @@ const OrderView: FC<Props> = ({ order }) => {
                                 <h2 className="font-bold uppercase mb-2">
                                     Address
                                 </h2>
-                                <span>Allek Ilias</span>
-                                <span>2190 rue de cologne</span>
-                                <span>Montréal QC H3M 2W6, Canada</span>
-                                <span>4389980902</span>
-                                <span>iliasallek.aek@gmail.com</span>
+                                <span>{order.shippingAddress?.name}</span>
+                                <span>{order.shippingAddress?.address1}</span>
+                                <span>
+                                    {order.shippingAddress?.formattedArea},{" "}
+                                    {order.shippingAddress?.zip}
+                                </span>
+                                <span>{order.shippingAddress?.phone}</span>
+                                <span>{order.email}</span>
                             </DetailBloc>
                         </OrderDetails>
                         <OrderDetails className="w-2/3 max-w-lg border-b-0">
@@ -273,24 +310,63 @@ const OrderView: FC<Props> = ({ order }) => {
                                     Order
                                 </h2>
                                 <div>
-                                    <span>2 items</span>
-                                    <span>C$ 168.00</span>
+                                    <span>{totalItems} items</span>
+                                    <span>
+                                        {currency}{" "}
+                                        {order.totalPrice.value.toFixed(2)}
+                                    </span>
                                 </div>
                                 <div>
                                     <span>Subtotal (before taxes)</span>
-                                    <span>C$ 168.00</span>
+
+                                    <span>
+                                        {order.subtotalPrice &&
+                                            order.subtotalPrice.value > 0 &&
+                                            currency}{" "}
+                                        {order.subtotalPrice &&
+                                        order.subtotalPrice?.value > 0
+                                            ? order.subtotalPrice?.value.toFixed(
+                                                  2
+                                              )
+                                            : "Free"}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>Discounts</span>
+                                    <span>No discounts</span>
                                 </div>
                                 <div>
                                     <span>Delivery</span>
-                                    <span>Free</span>
+                                    <span>
+                                        {order.shippingPrice &&
+                                            order.shippingPrice.value > 0 &&
+                                            currency}{" "}
+                                        {order.shippingPrice &&
+                                        order.shippingPrice?.value > 0
+                                            ? order.shippingPrice?.value.toFixed(
+                                                  2
+                                              )
+                                            : "Free"}
+                                    </span>
                                 </div>
                                 <div>
                                     <span>Sales tax</span>
-                                    <span>C$ 168.00</span>
+                                    <span>
+                                        {order.totalTax &&
+                                            order.totalTax.value > 0 &&
+                                            currency}{" "}
+                                        {order.totalTax &&
+                                        order.totalTax?.value > 0
+                                            ? order.totalTax?.value.toFixed(2)
+                                            : "Free"}
+                                    </span>
                                 </div>
                                 <div className="mt-3">
                                     <p>Amount</p>
-                                    <span>C$ 168.00</span>
+                                    <span>
+                                        {currency}{" "}
+                                        {order.totalPrice.value.toFixed(2)}
+                                    </span>
                                 </div>
                             </DetailBloc>
                         </OrderDetails>
@@ -300,7 +376,7 @@ const OrderView: FC<Props> = ({ order }) => {
                             </span>
                             <motion.a
                                 className="p-0.5 underline"
-                                href="https://www.framer.com/docs/component/"
+                                href={order.statusUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover="hover"
@@ -309,6 +385,26 @@ const OrderView: FC<Props> = ({ order }) => {
                                 Order status
                             </motion.a>
                         </div>
+                        {order.successfulFulfillments?.trackingUrl && (
+                            <div>
+                                <span className="mr-2 leading-normal">
+                                    Looking for your package?
+                                </span>
+                                <motion.a
+                                    className="p-0.5 underline"
+                                    href={
+                                        order.successfulFulfillments
+                                            ?.trackingUrl
+                                    }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover="hover"
+                                    variants={textMotion}
+                                >
+                                    Track it
+                                </motion.a>
+                            </div>
+                        )}
                     </Content>
                 </Container>
             </Account>

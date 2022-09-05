@@ -4,6 +4,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { AiTwotoneFire } from "react-icons/ai";
 import { SiOpennebula } from "react-icons/si";
+import getSymbolFromCurrency from "currency-symbol-map";
+import dateFormat from "dateformat";
+import { setTextPlural } from "@lib/setTextPlural";
 
 import useCustomer from "@framework/customer/use-customer";
 import { FunctionalLink } from "@components/utils";
@@ -27,6 +30,8 @@ import {
     DecorationTwoBottom,
 } from "./Orders.styled";
 
+const placeholder = "product-image-placeholder.svg";
+
 const Orders: FC = () => {
     const dataSwr = useCustomer();
     const { data: customer } = dataSwr;
@@ -36,70 +41,100 @@ const Orders: FC = () => {
             {customer && customer.orders && customer.orders.length > 0 ? (
                 <OrderContainer>
                     <h2>Order History</h2>
-                    <OrderBox>
-                        <div className="hidden sm:block">
-                            <DecorationOneTop className="mt-5 lg:mt-6" />
-                            <DecorationOneBottom className="mt-5 lg:mt-6" />
-                        </div>
-                        <div>
-                            <h3>YOUR ORDER: ACA07897266</h3>
-                            <span>November 8, 2021 | C$ 164.18 | 3 items</span>
-                            <OrderContent>
-                                <div>
-                                    <OrderImageContainer>
-                                        <QuantityIndicator>
-                                            <span>3</span>
-                                        </QuantityIndicator>
-                                        <Image
-                                            src="/images/macbook-pro-5.png"
-                                            alt="order"
-                                            layout="fill"
-                                            objectFit="contain"
-                                        />
-                                    </OrderImageContainer>
-                                    <OrderImageContainer>
-                                        <QuantityIndicator>
-                                            <span>2</span>
-                                        </QuantityIndicator>
-                                        <Image
-                                            src="/images/Men-Hoodie-White-Front.png"
-                                            alt="order"
-                                            layout="fill"
-                                            objectFit="contain"
-                                        />
-                                    </OrderImageContainer>
-                                    <OrderImageContainer>
-                                        <QuantityIndicator>
-                                            <span>5</span>
-                                        </QuantityIndicator>
-                                        <Image
-                                            src="/images/iphone.png"
-                                            alt="order"
-                                            layout="fill"
-                                            objectFit="contain"
-                                        />
-                                    </OrderImageContainer>
+                    {customer.orders.map((order) => {
+                        const currency: string =
+                            order.currencyCode === "CAD"
+                                ? "C" +
+                                  getSymbolFromCurrency(order.currencyCode)
+                                : order.currencyCode +
+                                  getSymbolFromCurrency(order.currencyCode);
+                        const totalItems: number = order.lineItems.reduce(
+                            (prev, curr) => prev + curr.quantity,
+                            0
+                        );
+                        return (
+                            <OrderBox key={order.id}>
+                                <div className="hidden sm:block">
+                                    <DecorationOneTop className="mt-5 lg:mt-6" />
+                                    <DecorationOneBottom className="mt-5 lg:mt-6" />
                                 </div>
-                                <DetailBtnWrapper>
-                                    <Link
-                                        href={`/account/orders/${getShopifyId(
-                                            customer.orders[0].id
-                                        )}`}
-                                        passHref
-                                    >
-                                        <FunctionalLink>
-                                            <DetailBtn>
-                                                <span className="mr-2">
-                                                    View Details
-                                                </span>
-                                                <SiOpennebula />
-                                            </DetailBtn>
-                                        </FunctionalLink>
-                                    </Link>
-                                </DetailBtnWrapper>
-                            </OrderContent>
-                        </div>
-                    </OrderBox>
+
+                                <div>
+                                    <h3>YOUR ORDER: {order.orderName}</h3>
+                                    <span>
+                                        {dateFormat(
+                                            order.processedAt ?? Date.now(),
+                                            "longDate"
+                                        )}{" "}
+                                        | {currency} {order.totalPrice.value} |{" "}
+                                        {totalItems}{" "}
+                                        {setTextPlural(
+                                            "item",
+                                            order.lineItems.length
+                                        )}
+                                    </span>
+                                    <OrderContent>
+                                        <div>
+                                            {order.lineItems.map(
+                                                (orderItem, idx) => (
+                                                    <OrderImageContainer
+                                                        key={
+                                                            orderItem.variant
+                                                                ?.id ?? idx
+                                                        }
+                                                    >
+                                                        <QuantityIndicator>
+                                                            <span>
+                                                                {
+                                                                    orderItem.quantity
+                                                                }
+                                                            </span>
+                                                        </QuantityIndicator>
+                                                        <Image
+                                                            src={
+                                                                orderItem
+                                                                    .variant
+                                                                    ?.image
+                                                                    ?.url ??
+                                                                placeholder
+                                                            }
+                                                            alt={
+                                                                orderItem
+                                                                    .variant
+                                                                    ?.image
+                                                                    ?.alt ??
+                                                                "order variant"
+                                                            }
+                                                            layout="fill"
+                                                            objectFit="contain"
+                                                            quality={100}
+                                                        />
+                                                    </OrderImageContainer>
+                                                )
+                                            )}
+                                        </div>
+                                        <DetailBtnWrapper>
+                                            <Link
+                                                href={`/account/orders/${getShopifyId(
+                                                    order.id
+                                                )}`}
+                                                passHref
+                                            >
+                                                <FunctionalLink>
+                                                    <DetailBtn>
+                                                        <span className="mr-2">
+                                                            View Details
+                                                        </span>
+                                                        <SiOpennebula />
+                                                    </DetailBtn>
+                                                </FunctionalLink>
+                                            </Link>
+                                        </DetailBtnWrapper>
+                                    </OrderContent>
+                                </div>
+                            </OrderBox>
+                        );
+                    })}
                 </OrderContainer>
             ) : (
                 <ContainerEmpty>

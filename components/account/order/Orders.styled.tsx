@@ -39,10 +39,10 @@ export const OrderContent = styled.div`
 `;
 
 export const OrderImageContainer = styled.div`
-    ${tw`relative w-24 h-24 border-radius[3px] bg-accents-4`}
+    ${tw`relative w-24 h-24 border-radius[3px] bg-accents-4`};
     span {
         img {
-            padding: 5px !important;
+            transform: scale(1.1);
         }
     }
 `;

@@ -118,7 +118,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                         >
                                             {order.fulfillmentStatus ===
                                             "FULFILLED"
-                                                ? "Deliver"
+                                                ? "Delivered"
                                                 : "On Delivery"}
                                         </span>
                                         <div className="flex flex-col">
@@ -132,12 +132,12 @@ const OrderView: FC<Props> = ({ order }) => {
                                                     "ddd, mmmm dS"
                                                 )}
                                             </span>
-                                            <span className="mb-2">
-                                                {order.fulfillmentStatus ===
-                                                "FULFILLED"
-                                                    ? "Already Delivered"
-                                                    : "Estimated delivery:"}
-                                            </span>
+                                            {order.fulfillmentStatus !==
+                                                "FULFILLED" && (
+                                                <span className="mb-2">
+                                                    Estimated delivery:
+                                                </span>
+                                            )}
                                             {order.fulfillmentStatus !==
                                                 "FULFILLED" && (
                                                 <span className="uppercase font-bold">

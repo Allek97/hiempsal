@@ -16,7 +16,7 @@ import {
     FormSubmitBtn,
     InputPlaceholder,
     ErrorForm,
-} from "../Commun/Form.styled";
+} from "../../elements/FormInputsStyle";
 
 interface Props {
     isDisplayed: boolean;

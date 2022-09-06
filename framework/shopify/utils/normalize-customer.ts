@@ -160,9 +160,10 @@ export const normalizeOrder = (node: ShopifyOrder): Order => {
         orderNumber,
         statusUrl: String(statusUrl),
         lineItems: lineItems.edges.map((item) => normalizeOrderLineItem(item)),
-        successfulFulfillments: successfulFulfillments
-            ? normalizeOrderFulfillment(successfulFulfillments[0])
-            : null,
+        successfulFulfillments:
+            successfulFulfillments && successfulFulfillments.length
+                ? normalizeOrderFulfillment(successfulFulfillments[0])
+                : null,
         totalPrice: normalizeOrderPrice(totalPriceV2),
         totalTax: totalTaxV2 ? normalizeOrderPrice(totalTaxV2) : null,
         subtotalPrice: subtotalPriceV2

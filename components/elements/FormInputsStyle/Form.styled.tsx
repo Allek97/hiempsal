@@ -1,6 +1,7 @@
 import { Button } from "@components/ui";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 
@@ -33,6 +34,74 @@ export const FormInput = styled(motion.input)`
     &:focus {
         outline: none;
     }
+`;
+
+export const FormCountryContainer = styled(motion.div)`
+    ${tw`relative w-full height[52px] padding[29px 20px 9px] 
+    bg-white
+    lg:height[45px]
+    xl:height[60px]`}
+
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+    border: 1px solid #f0f0f0;
+    border-radius: 3px;
+    transition: background 0.3s, border 0.3s, transform 0.3s;
+`;
+
+export const FormSelectCountry = styled(motion.select)`
+    ${tw`absolute top-0 left-0 z-10 w-full h-full opacity-0 
+    cursor-pointer`}
+
+    -webkit-appearance: menulist-button;
+
+    &:focus {
+        outline-color: "transparent";
+    }
+
+    &:select {
+        background-color: red;
+    }
+`;
+
+interface CountryProps {
+    $isSelected: boolean;
+}
+
+export const CountryPlaceholder = styled(
+    motion.span,
+    transientOptions
+)<CountryProps>`
+    ${tw`absolute left[20px] top[13px] line-height[0]
+    text-grey font-size[17px] cursor-text
+    lg:top[11px]
+    xl:top[17px]`}
+
+    transition: transform 0.3s ease, font-size 0.3s ease;
+    ${textSizePlaceholder}
+
+    ${({ $isSelected }) =>
+        $isSelected &&
+        css`
+            ${tw`lg:font-size[12px]`}
+            transition: transform 0.3s ease, font-size 0.3s ease;
+            transform: translateY(-40%);
+            font-size: 10px;
+            left: 22px;
+        `}
+
+    
+
+    user-select: none;
+`;
+export const CountryValue = styled(motion.span)`
+    ${tw`absolute left[20px] top[22px]
+    lg:top[18px]
+    xl:top[21px]`}
+
+    transition: transform 0.3s ease, font-size 0.3s ease;
+    ${({ theme }) => theme.textSize.textSizeLarge}
+
+    user-select: auto;
 `;
 
 export const InputPlaceholder = styled(motion.span)`

@@ -57,10 +57,6 @@ export const FormSelectCountry = styled(motion.select)`
     &:focus {
         outline-color: "transparent";
     }
-
-    &:select {
-        background-color: red;
-    }
 `;
 
 interface CountryProps {
@@ -87,9 +83,7 @@ export const CountryPlaceholder = styled(
             transform: translateY(-40%);
             font-size: 10px;
             left: 22px;
-        `}
-
-    
+        `};
 
     user-select: none;
 `;

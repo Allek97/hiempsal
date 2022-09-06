@@ -1,6 +1,6 @@
-import React from "react";
+import { FC } from "react";
 
-const CountryOptions = () => {
+const CountryOptions: FC = () => {
     return (
         <>
             <option disabled value="">

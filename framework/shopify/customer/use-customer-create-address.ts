@@ -23,7 +23,9 @@ type AddItemHookDescriptor = {
     data: null;
 };
 
-type UseCustomerUpdate<H extends MutationHook> = ReturnType<H["useHook"]>;
+type UseCustomerCreateAddress<H extends MutationHook> = ReturnType<
+    H["useHook"]
+>;
 
 const handler: MutationHook<AddItemHookDescriptor> = {
     fetcherOptions: {
@@ -63,8 +65,10 @@ const handler: MutationHook<AddItemHookDescriptor> = {
         },
 };
 
-const useCustomerUpdate: UseCustomerUpdate<typeof handler> = () => {
+const useCustomerCreateAddress: UseCustomerCreateAddress<
+    typeof handler
+> = () => {
     return useMutationHook({ ...handler })();
 };
 
-export default useCustomerUpdate;
+export default useCustomerCreateAddress;

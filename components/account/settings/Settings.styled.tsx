@@ -22,18 +22,33 @@ export const CustomerAvatar = styled.div`
 `;
 
 export const PlusCountry = styled.div`
-    position: absolute;
-    right: 4vw;
-    transform: translateY(-50%);
-    top: 50%;
+    ${tw`absolute right[4vw] top-1/2 pointer-events-none
+    md:right[2vw]
+    lg:right[1.34vw]`}
 
-    color: #e00b25;
-    pointer-events: none;
+    transform: translateY(-50%);
 
     svg {
         width: 16px;
         height: 16px;
 
-        fill: #e00b25;
+        fill: var(--orange-red);
+    }
+`;
+
+export const CityZipContainer = styled.div`
+    ${tw`flex w-full justify-between mb-2`}
+    & > div {
+        ${tw`width[calc(50% - 1vw)] 
+        lg:(width[calc(50% - 0.333vw)])`}
+    }
+`;
+
+export const PassowrdContainer = styled.div`
+    ${tw`flex flex-col w-full justify-between
+    sm:flex-row`}
+    & > div {
+        ${tw`w-full mb-2
+        sm:(width[calc(50% - 0.333vw)])`}
     }
 `;

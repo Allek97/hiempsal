@@ -141,8 +141,7 @@ export const PhoneInputContainer = styled.div`
         box-shadow: none;
     }
     .form-control {
-        ${tw`padding[29px 20px 9px] height[52px]
-        border-radius[3px] bg-white font-bold
+        ${tw`height[52px] border-radius[3px] bg-white font-bold
         lg:height[45px]
         xl:height[60px]`}
 

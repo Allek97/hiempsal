@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { FC, useState } from "react";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/material.css";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, SchemaOf, string, ValidationError } from "yup";
 import isEmailValidator from "validator/lib/isEmail";
 import useSignup from "@framework/auth/use-signup";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 
 import {
     ForgotPassword,
@@ -16,7 +16,7 @@ import {
     FormSubmitBtn,
     InputPlaceholder,
     ErrorForm,
-} from "../../elements/FormInputsStyle";
+} from "@components/elements/FormInputsStyle";
 
 interface Props {
     isDisplayed: boolean;

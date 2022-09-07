@@ -54,10 +54,10 @@ const handler: MutationHook<AddItemHookDescriptor> = {
     useHook:
         ({ fetch }) =>
         () => {
-            const { data: customer, mutate: updateCart } = useCustomer();
+            const { data: customer, mutate: updateCustomer } = useCustomer();
             return async (input) => {
                 const response = await fetch(input);
-                await updateCart({ ...customer!, ...input }, false);
+                await updateCustomer({ ...customer!, ...input }, false);
                 return response;
             };
         },

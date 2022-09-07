@@ -1,26 +1,29 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { CustomerUpdatePayload } from "@framework/schema";
+import { CustomerAddressCreatePayload } from "@framework/schema";
 
 import { MutationHook } from "@framework/types/hooks";
-import { setCustomerToken } from "@framework/utils";
-import { customerUpdateMutation } from "@framework/utils/mutations";
+import { customerCreateAddressMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
-import useCustomer from "./use-customer";
 
 type CustomerUpdate = {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
-    acceptsMarketing?: boolean;
+    address: {
+        address1?: string;
+        city?: string;
+        company?: string;
+        country?: string;
+        zip?: string;
+    };
+    customerAccessToken: string;
 };
 
 type AddItemHookDescriptor = {
     fetcherInput: CustomerUpdate;
     fetcherOutput: {
-        customerUpdate: CustomerUpdatePayload;
+        customerAddressCreate: CustomerAddressCreatePayload;
     };
-    data: null;
+    data: {
+        addressId: string;
+    };
 };
 
 type UseCustomerCreateAddress<H extends MutationHook> = ReturnType<
@@ -29,7 +32,7 @@ type UseCustomerCreateAddress<H extends MutationHook> = ReturnType<
 
 const handler: MutationHook<AddItemHookDescriptor> = {
     fetcherOptions: {
-        query: customerUpdateMutation,
+        query: customerCreateAddressMutation,
     },
 
     fetcher: async ({ fetch, options, input }) => {
@@ -39,27 +42,22 @@ const handler: MutationHook<AddItemHookDescriptor> = {
         });
 
         if (errors) throw new Error(errors[0].message);
-        const { customerUpdate } = data;
-        if (customerUpdate?.customerUserErrors.length)
+        const { customerAddressCreate } = data;
+        if (
+            customerAddressCreate?.customerUserErrors.length ||
+            !customerAddressCreate.customerAddress
+        )
             throw new Error(
                 "Missing fields or server error, please try again later"
             );
 
-        if (customerUpdate.customerAccessToken)
-            setCustomerToken(
-                customerUpdate.customerAccessToken.accessToken,
-                customerUpdate.customerAccessToken.expiresAt
-            );
-
-        return null;
+        return { addressId: customerAddressCreate.customerAddress.id };
     },
     useHook:
         ({ fetch }) =>
         () => {
-            const { data: customer, mutate: updateCart } = useCustomer();
             return async (input) => {
                 const response = await fetch(input);
-                await updateCart({ ...customer!, ...input }, false);
                 return response;
             };
         },

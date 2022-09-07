@@ -1,22 +1,13 @@
+import { addressFragment } from "../common";
+
 const customerUpdateDefaultAddressMutation = `
-mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
-    customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
-      customerAddress {
-        address1
-        address2
-        city
-        name
-        company
-        country
-        countryCodeV2
+mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
+    customerDefaultAddressUpdate(addressId: $addressId, customerAccessToken: $customerAccessToken) {
+      customer {
         id
-        latitude
-        longitude
-        province
-        provinceCode
-        zip
-        formattedArea
-        formatted
+        defaultAddress {
+          ${addressFragment}
+        }
       }
       customerUserErrors {
         code

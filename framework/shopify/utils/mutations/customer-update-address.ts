@@ -1,6 +1,6 @@
 const customerUpdateAddressMutation = `
-mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
-    customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
+mutation customerAddressUpdate($address: MailingAddressInput!, $customerAccessToken: String!, $id: ID!) {
+    customerAddressUpdate(address: $address, customerAccessToken: $customerAccessToken, id: $id) {
       customerAddress {
         address1
         address2

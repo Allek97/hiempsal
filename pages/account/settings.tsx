@@ -1,4 +1,5 @@
 import { Settings } from "@components/account";
+import { SettingsProvider } from "@components/account/settings/context";
 import { Layout } from "@components/common";
 import { withAuthServerSideProps } from "auth/withAuthServerSide";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -11,9 +12,11 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const SettingsPage = ({ fallback }: Props) => {
     return (
-        <SWRConfig value={{ fallback }}>
-            <Settings />
-        </SWRConfig>
+        <SettingsProvider>
+            <SWRConfig value={{ fallback }}>
+                <Settings />
+            </SWRConfig>
+        </SettingsProvider>
     );
 };
 

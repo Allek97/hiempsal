@@ -134,6 +134,7 @@ export const PhoneInputContainer = styled.div`
     .react-tel-input .form-control {
         ${tw`font-family[HelveticaNowText]`}
         ${({ theme }) => theme.textSize.textSizeMain}
+        ${tw`font-size[15px]`}
     }
     .react-tel-input .form-control:focus {
         outline: none !important;

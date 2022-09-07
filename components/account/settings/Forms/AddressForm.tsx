@@ -14,8 +14,8 @@ import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import tw from "twin.macro";
 import CountryOptions from "../CountryOptions";
-import { CustomerUpdate } from "../Settings";
-import { useCustomerSettings } from "./context";
+import { CustomerUpdateInfo } from "../Settings";
+import { useCustomerSettings } from "../context";
 
 export const PlusCountry = styled.div`
     ${tw`absolute right[4vw] top-1/2 pointer-events-none
@@ -44,7 +44,7 @@ const AddressForm: FC = () => {
     const {
         register,
         formState: { errors },
-    } = useFormContext<CustomerUpdate>();
+    } = useFormContext<CustomerUpdateInfo>();
 
     const {
         address1,
@@ -101,7 +101,7 @@ const AddressForm: FC = () => {
                     >
                         <CountryOptions />
                     </FormSelectCountry>
-                    <CountryPlaceholder $isSelected>
+                    <CountryPlaceholder $isSelected={country.length > 0}>
                         Country (optional)
                     </CountryPlaceholder>
                     {country && <CountryValue>{country}</CountryValue>}
@@ -115,11 +115,10 @@ const AddressForm: FC = () => {
                     <motion.label htmlFor="customer-zip" className="relative">
                         <FormInput
                             {...register("zip")}
+                            className="font-normal"
                             id="customer-zip"
                             type="text"
-                            required
                             placeholder=" "
-                            aria-required
                             maxLength={150}
                             autoComplete="customer-zip"
                             value={zip}
@@ -148,11 +147,10 @@ const AddressForm: FC = () => {
                     <motion.label htmlFor="customer-city" className="relative">
                         <FormInput
                             {...register("city")}
+                            className="font-normal"
                             id="customer-city"
                             type="text"
-                            required
                             placeholder=" "
-                            aria-required
                             maxLength={150}
                             autoComplete="customer-city"
                             value={city}
@@ -182,11 +180,10 @@ const AddressForm: FC = () => {
                 <motion.label htmlFor="customer-address" className="relative">
                     <FormInput
                         {...register("address1")}
+                        className="font-normal"
                         id="customer-address"
                         type="text"
-                        required
                         placeholder=" "
-                        aria-required
                         maxLength={150}
                         autoComplete="customer-address"
                         value={address1}
@@ -217,11 +214,10 @@ const AddressForm: FC = () => {
                 <motion.label htmlFor="customer-company" className="relative">
                     <FormInput
                         {...register("company")}
+                        className="font-normal"
                         id="customer-company"
                         type="text"
-                        required
                         placeholder=" "
-                        aria-required
                         maxLength={150}
                         autoComplete="customer-company"
                         value={company}

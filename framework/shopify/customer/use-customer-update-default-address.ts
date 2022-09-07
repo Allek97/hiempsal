@@ -46,7 +46,7 @@ const handler: MutationHook<AddItemHookDescriptor> = {
             !customerDefaultAddressUpdate.customer.defaultAddress
         )
             throw new Error(
-                "Missing fields or server error, please try again later"
+                customerDefaultAddressUpdate.customerUserErrors[0].message
             );
 
         return {

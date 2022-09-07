@@ -18,8 +18,8 @@ interface StateValues {
     company: string;
     country: string;
     zip: string;
-    password: string;
-    passwordConfirm: string;
+    currentPassword: string;
+    newPassword: string;
     phoneError: string;
 }
 
@@ -33,8 +33,8 @@ interface StateModifiers {
     setCompany: Dispatch<SetStateAction<string>>;
     setCountry: Dispatch<SetStateAction<string>>;
     setZip: Dispatch<SetStateAction<string>>;
-    setPassword: Dispatch<SetStateAction<string>>;
-    setPasswordConfirm: Dispatch<SetStateAction<string>>;
+    setCurrentPassword: Dispatch<SetStateAction<string>>;
+    setNewPassword: Dispatch<SetStateAction<string>>;
     setPhoneError: Dispatch<SetStateAction<string>>;
 }
 
@@ -48,8 +48,8 @@ const initialState: StateValues = {
     company: "",
     country: "",
     zip: "",
-    password: "",
-    passwordConfirm: "",
+    currentPassword: "",
+    newPassword: "",
     phoneError: "",
 };
 
@@ -63,8 +63,8 @@ const stateModifiers: StateModifiers = {
     setCompany: () => {},
     setCountry: () => {},
     setZip: () => {},
-    setPassword: () => {},
-    setPasswordConfirm: () => {},
+    setCurrentPassword: () => {},
+    setNewPassword: () => {},
     setPhoneError: () => {},
 };
 
@@ -86,8 +86,8 @@ export const SettingsProvider: FC = ({ children }) => {
     const [company, setCompany] = useState<string>("");
     const [country, setCountry] = useState<string>("");
     const [zip, setZip] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+    const [currentPassword, setCurrentPassword] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
 
     const hooks: StateValues = useMemo(() => {
         return {
@@ -100,8 +100,8 @@ export const SettingsProvider: FC = ({ children }) => {
             company,
             country,
             zip,
-            password,
-            passwordConfirm,
+            currentPassword,
+            newPassword,
             phoneError,
         };
     }, [
@@ -112,8 +112,8 @@ export const SettingsProvider: FC = ({ children }) => {
         email,
         firstName,
         lastName,
-        password,
-        passwordConfirm,
+        currentPassword,
+        newPassword,
         phone,
         zip,
         phoneError,
@@ -130,8 +130,8 @@ export const SettingsProvider: FC = ({ children }) => {
             setCompany,
             setCountry,
             setZip,
-            setPassword,
-            setPasswordConfirm,
+            setCurrentPassword,
+            setNewPassword,
             setPhoneError,
         };
     }, [
@@ -144,8 +144,8 @@ export const SettingsProvider: FC = ({ children }) => {
         setCompany,
         setCountry,
         setZip,
-        setPassword,
-        setPasswordConfirm,
+        setCurrentPassword,
+        setNewPassword,
         setPhoneError,
     ]);
 

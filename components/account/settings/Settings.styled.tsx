@@ -33,3 +33,5 @@ export const PassowrdContainer = styled.div`
         sm:(width[calc(50% - 0.333vw)])`}
     }
 `;
+
+export const UtilityButton = styled.button``;

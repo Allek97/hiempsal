@@ -7,12 +7,16 @@ import { customerUpdateMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
 import useCustomer from "./use-customer";
 
-type CustomerUpdate = {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
-    acceptsMarketing?: boolean;
+export type CustomerUpdate = {
+    customer: {
+        email?: string;
+        firstName?: string;
+        lastName?: string;
+        phone?: string;
+        acceptsMarketing?: boolean;
+        password?: string;
+    };
+    customerAccessToken: string;
 };
 
 type AddItemHookDescriptor = {
@@ -39,9 +43,7 @@ const handler: MutationHook<AddItemHookDescriptor> = {
         if (errors) throw new Error(errors[0].message);
         const { customerUpdate } = data;
         if (customerUpdate?.customerUserErrors.length)
-            throw new Error(
-                "Missing fields or server error, please try again later"
-            );
+            throw new Error(customerUpdate.customerUserErrors[0].message);
 
         if (customerUpdate.customerAccessToken)
             setCustomerToken(
@@ -54,10 +56,10 @@ const handler: MutationHook<AddItemHookDescriptor> = {
     useHook:
         ({ fetch }) =>
         () => {
-            const { data: customer, mutate: updateCustomer } = useCustomer();
+            const { mutate: updateCustomer } = useCustomer();
             return async (input) => {
                 const response = await fetch(input);
-                await updateCustomer({ ...customer!, ...input }, false);
+                await updateCustomer();
                 return response;
             };
         },

@@ -5,7 +5,7 @@ import { MutationHook } from "@framework/types/hooks";
 import { customerCreateAddressMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
 
-type CustomerUpdate = {
+export type CustomerAddressCreate = {
     address: {
         address1?: string;
         city?: string;
@@ -17,7 +17,7 @@ type CustomerUpdate = {
 };
 
 type AddItemHookDescriptor = {
-    fetcherInput: CustomerUpdate;
+    fetcherInput: CustomerAddressCreate;
     fetcherOutput: {
         customerAddressCreate: CustomerAddressCreatePayload;
     };
@@ -48,7 +48,7 @@ const handler: MutationHook<AddItemHookDescriptor> = {
             !customerAddressCreate.customerAddress
         )
             throw new Error(
-                "Missing fields or server error, please try again later"
+                customerAddressCreate.customerUserErrors[0].message
             );
 
         return { addressId: customerAddressCreate.customerAddress.id };

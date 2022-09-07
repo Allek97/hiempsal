@@ -7,7 +7,7 @@ import { customerUpdateAddressMutation } from "@framework/utils/mutations";
 import { useMutationHook } from "@framework/utils/use-hooks";
 import useCustomer from "./use-customer";
 
-type CustomerUpdate = {
+export type CustomerAddressUpdate = {
     address: {
         address1?: string;
         city?: string;
@@ -20,7 +20,7 @@ type CustomerUpdate = {
 };
 
 type AddItemHookDescriptor = {
-    fetcherInput: CustomerUpdate;
+    fetcherInput: CustomerAddressUpdate;
     fetcherOutput: {
         customerAddressUpdate: CustomerAddressUpdatePayload;
     };
@@ -46,7 +46,7 @@ const handler: MutationHook<AddItemHookDescriptor> = {
         const { customerAddressUpdate } = data;
         if (customerAddressUpdate?.customerUserErrors.length)
             throw new Error(
-                "Missing fields or server error, please try again later"
+                customerAddressUpdate.customerUserErrors[0].message
             );
 
         return null;

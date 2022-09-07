@@ -199,6 +199,8 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                 </ProductPolicy>
                 <CartButton
                     isLoading={isLoading}
+                    preText="Add to Cart"
+                    loadingText="Adding"
                     onClick={() => setIsSubmitAttempt(true)}
                 />
             </Form>

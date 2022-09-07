@@ -7,7 +7,9 @@ import { AnimatedTextProps } from "@components/utils/animations/AnimatedText";
 import { CartBtn, CartBtnWrapper } from "./CartButton.styled";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-    isLoading?: boolean;
+    isLoading: boolean;
+    preText: string;
+    loadingText: string;
 }
 
 // Variants
@@ -19,6 +21,10 @@ const variants2: Variants = {
     loading: {
         backgroundColor: "#e2e2e2",
         color: "var(--secondary)",
+    },
+    notLoading: {
+        backgroundColor: "black",
+        color: "var(--primary)",
     },
 };
 const container: Variants = {
@@ -33,7 +39,7 @@ const container: Variants = {
 const boxAnimation1 = {
     initial: { x: "calc(-100% - 30px)" },
     transition: {
-        duration: "0.5",
+        duration: 0.5,
         ease: [0.19, 1, 0.22, 1],
     },
     variants: variants1,
@@ -41,20 +47,26 @@ const boxAnimation1 = {
 
 const boxAnimation2 = {
     transition: {
-        duration: "0.5",
+        duration: 0.5,
         ease: [0.19, 1, 0.22, 1],
     },
     variants: variants2,
 };
 
-const placeholderTextInitial: AnimatedTextProps[] = [
-    { type: "heading1", text: "Add to Cart" },
-];
-const placeholderTextInitialAnimated: AnimatedTextProps[] = [
-    { type: "heading1", text: "Adding" },
-];
+const CartButton: FC<Props> = ({
+    isLoading,
+    preText,
+    loadingText,
 
-const CartButton: FC<Props> = ({ isLoading = false, onClick }) => {
+    onClick,
+}) => {
+    const placeholderTextInitial: AnimatedTextProps[] = [
+        { type: "heading1", text: preText },
+    ];
+    const placeholderTextInitialAnimated: AnimatedTextProps[] = [
+        { type: "heading1", text: loadingText },
+    ];
+
     return (
         <CartBtnWrapper
             initial={{ opacity: 0 }}
@@ -69,11 +81,14 @@ const CartButton: FC<Props> = ({ isLoading = false, onClick }) => {
                 onClick={onClick}
             >
                 <motion.div
-                    animate={isLoading && "loading"}
+                    animate={isLoading ? "loading" : "notLoading"}
                     {...boxAnimation1}
                     data-testid="motion-x"
                 />
-                <motion.div animate={isLoading && "loading"} {...boxAnimation2}>
+                <motion.div
+                    animate={isLoading ? "loading" : "notLoading"}
+                    {...boxAnimation2}
+                >
                     <motion.div
                         initial="visible"
                         animate={isLoading ? "hidden" : "visible"}
@@ -105,10 +120,6 @@ const CartButton: FC<Props> = ({ isLoading = false, onClick }) => {
             </CartBtn>
         </CartBtnWrapper>
     );
-};
-
-CartButton.defaultProps = {
-    isLoading: false,
 };
 
 export default CartButton;

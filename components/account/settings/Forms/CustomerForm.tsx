@@ -10,15 +10,15 @@ import { Controller, useFormContext } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 
-import { CustomerUpdate } from "../Settings";
-import { useCustomerSettings } from "./context";
+import { CustomerUpdateInfo } from "../Settings";
+import { useCustomerSettings } from "../context";
 
 const CustomerForm: FC = () => {
     const {
         register,
         control,
         formState: { errors },
-    } = useFormContext<CustomerUpdate>();
+    } = useFormContext<CustomerUpdateInfo>();
 
     const {
         email,
@@ -84,6 +84,7 @@ const CustomerForm: FC = () => {
                 )}
                 <motion.label htmlFor="customer-firstName" className="relative">
                     <FormInput
+                        {...register("firstName")}
                         id="customer-firstName"
                         type="text"
                         required
@@ -123,11 +124,10 @@ const CustomerForm: FC = () => {
                 )}
                 <motion.label htmlFor="customer-lastName" className="relative">
                     <FormInput
+                        {...register("lastName")}
                         id="customer-lastName"
                         type="text"
-                        required
                         placeholder=" "
-                        aria-required
                         maxLength={150}
                         autoComplete="customer-lastName"
                         value={lastName}

@@ -3,7 +3,7 @@ export { default as checkoutLineItemsAddMutation } from "./checkout-line-items-a
 export { default as checkoutLineItemsRemoveMutation } from "./checkout-line-items-remove";
 export { default as checkoutLineItemsUpdateMutation } from "./checkout-line-items-update";
 export { default as customerCreateMutation } from "./customer-create";
-export { default as customerUpdateMutation } from "./customer-create";
+export { default as customerUpdateMutation } from "./customer-update";
 export { default as customerCreateAddressMutation } from "./customer-create-address";
 export { default as customerUpdateAddressMutation } from "./customer-update-address";
 export { default as customerUpdateDefaultAddressMutation } from "./customer-update-default-address";

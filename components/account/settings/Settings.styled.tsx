@@ -21,7 +21,7 @@ export const Container = styled.div`
 
 export const CustomerAvatar = styled.div`
     ${tw`flex items-center justify-center height[105px] width[105px] mx-auto
-    border-radius[50%] bg-accents-8 text-secondary font-size[28px]
+    border-radius[50%] bg-accents-8 uppercase text-secondary font-size[28px]
     xl:(mr-5 height[125px] width[125px])`}
 `;
 

@@ -228,11 +228,19 @@ const Settings: FC = () => {
         <Account>
             <Container>
                 <div className="flex flex-col items-center w-max mb-10 lg:flex-row">
-                    <CustomerAvatar>IL</CustomerAvatar>
+                    <CustomerAvatar>
+                        {customer?.firstName?.substring(0, 2) ?? "HP"}
+                    </CustomerAvatar>
                     <Link href="/account/overview">
                         <a className="mt-3 text-xs xl:text-sm">
                             <span className="underline mr-0.5">
-                                Ilias's account
+                                {customer?.firstName
+                                    ? customer.firstName
+                                          .charAt(0)
+                                          .toUpperCase() +
+                                      customer.firstName.slice(1)
+                                    : "Your"}
+                                {customer?.firstName && "'s"} account
                             </span>
                             <span
                                 className="xl:text-sm"

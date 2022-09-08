@@ -22,7 +22,7 @@ const Account: FC = ({ children }) => {
     const isOverviewSelected = router.pathname === "/account/overview";
     const isOrderSelected = router.pathname.includes("/account/orders");
     const isSettingSelected = router.pathname === "/account/settings";
-    const isNotificationSelected = router.pathname === "/account/notifications";
+    const isNotificationSelected = router.pathname === "/account/preferences";
 
     const logout = useLogout();
     async function logingOut() {
@@ -90,7 +90,7 @@ const Account: FC = ({ children }) => {
                             </NavBtn>
                         </FunctionalLink>
                     </Link>
-                    <Link href="/account/notifications" passHref>
+                    <Link href="/account/preferences" passHref>
                         <FunctionalLink>
                             <NavBtn isSelected={isNotificationSelected}>
                                 <HiArrowNarrowRight />
@@ -101,7 +101,7 @@ const Account: FC = ({ children }) => {
                                             : "",
                                     }}
                                 >
-                                    Notifications
+                                    Preferences
                                 </h1>
                             </NavBtn>
                         </FunctionalLink>

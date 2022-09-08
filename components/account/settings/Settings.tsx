@@ -216,7 +216,6 @@ const Settings: FC = () => {
             setConfirm(false);
             setIsloading(false);
             if (err instanceof Error) {
-                console.log(err.message);
                 if (err.message.includes("phone")) {
                     setPhoneError("Phone number is not valid");
                 } else setServerError(err.message);

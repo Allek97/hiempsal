@@ -20,9 +20,12 @@ export type ApiFetcherOptions = {
     query: string;
     variables?: Variables;
 };
+type RestMethods = "GET" | "POST" | "PATCH" | "DELETE";
+
 export type ApiFetcherOptionsRest = {
     url: string;
     body?: Body;
+    method: RestMethods;
 };
 export type ApiFetcher<T = any> = (
     options: ApiFetcherOptions

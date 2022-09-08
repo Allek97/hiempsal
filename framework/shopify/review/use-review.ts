@@ -22,6 +22,7 @@ const useReview = (): UseReview => {
         try {
             const { data } = await fetchRest<Review[]>({
                 url: url,
+                method: "GET",
             });
 
             return data;

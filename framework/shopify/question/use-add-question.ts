@@ -19,6 +19,7 @@ const useAddQuestion = (): UseAddQuestion => {
         const { data } = await fetchRest<Omit<Question, "answer">>({
             url: "/api/questions",
             body: input,
+            method: "POST",
         });
 
         return data;

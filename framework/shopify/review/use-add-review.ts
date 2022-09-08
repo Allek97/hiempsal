@@ -19,6 +19,7 @@ const useAddReview = (): UseAddReview => {
         const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
             url: "/api/reviews",
             body: input,
+            method: "POST",
         });
 
         return data;

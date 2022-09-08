@@ -4,10 +4,11 @@ import axios, { AxiosError } from "axios";
 const fetchRestApi = async <T>({
     url,
     body,
+    method,
 }: ApiFetcherOptionsRest): Promise<ApiFetcherResults<T>> => {
     try {
         const res = await axios({
-            method: body ? "POST" : "GET",
+            method: method,
             url: url,
             data: body && body,
         });

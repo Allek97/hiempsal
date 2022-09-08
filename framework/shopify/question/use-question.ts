@@ -22,6 +22,7 @@ const useQuestion = (): UseQuestion => {
         try {
             const { data } = await fetchRest<Question[]>({
                 url: url,
+                method: "GET",
             });
 
             return data;

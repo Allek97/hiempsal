@@ -32,13 +32,13 @@ const reviewSchema = new Schema<IReview>({
     clothChecks: {
         type: checkClothSchema,
         required: function () {
-            return (this as IReview).productType === "clothing";
+            return (this as unknown as IReview).productType === "clothing";
         },
     },
     techChecks: {
         type: checkTechSchema,
         required: function () {
-            return (this as IReview).productType === "technology";
+            return (this as unknown as IReview).productType === "technology";
         },
     },
     name: {
@@ -48,7 +48,6 @@ const reviewSchema = new Schema<IReview>({
     email: {
         type: String,
         required: [true, "You need to provide an email"],
-        unique: true,
         lowercase: true,
         validate: [validator.isEmail, "You need to provide a valid email"],
     },
@@ -73,6 +72,8 @@ const reviewSchema = new Schema<IReview>({
         set: (val: number) => Math.round(val * 10) / 10,
     },
 });
+
+reviewSchema.index({ email: 1, productId: 1 }, { unique: true });
 
 reviewSchema.statics.calcAverageRatings = async function (productId: string) {
     const stats = await this.aggregate([

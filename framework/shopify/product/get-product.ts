@@ -25,6 +25,8 @@ const getProduct = async (options: {
 
     const { product } = data;
 
+    if (!product) throw new Error("No product with this slug/handle exists");
+
     return {
         product: normalizeProduct(product),
     };

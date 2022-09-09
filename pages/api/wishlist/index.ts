@@ -1,3 +1,6 @@
+import { getConfig } from "@framework/api/config";
+import getProduct from "@framework/product/get-product";
+import { Product } from "@framework/types/product";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Wishlist from "server/models/Wishlist";
 import { IWishlist } from "server/types/wishlist";
@@ -12,14 +15,43 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (method === "GET") {
         try {
             let query = {};
-            if (req.query._id) query = { customerId: req.query._id };
+            if (req.query._id) query = { _id: req.query._id };
             if (req.query.customerId)
                 query = { ...query, customerId: req.query.customerId };
 
             const doc: IWishlist[] = await Wishlist.find(query);
+
+            const products: Array<{ product: Product | null }> = [];
+            if (doc[0]?.products?.length) {
+                await Promise.all(
+                    doc[0]?.products?.map(async (slug) => {
+                        try {
+                            const product = await getProduct({
+                                config: getConfig(),
+                                variables: {
+                                    slug,
+                                },
+                            });
+                            products.push(product);
+                        } catch (err) {
+                            if (
+                                err instanceof Error &&
+                                err.message.includes("slug")
+                            ) {
+                                await Wishlist.findByIdAndUpdate(
+                                    req.query._id,
+                                    { $pull: { products: slug } },
+                                    { safe: true }
+                                );
+                            }
+                        }
+                    })
+                );
+            }
+
             return res.status(200).json({
                 status: "success",
-                data: doc[0],
+                data: products,
             });
         } catch (err) {
             assertIsError(err);
@@ -31,11 +63,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (method === "POST") {
-        const { body } = req;
-        const wishListBody = body as IWishlist;
-
         try {
-            const doc = await Wishlist.create(wishListBody);
+            const doc = await Wishlist.create({});
 
             return res.status(201).json({
                 status: "success",
@@ -52,9 +81,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (method === "PATCH") {
         const { body } = req;
-        console.log(body, req.query._id);
         const wishListBody = body as Partial<IWishlist> & {
-            productId?: string;
+            slug?: string;
         };
         try {
             let doc;
@@ -65,19 +93,48 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 });
             }
             // Add a product id to the wishlist session
-            if (wishListBody.productId) {
+            if (wishListBody.slug) {
                 doc = await Wishlist.findByIdAndUpdate(
                     req.query._id,
-                    { $addToSet: { products: wishListBody.productId } },
+                    { $addToSet: { products: wishListBody.slug } },
                     { safe: true, upsert: true, new: true }
                 );
             }
 
-            if (!doc) throw new Error("No document found with that ID");
+            if (!doc)
+                throw new Error(
+                    "No document found with that ID or you provided wrong data"
+                );
 
             return res.status(200).json({
                 status: "success",
                 data: { wishlist: doc },
+            });
+        } catch (err) {
+            // assertIsError(err);
+            return res.status(400).json({
+                status: "error",
+                err: err,
+            });
+        }
+    }
+
+    if (method === "DELETE") {
+        const { body } = req;
+
+        try {
+            if (!body.slug)
+                throw new Error("You need to provide the product slug");
+
+            await Wishlist.findByIdAndUpdate(
+                req.query._id,
+                { $pull: { products: body.slug } },
+                { safe: true }
+            );
+
+            return res.status(204).json({
+                status: "success",
+                data: null,
             });
         } catch (err) {
             // assertIsError(err);

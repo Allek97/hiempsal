@@ -51,7 +51,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             return res.status(200).json({
                 status: "success",
-                data: products,
+                data: doc[0]
+                    ? { products: products, wishlistToken: doc[0]._id }
+                    : null,
             });
         } catch (err) {
             assertIsError(err);
@@ -68,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             return res.status(201).json({
                 status: "success",
-                data: { wishlist: doc },
+                data: doc,
             });
         } catch (err) {
             // assertIsError(err);
@@ -88,14 +90,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             let doc;
             // Associate customer to a wishlist session object
             if (wishListBody.customerId) {
-                doc = await Wishlist.findByIdAndUpdate(req.query._id, {
+                doc = await Wishlist.findByIdAndUpdate(wishListBody._id, {
                     customerId: wishListBody.customerId,
                 });
             }
             // Add a product id to the wishlist session
             if (wishListBody.slug) {
                 doc = await Wishlist.findByIdAndUpdate(
-                    req.query._id,
+                    wishListBody._id,
                     { $addToSet: { products: wishListBody.slug } },
                     { safe: true, upsert: true, new: true }
                 );
@@ -108,7 +110,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             return res.status(200).json({
                 status: "success",
-                data: { wishlist: doc },
+                data: doc,
             });
         } catch (err) {
             // assertIsError(err);

@@ -18,23 +18,11 @@ type UseReview = (
 const useReview = (): UseReview => {
     const { fetchRest } = getConfig();
 
-    const hookFetcher = async (url: string) => {
-        try {
-            const { data } = await fetchRest<Review[]>({
-                url: url,
-                method: "GET",
-            });
-
-            return data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw error as AxiosError;
-            } else throw new Error("different error than axios");
-        }
-    };
-
-    const useData = (context: FetcherContext): SWRResponse<Review[], any> => {
-        const { productId, userEmail } = context;
+    const fetcher = async (
+        input: FetcherContext,
+        url: string
+    ): Promise<Review[]> => {
+        const { productId, userEmail } = input;
         let query = "";
 
         if (productId && userEmail)
@@ -43,7 +31,26 @@ const useReview = (): UseReview => {
         else if (userEmail) query = `?email=${userEmail}`;
         else query = "";
 
-        const result = useSWR(`/api/reviews${query}`, hookFetcher);
+        const { data } = await fetchRest<Review[]>({
+            url: `${url}${query}`,
+            method: "GET",
+        });
+
+        return data;
+    };
+
+    const useData = (context: FetcherContext): SWRResponse<Review[], any> => {
+        const hookFetcher = async (url: string) => {
+            try {
+                return await fetcher(context, url);
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    throw error as AxiosError;
+                } else throw new Error("different error than axios");
+            }
+        };
+
+        const result = useSWR(`/api/reviews`, hookFetcher);
 
         return result;
     };

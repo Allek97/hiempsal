@@ -4,12 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Variants } from "framer-motion";
 
-import { useMediaQueryNext } from "@hooks";
 import { MdRemoveShoppingCart } from "react-icons/md";
 
 import { LineItem } from "@framework/types/cart";
 import { currencyMap } from "@framework/utils/optionMapping";
-import { truncateText } from "@lib/truncateText";
+
 import useRemoveItem from "@framework/cart/use-remove-item";
 
 import { CartQuantity } from "..";
@@ -46,9 +45,6 @@ const articleVariant: Variants = {
 };
 
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
-    const isScreenSmall = useMediaQueryNext("sm");
-    const isScreenTiny = useMediaQueryNext(21.875);
-
     const selectedColor = cartItem.options?.find((option) =>
         option.displayName.toLowerCase().match(/colou?r/gi)
     )?.values[0].hexColor;
@@ -90,20 +86,15 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
             </Link>
 
             <ProductDetails>
-                {isScreenSmall && (
-                    <>
-                        <DecorationTop color="medium" />
-                        <DecorationBottom color="dark" />
-                    </>
-                )}
+                <span className="hidden sm:block">
+                    <DecorationTop color="medium" />
+                    <DecorationBottom color="dark" />
+                </span>
+
                 <div>
-                    <h2>
+                    <h2 className="overflow-ellipsis">
                         <Link href={`/products/${cartItem.path}`} passHref>
-                            <a>
-                                {!isScreenTiny
-                                    ? truncateText(cartItem.name, 29)
-                                    : cartItem.name}
-                            </a>
+                            <a className="overflow-ellipsis">{cartItem.name}</a>
                         </Link>
                     </h2>
                     <article>

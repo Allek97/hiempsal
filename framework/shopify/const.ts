@@ -9,5 +9,6 @@ export const SHOPIFY_COOKIE_EXPIRE = 90;
 export const SHOPIFY_CHECKOUT_URL_COOKIE = "shopify_checkoutUrl";
 // customer
 export const SHOPIFY_CUSTOMER_TOKEN_COOKIE = "shopify_customerToken";
+export const SHOPIFY_CUSTOMER_ID = "shopify_customerId";
 // wishlist
 export const SHOPIFY_WISHLIST_TOKEN_COOKIE = "shopify_wishlistToken";

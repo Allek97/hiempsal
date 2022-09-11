@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
 export type Wishlist = {
-    wishlistToken: string;
+    _id: string;
     products: Product[];
 };

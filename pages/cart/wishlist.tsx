@@ -1,8 +1,8 @@
-import { Layout, Usernav } from "@components/common";
-import { Wishlist as WishlistView } from "@components/wishlist";
+import { Layout } from "@components/common";
+import { Wishlist } from "@components/wishlist";
 
-export default function Wishlist() {
-    return <Usernav>{/* <WishlistView /> */}</Usernav>;
+export default function WishlistPage() {
+    return <Wishlist />;
 }
 
-Wishlist.Layout = Layout;
+WishlistPage.Layout = Layout;

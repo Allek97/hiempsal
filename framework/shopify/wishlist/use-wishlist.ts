@@ -46,7 +46,7 @@ const useWishlist = (): UseWishlist => {
                         ...wishlist,
                         products: _.uniq([
                             ...wishlist.products,
-                            ...data?.products,
+                            ...data.products,
                         ]),
                     };
                 else wishlist = data;
@@ -62,18 +62,19 @@ const useWishlist = (): UseWishlist => {
             wishlist = data;
         }
 
+        console.log(wishlist);
         if (customerId) {
             await fetchRest<Wishlist>({
                 url: query,
                 method: "PATCH",
                 body: {
                     customerId,
-                    wishlistToken: wishlist.wishlistToken,
+                    _id: wishlist._id,
                 },
             });
         }
 
-        setWishlistToken(wishlist.wishlistToken);
+        setWishlistToken(wishlist._id);
 
         return wishlist as Wishlist;
     };

@@ -10,6 +10,7 @@ import { FunctionalLink } from "@components/utils";
 import useCart from "@framework/cart/use-cart";
 
 import { currencyMap } from "@framework/utils/optionMapping";
+import { Usernav } from "@components/common";
 
 import {
     CartPaymentContainer,
@@ -46,103 +47,108 @@ const Cart: FC = () => {
     const { data, isEmpty } = useCart();
 
     return (
-        <Root>
-            <Media greaterThanOrEqual="lg">
-                <ItemsHeader>
-                    <div>Product</div>
-                    <div>Colors</div>
-                    <div>Size</div>
-                    <div>Gender</div>
-                    <div>Price</div>
-                </ItemsHeader>
-            </Media>
+        <Usernav>
+            <Root>
+                <Media greaterThanOrEqual="lg">
+                    <ItemsHeader>
+                        <div>Product</div>
+                        <div>Colors</div>
+                        <div>Size</div>
+                        <div>Gender</div>
+                        <div>Price</div>
+                    </ItemsHeader>
+                </Media>
 
-            <AnimatePresence>
-                {isEmpty ? (
-                    <EmptyCartRoot>
-                        <EmptyCartBox>
-                            <h1>
-                                Self-confidence is the best outfit,rock it and
-                                own it !
-                            </h1>
-                        </EmptyCartBox>
-                        <ShoppingWrapper>
-                            <Link href="/" passHref>
-                                <FunctionalLink>
-                                    <ShoppingButton
-                                        Component="button"
-                                        color="var(--accents-2)"
-                                        aria-label="Go Shopping"
-                                    >
-                                        Go Shopping
-                                    </ShoppingButton>
-                                </FunctionalLink>
-                            </Link>
-                        </ShoppingWrapper>
-                    </EmptyCartRoot>
-                ) : (
-                    <motion.div
-                        key="checkout"
-                        exit={{
-                            height: 0,
-                            opacity: 0,
-                            transition: { ease: "easeIn" },
-                        }}
-                    >
+                <AnimatePresence>
+                    {isEmpty ?? (data?.lineItems.length ?? 0) <= 0 ? (
+                        <EmptyCartRoot>
+                            <EmptyCartBox>
+                                <h1>
+                                    Self-confidence is the best outfit,rock it
+                                    and own it !
+                                </h1>
+                            </EmptyCartBox>
+                            <ShoppingWrapper>
+                                <Link href="/" passHref>
+                                    <FunctionalLink>
+                                        <ShoppingButton
+                                            Component="button"
+                                            color="var(--accents-2)"
+                                            aria-label="Go Shopping"
+                                        >
+                                            Go Shopping
+                                        </ShoppingButton>
+                                    </FunctionalLink>
+                                </Link>
+                            </ShoppingWrapper>
+                        </EmptyCartRoot>
+                    ) : (
                         <motion.div
-                            className="flex flex-col overflow-hidden"
-                            variants={containerVariant}
-                            initial="hidden"
-                            animate="visible"
+                            key="checkout"
+                            exit={{
+                                height: 0,
+                                opacity: 0,
+                                transition: { ease: "easeIn" },
+                            }}
                         >
-                            <AnimatePresence>
-                                {data?.lineItems.map((item) => (
-                                    <CartArticle
-                                        cartItem={item}
-                                        currencyCode={data.currency.code}
-                                        key={`${item.id}-${item.variant.id}`}
-                                    />
-                                ))}
-                            </AnimatePresence>
+                            <motion.div
+                                className="flex flex-col overflow-hidden"
+                                variants={containerVariant}
+                                initial="hidden"
+                                animate="visible"
+                            >
+                                <AnimatePresence>
+                                    {data?.lineItems.map((item) => (
+                                        <CartArticle
+                                            cartItem={item}
+                                            currencyCode={data.currency.code}
+                                            key={`${item.id}-${item.variant.id}`}
+                                        />
+                                    ))}
+                                </AnimatePresence>
+                            </motion.div>
+
+                            <CartPaymentContainer>
+                                <ShippingBox>
+                                    <h1>Shipping</h1>
+                                    <p>Free</p>
+                                </ShippingBox>
+
+                                <TotalBox>
+                                    <div>
+                                        <h1>Total</h1>
+                                        <p>
+                                            (Taxes are calculated at checkout)
+                                        </p>
+                                    </div>
+                                    <span>
+                                        {currencyMap[
+                                            `${data?.currency.code}`
+                                        ] ?? "$"}
+                                        {data?.totalPrice}
+                                    </span>
+                                </TotalBox>
+
+                                <CheckoutWrapper>
+                                    <CheckoutButton
+                                        Component="a"
+                                        href="/api/checkout"
+                                    >
+                                        Checkout
+                                    </CheckoutButton>
+                                </CheckoutWrapper>
+
+                                <PaymentVendors>
+                                    {payments.map(({ id, icon }) => (
+                                        <li key={id}>{icon}</li>
+                                    ))}
+                                </PaymentVendors>
+                            </CartPaymentContainer>
                         </motion.div>
-
-                        <CartPaymentContainer>
-                            <ShippingBox>
-                                <h1>Shipping</h1>
-                                <p>Free</p>
-                            </ShippingBox>
-
-                            <TotalBox>
-                                <div>
-                                    <h1>Total</h1>
-                                    <p>(Taxes are calculated at checkout)</p>
-                                </div>
-                                <span>
-                                    {currencyMap[`${data?.currency.code}`] ??
-                                        "$"}
-                                    {data?.totalPrice}
-                                </span>
-                            </TotalBox>
-
-                            <CheckoutWrapper>
-                                <CheckoutButton
-                                    Component="a"
-                                    href="/api/checkout"
-                                >
-                                    Checkout
-                                </CheckoutButton>
-                            </CheckoutWrapper>
-
-                            <PaymentVendors>
-                                {payments.map(({ id, icon }) => (
-                                    <li key={id}>{icon}</li>
-                                ))}
-                            </PaymentVendors>
-                        </CartPaymentContainer>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </Root>
+                    )}
+                </AnimatePresence>
+            </Root>
+        </Usernav>
     );
 };
 

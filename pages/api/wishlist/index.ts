@@ -51,7 +51,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             return res.status(200).json({
                 status: "success",
-                data: doc[0] ? { products: products, _id: doc[0]._id } : null,
+                data: doc[0]
+                    ? {
+                          products: products,
+                          _id: doc[0]._id,
+                          ...(doc[0].customerId && {
+                              customerId: doc[0].customerId,
+                          }),
+                      }
+                    : null,
             });
         } catch (err) {
             assertIsError(err);

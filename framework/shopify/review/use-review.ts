@@ -20,19 +20,10 @@ const useReview = (): UseReview => {
 
     const fetcher = async (
         input: FetcherContext,
-        url: string
+        query: string
     ): Promise<Review[]> => {
-        const { productId, userEmail } = input;
-        let query = "";
-
-        if (productId && userEmail)
-            query = `?productId=${productId}&email=${userEmail}`;
-        else if (productId) query = `?productId=${productId}`;
-        else if (userEmail) query = `?email=${userEmail}`;
-        else query = "";
-
         const { data } = await fetchRest<Review[]>({
-            url: `${url}${query}`,
+            url: query,
             method: "GET",
         });
 
@@ -50,7 +41,16 @@ const useReview = (): UseReview => {
             }
         };
 
-        const result = useSWR(`/api/reviews`, hookFetcher);
+        const { productId, userEmail } = context;
+        let query = "";
+
+        if (productId && userEmail)
+            query = `?productId=${productId}&email=${userEmail}`;
+        else if (productId) query = `?productId=${productId}`;
+        else if (userEmail) query = `?email=${userEmail}`;
+        else query = "";
+
+        const result = useSWR(`/api/reviews${query}`, hookFetcher);
 
         return result;
     };

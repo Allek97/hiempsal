@@ -62,7 +62,6 @@ const useWishlist = (): UseWishlist => {
             wishlist = data;
         }
 
-        console.log(wishlist);
         if (customerId) {
             await fetchRest<Wishlist>({
                 url: query,
@@ -90,7 +89,7 @@ const useWishlist = (): UseWishlist => {
             }
         };
 
-        const result = useSWR(`/api/wishlist`, hookFetcher);
+        const result = useSWR("/api/wishlist", hookFetcher);
 
         return result;
     };

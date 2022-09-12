@@ -32,7 +32,10 @@ const getWishlist = async (options: {
             if (wishlist)
                 wishlist = {
                     ...wishlist,
-                    products: _.uniq([...wishlist.products, ...data.products]),
+                    products: _.uniq(
+                        wishlist.products.concat(data.products),
+                        "id"
+                    ),
                 };
             else wishlist = data;
         }

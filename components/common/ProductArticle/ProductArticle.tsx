@@ -13,9 +13,9 @@ import { Product, ProductImage } from "@framework/types/product";
 import { Media } from "@lib/media";
 import { Plus } from "@components/icons";
 import { ImageVisualizer } from "@components/elements";
+import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
 
 import {
-    AddToCartBtn,
     Root,
     ProductBonus,
     ProductImageWrapper,
@@ -48,6 +48,8 @@ const ProductArticle: FC<Props> = ({
 
     const { openPopup } = useUI();
 
+    const removeWishlistProduct = useDeleteWishlist();
+
     function addToWishlist() {
         if (isAddedToWishlist) {
             setIsAddedToWishlist(false);
@@ -58,10 +60,12 @@ const ProductArticle: FC<Props> = ({
         }
     }
 
-    const manageProductAction = (): void => {
+    const manageProductAction = async (): Promise<void> => {
         switch (variant) {
             case "wishlist":
-                alert("Remove Item");
+                await removeWishlistProduct({
+                    slug: slug,
+                });
                 break;
             case "product":
             case "product-viewed":
@@ -75,100 +79,95 @@ const ProductArticle: FC<Props> = ({
 
     return (
         <Root>
-            <ProductWrapper isDisplayed={isDisplayed}>
-                <Link href={`/products/${slug}`} passHref>
-                    <FunctionalLink>
-                        <ImageContainer
-                            isDisplayed={isDisplayed}
-                            isOrder={variant === "order"}
-                        >
-                            <ProductImageWrapper
-                                imageSize={layout}
+            {product && (
+                <ProductWrapper isDisplayed={isDisplayed}>
+                    <Link href={`/products/${slug}`} passHref>
+                        <FunctionalLink>
+                            <ImageContainer
                                 isDisplayed={isDisplayed}
+                                isOrder={variant === "order"}
                             >
-                                <div>
-                                    <Image
-                                        src={selectedImage.url ?? placeHolder}
-                                        alt="Black hoodie"
-                                        quality="80"
-                                        layout="fill"
-                                        objectFit="contain"
-                                        priority
-                                    />
-                                </div>
-                            </ProductImageWrapper>
-                        </ImageContainer>
-                    </FunctionalLink>
-                </Link>
-
-                <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
-                    <div className="flex items-start justify-between w-full sm:items-center">
-                        <div className="w-full">
-                            <div className="flex">
-                                <ImageVisualizer
-                                    product={product}
-                                    selectedImage={selectedImage}
-                                    setSelectedImage={setSelectedImage}
-                                    variant={
-                                        variant === "product"
-                                            ? "product"
-                                            : "userlist"
-                                    }
-                                />
-                                <ProductBtn
-                                    onClick={manageProductAction}
-                                    type="button"
-                                    isWishlist={variant === "wishlist"}
-                                    isAddedToWishlist={isAddedToWishlist}
+                                <ProductImageWrapper
+                                    imageSize={layout}
+                                    isDisplayed={isDisplayed}
                                 >
-                                    {variant !== "wishlist" ? (
-                                        <RiHeartAddFill />
-                                    ) : (
-                                        <FaHeartBroken />
-                                    )}
-                                </ProductBtn>
+                                    <div>
+                                        <Image
+                                            src={
+                                                selectedImage.url ?? placeHolder
+                                            }
+                                            alt="Black hoodie"
+                                            quality="80"
+                                            layout="fill"
+                                            objectFit="contain"
+                                            priority
+                                        />
+                                    </div>
+                                </ProductImageWrapper>
+                            </ImageContainer>
+                        </FunctionalLink>
+                    </Link>
+
+                    <ProductInfo textLayout={layout} isDisplayed={isDisplayed}>
+                        <div className="flex items-start justify-between w-full sm:items-center">
+                            <div className="w-full">
+                                <div className="flex">
+                                    <ImageVisualizer
+                                        product={product}
+                                        selectedImage={selectedImage}
+                                        setSelectedImage={setSelectedImage}
+                                        variant={
+                                            variant === "product"
+                                                ? "product"
+                                                : "userlist"
+                                        }
+                                    />
+                                    <ProductBtn
+                                        onClick={manageProductAction}
+                                        type="button"
+                                        isWishlist={variant === "wishlist"}
+                                        isAddedToWishlist={isAddedToWishlist}
+                                    >
+                                        {variant !== "wishlist" ? (
+                                            <RiHeartAddFill />
+                                        ) : (
+                                            <FaHeartBroken />
+                                        )}
+                                    </ProductBtn>
+                                </div>
+                                <Media greaterThanOrEqual="lg">
+                                    <h6>
+                                        All-rounder and breathable hoodie for
+                                        every weather
+                                    </h6>
+                                </Media>
+
+                                <Link href={`/products/${slug}`} passHref>
+                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                    <a>
+                                        <h3>{name}</h3>
+                                    </a>
+                                </Link>
                             </div>
-                            <Media greaterThanOrEqual="lg">
-                                <h6>
-                                    All-rounder and breathable hoodie for every
-                                    weather
-                                </h6>
-                            </Media>
-
-                            <Link href={`/products/${slug}`} passHref>
-                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a>
-                                    <h3>{name}</h3>
-                                </a>
-                            </Link>
                         </div>
-                    </div>
 
-                    <span>${price.value}</span>
+                        <span>${price.value}</span>
 
-                    <ProductBonus>
-                        <MdLocalOffer />
-                        <p>Summer Offer</p>
-                    </ProductBonus>
+                        <ProductBonus>
+                            <MdLocalOffer />
+                            <p>Summer Offer</p>
+                        </ProductBonus>
 
-                    {variant !== "product" ? (
-                        <AddToCartBtn
-                            onClick={
-                                variant === "wishlist"
-                                    ? openPopup
-                                    : // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                      () => {}
-                            }
-                        >
-                            Add To Cart
-                        </AddToCartBtn>
-                    ) : (
-                        <QuickViewBtn type="button" onClick={openPopup}>
-                            <Plus /> <h5>Quick View</h5>
-                        </QuickViewBtn>
-                    )}
-                </ProductInfo>
-            </ProductWrapper>
+                        <Link href={`/products${product.path}`} passHref>
+                            <FunctionalLink>
+                                <QuickViewBtn type="button" onClick={openPopup}>
+                                    <Plus /> <h5>Visit Product</h5>
+                                </QuickViewBtn>
+                            </FunctionalLink>
+                        </Link>
+                    </ProductInfo>
+                </ProductWrapper>
+            )}
         </Root>
     );
 };

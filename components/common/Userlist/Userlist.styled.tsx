@@ -10,7 +10,7 @@ const opaqueAnimation = keyframes`
 
 export const Root = styled.div`
     ${tw`height[100%] mt-3 opacity-0
-    lg:(h-full w-full mt-0 padding-left[2.66667vw] padding-right[2.66667vw])`}
+    lg:(h-full w-full mt-0)`}
 
     animation: ${opaqueAnimation} 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1 forwards;
 `;
@@ -29,7 +29,7 @@ export const RootEmpty = styled.div`
 `;
 
 export const ContainerEmpty = styled.div<Record<string, unknown>>`
-    ${tw`relative w-full h-full
+    ${tw`relative w-full h-full mb-10
     xl:margin-top[-1.5rem]
     2xl:margin-top[-2.5rem]
     4xl:margin-top[-4.5rem]`}
@@ -85,10 +85,12 @@ export const DecorationTwoBottom = styled(DecorationTwoTop)`
 export const UserlistFull = styled.article`
     ${tw`flex flex-col`}
 
+    ${({ theme }) => theme.layout.mainPadding}
+
     & > h1:first-of-type {
-        ${tw`pt-4 pb-10 margin-left[4vw] border-t-2 border-t-secondary 
+        ${tw`pt-4 pb-10 padding-left[4vw] border-t-2 border-t-secondary 
         font-size[27px] font-family["Whyte Inktrap"] tracking-tighter
-        lg:(ml-0 pt-0 border-0 font-size[29px] )
+        lg:(pl-0 pt-0 border-0 font-size[29px] )
         xl:(font-size[2.25vw])
         2xl:(font-size[33px])`}
     }

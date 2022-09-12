@@ -16,6 +16,8 @@ const priceTextSize = css`
 
 export const Root = styled.div`
     ${tw`relative flex flex-col`}
+
+    ${({ theme }) => theme.layout.mainPadding}
 `;
 
 export const ItemsHeader = styled.div`

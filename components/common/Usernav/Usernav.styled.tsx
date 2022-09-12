@@ -90,8 +90,6 @@ export const Content = styled.section<Record<string, unknown>>`
       3xl:w-2/3
       4xl:w-3/4`}
 
-    ${({ theme }) => theme.layout.mainPadding}
-
     ${customScroll}
 
     animation: ${opaqueAnimation} 2s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
@@ -110,6 +108,7 @@ export const ShopPolicy = styled.div`
     /* margin-bottom: 5rem; */
 
     ${({ theme }) => theme.textSize.textSizeSmall}
+    ${({ theme }) => theme.layout.mainPadding}
 
     span {
         margin-bottom: 0.5rem;

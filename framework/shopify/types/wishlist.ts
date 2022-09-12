@@ -5,3 +5,8 @@ export type Wishlist = {
     products: Product[];
     customerId?: string;
 };
+export type WishlistServer = {
+    _id: string;
+    products: string[];
+    customerId?: string;
+};

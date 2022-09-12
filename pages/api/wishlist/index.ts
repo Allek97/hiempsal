@@ -21,12 +21,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             const doc: IWishlist[] = await Wishlist.find(query);
 
-            const products: Array<{ product: Product | null }> = [];
+            const products: Array<Product | null> = [];
             if (doc[0]?.products?.length) {
                 await Promise.all(
                     doc[0]?.products?.map(async (slug) => {
                         try {
-                            const product = await getProduct({
+                            const { product } = await getProduct({
                                 config: getConfig(),
                                 variables: {
                                     slug,
@@ -129,20 +129,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (method === "DELETE") {
         const { body } = req;
+        const wishListBody = body as Partial<IWishlist> & {
+            slug?: string;
+        };
 
         try {
-            if (!body.slug)
+            if (!wishListBody.slug)
                 throw new Error("You need to provide the product slug");
 
-            await Wishlist.findByIdAndUpdate(
-                req.query._id,
-                { $pull: { products: body.slug } },
+            const doc = await Wishlist.findByIdAndUpdate(
+                wishListBody._id,
+                { $pull: { products: wishListBody.slug } },
                 { safe: true }
             );
 
-            return res.status(204).json({
+            return res.status(200).json({
                 status: "success",
-                data: null,
+                data: doc,
             });
         } catch (err) {
             // assertIsError(err);

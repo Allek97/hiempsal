@@ -309,8 +309,8 @@ export const ProductBonus = styled.div`
 `;
 
 export const AddToCartBtn = styled(Button)`
-    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0] border border-accents-3 
-    bg-accents-3 capitalize text-primary tracking-tighter
+    ${tw`padding-top[3.7vw] padding-bottom[3.7vw] margin[4vw 0 0]  
+    bg-black capitalize text-secondary tracking-tighter
     lg:(mt-7 mb-0 py-4)`}
 
     box-shadow: 1px 1px 3px rgb(0 0 0 / 14%);

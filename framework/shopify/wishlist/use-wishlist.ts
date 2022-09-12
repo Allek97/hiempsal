@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { getConfig } from "@framework/api/config";
-import { Wishlist } from "@framework/types/wishlist";
+import { Wishlist, WishlistServer } from "@framework/types/wishlist";
 import { setWishlistToken } from "@framework/utils/wishlist-token";
 import axios, { AxiosError } from "axios";
 import { useMemo } from "react";
@@ -44,17 +44,17 @@ const useWishlist = (): UseWishlist => {
                 if (wishlist)
                     wishlist = {
                         ...wishlist,
-                        products: _.uniq([
-                            ...wishlist.products,
-                            ...data.products,
-                        ]),
+                        products: _.uniq(
+                            wishlist.products.concat(data.products),
+                            "id"
+                        ),
                     };
                 else wishlist = data;
             }
         }
 
         if (!wishlist) {
-            const { data } = await fetchRest<Wishlist>({
+            const { data } = await fetchRest<WishlistServer>({
                 url: query,
                 method: "POST",
             });
@@ -63,7 +63,7 @@ const useWishlist = (): UseWishlist => {
         }
 
         if (customerId) {
-            await fetchRest<Wishlist>({
+            await fetchRest<WishlistServer>({
                 url: query,
                 method: "PATCH",
                 body: {

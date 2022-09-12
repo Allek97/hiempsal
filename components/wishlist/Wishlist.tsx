@@ -16,6 +16,10 @@ const Wishlist: FC = () => {
         wishlistToken: getWishlistToken(),
     });
 
+    console.log(wishlist);
+
+    // TODO Create a context to store the customerId just after he logs in
+    // or even better store it in the as a cookie
     useEffect(() => {
         let flag = true;
         async function fetcher(): Promise<void> {

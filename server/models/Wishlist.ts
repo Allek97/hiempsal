@@ -3,11 +3,7 @@ import mongoose, { Schema } from "mongoose";
 import { IWishlist } from "server/types/wishlist";
 
 const wishlistSchema = new Schema<IWishlist>({
-    products: [
-        {
-            type: String,
-        },
-    ],
+    products: [Schema.Types.Mixed],
     customerId: {
         type: String,
         required: false,

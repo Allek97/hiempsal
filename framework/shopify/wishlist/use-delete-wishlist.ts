@@ -10,7 +10,7 @@ import { getWishlistToken } from "@framework/utils/wishlist-token";
 import useWishlist from "./use-wishlist";
 
 type Input = {
-    slug: string;
+    productId: string;
 };
 
 type UseDeleteWishlist = (input: Input) => Promise<null>;
@@ -19,13 +19,12 @@ const useDeleteWishlist = (): UseDeleteWishlist => {
     const { fetchRest } = getConfig();
     const wishlistToken = getWishlistToken();
 
-    async function fetch(slug: string) {
+    async function fetch(productId: string) {
         const { data } = await fetchRest<Wishlist>({
-            url: "/api/wishlist",
+            url: `/api/wishlist?_id=${wishlistToken}`,
             method: "DELETE",
             body: {
-                _id: wishlistToken,
-                slug,
+                productId,
             },
         });
 
@@ -39,15 +38,15 @@ const useDeleteWishlist = (): UseDeleteWishlist => {
                 wishlistToken: wishlistToken,
             });
 
-            return async ({ slug }: Input) => {
+            return async ({ productId }: Input) => {
                 // eslint-disable-next-line react-hooks/rules-of-hooks
 
                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                await fetch(slug);
+                await fetch(productId);
 
                 if (data) {
                     const newProducts = data?.products.filter(
-                        (product) => product.slug !== slug
+                        (product) => product.id !== productId
                     );
                     data.products = newProducts;
                     updateWishlist(data, false);

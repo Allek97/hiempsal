@@ -5,12 +5,13 @@
 // SWR Hook
 
 import { getConfig } from "@framework/api/config";
+import { Product } from "@framework/types/product";
 import { Wishlist } from "@framework/types/wishlist";
 import { getWishlistToken } from "@framework/utils/wishlist-token";
 import useWishlist from "./use-wishlist";
 
 type Input = {
-    slug: string;
+    product: Product;
 };
 
 type UseAddWishlist = (input: Input) => Promise<Wishlist>;
@@ -19,13 +20,12 @@ const useAddWishlist = (): UseAddWishlist => {
     const { fetchRest } = getConfig();
     const wishlistToken = getWishlistToken();
 
-    async function fetch(slug: string) {
+    async function fetch(product: Product) {
         const { data } = await fetchRest<Wishlist>({
-            url: "/api/wishlist",
+            url: `/api/wishlist?_id=${wishlistToken}`,
             method: "PATCH",
             body: {
-                _id: wishlistToken,
-                slug,
+                product,
             },
         });
 
@@ -39,11 +39,11 @@ const useAddWishlist = (): UseAddWishlist => {
                 wishlistToken: wishlistToken,
             });
 
-            return async ({ slug }: Input) => {
+            return async ({ product }: Input) => {
                 // eslint-disable-next-line react-hooks/rules-of-hooks
 
                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                const wishlist = await fetch(slug);
+                const wishlist = await fetch(product);
 
                 await updateWishlist(wishlist, false);
 

@@ -1,5 +1,3 @@
-import { getConfig } from "@framework/api/config";
-import getProduct from "@framework/product/get-product";
 import { Product } from "@framework/types/product";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Wishlist from "server/models/Wishlist";
@@ -21,45 +19,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             const doc: IWishlist[] = await Wishlist.find(query);
 
-            const products: Array<Product | null> = [];
-            if (doc[0]?.products?.length) {
-                await Promise.all(
-                    doc[0]?.products?.map(async (slug) => {
-                        try {
-                            const { product } = await getProduct({
-                                config: getConfig(),
-                                variables: {
-                                    slug,
-                                },
-                            });
-                            products.push(product);
-                        } catch (err) {
-                            if (
-                                err instanceof Error &&
-                                err.message.includes("slug")
-                            ) {
-                                await Wishlist.findByIdAndUpdate(
-                                    req.query._id,
-                                    { $pull: { products: slug } },
-                                    { safe: true }
-                                );
-                            }
-                        }
-                    })
-                );
-            }
-
             return res.status(200).json({
                 status: "success",
-                data: doc[0]
-                    ? {
-                          products: products,
-                          _id: doc[0]._id,
-                          ...(doc[0].customerId && {
-                              customerId: doc[0].customerId,
-                          }),
-                      }
-                    : null,
+                data: doc[0] ?? null,
             });
         } catch (err) {
             assertIsError(err);
@@ -90,22 +52,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (method === "PATCH") {
         const { body } = req;
         const wishListBody = body as Partial<IWishlist> & {
-            slug?: string;
+            product?: Product;
         };
         try {
             let doc;
             // Associate customer to a wishlist session object
             if (wishListBody.customerId) {
-                doc = await Wishlist.findByIdAndUpdate(wishListBody._id, {
+                doc = await Wishlist.findByIdAndUpdate(req.query._id, {
                     customerId: wishListBody.customerId,
                 });
             }
-            // Add a product id to the wishlist session
-            if (wishListBody.slug) {
-                doc = await Wishlist.findByIdAndUpdate(
-                    wishListBody._id,
-                    { $addToSet: { products: wishListBody.slug } },
-                    { safe: true, upsert: true, new: true }
+            // Add a product to the wishlist session but all products should be unique
+            if (wishListBody.product) {
+                doc = await Wishlist.findOneAndUpdate(
+                    {
+                        _id: req.query._id,
+                        "products.id": { $ne: wishListBody.product.id },
+                    },
+                    { $addToSet: { products: wishListBody.product } },
+                    { new: true }
                 );
             }
 
@@ -130,16 +95,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (method === "DELETE") {
         const { body } = req;
         const wishListBody = body as Partial<IWishlist> & {
-            slug?: string;
+            productId?: string;
         };
 
         try {
-            if (!wishListBody.slug)
-                throw new Error("You need to provide the product slug");
+            if (!wishListBody.productId)
+                throw new Error("You need to provide the product id");
 
             const doc = await Wishlist.findByIdAndUpdate(
-                wishListBody._id,
-                { $pull: { products: wishListBody.slug } },
+                req.query._id,
+                { $pull: { products: { id: wishListBody.productId } } },
                 { safe: true }
             );
 

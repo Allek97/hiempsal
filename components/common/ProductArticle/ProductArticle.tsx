@@ -39,7 +39,7 @@ const ProductArticle: FC<Props> = ({
     layout = "A",
     isDisplayed = false,
 }) => {
-    const { name, slug, images, price } = product;
+    const { id, name, slug, images, price } = product;
 
     const placeHolder = "/product-image-placeholder.svg";
 
@@ -64,7 +64,7 @@ const ProductArticle: FC<Props> = ({
         switch (variant) {
             case "wishlist":
                 await removeWishlistProduct({
-                    slug: slug,
+                    productId: id,
                 });
                 break;
             case "product":

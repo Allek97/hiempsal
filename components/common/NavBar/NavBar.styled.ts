@@ -1,5 +1,6 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { transientOptions } from "@lib/transientOptions";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 
@@ -142,11 +143,18 @@ export const Container = styled.div<ContainerProps>`
     }
 `;
 
+export const textSizeNav = css`
+    ${tw`font-size[15px] line-height[1.3em] tracking-tighter 
+    lg:font-size[17px]`}
+
+    ${tw`2xl:font-size[18px]`}
+`;
+
 export const Navigation = styled.nav`
     ${tw`flex items-center`}
 
     nav {
-        ${({ theme }) => theme.textSize.textSizeMain}
+        ${textSizeNav}
     }
 `;
 
@@ -264,7 +272,10 @@ interface UtilityProps {
     $isWishlist?: boolean;
 }
 
-export const UtilityButton = styled(motion.button)<UtilityProps>`
+export const UtilityButton = styled(
+    motion.button,
+    transientOptions
+)<UtilityProps>`
     ${tw`relative`}
 
     span {
@@ -287,13 +298,18 @@ export const UtilityButton = styled(motion.button)<UtilityProps>`
         ${tw`h-auto transition-colors cursor-pointer hover:text-orange-red`}
     }
 
-    &:first-of-type > svg {
-        width: 23px;
+    &:nth-of-type(3) {
+        svg {
+            width: 25px;
+        }
     }
-    &:nth-of-type(2) > svg {
-        width: 19px;
-    }
-    &:nth-of-type(3) > svg {
-        width: 25px;
+`;
+
+export const UtilityAnimation = styled.div`
+    ${tw`absolute top-0 left-0 w-full h-full
+        overflow-hidden pointer-events-none`}
+
+    div {
+        ${tw`absolute top-0 right-0 mx-auto`}
     }
 `;

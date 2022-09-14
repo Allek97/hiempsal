@@ -10,6 +10,7 @@ import { useUI } from "@components/ui/context";
 import useCart from "@framework/cart/use-cart";
 import useWishlist from "@framework/wishlist/use-wishlist";
 import { getWishlistToken } from "@framework/utils/wishlist-token";
+import useCustomer from "@framework/customer/use-customer";
 
 import { Media } from "@lib/media";
 
@@ -49,6 +50,7 @@ const Layout: FC<Props> = ({
     const { data: wishlist } = getWishlist({
         wishlistToken: getWishlistToken()!,
     });
+    const { data: customer } = useCustomer();
 
     const wishlistSize: number = useMemo(
         () => wishlist?.products.length ?? 0,
@@ -60,11 +62,22 @@ const Layout: FC<Props> = ({
             0,
         [cart?.lineItems]
     );
+    const customerPendingOrders: number = useMemo(
+        () =>
+            customer?.orders.filter(
+                (order) => order.fulfillmentStatus !== "FULFILLED"
+            ).length ?? 0,
+        [customer?.orders]
+    );
 
     return (
         <Root ref={ref}>
             {isNavbar && (
-                <NavBar cartSize={cartSize} wishlistSize={wishlistSize} />
+                <NavBar
+                    cartSize={cartSize}
+                    wishlistSize={wishlistSize}
+                    customerPendingOrders={customerPendingOrders}
+                />
             )}
 
             {isMobileNav && (
@@ -72,6 +85,7 @@ const Layout: FC<Props> = ({
                     <MobileNav
                         cartSize={cartSize}
                         wishlistSize={wishlistSize}
+                        customerPendingOrders={customerPendingOrders}
                     />
                 </Media>
             )}

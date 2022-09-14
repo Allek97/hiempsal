@@ -45,7 +45,7 @@ const useAddWishlist = (): UseAddWishlist => {
                 // eslint-disable-next-line react-hooks/rules-of-hooks
                 const wishlist = await fetch(product);
 
-                await updateWishlist(wishlist, false);
+                await updateWishlist(wishlist, true);
 
                 return wishlist;
             };

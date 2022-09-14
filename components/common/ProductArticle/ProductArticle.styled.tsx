@@ -112,12 +112,22 @@ const productInfoTypoObj = {
     B: productInfoTypoB,
 };
 
-export const ProductBtn = styled.button`
-    ${tw`padding-top[1vw] margin-top[0.8vw] h-6 w-6
+interface ProductBtnProps {
+    isProduct: boolean;
+}
+
+export const ProductBtn = styled.button<ProductBtnProps>`
+    ${tw`margin-top[0.8vw] h-6 w-6
     cursor-pointer opacity-100 pointer-events-auto mb-auto
     lg:(h-5 w-5 mt-4 pt-1 opacity-0 pointer-events-none)
     xl:(h-6 w-6)
     2xl:(margin-top[0.7vw] h-7 w-7)`}
+
+    ${({ isProduct }) =>
+        isProduct &&
+        css`
+            ${tw`md:transform[scale(1.15)] lg:transform[scale(1.35)]`}
+        `}
 
     ${commonTypoLarge}
 

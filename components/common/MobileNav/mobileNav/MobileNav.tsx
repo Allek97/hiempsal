@@ -6,8 +6,8 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { IoMdHeart } from "react-icons/io";
 import Close from "@components/icons/Close";
+import { FaHeart } from "react-icons/fa";
 
 import { useUI } from "@components/ui/context";
 import { useProduct } from "@components/product/context";
@@ -20,7 +20,6 @@ import {
     MobileNavRoot,
 } from "./MobileNav.styled";
 import { MobileMenu } from "..";
-import { FaHeart } from "react-icons/fa";
 
 const menuBtnVariants: Variants = {
     openMenu: { rotate: [70, 0] },
@@ -63,9 +62,14 @@ const profileVariants: Variants = {
 interface Props {
     cartSize: number;
     wishlistSize: number;
+    customerPendingOrders: number;
 }
 
-const MobileNav: FC<Props> = ({ cartSize, wishlistSize }) => {
+const MobileNav: FC<Props> = ({
+    cartSize,
+    wishlistSize,
+    customerPendingOrders,
+}) => {
     const router = useRouter();
     const isUsernavOpen: boolean = router.pathname.includes("cart");
     const isProfileOpen: boolean =
@@ -225,7 +229,8 @@ const MobileNav: FC<Props> = ({ cartSize, wishlistSize }) => {
                                         >
                                             <BsPerson />
                                             <span>
-                                                {cartSize > 0 && cartSize}
+                                                {customerPendingOrders > 0 &&
+                                                    customerPendingOrders}
                                             </span>
                                         </button>
                                     </Link>

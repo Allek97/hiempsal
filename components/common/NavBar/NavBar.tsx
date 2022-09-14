@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { motion, Variants } from "framer-motion";
 import { FC, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,16 +11,17 @@ import { Media } from "@lib/media";
 import { useMediaQueryNext, useScroll, useScrollDirectionNext } from "@hooks";
 
 import { BsPerson } from "react-icons/bs";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaShopify } from "react-icons/fa";
 
 import {
-    Bag,
     Logo,
     TextLogo as Hiempsal,
     TextLogoRed as HiempsalRed,
     Arrow,
 } from "@components/icons";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { GiBrokenHeartZone } from "react-icons/gi";
+import { FiShoppingBag } from "react-icons/fi";
 
 import {
     HiemsalWrapper,
@@ -31,7 +33,9 @@ import {
     WrapperBtn,
     BackBtn,
     UtilityButton,
+    UtilityAnimation,
 } from "./NavBar.styled";
+import { MdNotificationsActive } from "react-icons/md";
 
 const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
     return (
@@ -47,12 +51,32 @@ const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
     );
 };
 
+const UtilityVariant = ({ top }: { top: boolean }): Variants => {
+    return {
+        hidden: { y: top ? "0%" : "250%" },
+        show: {
+            y: top
+                ? ["0%", "-250%", "-250%", "0%"]
+                : ["250%", "0%", "0%", "250%"],
+            transition: {
+                duration: 1.4,
+                ease: [0.19, 1, 0.22, 1],
+            },
+        },
+    };
+};
+
 interface Props {
     cartSize: number;
     wishlistSize: number;
+    customerPendingOrders: number;
 }
 
-const Navbar: FC<Props> = ({ cartSize, wishlistSize }) => {
+const Navbar: FC<Props> = ({
+    cartSize,
+    wishlistSize,
+    customerPendingOrders,
+}) => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
     const isAuthentificationOpen = router.pathname.includes("authentification");
@@ -165,7 +189,7 @@ const Navbar: FC<Props> = ({ cartSize, wishlistSize }) => {
                             )}
                         </HiemsalWrapper>
                     </Link>
-                    <Media greaterThanOrEqual="lg">
+                    <div className="hidden lg:block">
                         <UtilWrapper>
                             <Link href="/cart/wishlist" passHref>
                                 <UtilityButton
@@ -180,24 +204,77 @@ const Navbar: FC<Props> = ({ cartSize, wishlistSize }) => {
                                             : { color: "var(--orange-red)" }
                                     }
                                 >
-                                    {wishlistSize > 0 ? (
-                                        <FaHeart
-                                            style={{
-                                                fill: "var(--orange-red)",
-                                            }}
-                                        />
-                                    ) : (
-                                        <FaRegHeart />
-                                    )}
-                                    {wishlistSize > 0 && (
-                                        <span>{wishlistSize}</span>
-                                    )}
+                                    <motion.div
+                                        key={wishlistSize}
+                                        initial="hidden"
+                                        variants={UtilityVariant({ top: true })}
+                                        animate={wishlistSize > 0 && "show"}
+                                    >
+                                        {wishlistSize > 0 ? (
+                                            <>
+                                                <FaHeart
+                                                    style={{
+                                                        fill: "var(--orange-red)",
+                                                    }}
+                                                    className="w-6"
+                                                />
+                                                <span>{wishlistSize}</span>
+                                            </>
+                                        ) : (
+                                            <FaRegHeart className="w-6" />
+                                        )}
+                                    </motion.div>
+                                    <UtilityAnimation>
+                                        <motion.div
+                                            key={wishlistSize}
+                                            initial="hidden"
+                                            variants={UtilityVariant({
+                                                top: false,
+                                            })}
+                                            animate={wishlistSize > 0 && "show"}
+                                        >
+                                            <GiBrokenHeartZone
+                                                style={{
+                                                    fill: "var(--orange-red)",
+                                                }}
+                                                className="w-6"
+                                            />
+                                        </motion.div>
+                                    </UtilityAnimation>
                                 </UtilityButton>
                             </Link>
                             <Link href="/cart/bag" passHref>
                                 <UtilityButton aria-label="Cart" type="button">
-                                    <Bag />
-                                    {cartSize > 0 && <span>{cartSize}</span>}
+                                    <motion.div
+                                        key={cartSize}
+                                        initial="hidden"
+                                        variants={UtilityVariant({ top: true })}
+                                        animate={cartSize > 0 && "show"}
+                                    >
+                                        <FiShoppingBag
+                                            style={{ width: "23px" }}
+                                        />
+                                        {cartSize > 0 && (
+                                            <span>{cartSize}</span>
+                                        )}
+                                    </motion.div>
+                                    <UtilityAnimation>
+                                        <motion.div
+                                            key={cartSize}
+                                            initial="hidden"
+                                            variants={UtilityVariant({
+                                                top: false,
+                                            })}
+                                            animate={cartSize > 0 && "show"}
+                                        >
+                                            <FaShopify
+                                                style={{
+                                                    fill: "var(--green)",
+                                                    width: "23px",
+                                                }}
+                                            />
+                                        </motion.div>
+                                    </UtilityAnimation>
                                 </UtilityButton>
                             </Link>
                             <Link href="/account/overview" passHref>
@@ -205,11 +282,43 @@ const Navbar: FC<Props> = ({ cartSize, wishlistSize }) => {
                                     aria-label="Profile"
                                     type="button"
                                 >
-                                    <BsPerson />
+                                    <motion.div
+                                        key={customerPendingOrders}
+                                        initial="hidden"
+                                        variants={UtilityVariant({ top: true })}
+                                        animate={
+                                            customerPendingOrders > 0 && "show"
+                                        }
+                                    >
+                                        <BsPerson />
+                                        {customerPendingOrders > 0 && (
+                                            <span>{customerPendingOrders}</span>
+                                        )}
+                                    </motion.div>
+                                    <UtilityAnimation>
+                                        <motion.div
+                                            key={customerPendingOrders}
+                                            initial="hidden"
+                                            variants={UtilityVariant({
+                                                top: false,
+                                            })}
+                                            animate={
+                                                customerPendingOrders > 0 &&
+                                                "show"
+                                            }
+                                        >
+                                            <MdNotificationsActive
+                                                style={{
+                                                    width: "23px",
+                                                    fill: "var(--orange-red)",
+                                                }}
+                                            />
+                                        </motion.div>
+                                    </UtilityAnimation>
                                 </UtilityButton>
                             </Link>
                         </UtilWrapper>
-                    </Media>
+                    </div>
                 </Navigation>
             </Container>
         </NavbarRoot>

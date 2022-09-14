@@ -150,6 +150,7 @@ const ProductArticle: FC<Props> = ({
                                     <ProductBtn
                                         onClick={manageProductAction}
                                         type="button"
+                                        isProduct={variant === "product"}
                                     >
                                         {variant === "wishlist" ? (
                                             <ImHeartBroken
@@ -187,7 +188,7 @@ const ProductArticle: FC<Props> = ({
 
                         <ProductBonus>
                             <MdLocalOffer />
-                            <p>Summer Offer</p>
+                            <p>{product.vendor} boutique special</p>
                         </ProductBonus>
 
                         <Link href={`/products${product.path}`} passHref>

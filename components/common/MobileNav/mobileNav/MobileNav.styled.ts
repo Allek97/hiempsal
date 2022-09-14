@@ -37,6 +37,11 @@ export const MenuBtn = styled(motion.button, transientOptions)<BtnProps>`
             css`
                 fill: black;
             `}
+        ${({ $isUsernavOpen, $isProfileOpen }) =>
+            ($isProfileOpen || $isUsernavOpen) &&
+            css`
+                ${tw`text-accents-6`}
+            `}
     }
 `;
 
@@ -47,8 +52,8 @@ export const Navigation = styled.nav`
     border-radius: 50%;
 `;
 
-export const Cart = styled(motion.div, transientOptions)<BtnProps>`
-    ${tw`absolute left[38%] w-20 h-10 flex items-center rounded-3xl bg-primary`}
+export const Commun = styled(motion.div, transientOptions)<BtnProps>`
+    ${tw`absolute w-20 h-10 flex items-center rounded-3xl bg-primary`}
 
     // BUG: translate-x not working in tailwind
     /* transform: translateX(-100%); */
@@ -56,13 +61,7 @@ export const Cart = styled(motion.div, transientOptions)<BtnProps>`
     box-shadow: var(--shadow-1);
 
     button {
-        ${tw`transition-colors ml-auto mr-5`}
-
-        ${(props) =>
-            props.$isUsernavOpen &&
-            css`
-                ${tw`text-accents-6`}
-            `}
+        ${tw`relative transition-colors`}
 
         @media (hover: hover) and (pointer: fine) {
             &:hover {
@@ -76,34 +75,52 @@ export const Cart = styled(motion.div, transientOptions)<BtnProps>`
             }
         }
     }
+
+    span {
+        ${tw`absolute -top-1.5 -right-1.5 bg-orange-red border-radius[50%] 
+    flex items-center justify-center h-3.5 w-3.5 
+    font-size[9px] text-secondary`}
+    }
 `;
 
-export const Profile = styled(motion.div, transientOptions)<BtnProps>`
-    ${tw`absolute left[-90%] w-20 h-10 flex items-center rounded-3xl bg-primary`}
+export const Cart = styled(Commun, transientOptions)`
+    ${tw`left[38%]`}
+
+    // BUG: translate-x not working in tailwind
+    /* transform: translateX(-100%); */
 
     box-shadow: var(--shadow-1);
 
     button {
-        ${tw`transition-colors mr-auto ml-3.5`}
+        ${tw`ml-auto mr-5`}
 
         ${(props) =>
-            props.$isProfileOpen &&
+            !props.$isUsernavOpen &&
+            css`
+                ${tw`text-accents-6`}
+            `}
+    }
+
+    svg:nth-of-type(2) {
+        ${tw`absolute top-1/2 left-1/2 w-3`}
+        fill: var(--orange-red);
+        transform: translate(-50%, -40%);
+    }
+`;
+
+export const Profile = styled(Commun, transientOptions)`
+    ${tw`left[-92.5%]`}
+
+    button {
+        ${tw`mr-auto ml-3.5`}
+
+        ${(props) =>
+            !props.$isProfileOpen &&
             css`
                 ${tw`text-accents-6`}
             `}
 
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                ${(props) =>
-                    !props.$isMobileMenuOpen &&
-                    !props.$isUsernavOpen &&
-                    !props.$isProfileOpen &&
-                    css`
-                        ${tw`text-accents-6`}
-                    `}
-            }
-        }
-
+        
         svg {
             ${tw`h-6 w-6`}
         }

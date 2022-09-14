@@ -9,11 +9,6 @@ interface Props {
     isOrder?: boolean;
 }
 
-interface ProductBtnProps {
-    isWishlist: boolean;
-    isAddedToWishlist: boolean;
-}
-
 interface ImageProps {
     imageSize: "A" | "B";
     isDisplayed: boolean;
@@ -117,41 +112,25 @@ const productInfoTypoObj = {
     B: productInfoTypoB,
 };
 
-export const ProductBtn = styled.button<ProductBtnProps>`
-    ${tw`padding-top[1vw] margin-top[0.8vw] cursor-pointer
-    lg:(mt-4 pt-1)`}
+export const ProductBtn = styled.button`
+    ${tw`padding-top[1vw] margin-top[0.8vw] h-6 w-6
+    cursor-pointer opacity-100 pointer-events-auto mb-auto
+    lg:(h-5 w-5 mt-4 pt-1 opacity-0 pointer-events-none)
+    xl:(h-6 w-6)
+    2xl:(margin-top[0.7vw] h-7 w-7)`}
 
     ${commonTypoLarge}
 
-    transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-
-    ${({ theme }) =>
-        theme.device.isTouch
-            ? css`
-                  ${tw`opacity-100 pointer-events-auto`}
-              `
-            : css`
-                  ${tw`opacity-0 pointer-events-none`}
-              `}
-
-    svg {
-        ${(props) =>
-            props.isWishlist &&
-            css`
-                fill: red;
-            `}
-
-        ${(props) =>
-            !props.isWishlist &&
-            css`
-                fill: ${props.isAddedToWishlist ? "red" : "currentColor"};
-            `}
-        transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    }
+    transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+            transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
     @media (hover: hover) and (pointer: fine) {
-        &:hover svg {
-            transform: scale(0.9);
+        &:hover {
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: scale(1.1) translateX(2.5%);
+            svg {
+                fill: var(--orange-red);
+            }
         }
     }
 `;
@@ -189,7 +168,8 @@ export const Root = styled.li`
 
     &:hover {
         ${ProductBtn},${QuickViewBtn} {
-            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+                transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
             opacity: 1;
             pointer-events: all;
         }

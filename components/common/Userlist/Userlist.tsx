@@ -38,7 +38,7 @@ const Userlist: FC<Props> = ({ products, variant }) => {
                     <RootEmpty>
                         <h1>
                             {variant === "wishlist" &&
-                                "The products on your wish list will appear here"}
+                                "The products on your wishlist will appear here"}
                             {variant === "product-viewed" &&
                                 "Your visited products will appear here"}
                             {variant === "order" &&

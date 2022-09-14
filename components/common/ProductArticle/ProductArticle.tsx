@@ -1,8 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdLocalOffer } from "react-icons/md";
-import { FaHeartBroken } from "react-icons/fa";
+import { ImHeartBroken } from "react-icons/im";
 import { RiHeartAddFill } from "react-icons/ri";
 
 import { useUI } from "@components/ui/context";
@@ -14,6 +15,10 @@ import { Media } from "@lib/media";
 import { Plus } from "@components/icons";
 import { ImageVisualizer } from "@components/elements";
 import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
+import useWishlistInitial from "wishlist/wishlistInitialState";
+import useAddWishlist from "@framework/wishlist/use-add-wishlist";
+import { IoHeartDislikeSharp } from "react-icons/io5";
+import { ErrorForm } from "@components/elements/FormInputsStyle";
 
 import {
     Root,
@@ -43,20 +48,40 @@ const ProductArticle: FC<Props> = ({
 
     const placeHolder = "/product-image-placeholder.svg";
 
-    const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<ProductImage>(images[0]);
 
     const { openPopup } = useUI();
 
-    const removeWishlistProduct = useDeleteWishlist();
+    const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
+    const [wishlistError, setWishlistError] = useState<string>("");
 
-    function addToWishlist() {
-        if (isAddedToWishlist) {
-            setIsAddedToWishlist(false);
-            // console.log("Remove item from wish list");
-        } else {
-            setIsAddedToWishlist(true);
-            // console.log("Add item to wish list");
+    useWishlistInitial({
+        productId: id,
+        setIsWishlisted,
+        setWishlistError,
+    });
+
+    const addWishlistProduct = useAddWishlist();
+    const removeWishlistProduct = useDeleteWishlist();
+    async function handleWishlist(): Promise<void> {
+        try {
+            setWishlistError("");
+            if (isWishlisted) {
+                await removeWishlistProduct({
+                    productId: product.id,
+                });
+                setIsWishlisted(false);
+            } else {
+                await addWishlistProduct({
+                    product: product,
+                });
+                setIsWishlisted(true);
+            }
+        } catch (err) {
+            if (err instanceof Error)
+                setWishlistError(
+                    "Server error after adding product to the wishlist. Please try again"
+                );
         }
     }
 
@@ -69,7 +94,7 @@ const ProductArticle: FC<Props> = ({
                 break;
             case "product":
             case "product-viewed":
-                addToWishlist();
+                await handleWishlist();
                 break;
 
             default:
@@ -125,21 +150,28 @@ const ProductArticle: FC<Props> = ({
                                     <ProductBtn
                                         onClick={manageProductAction}
                                         type="button"
-                                        isWishlist={variant === "wishlist"}
-                                        isAddedToWishlist={isAddedToWishlist}
                                     >
-                                        {variant !== "wishlist" ? (
-                                            <RiHeartAddFill />
+                                        {variant === "wishlist" ? (
+                                            <ImHeartBroken
+                                                className="w-full h-full"
+                                                style={{
+                                                    fill: "var(--orange-red)",
+                                                }}
+                                            />
+                                        ) : isWishlisted ? (
+                                            <IoHeartDislikeSharp
+                                                className="w-full h-full"
+                                                style={{
+                                                    fill: "var(--orange-red)",
+                                                }}
+                                            />
                                         ) : (
-                                            <FaHeartBroken />
+                                            <RiHeartAddFill className="w-full h-full" />
                                         )}
                                     </ProductBtn>
                                 </div>
                                 <Media greaterThanOrEqual="lg">
-                                    <h6>
-                                        All-rounder and breathable hoodie for
-                                        every weather
-                                    </h6>
+                                    <h6>{product.featureName}</h6>
                                 </Media>
 
                                 <Link href={`/products/${slug}`} passHref>
@@ -165,6 +197,13 @@ const ProductArticle: FC<Props> = ({
                                 </QuickViewBtn>
                             </FunctionalLink>
                         </Link>
+                        {!wishlistError && (
+                            <ErrorForm className="ml-5">
+                                <span className="mr-auto text-orange-red">
+                                    {wishlistError}
+                                </span>
+                            </ErrorForm>
+                        )}
                     </ProductInfo>
                 </ProductWrapper>
             )}

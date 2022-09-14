@@ -25,7 +25,7 @@ export const textSizeSecondary = css`
 `;
 
 export const Container = styled.div`
-    ${tw`flex flex-col w-full mb-24
+    ${tw`flex flex-col w-full
     xl:mb-40`}
     ${paddings}
 

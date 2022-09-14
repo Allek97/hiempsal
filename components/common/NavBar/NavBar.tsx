@@ -10,7 +10,7 @@ import { Media } from "@lib/media";
 import { useMediaQueryNext, useScroll, useScrollDirectionNext } from "@hooks";
 
 import { BsPerson } from "react-icons/bs";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import {
     Bag,
@@ -30,6 +30,7 @@ import {
     Container,
     WrapperBtn,
     BackBtn,
+    UtilityButton,
 } from "./NavBar.styled";
 
 const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
@@ -46,7 +47,12 @@ const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
     );
 };
 
-const Navbar: FC = () => {
+interface Props {
+    cartSize: number;
+    wishlistSize: number;
+}
+
+const Navbar: FC<Props> = ({ cartSize, wishlistSize }) => {
     const router = useRouter();
     const isUsernavOpen = router.pathname.includes("cart");
     const isAuthentificationOpen = router.pathname.includes("authentification");
@@ -162,19 +168,45 @@ const Navbar: FC = () => {
                     <Media greaterThanOrEqual="lg">
                         <UtilWrapper>
                             <Link href="/cart/wishlist" passHref>
-                                <button aria-label="Wish list" type="button">
-                                    <FaRegHeart />
-                                </button>
+                                <UtilityButton
+                                    aria-label="Wish list"
+                                    type="button"
+                                    $isWishlist
+                                    whileHover={
+                                        wishlistSize > 0
+                                            ? {
+                                                  scale: 1.1,
+                                              }
+                                            : { color: "var(--orange-red)" }
+                                    }
+                                >
+                                    {wishlistSize > 0 ? (
+                                        <FaHeart
+                                            style={{
+                                                fill: "var(--orange-red)",
+                                            }}
+                                        />
+                                    ) : (
+                                        <FaRegHeart />
+                                    )}
+                                    {wishlistSize > 0 && (
+                                        <span>{wishlistSize}</span>
+                                    )}
+                                </UtilityButton>
                             </Link>
                             <Link href="/cart/bag" passHref>
-                                <button aria-label="Cart" type="button">
+                                <UtilityButton aria-label="Cart" type="button">
                                     <Bag />
-                                </button>
+                                    {cartSize > 0 && <span>{cartSize}</span>}
+                                </UtilityButton>
                             </Link>
                             <Link href="/account/overview" passHref>
-                                <button aria-label="Profile" type="button">
+                                <UtilityButton
+                                    aria-label="Profile"
+                                    type="button"
+                                >
                                     <BsPerson />
-                                </button>
+                                </UtilityButton>
                             </Link>
                         </UtilWrapper>
                     </Media>

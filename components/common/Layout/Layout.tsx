@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { FC, MutableRefObject, useEffect, useRef } from "react";
+import { FC, MutableRefObject, useEffect, useMemo, useRef } from "react";
 import {
     clearAllBodyScrollLocks,
     disableBodyScroll,
@@ -7,6 +7,9 @@ import {
 } from "body-scroll-lock";
 
 import { useUI } from "@components/ui/context";
+import useCart from "@framework/cart/use-cart";
+import useWishlist from "@framework/wishlist/use-wishlist";
+import { getWishlistToken } from "@framework/utils/wishlist-token";
 
 import { Media } from "@lib/media";
 
@@ -41,13 +44,35 @@ const Layout: FC<Props> = ({
         };
     }, [isMobileMenuOpen]);
 
+    const { data: cart } = useCart();
+    const getWishlist = useWishlist();
+    const { data: wishlist } = getWishlist({
+        wishlistToken: getWishlistToken()!,
+    });
+
+    const wishlistSize: number = useMemo(
+        () => wishlist?.products.length ?? 0,
+        [wishlist?.products]
+    );
+    const cartSize: number = useMemo(
+        () =>
+            cart?.lineItems.reduce((prev, curr) => prev + curr.quantity, 0) ??
+            0,
+        [cart?.lineItems]
+    );
+
     return (
         <Root ref={ref}>
-            {isNavbar && <NavBar />}
+            {isNavbar && (
+                <NavBar cartSize={cartSize} wishlistSize={wishlistSize} />
+            )}
 
             {isMobileNav && (
                 <Media lessThan="lg">
-                    <MobileNav />
+                    <MobileNav
+                        cartSize={cartSize}
+                        wishlistSize={wishlistSize}
+                    />
                 </Media>
             )}
 

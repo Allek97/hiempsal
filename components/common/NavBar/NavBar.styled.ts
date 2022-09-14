@@ -232,22 +232,6 @@ export const HiemsalWrapper = styled.div<HiemsalProps>`
 
 export const UtilWrapper = styled.div`
     ${tw`flex items-center space-x-6`}
-
-    & > button {
-        svg {
-            ${tw`h-auto transition-colors cursor-pointer hover:text-orange-red`}
-        }
-
-        &:first-of-type > svg {
-            width: 22px;
-        }
-        &:nth-of-type(2) > svg {
-            width: 19px;
-        }
-        &:nth-of-type(3) > svg {
-            width: 25px;
-        }
-    }
 `;
 
 export const Profile = styled.div`
@@ -275,4 +259,41 @@ export const BackBtn = styled(motion.div)`
     box-sizing: border-box;
     box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
     color: #191919;
+`;
+interface UtilityProps {
+    $isWishlist?: boolean;
+}
+
+export const UtilityButton = styled(motion.button)<UtilityProps>`
+    ${tw`relative`}
+
+    span {
+        ${tw`absolute  
+        flex items-center justify-center h-3.5 w-3.5 
+        font-size[9px] text-secondary`}
+
+        ${({ $isWishlist }) =>
+            $isWishlist
+                ? css`
+                      ${tw`top-1/2 left-1/2`}
+                      transform: translate(-50%,-50%)
+                  `
+                : css`
+                      ${tw`-top-1.5 -right-1.5 bg-orange-red border-radius[50%]`}
+                  `}
+    }
+
+    svg {
+        ${tw`h-auto transition-colors cursor-pointer hover:text-orange-red`}
+    }
+
+    &:first-of-type > svg {
+        width: 23px;
+    }
+    &:nth-of-type(2) > svg {
+        width: 19px;
+    }
+    &:nth-of-type(3) > svg {
+        width: 25px;
+    }
 `;

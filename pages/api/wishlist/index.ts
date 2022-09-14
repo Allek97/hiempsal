@@ -12,12 +12,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // NOTE: This needs to be writter directely in getStaticProps if possible
     if (method === "GET") {
         try {
-            let query = {};
-            if (req.query._id) query = { _id: req.query._id };
-            if (req.query.customerId)
-                query = { ...query, customerId: req.query.customerId };
+            let doc;
 
-            const doc: IWishlist[] = await Wishlist.find(query);
+            if (req.query.productId) {
+                doc = await Wishlist.find(
+                    { _id: req.query._id },
+                    {
+                        products: { $elemMatch: { id: req.query.productId } },
+                    }
+                );
+            } else {
+                let query = {};
+                if (req.query._id) query = { _id: req.query._id };
+                if (req.query.customerId)
+                    query = { ...query, customerId: req.query.customerId };
+
+                doc = await Wishlist.find(query);
+            }
 
             return res.status(200).json({
                 status: "success",

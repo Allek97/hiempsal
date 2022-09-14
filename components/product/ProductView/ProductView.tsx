@@ -1,10 +1,9 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
-import { FaRegHeart } from "react-icons/fa";
-import { RiArrowRightSLine } from "react-icons/ri";
+import { RiArrowRightSLine, RiHeartAddFill } from "react-icons/ri";
 
 import { Product } from "@framework/types/product";
 
@@ -13,6 +12,13 @@ import { useUI } from "@components/ui/context";
 import { useMediaQueryNext, useScrollDirectionNext } from "@hooks";
 
 import { currencyMap } from "@framework/utils/optionMapping";
+
+import { ErrorForm } from "@components/elements/FormInputsStyle";
+import { IoHeartDislikeSharp } from "react-icons/io5";
+
+import useAddWishlist from "@framework/wishlist/use-add-wishlist";
+import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
+import useWishlistInitial from "wishlist/wishlistInitialState";
 
 import {
     ProductSlider,
@@ -41,6 +47,7 @@ import { ProductBoutique } from "../ProductBoutique";
 
 interface Props {
     product: Product;
+    similarProducts: Product[];
 }
 
 export const VariantButtonPopup = () => {
@@ -58,7 +65,7 @@ export const VariantButtonPopup = () => {
     );
 };
 
-const ProductView: FC<Props> = ({ product }) => {
+const ProductView: FC<Props> = ({ product, similarProducts }) => {
     const {
         isPopupOpen,
         isProductCartOpen,
@@ -76,6 +83,15 @@ const ProductView: FC<Props> = ({ product }) => {
         isProductOverviewOpen,
         isProductInfoOpen,
     } = useProduct();
+
+    const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
+    const [wishlistError, setWishlistError] = useState<string>("");
+
+    useWishlistInitial({
+        productId: product.id,
+        setIsWishlisted,
+        setWishlistError,
+    });
 
     useEffect(() => {
         setProductId(product.id);
@@ -122,6 +138,30 @@ const ProductView: FC<Props> = ({ product }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isProductOverviewOpen, isProductCartOpen, isProductAdded]);
 
+    const addWishlistProduct = useAddWishlist();
+    const removeWishlistProduct = useDeleteWishlist();
+    async function handleWishlist(): Promise<void> {
+        try {
+            setWishlistError("");
+            if (isWishlisted) {
+                await removeWishlistProduct({
+                    productId: product.id,
+                });
+                setIsWishlisted(false);
+            } else {
+                await addWishlistProduct({
+                    product: product,
+                });
+                setIsWishlisted(true);
+            }
+        } catch (err) {
+            if (err instanceof Error)
+                setWishlistError(
+                    "Server error after adding product to the wishlist. Please try again"
+                );
+        }
+    }
+
     return (
         <Root>
             {isPopupOpen && (
@@ -150,15 +190,20 @@ const ProductView: FC<Props> = ({ product }) => {
                 <CartContainer>
                     <ProductInfo>
                         <div>
-                            <Link href="/clothing" passHref>
-                                <span>Clothing</span>
+                            <Link href="/products/lightweight-hoodie" passHref>
+                                <span>{product.vendor}</span>
                             </Link>
-
+                            <span className="text-accents-8">
+                                <RiArrowRightSLine />
+                            </span>
+                            <Link href="/clothing" passHref>
+                                <span>{product.type}</span>
+                            </Link>
                             <span className="text-accents-8">
                                 <RiArrowRightSLine />
                             </span>
                             <Link href="/products/lightweight-hoodie" passHref>
-                                <span>Hoodies</span>
+                                <span>{product.name}</span>
                             </Link>
                         </div>
                         <div>
@@ -169,14 +214,34 @@ const ProductView: FC<Props> = ({ product }) => {
                             </h3>
                         </div>
                     </ProductInfo>
-
-                    <Certification />
+                    <div className="flex justify-between">
+                        <Certification />
+                        {wishlistError && (
+                            <ErrorForm className="ml-5">
+                                <span className="mr-auto text-orange-red">
+                                    {wishlistError}
+                                </span>
+                            </ErrorForm>
+                        )}
+                    </div>
 
                     <VariantContainer ref={ref}>
                         <VariantButtonPopup />
 
-                        <WishlistBtn>
-                            <FaRegHeart className="w-full h-full" />
+                        <WishlistBtn
+                            type="button"
+                            onClick={() => handleWishlist()}
+                        >
+                            {isWishlisted ? (
+                                <IoHeartDislikeSharp
+                                    className="w-full h-full"
+                                    style={{
+                                        fill: "var(--orange-red)",
+                                    }}
+                                />
+                            ) : (
+                                <RiHeartAddFill className="w-full h-full" />
+                            )}
                         </WishlistBtn>
                     </VariantContainer>
                 </CartContainer>
@@ -214,7 +279,10 @@ const ProductView: FC<Props> = ({ product }) => {
                     hasSustainability={!!product.sustainability}
                 />
             </ProductDetailsBox>
-            <ProductSimilar product={product} />
+            <ProductSimilar
+                productImage={product.images[1]}
+                similarProducts={similarProducts}
+            />
             <ProductBoutique />
         </Root>
     );

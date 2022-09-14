@@ -1,54 +1,23 @@
 import { Grid, Paddings } from "@components/ui";
-
 import { AnimateText } from "@components/utils/animations";
-import { getConfig } from "@framework/api/config";
-import { getQueryProducts } from "@framework/product";
-import { Product } from "@framework/types/product";
+import { Product, ProductImage } from "@framework/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useInView } from "react-intersection-observer";
-import { useProduct } from "../context";
 import { ProductCard } from "../ProductCard";
 import { ProductSimilarBox } from "./ProductSimilar.styled";
 
 interface Props {
-    product: Product;
+    productImage: ProductImage;
+    similarProducts: Product[];
 }
 
-const ProductSimilar: FC<Props> = ({ product }) => {
-    const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
-
+const ProductSimilar: FC<Props> = ({ productImage, similarProducts }) => {
     const { ref: titleRef, inView: isTitleInView } = useInView({
         threshold: 0.25,
         triggerOnce: true,
     });
-
-    const { productType } = useProduct();
-
-    useEffect(() => {
-        let active = true;
-        async function getSimilarProduct(): Promise<void> {
-            try {
-                const config = getConfig();
-                const query = `product_type:${productType}`;
-
-                const products: Product[] = await getQueryProducts({
-                    config,
-                    variables: { querySearch: query },
-                });
-                if (active) setSimilarProducts(products);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        getSimilarProduct();
-
-        return () => {
-            active = false;
-        };
-    }, [product.id, productType]);
 
     return (
         <ProductSimilarBox>
@@ -64,8 +33,8 @@ const ProductSimilar: FC<Props> = ({ product }) => {
                     }}
                 >
                     <Image
-                        src={product.images[1].url}
-                        alt={product.images[1].alt || "product"}
+                        src={productImage.url}
+                        alt={productImage.alt || "product"}
                         layout="fill"
                         objectFit="contain"
                         quality="100"

@@ -70,7 +70,7 @@ const Preferences: FC = () => {
                     }}
                 >
                     <h2 className="mb-2">Email</h2>
-                    <div className="marketing w-1/2">
+                    <div className="marketing w-full lg:w-1/2">
                         <label
                             htmlFor="customer-marketing"
                             className="flex items-center w-max mb-2"

@@ -6,6 +6,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { IoMdHeart } from "react-icons/io";
 import Close from "@components/icons/Close";
 
 import { useUI } from "@components/ui/context";
@@ -19,6 +20,7 @@ import {
     MobileNavRoot,
 } from "./MobileNav.styled";
 import { MobileMenu } from "..";
+import { FaHeart } from "react-icons/fa";
 
 const menuBtnVariants: Variants = {
     openMenu: { rotate: [70, 0] },
@@ -58,7 +60,12 @@ const profileVariants: Variants = {
     },
 };
 
-const MobileNav: FC = () => {
+interface Props {
+    cartSize: number;
+    wishlistSize: number;
+}
+
+const MobileNav: FC<Props> = ({ cartSize, wishlistSize }) => {
     const router = useRouter();
     const isUsernavOpen: boolean = router.pathname.includes("cart");
     const isProfileOpen: boolean =
@@ -158,7 +165,7 @@ const MobileNav: FC = () => {
                     onClick={toggleMenu}
                     $isMobileMenuOpen={isMobileMenuOpen}
                     $isUsernavOpen={isUsernavOpen}
-                    $isProfileOpen={false}
+                    $isProfileOpen={isProfileOpen}
                     $isPopupOpen={
                         isProductCartOpen ||
                         isProductAdded ||
@@ -193,6 +200,10 @@ const MobileNav: FC = () => {
                                     <Link href="/cart/bag" passHref>
                                         <button aria-label="Cart" type="button">
                                             <Bag />
+                                            {cartSize > 0 && (
+                                                <span>{cartSize}</span>
+                                            )}
+                                            {wishlistSize > 0 && <FaHeart />}
                                         </button>
                                     </Link>
                                 </Cart>
@@ -213,6 +224,9 @@ const MobileNav: FC = () => {
                                             type="button"
                                         >
                                             <BsPerson />
+                                            <span>
+                                                {cartSize > 0 && cartSize}
+                                            </span>
                                         </button>
                                     </Link>
                                 </Profile>

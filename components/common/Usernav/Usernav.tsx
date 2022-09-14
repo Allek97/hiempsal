@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, ReactNode, useRef } from "react";
+import { FC, MutableRefObject, ReactNode, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -6,6 +6,10 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import { BsBack } from "react-icons/bs";
 
 import { FunctionalLink } from "@components/utils";
+import useWishlist from "@framework/wishlist/use-wishlist";
+import useCart from "@framework/cart/use-cart";
+import { getWishlistToken } from "@framework/utils/wishlist-token";
+
 import { HelpCard } from "../../elements/HelpCard";
 
 import {
@@ -31,6 +35,23 @@ const Usernav: FC<Props> = ({ children }) => {
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>;
     const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
+    const { data: cart } = useCart();
+    const getWishlist = useWishlist();
+    const { data: wishlist } = getWishlist({
+        wishlistToken: getWishlistToken()!,
+    });
+
+    const wishlistSize: number = useMemo(
+        () => wishlist?.products.length ?? 0,
+        [wishlist?.products]
+    );
+    const cartSize: number = useMemo(
+        () =>
+            cart?.lineItems.reduce((prev, curr) => prev + curr.quantity, 0) ??
+            0,
+        [cart?.lineItems]
+    );
+
     return (
         <Root ref={rootRef}>
             <Navigation>
@@ -45,7 +66,7 @@ const Usernav: FC<Props> = ({ children }) => {
                                 aria-label="Cart"
                             >
                                 <HiArrowNarrowRight />
-                                <h1>Your Cart</h1>
+                                <h1>Your Cart {cartSize > 0 && cartSize}</h1>
                             </NavBtn>
                         </FunctionalLink>
                     </Link>
@@ -58,7 +79,9 @@ const Usernav: FC<Props> = ({ children }) => {
                                 aria-label="Wish list"
                             >
                                 <HiArrowNarrowRight />
-                                <h1>Wish list</h1>
+                                <h1>
+                                    Wish list {wishlistSize > 0 && wishlistSize}
+                                </h1>
                             </NavBtn>
                         </FunctionalLink>
                     </Link>

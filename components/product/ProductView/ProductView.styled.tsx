@@ -140,13 +140,16 @@ export const VariantButton = styled(Button)`
 
 export const WishlistBtn = styled.button`
     ${tw`w-5 margin-left[6vw] mr-3
-    lg:(w-6 mr-0 margin-left[1.33333vw])`}
+    lg:(w-7 mr-0 margin-left[1.33333vw])`}
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
             transform: scale(0.9) translateX(2.5%);
+            svg {
+                fill: var(--orange-red);
+            }
         }
     }
 `;

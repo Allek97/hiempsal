@@ -1,10 +1,17 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 
 import { Product } from "@framework/types/product";
 
-import Heart from "@components/icons/Heart";
+import { IoHeartDislikeSharp } from "react-icons/io5";
+import { RiHeartAddFill } from "react-icons/ri";
+
 import { ProductArticle } from "@components/common";
+import { ErrorForm } from "@components/elements/FormInputsStyle";
+
+import useWishlistInitial from "wishlist/wishlistInitialState";
+import useAddWishlist from "@framework/wishlist/use-add-wishlist";
+import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
 
 import {
     ProductBg,
@@ -34,6 +41,39 @@ const ProductCard: FC<Props> = ({
 
     const placeholderImage = "/product-image-placeholder.svg";
     const currencySymbol = currency === "EUR" ? "€" : "$";
+
+    const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
+    const [wishlistError, setWishlistError] = useState<string>("");
+
+    useWishlistInitial({
+        productId: product.id,
+        setIsWishlisted,
+        setWishlistError,
+    });
+
+    const addWishlistProduct = useAddWishlist();
+    const removeWishlistProduct = useDeleteWishlist();
+    async function handleWishlist(): Promise<void> {
+        try {
+            setWishlistError("");
+            if (isWishlisted) {
+                await removeWishlistProduct({
+                    productId: product.id,
+                });
+                setIsWishlisted(false);
+            } else {
+                await addWishlistProduct({
+                    product: product,
+                });
+                setIsWishlisted(true);
+            }
+        } catch (err) {
+            if (err instanceof Error)
+                setWishlistError(
+                    "Server error after adding product to the wishlist. Please try again"
+                );
+        }
+    }
 
     return (
         <>
@@ -70,6 +110,13 @@ const ProductCard: FC<Props> = ({
                             {`${currencySymbol}${productPrice} ${currency}`}
                         </ProductPrice>
                     </ProductTag>
+                    {wishlistError && (
+                        <ErrorForm className="ml-5">
+                            <span className="mr-auto text-orange-red">
+                                {wishlistError}
+                            </span>
+                        </ErrorForm>
+                    )}
                     <ProductImageWrapper>
                         {product.images && (
                             <Image
@@ -85,12 +132,18 @@ const ProductCard: FC<Props> = ({
                     </ProductImageWrapper>
                     <ProductFavorite
                         aria-label="Add to wishlist"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            alert("added to wishlist");
-                        }}
+                        onClick={() => handleWishlist()}
                     >
-                        <Heart />
+                        {isWishlisted ? (
+                            <IoHeartDislikeSharp
+                                className="w-full h-full"
+                                style={{
+                                    fill: "var(--orange-red)",
+                                }}
+                            />
+                        ) : (
+                            <RiHeartAddFill className="w-full h-full" />
+                        )}
                     </ProductFavorite>
                 </Root>
             )}

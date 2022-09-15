@@ -23,9 +23,7 @@ const Overview: FC = () => {
     const nbPendingOrders: number = useMemo(() => {
         if (!customer || !customer.orders) return 0;
         return customer.orders.filter(
-            (order) =>
-                order.fulfillmentStatus !== "RESTOCKED" &&
-                order.fulfillmentStatus !== "UNFULFILLED"
+            (order) => order.fulfillmentStatus !== "FULFILLED"
         ).length;
     }, [customer]);
 

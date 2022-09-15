@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { motion, Variants } from "framer-motion";
 import dateFormat from "dateformat";
 import { Account } from "@components/account/commun";
-import { Order } from "@framework/types/order";
+import { Order, OrderLineItem } from "@framework/types/order";
 import { FC, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,7 +48,8 @@ const placeholder = "product-image-placeholder.svg";
 
 const OrderView: FC<Props> = ({ order }) => {
     const { openReview } = useUI();
-    const [selectedProductId, setSelectedProductId] = useState<string>("");
+    const [selectedProduct, setSelectedProduct] =
+        useState<OrderLineItem | null>(null);
 
     const totalItems: number = useMemo(
         () => order.lineItems.reduce((prev, curr) => prev + curr.quantity, 0),
@@ -63,7 +67,14 @@ const OrderView: FC<Props> = ({ order }) => {
 
     return (
         <>
-            <OrderReview productId={selectedProductId} />
+            {selectedProduct && (
+                <OrderReview
+                    productId={selectedProduct.productId}
+                    productImage={selectedProduct.variant?.image!}
+                    productName={selectedProduct.name}
+                    productPrice={selectedProduct.price}
+                />
+            )}
             <Account>
                 <Container>
                     <Link href="/account/orders" passHref>
@@ -184,8 +195,8 @@ const OrderView: FC<Props> = ({ order }) => {
                                                 whileHover="hover"
                                                 variants={textMotion}
                                                 onClick={() => {
-                                                    setSelectedProductId(
-                                                        orderItem.productId
+                                                    setSelectedProduct(
+                                                        orderItem
                                                     );
                                                     openReview();
                                                 }}

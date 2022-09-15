@@ -22,6 +22,7 @@ import {
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { GiBrokenHeartZone } from "react-icons/gi";
 import { FiShoppingBag } from "react-icons/fi";
+import { MdNotificationsActive } from "react-icons/md";
 
 import {
     HiemsalWrapper,
@@ -35,7 +36,6 @@ import {
     UtilityButton,
     UtilityAnimation,
 } from "./NavBar.styled";
-import { MdNotificationsActive } from "react-icons/md";
 
 const Back: FC<{ isLogin: boolean }> = ({ isLogin }) => {
     return (
@@ -56,8 +56,8 @@ const UtilityVariant = ({ top }: { top: boolean }): Variants => {
         hidden: { y: top ? "0%" : "250%" },
         show: {
             y: top
-                ? ["0%", "-250%", "-250%", "0%"]
-                : ["250%", "0%", "0%", "250%"],
+                ? ["0%", "-250%", "-250%", "-250%", "0%"]
+                : ["250%", "0%", "0%", "0%", "250%"],
             transition: {
                 duration: 1.4,
                 ease: [0.19, 1, 0.22, 1],
@@ -215,13 +215,18 @@ const Navbar: FC<Props> = ({
                                                 <FaHeart
                                                     style={{
                                                         fill: "var(--orange-red)",
+                                                        width: "25px",
                                                     }}
                                                     className="w-6"
                                                 />
                                                 <span>{wishlistSize}</span>
                                             </>
                                         ) : (
-                                            <FaRegHeart className="w-6" />
+                                            <FaRegHeart
+                                                style={{
+                                                    width: "25px",
+                                                }}
+                                            />
                                         )}
                                     </motion.div>
                                     <UtilityAnimation>
@@ -236,8 +241,8 @@ const Navbar: FC<Props> = ({
                                             <GiBrokenHeartZone
                                                 style={{
                                                     fill: "var(--orange-red)",
+                                                    width: "25px",
                                                 }}
-                                                className="w-6"
                                             />
                                         </motion.div>
                                     </UtilityAnimation>

@@ -139,7 +139,7 @@ export const VariantButton = styled(Button)`
 `;
 
 export const WishlistBtn = styled.button`
-    ${tw`w-5 margin-left[6vw] mr-3
+    ${tw`w-8 margin-left[6vw] mr-3
     lg:(w-7 mr-0 margin-left[1.33333vw])`}
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 

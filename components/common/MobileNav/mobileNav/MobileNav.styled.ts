@@ -53,7 +53,8 @@ export const Navigation = styled.nav`
 `;
 
 export const Commun = styled(motion.div, transientOptions)<BtnProps>`
-    ${tw`absolute w-20 h-10 flex items-center rounded-3xl bg-primary`}
+    ${tw`absolute w-20 h-10 flex items-center rounded-3xl
+    overflow-hidden bg-primary`}
 
     // BUG: translate-x not working in tailwind
     /* transform: translateX(-100%); */
@@ -119,10 +120,14 @@ export const Profile = styled(Commun, transientOptions)`
             css`
                 ${tw`text-accents-6`}
             `}
+    }
+`;
 
-        
-        svg {
-            ${tw`h-6 w-6`}
-        }
+export const UtilityAnimation = styled.div`
+    ${tw`absolute top-0 left-0 w-full h-full
+        overflow-hidden pointer-events-none`}
+
+    div {
+        ${tw`absolute top-0 right-0 mx-auto`}
     }
 `;

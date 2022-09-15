@@ -3,11 +3,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
-import Bag from "@components/icons/Bag";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Close from "@components/icons/Close";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaShopify } from "react-icons/fa";
+import { MdNotificationsActive } from "react-icons/md";
+import { FiShoppingBag } from "react-icons/fi";
 
 import { useUI } from "@components/ui/context";
 import { useProduct } from "@components/product/context";
@@ -18,6 +19,7 @@ import {
     Navigation,
     Profile,
     MobileNavRoot,
+    UtilityAnimation,
 } from "./MobileNav.styled";
 import { MobileMenu } from "..";
 
@@ -57,6 +59,21 @@ const profileVariants: Variants = {
             ease: [0.19, 1, 0.22, 1],
         },
     },
+};
+
+const UtilityVariant = ({ top }: { top: boolean }): Variants => {
+    return {
+        hidden: { y: top ? "0%" : "250%" },
+        show: {
+            y: top
+                ? ["0%", "-250%", "-250%", "-250%", "0%"]
+                : ["250%", "0%", "0%", "0%", "250%"],
+            transition: {
+                duration: 1.4,
+                ease: [0.19, 1, 0.22, 1],
+            },
+        },
+    };
 };
 
 interface Props {
@@ -203,11 +220,49 @@ const MobileNav: FC<Props> = ({
                                 >
                                     <Link href="/cart/bag" passHref>
                                         <button aria-label="Cart" type="button">
-                                            <Bag />
-                                            {cartSize > 0 && (
-                                                <span>{cartSize}</span>
-                                            )}
-                                            {wishlistSize > 0 && <FaHeart />}
+                                            <motion.div
+                                                key={cartSize + wishlistSize}
+                                                initial="hidden"
+                                                variants={UtilityVariant({
+                                                    top: true,
+                                                })}
+                                                animate={
+                                                    (cartSize > 0 ||
+                                                        wishlistSize > 0) &&
+                                                    "show"
+                                                }
+                                            >
+                                                <FiShoppingBag className="h-6 w-6" />
+                                                {cartSize > 0 && (
+                                                    <span>{cartSize}</span>
+                                                )}
+                                                {wishlistSize > 0 && (
+                                                    <FaHeart />
+                                                )}
+                                            </motion.div>
+                                            <UtilityAnimation>
+                                                <motion.div
+                                                    key={
+                                                        cartSize + wishlistSize
+                                                    }
+                                                    initial="hidden"
+                                                    variants={UtilityVariant({
+                                                        top: false,
+                                                    })}
+                                                    animate={
+                                                        (cartSize > 0 ||
+                                                            wishlistSize > 0) &&
+                                                        "show"
+                                                    }
+                                                >
+                                                    <FaShopify
+                                                        className="h-6 w-6"
+                                                        style={{
+                                                            fill: "var(--green)",
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                            </UtilityAnimation>
                                         </button>
                                     </Link>
                                 </Cart>
@@ -227,11 +282,44 @@ const MobileNav: FC<Props> = ({
                                             aria-label="Profile"
                                             type="button"
                                         >
-                                            <BsPerson />
-                                            <span>
-                                                {customerPendingOrders > 0 &&
-                                                    customerPendingOrders}
-                                            </span>
+                                            <motion.div
+                                                key={customerPendingOrders}
+                                                initial="hidden"
+                                                variants={UtilityVariant({
+                                                    top: true,
+                                                })}
+                                                animate={
+                                                    customerPendingOrders > 0 &&
+                                                    "show"
+                                                }
+                                            >
+                                                <BsPerson className="h-6 w-6" />
+                                                <span>
+                                                    {customerPendingOrders >
+                                                        0 &&
+                                                        customerPendingOrders}
+                                                </span>
+                                            </motion.div>
+                                            <UtilityAnimation>
+                                                <motion.div
+                                                    key={customerPendingOrders}
+                                                    initial="hidden"
+                                                    variants={UtilityVariant({
+                                                        top: false,
+                                                    })}
+                                                    animate={
+                                                        customerPendingOrders >
+                                                            0 && "show"
+                                                    }
+                                                >
+                                                    <MdNotificationsActive
+                                                        style={{
+                                                            fill: "var(--orange-red)",
+                                                        }}
+                                                        className="w-6 h-6"
+                                                    />
+                                                </motion.div>
+                                            </UtilityAnimation>
                                         </button>
                                     </Link>
                                 </Profile>

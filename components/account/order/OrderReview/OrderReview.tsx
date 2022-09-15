@@ -21,10 +21,10 @@ const OrderReview: FC<Props> = ({
 }) => {
     const { isReviewOpen } = useUI();
     return (
-        <Popup data-testid="product-popup">
-            <AnimatePresence>
-                {isReviewOpen && (
-                    <>
+        <div>
+            {isReviewOpen && (
+                <Popup data-testid="product-popup">
+                    <AnimatePresence>
                         <Review productId={productId} />
                         <ProductOverview
                             productImage={productImage}
@@ -32,10 +32,10 @@ const OrderReview: FC<Props> = ({
                             productPrice={productPrice}
                             variant="review"
                         />
-                    </>
-                )}
-            </AnimatePresence>
-        </Popup>
+                    </AnimatePresence>
+                </Popup>
+            )}
+        </div>
     );
 };
 

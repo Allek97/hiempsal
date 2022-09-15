@@ -1,38 +1,38 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { getConfig } from "@framework/api/config";
-import { Wishlist } from "@framework/types/wishlist";
-import { setWishlistToken } from "@framework/utils/wishlist-token";
+import { Viewed } from "@framework/types/viewed";
+import { setViewedToken } from "@framework/utils/viewed-token";
 import axios, { AxiosError } from "axios";
 import { useMemo } from "react";
 import useSWR, { SWRResponse } from "swr";
-import getWishlist from "./get-wishlist";
+import getViewed from "./get-viewed";
 
 type FetcherContext = {
-    wishlistToken?: string;
+    viewedToken?: string;
     customerId?: string;
 };
 
-type UseWishlist = (input: FetcherContext) => SWRResponse<Wishlist, any>;
+type UseViewed = (input: FetcherContext) => SWRResponse<Viewed, any>;
 
-const useWishlist = (): UseWishlist => {
+const useViewed = (): UseViewed => {
     const config = getConfig();
 
-    const fetcher = async (input: FetcherContext): Promise<Wishlist> => {
-        const { customerId, wishlistToken } = input;
+    const fetcher = async (input: FetcherContext): Promise<Viewed> => {
+        const { customerId, viewedToken } = input;
 
-        const viewed = await getWishlist({
+        const viewed = await getViewed({
             config,
             customerId,
-            wishlistToken,
+            viewedToken,
         });
 
-        setWishlistToken(viewed._id);
+        setViewedToken(viewed._id);
 
         return viewed;
     };
 
-    const useData = (context: FetcherContext): SWRResponse<Wishlist, any> => {
+    const useData = (context: FetcherContext): SWRResponse<Viewed, any> => {
         const hookFetcher = async () => {
             try {
                 return await fetcher(context);
@@ -43,13 +43,13 @@ const useWishlist = (): UseWishlist => {
             }
         };
 
-        const result = useSWR("/api/wishlist", hookFetcher);
+        const result = useSWR("/api/viewed", hookFetcher);
 
         return result;
     };
 
     return (input: FetcherContext) => {
-        const swr: SWRResponse<Wishlist, any> = useData(input);
+        const swr: SWRResponse<Viewed, any> = useData(input);
 
         const memoSwr = useMemo(() => {
             return {
@@ -61,4 +61,4 @@ const useWishlist = (): UseWishlist => {
     };
 };
 
-export default useWishlist;
+export default useViewed;

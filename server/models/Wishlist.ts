@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import mongoose, { Schema } from "mongoose";
 import { IWishlist } from "server/types/wishlist";
 
@@ -7,10 +6,6 @@ const wishlistSchema = new Schema<IWishlist>({
     customerId: {
         type: String,
         required: false,
-    },
-    _id: {
-        type: String,
-        default: () => uuidv4(),
     },
 });
 

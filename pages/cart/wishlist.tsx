@@ -33,6 +33,7 @@ export const getServerSideProps = async (
 
     return {
         props: {
+            customerId,
             fallback: {
                 "/api/wishlist": wishlist ?? null,
             },
@@ -42,10 +43,10 @@ export const getServerSideProps = async (
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export default function WishlistPage({ fallback }: Props) {
+export default function WishlistPage({ fallback, customerId }: Props) {
     return (
         <SWRConfig value={{ fallback }}>
-            <Wishlist />
+            <Wishlist customerId={customerId} />
         </SWRConfig>
     );
 }

@@ -13,3 +13,5 @@ export const SHOPIFY_CUSTOMER_TOKEN_COOKIE = "shopify_customerToken";
 export const SHOPIFY_CUSTOMER_ID = "shopify_customerId";
 // wishlist
 export const SHOPIFY_WISHLIST_TOKEN_COOKIE = "shopify_wishlistToken";
+// viewed Products
+export const SHOPIFY_VIEWED_TOKEN_COOKIE = "shopify_viewedProductsToken";

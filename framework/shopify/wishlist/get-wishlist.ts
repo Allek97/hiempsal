@@ -52,7 +52,9 @@ const getWishlist = async (options: {
 
     if (customerId) {
         await fetchRest<Wishlist>({
-            url: `${WEBSITE_API_URL}/api/wishlist?_id=${wishlistToken}`,
+            url: `${WEBSITE_API_URL}/api/wishlist?_id=${
+                wishlistToken ?? wishlist._id
+            }`,
             method: "PATCH",
             body: {
                 customerId,

@@ -85,10 +85,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 );
             }
 
-            if (!doc)
-                throw new Error(
-                    "No document found with that ID or you provided wrong data"
-                );
+            // if (!doc)
+            //     throw new Error(
+            //         "No document found with that ID or you provided wrong data"
+            //     );
 
             return res.status(200).json({
                 status: "success",

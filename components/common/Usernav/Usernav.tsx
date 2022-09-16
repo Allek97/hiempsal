@@ -21,6 +21,8 @@ import {
     ShopPolicy,
     WrapperMedia,
 } from "./Usernav.styled";
+import useViewed from "@framework/viewed/use-viewed";
+import { getViewedToken } from "@framework/utils/viewed-token";
 
 interface Props {
     children: ReactNode;
@@ -40,6 +42,10 @@ const Usernav: FC<Props> = ({ children }) => {
     const { data: wishlist } = getWishlist({
         wishlistToken: getWishlistToken()!,
     });
+    const getViewed = useViewed();
+    const { data: viewed } = getViewed({
+        viewedToken: getViewedToken()!,
+    });
 
     const wishlistSize: number = useMemo(
         () => wishlist?.products.length ?? 0,
@@ -50,6 +56,10 @@ const Usernav: FC<Props> = ({ children }) => {
             cart?.lineItems.reduce((prev, curr) => prev + curr.quantity, 0) ??
             0,
         [cart?.lineItems]
+    );
+    const viewedProductsSize: number = useMemo(
+        () => wishlist?.products.length ?? 0,
+        [wishlist?.products.length]
     );
 
     return (
@@ -94,7 +104,11 @@ const Usernav: FC<Props> = ({ children }) => {
                                 aria-label="Viewed products"
                             >
                                 <HiArrowNarrowRight />
-                                <h1>Viewed products</h1>
+                                <h1>
+                                    Viewed products{" "}
+                                    {viewedProductsSize > 0 &&
+                                        viewedProductsSize}
+                                </h1>
                             </NavBtn>
                         </FunctionalLink>
                     </Link>

@@ -9,6 +9,8 @@ import { FunctionalLink } from "@components/utils";
 import useWishlist from "@framework/wishlist/use-wishlist";
 import useCart from "@framework/cart/use-cart";
 import { getWishlistToken } from "@framework/utils/wishlist-token";
+import useViewed from "@framework/viewed/use-viewed";
+import { getViewedToken } from "@framework/utils/viewed-token";
 
 import { HelpCard } from "../../elements/HelpCard";
 
@@ -21,8 +23,6 @@ import {
     ShopPolicy,
     WrapperMedia,
 } from "./Usernav.styled";
-import useViewed from "@framework/viewed/use-viewed";
-import { getViewedToken } from "@framework/utils/viewed-token";
 
 interface Props {
     children: ReactNode;
@@ -58,8 +58,8 @@ const Usernav: FC<Props> = ({ children }) => {
         [cart?.lineItems]
     );
     const viewedProductsSize: number = useMemo(
-        () => wishlist?.products.length ?? 0,
-        [wishlist?.products.length]
+        () => viewed?.products.length ?? 0,
+        [viewed?.products.length]
     );
 
     return (

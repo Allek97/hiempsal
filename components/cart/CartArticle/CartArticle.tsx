@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Variants } from "framer-motion";
@@ -45,17 +45,23 @@ const articleVariant: Variants = {
 };
 
 const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
-    const selectedColor = cartItem.options?.find((option) =>
-        option.displayName.toLowerCase().match(/colou?r/gi)
-    )?.values[0].hexColor;
-    const selectedSize = cartItem.options?.find(
-        (option) => option.displayName.toLowerCase() === "size"
-    )?.values[0].label;
-    const selectedGender = cartItem.options?.find(
-        (option) => option.displayName.toLowerCase() === "gender"
-    )?.values[0].label;
+    const optionOne = useMemo(
+        () => (cartItem.options ? cartItem.options[0].values[0].label : "N.D"),
+        [cartItem.options]
+    );
+    const optionTwo = useMemo(
+        () => (cartItem.options ? cartItem.options[1].values[0].label : "N.D"),
+        [cartItem.options]
+    );
+    const optionThree = useMemo(
+        () => (cartItem.options ? cartItem.options[2].values[0].label : "N.D"),
+        [cartItem.options]
+    );
 
     const removeItem = useRemoveItem();
+
+    console.log(cartItem.productType);
+
     return (
         <Article
             className="article-item"
@@ -85,7 +91,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                 </ImageContainer>
             </Link>
 
-            <ProductDetails>
+            <ProductDetails isTech={cartItem.productType === "technology"}>
                 <span className="hidden sm:block">
                     <DecorationTop color="medium" />
                     <DecorationBottom color="dark" />
@@ -98,12 +104,10 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                         </Link>
                     </h2>
                     <article>
-                        <span className="capitalize">{selectedColor}</span>
-                        <span className="uppercase">
-                            {selectedSize ?? "N.D"}
-                        </span>
-                        <span className="capitalize">
-                            {selectedGender ?? "N.D"}
+                        <span className="capitalize">{optionOne}</span>
+                        <span className="uppercase">{optionTwo}</span>
+                        <span className="capitalize text-left">
+                            {optionThree}
                         </span>
                     </article>
                 </div>

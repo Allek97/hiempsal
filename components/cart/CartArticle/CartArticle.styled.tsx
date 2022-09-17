@@ -42,7 +42,8 @@ const decorationVariant = (variant: DecorationColor = "medium") => {
 ////////////////////////////////////////////////////////
 
 export const Article = styled(motion.article)`
-    ${tw`flex h-full w-full padding-bottom[1em] overflow-y-hidden tracking-tighter
+    ${tw`flex justify-between h-full w-full padding-bottom[1em]
+         overflow-y-hidden tracking-tighter
         pt-4 border-t-accents-9 text-base`}
 
     &:first-of-type {
@@ -64,7 +65,7 @@ export const Separator = styled.hr`
 export const ImageContainer = styled.a`
     ${tw`relative flex justify-center items-center 
     cursor-pointer width[40vw] padding[0.5em 0 30%]
-    lg:(width[12vw] padding-bottom[20%])
+    lg:(flex-shrink[0] width[12vw] padding-bottom[20%])
     4xl:width[13.5vw]`}
 
     span,
@@ -81,38 +82,55 @@ export const ImageContainer = styled.a`
 // TODO: Clean the code
 ////////////////////////////////////////////////////////
 
-export const ProductDetails = styled.div`
+interface ProductDetailsProps {
+    isTech?: boolean;
+}
+
+export const ProductDetails = styled.div<ProductDetailsProps>`
     ${tw`relative w-full margin-left[1vw] text-primary
     lg:(flex justify-between flex-1)`}
 
     & > div:first-of-type {
-        ${tw`absolute top-0 left-0 flex flex-col max-width[65%] 
+        ${tw`absolute top-0 left-0 flex flex-col 
+        max-width[65%] flex[1]
         lg:(static flex-row items-start 
             height[max-content] max-width[none] mr-0 order-1)`}
 
         h2 {
             ${fontSizeMain}
             ${tw`margin-bottom[0.5em] text-primary
-            lg:(max-width[11vw] margin-right[6vw])`}
+            lg:(max-width[11vw] margin-right[3vw])`}
         }
 
         article {
             ${tw`w-max color[rgb(103, 103, 103)]
-            lg:(flex justify-between items-start mt-0.5
-                 text-accents-8)`}
+            lg:(flex justify-between items-start mt-0.5 flex-1
+                 max-width[65%] text-accents-8)`}
+
+            ${({ isTech }) =>
+                isTech
+                    ? css`
+                          ${tw`flex flex-col w-full space-y-1 sm:space-y-3 lg:(flex-row space-y-0)`}
+
+                          & > span {
+                              ${tw`max-width[max-content]`}
+                          }
+                      `
+                    : css`
+                          & > span {
+                              ${tw`max-width[fit-content]`}
+                          }
+                      `}
 
             ${fontSizeTertiary}
-
-            & > span:not(:last-of-type) {
-                ${tw`margin-right[0.5em]`}
-            }
+         
 
             & > span:first-of-type {
-                ${tw`lg:(width[7.5vw] margin-right[1.8vw])`}
+                ${tw`mr-3 lg:mr-5`}
             }
 
             & > span:nth-of-type(2) {
-                ${tw`lg:margin-right[6.75vw]`}
+                ${tw`mr-3 lg:mr-5`}
             }
         }
     }

@@ -14,6 +14,7 @@ export interface LineItem {
     discounts: Discount[];
     options?: ProductOption[];
     variant: Partial<ProductVariant>;
+    productType: string;
 }
 
 export interface Cart {

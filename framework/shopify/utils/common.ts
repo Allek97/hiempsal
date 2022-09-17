@@ -29,6 +29,9 @@ export const checkoutDetailFragment = `
           id
           sku
           title
+          product{
+            productType
+          }
           selectedOptions {
               name
               value

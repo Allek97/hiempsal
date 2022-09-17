@@ -138,6 +138,7 @@ const normalizeLineItem = ({
             price: variant?.priceV2.amount,
             listPrice: variant?.compareAtPriceV2?.amount,
         },
+        productType: variant?.product.productType.toLocaleLowerCase() ?? "",
         ...rest,
     };
 };

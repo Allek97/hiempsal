@@ -6,7 +6,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Close from "@components/icons/Close";
-import { FaHeart, FaShopify } from "react-icons/fa";
+import { FaShopify } from "react-icons/fa";
 import { MdNotificationsActive } from "react-icons/md";
 import { FiShoppingBag } from "react-icons/fi";
 
@@ -235,9 +235,6 @@ const MobileNav: FC<Props> = ({
                                                 <FiShoppingBag className="h-6 w-6" />
                                                 {cartSize > 0 && (
                                                     <span>{cartSize}</span>
-                                                )}
-                                                {wishlistSize > 0 && (
-                                                    <FaHeart />
                                                 )}
                                             </motion.div>
                                             <UtilityAnimation>

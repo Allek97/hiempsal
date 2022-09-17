@@ -135,7 +135,12 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                                             Select {optionName}
                                         </motion.h3>
                                     </motion.div>
-                                    <ProductVariantList>
+                                    <ProductVariantList
+                                        isLong={
+                                            option.displayName.toLocaleLowerCase() ===
+                                            "processor"
+                                        }
+                                    >
                                         {option.values.map((optValue) => {
                                             const variantImg = optionName.match(
                                                 /colou?r/gi

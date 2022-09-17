@@ -6,7 +6,7 @@ import {
     ImageVariantWrapper,
     NotifyButton,
     ProductVariantColor,
-    VariantSizeGender,
+    VariantOther,
 } from "./Swatch.styled";
 
 export interface SwatchProps {
@@ -78,7 +78,7 @@ const Swatch: FC<SwatchProps> = ({
             {isOutOfStock && <NotifyComponent />}
         </ProductVariantColor>
     ) : (
-        <VariantSizeGender
+        <VariantOther
             className={option === "size" ? "uppercase" : "capitalize"}
             htmlFor={value}
             isAvailable={isAvailable}
@@ -99,7 +99,7 @@ const Swatch: FC<SwatchProps> = ({
 
             <span>{value}</span>
             {isOutOfStock && <NotifyComponent />}
-        </VariantSizeGender>
+        </VariantOther>
     );
 };
 

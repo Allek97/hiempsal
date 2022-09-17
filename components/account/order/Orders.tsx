@@ -79,10 +79,8 @@ const Orders: FC = () => {
                                             {order.lineItems.map(
                                                 (orderItem, idx) => (
                                                     <OrderImageContainer
-                                                        key={
-                                                            orderItem.variant
-                                                                ?.id ?? idx
-                                                        }
+                                                        // eslint-disable-next-line react/no-array-index-key
+                                                        key={`${orderItem.variant?.image?.url},${orderItem.name},${idx}`}
                                                     >
                                                         <QuantityIndicator>
                                                             <span>

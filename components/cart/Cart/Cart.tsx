@@ -52,9 +52,9 @@ const Cart: FC = () => {
                 <Media greaterThanOrEqual="lg">
                     <ItemsHeader>
                         <div>Product</div>
-                        <div>Colors</div>
-                        <div>Size</div>
-                        <div>Gender</div>
+                        <div>Color</div>
+                        <div>Size/Ram</div>
+                        <div>Gender/Processor</div>
                         <div>Price</div>
                     </ItemsHeader>
                 </Media>

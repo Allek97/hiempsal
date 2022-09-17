@@ -22,10 +22,14 @@ const commonLayout = css`
 `;
 
 export const ItemContainer = styled.li<ItemProps>`
-    ${tw`flex justify-between items-center whitespace-pre-wrap`}
+    ${tw`flex justify-between items-center`}
 
-    span,p {
+    p {
         ${tw`whitespace-pre-wrap`}
+    }
+
+    span {
+        ${tw`block pr-5`}
     }
 
     ${contentSize}

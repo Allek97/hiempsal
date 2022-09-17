@@ -112,7 +112,10 @@ const OrderView: FC<Props> = ({ order }) => {
                                     : "T.B.D";
 
                             return (
-                                <Package key={orderItem.variant?.id ?? idx}>
+                                <Package
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    key={`${orderItem.variant?.image?.url},${idx}`}
+                                >
                                     <div className="mb-4">
                                         <h3 className="mb-2">
                                             Package {idx + 1}
@@ -227,7 +230,8 @@ const OrderView: FC<Props> = ({ order }) => {
                                                 (option) => (
                                                     <span
                                                         className="mb-0.5"
-                                                        key={option.id}
+                                                        key={`${option.values[0].label}
+                                                                ,${orderItem.variant?.image?.url}`}
                                                     >
                                                         {option.values[0].label}
                                                     </span>

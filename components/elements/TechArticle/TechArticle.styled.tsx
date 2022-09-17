@@ -13,11 +13,12 @@ export const Root = styled.li`
 `;
 
 export const ImageWrapper = styled.div`
-    ${tw`relative flex justify-center items-center w-full height[56vw] mx-auto
-    sm:(height[45vw])
+    ${tw`relative flex justify-center items-center w-full height[54vw] mx-auto
+    sm:(height[40vw])
     md:(height[28vw])
     lg:(height[21vw])
-    2xl:(height[21.5rem])`}
+    xl:(height[17vw])
+    `}
 
     span {
         ${tw`w-full h-full`}

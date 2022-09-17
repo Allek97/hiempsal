@@ -12,8 +12,6 @@ interface Props {
 }
 
 const Shipping: FC<Props> = ({ shipping }) => {
-    console.log(shipping);
-
     return (
         <Container>
             <Header title="Shipping Info" />

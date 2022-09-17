@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import tw from "twin.macro";
 import { ButtonHTMLAttributes, FC, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
@@ -11,6 +13,15 @@ interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
     isOpen?: boolean;
 }
+
+const Wrapper = styled.div`
+    p {
+        ${tw`width[65%]`}
+    }
+    span {
+        ${tw`width[35%]`}
+    }
+`;
 
 const MaterialButton: FC<BtnProps> = ({ title, isOpen = false, onClick }) => {
     const textMotion: Variants = {
@@ -70,7 +81,7 @@ const Materials: FC<Props> = ({ materials }) => {
     const { technologies, productCare, materialComposition } = materials;
 
     const [materialState, setMaterialState] = useState<Material>({});
-
+    // NOTE Use useReducer
     function handleMaterialState(myMaterial: string) {
         const newState: Material = { ...materialState };
 
@@ -207,12 +218,13 @@ const Materials: FC<Props> = ({ materials }) => {
                                     Object.entries(
                                         materialComposition?.features
                                     ).map(([feature, value]) => (
-                                        <Item
-                                            title={value.description}
-                                            content={value.content}
-                                            key={feature}
-                                            layout="B"
-                                        />
+                                        <Wrapper key={feature}>
+                                            <Item
+                                                title={value.description}
+                                                content={value.content}
+                                                layout="B"
+                                            />
+                                        </Wrapper>
                                     ))}
                                 {materialComposition?.descriptions?.map(
                                     (description) => (

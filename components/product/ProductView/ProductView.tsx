@@ -257,7 +257,7 @@ const ProductView: FC<Props> = ({ product, similarProducts }) => {
                                 src={featureImage.url}
                                 alt={featureImage.alt || "feature"}
                                 layout="fill"
-                                objectFit="cover"
+                                objectFit="fill"
                                 quality="85"
                                 priority
                             />

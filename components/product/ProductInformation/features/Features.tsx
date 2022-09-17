@@ -1,3 +1,5 @@
+import tw from "twin.macro";
+import styled from "@emotion/styled";
 import { FC } from "react";
 import { motion } from "framer-motion";
 
@@ -8,6 +10,12 @@ import { Container, Header, Item } from "../commun";
 interface Props {
     features: ProductFeatures;
 }
+
+const Wrapper = styled.div`
+    p {
+        ${tw`text-align[end]`}
+    }
+`;
 
 const Features: FC<Props> = ({ features }) => {
     const { features: productFeatures, descriptions } = features;
@@ -20,11 +28,12 @@ const Features: FC<Props> = ({ features }) => {
                 exit={{ opacity: 0, transition: { duration: 0, dalay: 0 } }}
             >
                 {Object.entries(productFeatures).map(([feature, value]) => (
-                    <Item
-                        title={value.description}
-                        content={value.content}
-                        key={feature}
-                    />
+                    <Wrapper key={feature}>
+                        <Item
+                            title={value.description}
+                            content={value.content}
+                        />
+                    </Wrapper>
                 ))}
 
                 {descriptions &&

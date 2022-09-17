@@ -53,11 +53,11 @@ export const SliderContainer = styled.div`
 `;
 
 export const FeatureContainer = styled.div<FeatureProps>`
-    ${tw`relative height[52vw] w-full overflow-hidden
+    ${tw`relative height[52vw] w-full overflow-hidden bg-transparent
     lg:height[100%]`}
 
     div {
-        ${tw`relative w-full h-full bg-accents-8`}
+        ${tw`relative w-full h-full bg-transparent`}
     }
 
     ${(props) =>

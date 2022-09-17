@@ -44,10 +44,20 @@ export const VariantOptionContainer = styled.section`
         ${tw`mb-4`}
     }
 `;
-export const ProductVariantList = styled.div`
+
+interface ProductVariantListProps {
+    isLong?: boolean;
+}
+export const ProductVariantList = styled.div<ProductVariantListProps>`
     ${tw`grid grid-cols-3 grid-auto-rows[1fr] justify-between items-center gap-1.5 mb-6
     md:grid-cols-4
     lg:grid-cols-3`}
+
+    ${({ isLong }) =>
+        isLong &&
+        css`
+            ${tw`flex flex-col`}
+        `}
 `;
 
 ///////////////////////////////////////////////////

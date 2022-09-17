@@ -34,11 +34,11 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
     ${({ hasImage }) =>
         hasImage &&
         css`
-            ${tw`padding[2vw]
+            ${tw`padding[1vw]
             sm:padding[3vw]
             md:padding[2vw]
             lg:padding[5px]
-            4xl:padding[10px]`}
+            4xl:padding[6px]`}
         `}
 
     // font size
@@ -136,8 +136,8 @@ export const ProductVariantColor = styled.label<ProductVariantProps>`
               `}
 `;
 
-export const VariantSizeGender = styled(ProductVariantColor)`
-    ${tw`relative justify-center height[16vw]
+export const VariantOther = styled(ProductVariantColor)`
+    ${tw`relative justify-center height[16vw] w-full
     md:height[10vw]
     lg:height[5vw]
     4xl:height[3.5vw]`}

@@ -30,7 +30,7 @@ const Home = ({ products }: Props) => {
             <Hero variant="clothing" />
             <Paddings>
                 <Grid layout="clothing">
-                    {products.slice(0, 3).map((product, idx) => (
+                    {products.slice(0, 4).map((product, idx) => (
                         <ProductCard
                             product={product}
                             key={product.id}

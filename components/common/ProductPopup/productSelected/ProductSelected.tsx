@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,12 +31,29 @@ const ProductSelected: FC<ProductSelectedProps> = ({
     currencyCode,
 }) => {
     const { price, image, options } = selectedVariant;
-    const selectedOptions: Choices = Object.assign(
-        {},
-        ...options.map((option) => ({
-            [option.displayName.toLowerCase()]: option.values[0].label,
-        }))
+    const selectedOptions: Choices = useMemo(
+        () =>
+            Object.assign(
+                {},
+                ...options.map((option) => ({
+                    [option.displayName.toLowerCase()]: option.values[0].label,
+                }))
+            ),
+        [options]
     );
+
+    const displayName: string = useMemo(() => {
+        const queryStr = Object.entries(selectedOptions).map(([key, value]) => {
+            if (key === "color")
+                return value.toLowerCase().split(" ").join("-");
+            if (key === "size" || key === "ram") return value.toUpperCase();
+
+            return value;
+        });
+
+        return queryStr.join(", ");
+    }, [selectedOptions]);
+
     const { setProductNotAdded } = useUI();
 
     return (
@@ -55,13 +72,7 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                 </ImageWrapper>
                 <div>
                     <h4>
-                        {productName} |{" "}
-                        {(selectedOptions.color ?? selectedOptions.colour)
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}
-                        , {selectedOptions.size.toUpperCase()},{" "}
-                        {selectedOptions.gender}
+                        {productName} | {displayName}
                     </h4>
                     <span>
                         {currencyMap[currencyCode]}

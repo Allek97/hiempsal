@@ -254,54 +254,62 @@ const OrderView: FC<Props> = ({ order }) => {
                             );
                         })}
                         <OrderDetails>
-                            <DetailBloc>
+                            <DetailBloc className="w-full">
                                 <h2 className="font-bold uppercase mb-2">
                                     Details
                                 </h2>
-                                <p>Order</p>
-                                <span>{order.orderName}</span>
-                                <span>
-                                    {dateFormat(
-                                        order.processedAt ?? Date.now(),
-                                        "isoDate"
-                                    )}
-                                </span>
-                            </DetailBloc>
-                            <DetailBloc className="self-center">
-                                <p>Carrier</p>
-                                {order.successfulFulfillments
-                                    ?.trackingCompany ? (
-                                    <>
-                                        <span className="flex items-center capitalize">
-                                            <FaTruckMoving
-                                                className="mr-2"
-                                                style={{
-                                                    fill: "var(--accents-7)",
-                                                }}
-                                            />
-                                            {order.successfulFulfillments
-                                                ?.trackingCompany ??
-                                                "To be determined soon"}
-                                        </span>
-                                        <span>Standard Delivery</span>
+                                <div className="flex justify-between w-full">
+                                    <div className="flex flex-col">
+                                        <p>Order</p>
+                                        <span>{order.orderName}</span>
                                         <span>
-                                            Tracking Number:{" "}
-                                            {order.successfulFulfillments
-                                                ?.trackingNumber ??
-                                                "Not Issued Yet"}
+                                            {dateFormat(
+                                                order.processedAt ?? Date.now(),
+                                                "isoDate"
+                                            )}
                                         </span>
-                                    </>
-                                ) : (
-                                    <span className="flex items-center capitalize">
-                                        <FaTruckLoading
-                                            className="mr-2"
-                                            style={{ fill: "var(--accents-7)" }}
-                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <p>Carrier</p>
                                         {order.successfulFulfillments
-                                            ?.trackingCompany ??
-                                            "To be determined soon"}
-                                    </span>
-                                )}
+                                            ?.trackingCompany ? (
+                                            <>
+                                                <span className="flex items-center capitalize">
+                                                    <FaTruckMoving
+                                                        className="mr-2"
+                                                        style={{
+                                                            fill: "var(--accents-7)",
+                                                        }}
+                                                    />
+                                                    {order
+                                                        .successfulFulfillments
+                                                        ?.trackingCompany ??
+                                                        "To be determined soon"}
+                                                </span>
+                                                <span>Standard Delivery</span>
+                                                <span>
+                                                    Tracking Number:{" "}
+                                                    {order
+                                                        .successfulFulfillments
+                                                        ?.trackingNumber ??
+                                                        "Not Issued Yet"}
+                                                </span>
+                                            </>
+                                        ) : (
+                                            <span className="flex items-center capitalize">
+                                                <FaTruckLoading
+                                                    className="mr-2"
+                                                    style={{
+                                                        fill: "var(--accents-7)",
+                                                    }}
+                                                />
+                                                {order.successfulFulfillments
+                                                    ?.trackingCompany ??
+                                                    "To be determined soon"}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
                             </DetailBloc>
                         </OrderDetails>
                         <OrderDetails>
@@ -319,7 +327,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                 <span>{order.email}</span>
                             </DetailBloc>
                         </OrderDetails>
-                        <OrderDetails className="w-2/3 max-w-lg border-b-0">
+                        <OrderDetails className="border-b-0 md:(w-2/3 max-w-lg)">
                             <DetailBloc className="w-full">
                                 <h2 className="font-bold uppercase mb-2">
                                     Order

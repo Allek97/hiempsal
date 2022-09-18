@@ -58,9 +58,6 @@ export const PackageContent = styled.div`
 
     & > div:first-of-type {
         ${tw`relative flex flex-col`}
-        img {
-            transform: scale(1.15);
-        }
 
         button {
             ${orderInfoText}
@@ -76,12 +73,19 @@ export const PackageContent = styled.div`
 `;
 
 export const OrderDetails = styled.div`
-    ${tw`flex flex-col py-9 border-b border-black w-2/3 
+    ${tw`flex flex-col py-9 border-b border-black  
+    md:w-2/3
     lg:(flex-row justify-between items-end)`}
 `;
 
 export const DetailBloc = styled.div`
     ${tw`flex flex-col`}
+    &:last-of-type {
+        & > div {
+            ${tw`flex justify-between`}
+        }
+    }
+
     &:not(:last-of-type) {
         ${tw`mb-5`}
     }
@@ -100,9 +104,5 @@ export const DetailBloc = styled.div`
         &:not(:last-of-type) {
             ${tw`mb-1.5`}
         }
-    }
-
-    div {
-        ${tw`flex justify-between`}
     }
 `;

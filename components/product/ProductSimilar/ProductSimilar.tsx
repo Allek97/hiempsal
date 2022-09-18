@@ -1,3 +1,4 @@
+import { TechArticle } from "@components/elements";
 import { Grid, Paddings } from "@components/ui";
 import { AnimateText } from "@components/utils/animations";
 import { Product, ProductImage } from "@framework/types/product";
@@ -53,13 +54,20 @@ const ProductSimilar: FC<Props> = ({ productImage, similarProducts }) => {
             </header>
             <Paddings>
                 <Grid layout="technology">
-                    {similarProducts.map((similarProduct) => (
-                        <ProductCard
-                            product={similarProduct}
-                            key={similarProduct.id}
-                            variant="complex"
-                        />
-                    ))}
+                    {similarProducts[0].type === "clothing"
+                        ? similarProducts.map((similarProduct) => (
+                              <ProductCard
+                                  product={similarProduct}
+                                  key={similarProduct.id}
+                                  variant="complex"
+                              />
+                          ))
+                        : similarProducts.map((similarProduct) => (
+                              <TechArticle
+                                  product={similarProduct}
+                                  key={similarProduct.id}
+                              />
+                          ))}
                 </Grid>
             </Paddings>
         </ProductSimilarBox>

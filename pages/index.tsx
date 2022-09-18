@@ -30,24 +30,30 @@ const Home = ({ products }: Props) => {
             <Hero variant="clothing" />
             <Paddings>
                 <Grid layout="clothing">
-                    {products.slice(0, 4).map((product, idx) => (
-                        <ProductCard
-                            product={product}
-                            key={product.id}
-                            variant="complex"
-                            isDisplayed={idx % 2 === 0 && idx !== 0}
-                        />
-                    ))}
+                    {products
+                        .filter((element) => element.type === "clothing")
+                        .slice(0, 3)
+                        .map((product, idx) => (
+                            <ProductCard
+                                product={product}
+                                key={product.id}
+                                variant="complex"
+                                isDisplayed={idx % 2 === 0 && idx !== 0}
+                            />
+                        ))}
                 </Grid>
             </Paddings>
             <Partner />
             <Hero variant="technology" />
             <Paddings>
                 <Grid layout="technology">
-                    <TechArticle />
-                    <TechArticle />
-                    <TechArticle />
-                    <TechArticle />
+                    {products
+                        .filter((element) => element.type === "technology")
+                        .slice(0, 3)
+                        .map((product) => (
+                            <TechArticle product={product} key={product.id} />
+                        ))}
+                    {/* <TechArticle /> */}
                 </Grid>
             </Paddings>
         </main>

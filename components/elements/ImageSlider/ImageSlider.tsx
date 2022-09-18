@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
@@ -7,6 +8,7 @@ import { FC, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
+import { ProductImage } from "@framework/types/product";
 
 import {
     ArrowSvgLeft,
@@ -17,7 +19,7 @@ import {
     Wrapper,
 } from "./ImageSlider.styled";
 
-interface Props {
+interface ArrowProps {
     direction: "left" | "right";
     disabled: boolean;
     onClick: (e: any) => void;
@@ -25,7 +27,7 @@ interface Props {
 
 type Direction = "left" | "right" | "center";
 
-const Arrow = (props: Props): JSX.Element => {
+const Arrow = (props: ArrowProps): JSX.Element => {
     const { disabled, direction, onClick } = props;
     return (
         <div>
@@ -38,7 +40,13 @@ const Arrow = (props: Props): JSX.Element => {
     );
 };
 
-const ImageSlider: FC = () => {
+interface Props {
+    images: ProductImage[];
+}
+
+const placeHolder = "./product-image-placeholder.svg";
+
+const ImageSlider: FC<Props> = ({ images }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loaded, setLoaded] = useState(false);
     const [direction, setDirection] = useState<Direction>("left");
@@ -71,67 +79,21 @@ const ImageSlider: FC = () => {
                 ))}
             </Indicator>
             <div ref={sliderRef} className="keen-slider h-full w-full">
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
-
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro-2.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro-3.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro-4.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro-5.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
-                <ImageContainer className="keen-slider__slide">
-                    <Image
-                        src="/images/macbook-pro.png"
-                        alt="Black hoodie"
-                        quality="80"
-                        layout="fill"
-                        objectFit="contain"
-                        priority
-                    />
-                </ImageContainer>
+                {images.map((image, idx) => (
+                    <ImageContainer
+                        key={`${image.url},${idx}`}
+                        className="keen-slider__slide"
+                    >
+                        <Image
+                            src={image.url ?? placeHolder}
+                            alt={image.alt ?? "product"}
+                            quality="90"
+                            layout="fill"
+                            objectFit="contain"
+                            priority
+                        />
+                    </ImageContainer>
+                ))}
             </div>
             {loaded && instanceRef.current && (
                 <>

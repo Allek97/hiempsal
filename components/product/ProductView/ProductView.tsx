@@ -48,6 +48,7 @@ import { ProductBoutique } from "../ProductBoutique";
 interface Props {
     product: Product;
     similarProducts: Product[];
+    boutiqueProducts: Product[];
 }
 
 export const VariantButtonPopup = () => {
@@ -65,7 +66,11 @@ export const VariantButtonPopup = () => {
     );
 };
 
-const ProductView: FC<Props> = ({ product, similarProducts }) => {
+const ProductView: FC<Props> = ({
+    product,
+    similarProducts,
+    boutiqueProducts,
+}) => {
     const {
         isPopupOpen,
         isProductCartOpen,
@@ -283,7 +288,7 @@ const ProductView: FC<Props> = ({ product, similarProducts }) => {
                 productImage={product.images[1]}
                 similarProducts={similarProducts}
             />
-            <ProductBoutique />
+            <ProductBoutique boutiqueProducts={boutiqueProducts} />
         </Root>
     );
 };

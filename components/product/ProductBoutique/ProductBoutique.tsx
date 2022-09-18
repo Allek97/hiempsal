@@ -4,13 +4,19 @@ import { TechArticle } from "@components/elements";
 
 import { AnimateText } from "@components/utils/animations";
 import { useInView } from "react-intersection-observer";
+import { Product } from "@framework/types/product";
 
 import {
     ProductBoutiqueBox,
     ProductBoutiqueGrid,
 } from "./ProductBoutique.styled";
+import { ProductCard } from "../ProductCard";
 
-const ProductBoutique: FC = () => {
+interface Props {
+    boutiqueProducts: Product[];
+}
+
+const ProductBoutique: FC<Props> = ({ boutiqueProducts }) => {
     const { ref: titleRef, inView: isTitleInView } = useInView({
         threshold: 0.25,
         triggerOnce: true,
@@ -21,7 +27,7 @@ const ProductBoutique: FC = () => {
             <header>
                 <div className="flex items-center w-max">
                     <AnimateText
-                        text="Visit hiempsal technology shop"
+                        text={`Visit hiempsal ${boutiqueProducts[0].type} shop`}
                         type="heading1"
                         isAnimate={isTitleInView}
                         version="slideFade"
@@ -41,9 +47,17 @@ const ProductBoutique: FC = () => {
                 </div>
             </header>
             <ProductBoutiqueGrid>
-                <TechArticle />
-                <TechArticle />
-                <TechArticle />
+                {boutiqueProducts[0].type === "clothing"
+                    ? boutiqueProducts.map((product) => (
+                          <ProductCard
+                              product={product}
+                              key={product.id}
+                              variant="complex"
+                          />
+                      ))
+                    : boutiqueProducts.map((product) => (
+                          <TechArticle product={product} key={product.id} />
+                      ))}
             </ProductBoutiqueGrid>
         </ProductBoutiqueBox>
     );

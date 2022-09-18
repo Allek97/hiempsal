@@ -12,6 +12,11 @@ import { FaLaptopCode } from "react-icons/fa";
 import { RiCalendarCheckLine } from "react-icons/ri";
 
 import ImageSlider from "@components/elements/ImageSlider/ImageSlider";
+import { Product } from "@framework/types/product";
+import colors from "@lib/const/colors";
+import { useCurrency } from "@lib/useCurrency";
+import useReview from "@framework/review/use-review";
+import { FunctionalLink } from "@components/utils";
 
 import {
     Color,
@@ -24,32 +29,51 @@ import {
 } from "./TechArticle.styled";
 
 interface Props {
-    className?: string;
+    product: Product;
 }
 
-const TechArticle: FC<Props> = ({ className }) => {
+const TechArticle: FC<Props> = ({ product }) => {
+    const { processor, operatingSystem, gpu, display, hardDrive, ram, weight } =
+        product.features.features;
+
+    const currency = useCurrency(product.price);
+
+    const getUseReview = useReview();
+    const { data: review } = getUseReview({
+        productId: product.id,
+    });
+
     return (
-        <Root className={className}>
+        <Root>
             <ImageWrapper>
-                <ImageSlider />
+                <ImageSlider images={product.images} />
             </ImageWrapper>
             <DeviceInfo>
-                <Link href="/" passHref>
-                    <h3>iPad Pro 12.9 2021</h3>
+                <Link href={`/products/${product.slug}`} passHref>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a>
+                        <h3>{product.name}</h3>
+                    </a>
                 </Link>
-                <ReviewWrapper>
-                    <Rating
-                        name="half-rating-read"
-                        defaultValue={4.3}
-                        precision={0.1}
-                        readOnly
-                        color="red"
-                    />
-                    <span>4.3</span>
-                    <span>(2819)</span>
-                </ReviewWrapper>
+                {!!review && !!review.length && (
+                    <ReviewWrapper>
+                        <Rating
+                            key={review[0].ratingsAverage}
+                            name="half-rating-read"
+                            defaultValue={review[0].ratingsAverage}
+                            // value={2}
+                            precision={0.1}
+                            readOnly
+                            color="red"
+                        />
+                        <span>{review[0].ratingsAverage}</span>
+                        <span>({review.length})</span>
+                    </ReviewWrapper>
+                )}
 
-                <p>CAD $1,299.99</p>
+                <p>
+                    {currency} {product.price.value}
+                </p>
                 <span className="w-max mb-5 text-sm border-b border-accents-7 border-dashed cursor-default">
                     Free Shipping
                 </span>
@@ -57,51 +81,63 @@ const TechArticle: FC<Props> = ({ className }) => {
             <DeviceSpecs>
                 <li>
                     <BsCpu />
-                    11th Generation Intel® Core™ i7-1165G7
+                    {processor.content}
                 </li>
                 <li>
-                    <GrSystem /> Windows 11 Pro
+                    <GrSystem />
+                    {operatingSystem.content}
                 </li>
                 <li>
                     <GiComputerFan />
-                    Intel® UHD Graphics
+                    {gpu.content}
                 </li>
                 <li>
-                    <CgDrive />8 GB, LPDDR4X, 4267 MHz, integrated
+                    <CgDrive />
+                    {ram.content}
                 </li>
                 <li>
                     <FiHardDrive />
-                    256GB M.2 PCIe NVMe Solid State Drive
+                    {hardDrive.content}
                 </li>
                 <li>
                     <FaLaptopCode />
-                    13.3-in. touch display
+                    {display.content}
                 </li>
                 <li>
-                    <GiWeightCrush /> Starting at 2.60 lbs
+                    <GiWeightCrush /> Starting at {weight.content}
                 </li>
             </DeviceSpecs>
             <div className="flex items-center mb-8 text-sm">
-                <h4 className="pl-0.5 mr-3 tracking-tight">Colours:</h4>
+                <h4 className="pl-0.5 mr-3 tracking-tight">Colors:</h4>
                 <div className="flex space-x-2">
-                    <Color />
-                    <Color color="black" />
-                    <Color color="#006bbd" />
-                    <Color color="white" />
+                    {product.options
+                        .filter(
+                            (element) =>
+                                element.displayName.toLowerCase() === "color"
+                        )[0]
+                        .values.map((value) => (
+                            <Color
+                                color={colors[value.label]}
+                                key={value.label}
+                            />
+                        ))}
                 </div>
             </div>
             <div
                 className="flex items-center mb-5 cursor-default"
-                style={{ fontSize: "13.5px", color: "#ba4e0d" }}
+                style={{ fontSize: "13.5px" }}
             >
                 <RiCalendarCheckLine
                     className="mr-2 tracking-tighter"
-                    style={{ fill: "#408001", fontSize: "17px" }}
+                    style={{ fill: "var(--green)", fontSize: "17px" }}
                 />
                 Ready to Ship
             </div>
-            <Link href="/" passHref>
-                <DeviceButton>Customize & Buy</DeviceButton>
+
+            <Link href={`/products/${product.slug}`} passHref>
+                <FunctionalLink>
+                    <DeviceButton>Customize & Buy</DeviceButton>
+                </FunctionalLink>
             </Link>
         </Root>
     );

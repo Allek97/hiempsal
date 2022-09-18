@@ -22,7 +22,7 @@ const productConnection = `
                 currencyCode
                 }
             }
-            images(first: 1) { 
+            images(first: 250) { 
                 pageInfo {
                 hasNextPage
                 hasPreviousPage
@@ -68,6 +68,71 @@ const productConnection = `
                     }
                   }
                 }
+              }
+              category: metafield(namespace: "my_fields", key: "product_category") {
+                value
+                type
+              }
+              additionalImage1: metafield(namespace: "my_fields", key: "additional_image_1") {
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+              additionalImage2: metafield(namespace: "my_fields", key: "additional_image_2") {
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+              featureImage1: metafield(namespace: "my_fields", key: "feature_image_1") {
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+              featureImage2: metafield(namespace: "my_fields", key: "feature_image_2") {
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText 
+                    }
+                  }
+                }
+              }
+              featureName: metafield(namespace: "my_fields", key: "feature_name") {
+                value
+              }
+              features: metafield(namespace: "my_fields", key: "features") {
+                value
+              }
+              materials: metafield(namespace: "my_fields", key: "materials") {
+                value
+              }
+              sustainability: metafield(namespace: "my_fields", key: "sustainability") {
+                value
+              }
+              dimensions: metafield(namespace: "my_fields", key: "dimensions") {
+                value
+              }
+              shipping: metafield(namespace: "my_fields", key: "shipping") {
+                value
+              }
+              type: metafield(namespace: "my_fields", key: "type") {
+                value
               }
         }
     }

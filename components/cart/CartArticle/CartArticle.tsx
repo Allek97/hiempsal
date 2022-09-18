@@ -60,8 +60,6 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
 
     const removeItem = useRemoveItem();
 
-    console.log(cartItem.productType);
-
     return (
         <Article
             className="article-item"
@@ -93,8 +91,8 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
 
             <ProductDetails isTech={cartItem.productType === "technology"}>
                 <span className="hidden sm:block">
-                    <DecorationTop color="medium" />
-                    <DecorationBottom color="dark" />
+                    <DecorationTop color="#343434" />
+                    <DecorationBottom color="medium" />
                 </span>
 
                 <div>

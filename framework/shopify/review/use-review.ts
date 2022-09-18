@@ -18,10 +18,7 @@ type UseReview = (
 const useReview = (): UseReview => {
     const { fetchRest } = getConfig();
 
-    const fetcher = async (
-        input: FetcherContext,
-        query: string
-    ): Promise<Review[]> => {
+    const fetcher = async (query: string): Promise<Review[]> => {
         const { data } = await fetchRest<Review[]>({
             url: query,
             method: "GET",
@@ -33,7 +30,7 @@ const useReview = (): UseReview => {
     const useData = (context: FetcherContext): SWRResponse<Review[], any> => {
         const hookFetcher = async (url: string) => {
             try {
-                return await fetcher(context, url);
+                return await fetcher(url);
             } catch (error) {
                 if (axios.isAxiosError(error)) {
                     throw error as AxiosError;

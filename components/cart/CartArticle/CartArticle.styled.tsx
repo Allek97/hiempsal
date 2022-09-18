@@ -10,7 +10,10 @@ import {
 
 type DecorationColor = "light" | "medium" | "dark";
 
-interface DecorationProps {
+interface DecorationTopProps {
+    color: string;
+}
+interface DecorationBottomProps {
     color?: DecorationColor;
 }
 
@@ -191,14 +194,14 @@ export const RemoveBtn = styled.button`
     }
 `;
 
-export const DecorationTop = styled.span<DecorationProps>`
+export const DecorationTop = styled.span<DecorationTopProps>`
     ${tw`absolute bottom[50%] right-0 block height[3vw] width[12vw] p-0
     lg:(height[2vw] width[8vw])`}
     transform: skewY(-10deg);
-    ${(props) => decorationVariant(props.color)};
+    background-color: ${({ color }) => color};
 `;
 
-export const DecorationBottom = styled(DecorationTop)<DecorationProps>`
+export const DecorationBottom = styled(DecorationTop)<DecorationBottomProps>`
     ${tw`bottom[calc(50% - 1.8vw)] right[1vw] opacity-80
     lg:bottom[calc(50% - 1.2vw)]`}
 

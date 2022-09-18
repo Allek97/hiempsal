@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import {
+    ArrowSvgLeft,
+    ArrowSvgRight,
+    Indicator,
+} from "../ImageSlider/ImageSlider.styled";
 
 interface ColorProps {
     color?: string;
@@ -10,6 +15,14 @@ export const Root = styled.li`
     border-radius[6px] bg-primary`}
 
     box-shadow:0 2px 7px 2px rgb(0 0 0 / 12%);
+
+    &:hover {
+        ${ArrowSvgLeft},${ArrowSvgRight},${Indicator} {
+            /* transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1); */
+            transition: opacity 0.5s cubic-bezier(1, 0, 0, 1);
+            opacity: 1;
+        }
+    }
 `;
 
 export const ImageWrapper = styled.div`
@@ -42,7 +55,8 @@ export const DeviceInfo = styled.div`
 `;
 
 export const ReviewWrapper = styled.div`
-    ${tw`flex mb-5 border-b border-b-transparent space-x-1 font-size[13.5px] tracking-tighter cursor-pointer`}
+    ${tw`flex mb-5 border-b border-b-transparent space-x-1 w-max
+    font-size[13.5px] tracking-tighter`}
 
     & > span:first-of-type {
         color: #006bbd !important;
@@ -76,7 +90,7 @@ export const Color = styled.span<ColorProps>`
 `;
 
 export const DeviceButton = styled.button`
-    ${tw`block py-3.5 background-color[#0076ce] border-radius[3px]
+    ${tw`block py-3.5 w-full bg-blue-dark border-radius[3px]
     font-size[16px] text-center leading-3 cursor-pointer text-secondary`}
 
     &:hover {

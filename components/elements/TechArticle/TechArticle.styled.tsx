@@ -11,7 +11,7 @@ interface ColorProps {
 }
 
 export const Root = styled.li`
-    ${tw`flex flex-col px-4 pb-6
+    ${tw`flex flex-col justify-between px-4 pb-6
     border-radius[6px] bg-primary`}
 
     box-shadow:0 2px 7px 2px rgb(0 0 0 / 12%);

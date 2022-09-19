@@ -32,7 +32,7 @@ export const Content = styled.ul`
 `;
 
 export const Package = styled.li`
-    ${tw`flex flex-col mb-12`}
+    ${tw`flex flex-col justify-between mb-12`}
 
     h3 {
         ${tw`uppercase font-bold`}

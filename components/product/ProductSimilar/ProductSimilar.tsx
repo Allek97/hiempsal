@@ -1,24 +1,53 @@
 import { TechArticle } from "@components/elements";
 import { Grid, Paddings } from "@components/ui";
 import { AnimateText } from "@components/utils/animations";
+import { getConfig } from "@framework/api/config";
+import { getQueryProducts } from "@framework/product";
 import { Product, ProductImage } from "@framework/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { ProductCard } from "../ProductCard";
 import { ProductSimilarBox } from "./ProductSimilar.styled";
 
 interface Props {
     productImage: ProductImage;
-    similarProducts: Product[];
+    productType: string;
+    product: Product;
 }
 
-const ProductSimilar: FC<Props> = ({ productImage, similarProducts }) => {
+const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
+    const [similarProducts, setSimilarProducts] = useState<Product[]>([
+        product,
+    ]);
+
     const { ref: titleRef, inView: isTitleInView } = useInView({
         threshold: 0.25,
         triggerOnce: true,
     });
+
+    useEffect(() => {
+        let flag = true;
+        const config = getConfig();
+
+        async function fetcher() {
+            const query = `product_type:${productType ?? "clothing"}`;
+
+            const res: Product[] = await getQueryProducts({
+                config,
+                variables: { querySearch: query },
+            });
+
+            if (flag) setSimilarProducts(res);
+        }
+
+        fetcher();
+
+        return () => {
+            flag = false;
+        };
+    }, [productType]);
 
     return (
         <ProductSimilarBox>
@@ -54,7 +83,8 @@ const ProductSimilar: FC<Props> = ({ productImage, similarProducts }) => {
             </header>
             <Paddings>
                 <Grid layout="technology">
-                    {similarProducts[0].type === "clothing"
+                    {!!similarProducts.length &&
+                    similarProducts[0].type === "clothing"
                         ? similarProducts.map((similarProduct) => (
                               <ProductCard
                                   product={similarProduct}

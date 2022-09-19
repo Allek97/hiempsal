@@ -1,10 +1,12 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { TechArticle } from "@components/elements";
 
 import { AnimateText } from "@components/utils/animations";
 import { useInView } from "react-intersection-observer";
 import { Product } from "@framework/types/product";
+import { getConfig } from "@framework/api/config";
+import { getQueryProducts } from "@framework/product";
 
 import {
     ProductBoutiqueBox,
@@ -13,14 +15,42 @@ import {
 import { ProductCard } from "../ProductCard";
 
 interface Props {
-    boutiqueProducts: Product[];
+    productType: string;
+    product: Product;
 }
 
-const ProductBoutique: FC<Props> = ({ boutiqueProducts }) => {
+const ProductBoutique: FC<Props> = ({ productType, product }) => {
+    const [boutiqueProducts, setSimilarProducts] = useState<Product[]>([
+        product,
+    ]);
+
     const { ref: titleRef, inView: isTitleInView } = useInView({
         threshold: 0.25,
         triggerOnce: true,
     });
+
+    useEffect(() => {
+        let flag = true;
+        const config = getConfig();
+
+        async function fetcher() {
+            const type = productType === "clothing" ? "technology" : "clothing";
+            const query = `product_type:${type ?? "clothing"}`;
+
+            const res: Product[] = await getQueryProducts({
+                config,
+                variables: { querySearch: query },
+            });
+
+            if (flag) setSimilarProducts(res);
+        }
+
+        fetcher();
+
+        return () => {
+            flag = false;
+        };
+    }, [productType]);
 
     return (
         <ProductBoutiqueBox>
@@ -48,15 +78,18 @@ const ProductBoutique: FC<Props> = ({ boutiqueProducts }) => {
             </header>
             <ProductBoutiqueGrid>
                 {boutiqueProducts[0].type === "clothing"
-                    ? boutiqueProducts.map((product) => (
+                    ? boutiqueProducts.map((boutiqueProduct) => (
                           <ProductCard
-                              product={product}
-                              key={product.id}
+                              product={boutiqueProduct}
+                              key={boutiqueProduct.id}
                               variant="complex"
                           />
                       ))
-                    : boutiqueProducts.map((product) => (
-                          <TechArticle product={product} key={product.id} />
+                    : boutiqueProducts.map((boutiqueProduct) => (
+                          <TechArticle
+                              product={boutiqueProduct}
+                              key={boutiqueProduct.id}
+                          />
                       ))}
             </ProductBoutiqueGrid>
         </ProductBoutiqueBox>

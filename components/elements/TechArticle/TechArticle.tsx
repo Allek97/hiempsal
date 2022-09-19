@@ -33,8 +33,16 @@ interface Props {
 }
 
 const TechArticle: FC<Props> = ({ product }) => {
-    const { processor, operatingSystem, gpu, display, hardDrive, ram, weight } =
-        product.features.features;
+    const {
+        processor,
+        operatingSystem,
+        gpu,
+        display,
+        hardDrive,
+        ram,
+        weight,
+        ss,
+    } = product.features.features;
 
     const currency = useCurrency(product.price);
 
@@ -72,7 +80,7 @@ const TechArticle: FC<Props> = ({ product }) => {
                 )}
 
                 <p>
-                    {currency} {product.price.value}
+                    {currency} {product.price.value.toFixed(2)}
                 </p>
                 <span className="w-max mb-5 text-sm border-b border-accents-7 border-dashed cursor-default">
                     Free Shipping

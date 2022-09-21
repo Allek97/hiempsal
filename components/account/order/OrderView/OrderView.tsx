@@ -185,6 +185,10 @@ const OrderView: FC<Props> = ({ order }) => {
                                                             }
                                                             layout="fill"
                                                             objectFit="contain"
+                                                            style={{
+                                                                padding:
+                                                                    "4px !important",
+                                                            }}
                                                         />
                                                     </FunctionalLink>
                                                 </Link>

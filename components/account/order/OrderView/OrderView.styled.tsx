@@ -70,6 +70,10 @@ export const PackageContent = styled.div`
             ${orderInfoText}
         }
     }
+
+    img {
+        padding: 4px !important;
+    }
 `;
 
 export const OrderDetails = styled.div`

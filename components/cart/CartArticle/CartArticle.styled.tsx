@@ -67,9 +67,9 @@ export const Separator = styled.hr`
 
 export const ImageContainer = styled.a`
     ${tw`relative flex justify-center items-center 
-    cursor-pointer width[40vw] padding[0.5em 0 30%]
-    lg:(flex-shrink[0] width[12vw] padding-bottom[20%])
-    4xl:width[13.5vw]`}
+    cursor-pointer width[30vw] padding[0.5em 1em 30%]
+    lg:(flex-shrink[0] width[10vw] padding-bottom[20%])
+    4xl:width[11vw]`}
 
     span,
     img {

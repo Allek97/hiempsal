@@ -40,6 +40,10 @@ export const OrderContent = styled.div`
 
 export const OrderImageContainer = styled.div`
     ${tw`relative w-24 h-24 border-radius[3px] bg-accents-4`};
+
+    img {
+        padding: 4px !important;
+    }
 `;
 
 export const DetailBtnWrapper = styled.div`

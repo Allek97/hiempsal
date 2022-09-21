@@ -49,7 +49,7 @@ export const Root = styled(motion.div, transientOptions)<RootProps>`
 `;
 
 export const ImageWrapper = styled.div`
-    ${tw`relative width[11vw] min-width[9.6vw] margin[0 1.5vw]
+    ${tw`relative width[11vw] min-width[9.6vw] margin[0 1.5vw] p-1.5
     md:(width[7.2vw] min-width[5.7vw])
     lg:(width[calc(1rem + 2.4vw)] min-width[calc(1rem + 2.4vw)] margin[0 0.2rem])`}
 `;

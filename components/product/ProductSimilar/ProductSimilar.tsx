@@ -39,7 +39,11 @@ const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
                 variables: { querySearch: query },
             });
 
-            if (flag) setSimilarProducts(res);
+            const products = res
+                .filter((element) => element.id !== product.id)
+                .slice(0, 3);
+
+            if (flag) setSimilarProducts(products);
         }
 
         fetcher();

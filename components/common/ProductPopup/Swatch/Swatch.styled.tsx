@@ -144,7 +144,7 @@ export const VariantOther = styled(ProductVariantColor)`
 `;
 
 export const ImageVariantWrapper = styled.span`
-    ${tw`relative w-full cursor-pointer`}
+    ${tw`relative w-full cursor-pointer p-2`}
 `;
 
 export const NotifyButton = styled.button`

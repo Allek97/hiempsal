@@ -178,7 +178,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                     layout="fill"
                                     objectFit="contain"
                                     quality="85"
-                                    priority={idx === 0}
+                                    priority={idx <= 3}
                                     key={image.url}
                                 />
                             </ImageContainer>

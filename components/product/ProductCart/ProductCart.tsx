@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { ProductPopup } from "@components/common";
@@ -44,14 +44,25 @@ const ProductCart: FC<Props> = ({ product }) => {
         isProductInfoOpen,
     } = useProduct();
 
-    const isOverviewOpen =
-        !isProductCartOpen &&
-        !isProductAdded &&
-        !isMobileMenuOpen &&
-        (isProductInfoOpen ||
-            isProductOverviewOpen ||
-            isHelpOpen ||
-            isReviewOpen);
+    const isOverviewOpen = useMemo(
+        () =>
+            !isProductCartOpen &&
+            !isProductAdded &&
+            !isMobileMenuOpen &&
+            (isProductInfoOpen ||
+                isProductOverviewOpen ||
+                isHelpOpen ||
+                isReviewOpen),
+        [
+            isHelpOpen,
+            isMobileMenuOpen,
+            isProductAdded,
+            isProductCartOpen,
+            isProductInfoOpen,
+            isProductOverviewOpen,
+            isReviewOpen,
+        ]
+    );
 
     return (
         <ProductPopup product={product} hasPadding={false}>
@@ -71,7 +82,7 @@ const ProductCart: FC<Props> = ({ product }) => {
             </AnimatePresence>
             {isOverviewOpen && (
                 <ProductOverview
-                    productImage={product.images[1]}
+                    productImage={product.images[product.images.length - 1]}
                     productName={product.name}
                     productPrice={product.price}
                 />

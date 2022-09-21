@@ -39,10 +39,10 @@ export const ImageWrapper = styled.div`
 `;
 
 export const DeviceInfo = styled.div`
-    ${tw`flex flex-col w-max`}
+    ${tw`flex flex-col`}
 
     h3 {
-        ${tw`w-max pb-1.5 cursor-pointer text-lg color[rgb(0, 118, 206)] tracking-tight`}
+        ${tw`pb-1.5 cursor-pointer text-lg color[rgb(0, 118, 206)] tracking-tight`}
 
         &:hover {
             ${tw`color[#073068]`}

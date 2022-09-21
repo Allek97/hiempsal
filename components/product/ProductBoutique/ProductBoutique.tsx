@@ -55,7 +55,7 @@ const ProductBoutique: FC<Props> = ({ productType, product }) => {
     return (
         <ProductBoutiqueBox>
             <header>
-                <div className="flex items-center w-max">
+                <div className="flex items-center">
                     <AnimateText
                         text={`Visit hiempsal ${boutiqueProducts[0].type} shop`}
                         type="heading1"

@@ -3,12 +3,6 @@ import Link from "next/link";
 import { FC } from "react";
 import Rating from "@mui/material/Rating";
 
-import { BsCpu } from "react-icons/bs";
-import { GrSystem } from "react-icons/gr";
-import { GiComputerFan, GiWeightCrush } from "react-icons/gi";
-import { CgDrive } from "react-icons/cg";
-import { FiHardDrive } from "react-icons/fi";
-import { FaLaptopCode } from "react-icons/fa";
 import { RiCalendarCheckLine } from "react-icons/ri";
 
 import ImageSlider from "@components/elements/ImageSlider/ImageSlider";
@@ -27,23 +21,13 @@ import {
     ReviewWrapper,
     Root,
 } from "./TechArticle.styled";
+import { techIcons } from "./techIcons";
 
 interface Props {
     product: Product;
 }
 
 const TechArticle: FC<Props> = ({ product }) => {
-    const {
-        processor,
-        operatingSystem,
-        gpu,
-        display,
-        hardDrive,
-        ram,
-        weight,
-        ss,
-    } = product.features.features;
-
     const currency = useCurrency(product.price);
 
     const getUseReview = useReview();
@@ -87,33 +71,14 @@ const TechArticle: FC<Props> = ({ product }) => {
                 </span>
             </DeviceInfo>
             <DeviceSpecs>
-                <li>
-                    <BsCpu />
-                    {processor.content}
-                </li>
-                <li>
-                    <GrSystem />
-                    {operatingSystem.content}
-                </li>
-                <li>
-                    <GiComputerFan />
-                    {gpu.content}
-                </li>
-                <li>
-                    <CgDrive />
-                    {ram.content}
-                </li>
-                <li>
-                    <FiHardDrive />
-                    {hardDrive.content}
-                </li>
-                <li>
-                    <FaLaptopCode />
-                    {display.content}
-                </li>
-                <li>
-                    <GiWeightCrush /> Starting at {weight.content}
-                </li>
+                {Object.entries(product.features.features).map(([key, value]) =>
+                    techIcons[key] ? (
+                        <li key={key}>
+                            {techIcons[key].icon}
+                            {value.content}
+                        </li>
+                    ) : null
+                )}
             </DeviceSpecs>
             <div className="flex items-center mb-8 text-sm">
                 <h4 className="pl-0.5 mr-3 tracking-tight">Colors:</h4>
@@ -121,9 +86,11 @@ const TechArticle: FC<Props> = ({ product }) => {
                     {product.options
                         .filter(
                             (element) =>
-                                element.displayName.toLowerCase() === "color"
+                                element.displayName.toLowerCase() === "color" ||
+                                element.displayName.toLowerCase() ===
+                                    "watch band"
                         )[0]
-                        .values.map((value) => (
+                        ?.values.map((value) => (
                             <Color
                                 color={colors[value.label]}
                                 key={value.label}

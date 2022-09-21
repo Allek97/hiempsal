@@ -8,6 +8,10 @@ const colors: { [key: string]: string } = {
     "Electric blue": "#0892d0",
     "Peach Puff": "#ffdab9 ",
     "Candy Apple Red": "#ff0800",
+    "Sport Band Black": "#343434",
+    "Sport Band Gold": "#ece2da",
+    "Braided Solo Loop": "#59677b",
+    "Sequoia Green Leather Link": "#2a3529",
 };
 
 export default colors;

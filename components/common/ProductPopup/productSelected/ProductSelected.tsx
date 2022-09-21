@@ -76,7 +76,7 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                     </h4>
                     <span>
                         {currencyMap[currencyCode]}
-                        {price}
+                        {price.toFixed(2)}
                     </span>
                 </div>
             </ProductInfo>

@@ -43,7 +43,8 @@ const Swatch: FC<SwatchProps> = ({
     isOutOfStock,
     isSelected,
 }) => {
-    return option === "color" ? (
+    return option.toLowerCase() === "color" ||
+        option.toLowerCase() === "watch band" ? (
         <ProductVariantColor
             className="capitalize"
             htmlFor={value}

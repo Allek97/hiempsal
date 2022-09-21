@@ -53,7 +53,6 @@ const Home = ({ products }: Props) => {
                         .map((product) => (
                             <TechArticle product={product} key={product.id} />
                         ))}
-                    {/* <TechArticle /> */}
                 </Grid>
             </Paddings>
         </main>

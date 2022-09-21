@@ -20,6 +20,8 @@ export const ProductBoutiqueBox = styled.section`
 
         h1 {
             ${fontSizeHeader}
+            ${tw`text-center xs:text-left`}
+            line-height: 1.2 !important;
         }
 
         .blinking-dot {

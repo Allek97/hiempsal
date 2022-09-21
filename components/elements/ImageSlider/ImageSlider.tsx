@@ -78,7 +78,11 @@ const ImageSlider: FC<Props> = ({ images }) => {
                     />
                 ))}
             </Indicator>
-            <div ref={sliderRef} className="keen-slider h-full w-full">
+            <div
+                ref={sliderRef}
+                key={images[0].url}
+                className="keen-slider h-full w-full"
+            >
                 {images.map((image, idx) => (
                     <ImageContainer
                         key={`${image.url},${idx}`}

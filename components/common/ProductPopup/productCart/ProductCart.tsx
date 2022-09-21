@@ -142,14 +142,14 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                                         }
                                     >
                                         {option.values.map((optValue) => {
-                                            const variantImg = optionName.match(
-                                                /colou?r/gi
-                                            )
-                                                ? getVariantImage(
-                                                      product,
-                                                      optValue.label
-                                                  )
-                                                : undefined;
+                                            const variantImg =
+                                                optionName.match(/colou?r/gi) ||
+                                                optionName.match(/watch band/gi)
+                                                    ? getVariantImage(
+                                                          product,
+                                                          optValue.label
+                                                      )
+                                                    : undefined;
 
                                             const value = optValue.label;
 

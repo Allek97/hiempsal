@@ -54,7 +54,7 @@ const ProductBoutique: FC<Props> = ({ productType, product }) => {
         return () => {
             flag = false;
         };
-    }, [productType]);
+    }, [product.id, productType]);
 
     return (
         <ProductBoutiqueBox>

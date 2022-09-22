@@ -38,7 +38,8 @@
         "__mocks__/*",
         "**/*.ts",
         "**/*.tsx",
-        "__mocks__/framer-motion.js"
+        "__mocks__/framer-motion.js",
+        "**/*.config.js"
     ],
     "exclude": ["node_modules"]
 }

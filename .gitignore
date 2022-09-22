@@ -38,3 +38,6 @@ config.env
 
 # typescript
 *.tsbuildinfo
+
+# don't lint nyc couverage output
+.eslintrc.json

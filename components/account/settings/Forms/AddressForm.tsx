@@ -14,8 +14,9 @@ import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import tw from "twin.macro";
 import CountryOptions from "../CountryOptions";
-import { CustomerUpdateInfo } from "../Settings";
+
 import { useCustomerSettings } from "../context";
+import { CustomerUpdateInfo } from "./CustomerUpdateInfo.type";
 
 export const PlusCountry = styled.div`
     ${tw`absolute right[4vw] top-1/2 pointer-events-none

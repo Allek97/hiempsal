@@ -1,4 +1,4 @@
-const TextWhite = ({ ...props }) => {
+const TextWhite = () => {
     return (
         <svg
             width="833"

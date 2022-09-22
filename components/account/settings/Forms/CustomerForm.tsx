@@ -10,8 +10,8 @@ import { Controller, useFormContext } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 
-import { CustomerUpdateInfo } from "../Settings";
 import { useCustomerSettings } from "../context";
+import { CustomerUpdateInfo } from "./CustomerUpdateInfo.type";
 
 const CustomerForm: FC = () => {
     const {

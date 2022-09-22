@@ -30,20 +30,7 @@ import { AddressForm, CustomerForm, PasswordForm } from "./Forms";
 
 import { Container, CustomerAvatar } from "./Settings.styled";
 import { useCustomerSettings } from "./context";
-
-export type CustomerUpdateInfo = {
-    email: string;
-    firstName: string;
-    lastName?: string;
-    phone: string;
-    address1?: string;
-    city?: string;
-    company?: string;
-    country?: string;
-    zip?: string;
-    password?: string;
-    passwordConfirm?: string;
-};
+import { CustomerUpdateInfo } from "./Forms/CustomerUpdateInfo.type";
 
 const formSchema: SchemaOf<CustomerUpdateInfo> = object({
     firstName: string()

@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import { getVariantImages } from "@components/common/helpers";
 import { Product, ProductImage } from "@framework/types/product";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import {
     VariantVisualizerBox,
@@ -60,7 +60,8 @@ const ImageVisualizer: FC<Props> = ({
                     }
                     $variant={variant}
                 >
-                    <BlurImage
+                    <Image
+                        placeholder="blur"
                         src={variantImage?.url ?? placeHolder}
                         alt={variantImage?.alt ?? "product"}
                         layout="fill"

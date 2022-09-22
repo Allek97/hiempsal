@@ -6,7 +6,7 @@ import dateFormat from "dateformat";
 import { Account } from "@components/account/commun";
 import { Order, OrderLineItem } from "@framework/types/order";
 import { FC, useState, useMemo } from "react";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineSubdirectoryArrowLeft } from "react-icons/md";
 import { IoMdChatbubbles } from "react-icons/io";
@@ -168,7 +168,8 @@ const OrderView: FC<Props> = ({ order }) => {
                                                     passHref
                                                 >
                                                     <FunctionalLink>
-                                                        <BlurImage
+                                                        <Image
+                                                            placeholder="blur"
                                                             src={
                                                                 orderItem
                                                                     .variant

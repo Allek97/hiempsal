@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 
 const Container = styled.div`
     ${tw`flex flex-col cursor[grab] w-full`}
@@ -50,7 +50,8 @@ const Advertisement: FC = () => {
             <div ref={ref} className="keen-slider">
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src="/images/amazigh-art.jpg"
                             layout="fill"
                             className="mb-2"
@@ -61,7 +62,8 @@ const Advertisement: FC = () => {
                 </Slide>
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src="/images/kabyle-shepherd.jpg"
                             layout="fill"
                             className="mb-2"
@@ -72,7 +74,8 @@ const Advertisement: FC = () => {
                 </Slide>
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src="/images/amazigh-art-3.jpg"
                             layout="fill"
                             className="mb-2"

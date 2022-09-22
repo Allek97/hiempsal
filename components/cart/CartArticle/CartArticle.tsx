@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FC, useMemo } from "react";
 import Link from "next/link";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { Variants } from "framer-motion";
 
 import { MdRemoveShoppingCart } from "react-icons/md";
@@ -77,7 +77,8 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
         >
             <Link href={`/products/${cartItem.path}`} passHref>
                 <ImageContainer>
-                    <BlurImage
+                    <Image
+                        placeholder="blur"
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         src={cartItem.variant.image!.url ?? ""}
                         alt={cartItem.variant.image?.alt}

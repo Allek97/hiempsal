@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { FC } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { IoLocationSharp } from "react-icons/io5";
@@ -149,7 +149,8 @@ const Footer: FC = () => {
                             className="relative h-3 mr-6"
                             style={{ width: "120px" }}
                         >
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src="https://images.ctfassets.net/l595fda2nfqd/5T0A57hTiC843tS2k2RWL1/e50c7c50fd6655c2006c18e797f17f60/american-express.svg"
                                 alt="American express"
                                 layout="fill"
@@ -160,7 +161,8 @@ const Footer: FC = () => {
                             className="relative h-5 mr-6"
                             style={{ width: "56px" }}
                         >
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src="https://images.ctfassets.net/l595fda2nfqd/1wmQsWYBIj5gN5htnt7zaQ/e6c0a3f2ad065d431762b68ee5fdec71/paypal.svg"
                                 alt="American express"
                                 layout="fill"
@@ -171,7 +173,8 @@ const Footer: FC = () => {
                             className="relative h-6 mr-6"
                             style={{ width: "56px" }}
                         >
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src="https://images.ctfassets.net/l595fda2nfqd/1wmQsWYBIj5gN5htnt7zaQ/e6c0a3f2ad065d431762b68ee5fdec71/paypal.svg"
                                 alt="American express"
                                 layout="fill"

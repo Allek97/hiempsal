@@ -9,6 +9,7 @@ function BlurImage({ alt, className, ...props }: ImageProps) {
 
     return (
         <Image
+            placeholder="blur"
             {...props}
             alt={alt}
             className={cn(

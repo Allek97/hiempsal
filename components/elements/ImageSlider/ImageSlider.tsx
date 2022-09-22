@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 // import "./styless.css";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { ProductImage } from "@framework/types/product";
 
 import {
@@ -88,7 +88,8 @@ const ImageSlider: FC<Props> = ({ images }) => {
                         key={`${image.url},${idx}`}
                         className="keen-slider__slide"
                     >
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src={image.url ?? placeHolder}
                             alt={image.alt ?? "product"}
                             layout="fill"

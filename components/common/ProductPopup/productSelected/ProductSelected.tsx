@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import Link from "next/link";
 
 import { useUI } from "@components/ui/context";
@@ -60,7 +60,8 @@ const ProductSelected: FC<ProductSelectedProps> = ({
         <Root data-testid="product-selected">
             <ProductInfo>
                 <ImageWrapper>
-                    <BlurImage
+                    <Image
+                        placeholder="blur"
                         src={image?.url ?? "/product-image-placeholder.svg"}
                         alt={image?.alt ?? "Selected product"}
                         layout="responsive"

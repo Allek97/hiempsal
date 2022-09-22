@@ -5,7 +5,7 @@ import { getConfig } from "@framework/api/config";
 import { getQueryProducts } from "@framework/product";
 import { Product, ProductImage } from "@framework/types/product";
 import { motion } from "framer-motion";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { ProductCard } from "../ProductCard";
@@ -66,7 +66,8 @@ const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
                         ease: [0.7, 0.09, 0.71, 0.09],
                     }}
                 >
-                    <BlurImage
+                    <Image
+                        placeholder="blur"
                         src={productImage.url}
                         alt={productImage.alt || "product"}
                         layout="fill"

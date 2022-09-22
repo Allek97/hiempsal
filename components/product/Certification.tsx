@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ethicalCertifications } from "@lib/const";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { FC } from "react";
 import tw from "twin.macro";
 
@@ -40,7 +40,8 @@ const Certification: FC = () => {
                             rel="noopener noreferrer"
                             title={title}
                         >
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src={link}
                                 alt={title}
                                 layout="fixed"

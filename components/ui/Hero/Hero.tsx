@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import Link from "next/link";
 
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
@@ -30,7 +30,8 @@ const Hero: FC<Props> = ({ variant }) => {
             <HeroContainer>
                 <HeroImageWrapper>
                     {variant === "clothing" ? (
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src={`${AMAZON_S3_DOMAIN}/hero-cloth.jpg`}
                             alt="Model"
                             layout="fill"
@@ -40,7 +41,8 @@ const Hero: FC<Props> = ({ variant }) => {
                             priority
                         />
                     ) : (
-                        <BlurImage
+                        <Image
+                            placeholder="blur"
                             src="/images/hero-tech-2.jpg"
                             alt="Model"
                             layout="fill"

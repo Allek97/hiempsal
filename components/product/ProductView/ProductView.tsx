@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
@@ -193,7 +193,8 @@ const ProductView: FC<Props> = ({ product }) => {
                     <ProductSlider key={product.id}>
                         {product.images.map((image, idx) => (
                             <ImageContainer key={image.url}>
-                                <BlurImage
+                                <Image
+                                    placeholder="blur"
                                     src={image.url}
                                     alt={image.alt || `${product.name} Image`}
                                     layout="fill"
@@ -272,7 +273,8 @@ const ProductView: FC<Props> = ({ product }) => {
                         key={`${featureImage.url}${idx}`}
                     >
                         <div>
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src={featureImage.url}
                                 alt={featureImage.alt || "feature"}
                                 layout="fill"

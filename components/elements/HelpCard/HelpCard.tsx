@@ -1,4 +1,4 @@
-import { BlurImage } from "@components/common";
+import Image from "next/image";
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { useUI } from "@components/ui/context";
@@ -42,7 +42,8 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
         >
             <HelpCardBox isOnline={isOnline}>
                 <HelpCardImage>
-                    <BlurImage
+                    <Image
+                        placeholder="blur"
                         alt="Help agent"
                         src="/images/agent.jpg"
                         layout="fill"

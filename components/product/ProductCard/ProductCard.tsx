@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
+import Image from "next/image";
 
 import { Product } from "@framework/types/product";
 
 import { IoHeartDislikeSharp } from "react-icons/io5";
 import { RiHeartAddFill } from "react-icons/ri";
 
-import { ProductArticle, BlurImage } from "@components/common";
+import { ProductArticle } from "@components/common";
 import { ErrorForm } from "@components/elements/FormInputsStyle";
 
 import useWishlistInitial from "wishlist/wishlistInitialState";
@@ -85,7 +86,8 @@ const ProductCard: FC<Props> = ({
                     </div>
                     {product.images && (
                         <ProductImageWrapper>
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 alt={product.name ?? "Product image"}
                                 src={product.images[0].url ?? placeholderImage}
                                 height={320}
@@ -118,7 +120,8 @@ const ProductCard: FC<Props> = ({
                     )}
                     <ProductImageWrapper>
                         {product.images && (
-                            <BlurImage
+                            <Image
+                                placeholder="blur"
                                 src={thumbnailUrl ?? placeholderImage}
                                 alt={alt ?? "Product image"}
                                 height={540}

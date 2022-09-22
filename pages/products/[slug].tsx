@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 slug,
             },
         })),
-        fallback: true,
+        fallback: false,
     };
 };
 
@@ -61,7 +61,7 @@ export const getStaticProps = async ({
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-export default function ProductSlug({ product, fallback }: Props) {
+const ProductSlug = ({ product, fallback }: Props) => {
     const addViewedProduct = useAddViewed();
     useEffect(() => {
         async function fetcher(): Promise<void> {
@@ -88,6 +88,8 @@ export default function ProductSlug({ product, fallback }: Props) {
             </SWRConfig>
         </div>
     );
-}
+};
 
 ProductSlug.Layout = Layout;
+
+export default ProductSlug;

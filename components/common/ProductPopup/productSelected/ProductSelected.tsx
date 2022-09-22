@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import Link from "next/link";
 
 import { useUI } from "@components/ui/context";
@@ -54,13 +54,13 @@ const ProductSelected: FC<ProductSelectedProps> = ({
         return queryStr.join(", ");
     }, [selectedOptions]);
 
-    const { setProductNotAdded } = useUI();
+    const { resetUI } = useUI();
 
     return (
         <Root data-testid="product-selected">
             <ProductInfo>
                 <ImageWrapper>
-                    <Image
+                    <BlurImage
                         src={image?.url ?? "/product-image-placeholder.svg"}
                         alt={image?.alt ?? "Selected product"}
                         layout="responsive"
@@ -68,7 +68,6 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                         height={3}
                         objectFit="contain"
                         priority
-                        placeholder="blur"
                     />
                 </ImageWrapper>
                 <div>
@@ -83,7 +82,7 @@ const ProductSelected: FC<ProductSelectedProps> = ({
             </ProductInfo>
             <UtilWrapper>
                 <Link href="/cart/bag" passHref>
-                    <FunctionalLink onClick={setProductNotAdded}>
+                    <FunctionalLink onClick={resetUI}>
                         <UtilBtn type="button" isHoverActive={false} $isCartBtn>
                             View Cart
                         </UtilBtn>

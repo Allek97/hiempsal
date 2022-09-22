@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { FC, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { MdLocalOffer } from "react-icons/md";
 import { ImHeartBroken } from "react-icons/im";
 import { RiHeartAddFill } from "react-icons/ri";
@@ -117,7 +117,7 @@ const ProductArticle: FC<Props> = ({
                                     isDisplayed={isDisplayed}
                                 >
                                     <div>
-                                        <Image
+                                        <BlurImage
                                             src={
                                                 selectedImage.url ?? placeHolder
                                             }
@@ -128,7 +128,6 @@ const ProductArticle: FC<Props> = ({
                                             layout="fill"
                                             objectFit="contain"
                                             priority
-                                            placeholder="blur"
                                         />
                                     </div>
                                 </ProductImageWrapper>

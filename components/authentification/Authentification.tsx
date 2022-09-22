@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { FC, useReducer } from "react";
 import { HiArrowRight } from "react-icons/hi";
 import {
@@ -61,11 +61,10 @@ const Authentification: FC = () => {
     return (
         <Main>
             <ImageWrapper>
-                <Image
+                <BlurImage
                     src="/images/amazigh-art-2.jpg"
                     alt="Amazigh art"
                     layout="fill"
-                    placeholder="blur"
                     priority
                 />
             </ImageWrapper>

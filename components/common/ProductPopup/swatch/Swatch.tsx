@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { ProductImage } from "@framework/types/product";
 import { MdAddAlert } from "react-icons/md";
 import {
@@ -64,7 +64,7 @@ const Swatch: FC<SwatchProps> = ({
             />
             <span data-testid="span-effect" />
             <ImageVariantWrapper>
-                <Image
+                <BlurImage
                     src={image?.url ?? "/product-pattern-bg.svg"}
                     alt={image?.alt ?? "Item variant color"}
                     width={2}
@@ -73,7 +73,6 @@ const Swatch: FC<SwatchProps> = ({
                     objectFit="contain"
                     data-testid="variant-image"
                     priority
-                    placeholder="blur"
                 />
             </ImageVariantWrapper>
             <span>{value}</span>

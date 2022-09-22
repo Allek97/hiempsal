@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { useUI } from "@components/ui/context";
@@ -9,6 +9,24 @@ interface Props {
     text?: string;
     isOnline?: boolean;
 }
+
+const keyStr =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+const triplet = (e1: number, e2: number, e3: number) =>
+    // eslint-disable-next-line no-bitwise
+    keyStr.charAt(e1 >> 2) +
+    // eslint-disable-next-line no-bitwise
+    keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
+    // eslint-disable-next-line no-bitwise
+    keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
+    // eslint-disable-next-line no-bitwise
+    keyStr.charAt(e3 & 63);
+
+const rgbDataURL = (r: number, g: number, b: number) =>
+    `data:image/gif;base64,R0lGODlhAQABAPAA${
+        triplet(0, r, g) + triplet(b, 255, 255)
+    }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`;
 
 const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
     const { openHelp } = useUI();
@@ -24,13 +42,13 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
         >
             <HelpCardBox isOnline={isOnline}>
                 <HelpCardImage>
-                    <Image
+                    <BlurImage
                         alt="Help agent"
                         src="/images/agent.jpg"
                         layout="fill"
                         objectFit="cover"
                         priority
-                        placeholder="blur"
+                        blurDataURL={rgbDataURL(237, 181, 6)}
                     />
                 </HelpCardImage>
 

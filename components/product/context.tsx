@@ -24,6 +24,7 @@ interface StateModifiers {
     setProductOverview: (condition: boolean) => void;
     setProductId: (id: string) => void;
     setProductType: (type: ProductType) => void;
+    resetProductInfo: () => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -50,6 +51,7 @@ const stateModifiers: StateModifiers = {
     setProductOverview: () => {},
     setProductId: () => {},
     setProductType: () => {},
+    resetProductInfo: () => {},
 };
 
 const PIContext = createContext<State>({ ...initialState, ...stateModifiers });
@@ -64,7 +66,8 @@ type Action = {
         | "CLOSE_PRODUCT_INFORMATION"
         | "SET_PRODUCT_OVERVIEW"
         | "SET_PRODUCT_ID"
-        | "SET_PRODUCT_TYPE";
+        | "SET_PRODUCT_TYPE"
+        | "RESET";
     payload?: boolean | string | any;
 };
 
@@ -160,6 +163,10 @@ function piReducer(state: StateValues, action: Action) {
             return {
                 ...state,
             };
+        case "RESET":
+            return {
+                ...initialState,
+            };
         default:
             return {
                 ...state,
@@ -183,6 +190,7 @@ const ProductInfoProvider: FC = ({ children }) => {
         dispatch({ type: "SET_PRODUCT_ID", payload: id });
     const setProductType = (type: ProductType) =>
         dispatch({ type: "SET_PRODUCT_TYPE", payload: type });
+    const resetProductInfo = () => dispatch({ type: "RESET" });
 
     const {
         isDimensionsOpen,
@@ -221,6 +229,7 @@ const ProductInfoProvider: FC = ({ children }) => {
             setProductOverview,
             setProductId,
             setProductType,
+            resetProductInfo,
         }),
         [state, isProductInfoOpen]
     );

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 
 const Container = styled.div`
     ${tw`flex flex-col cursor[grab] w-full`}
@@ -50,36 +50,33 @@ const Advertisement: FC = () => {
             <div ref={ref} className="keen-slider">
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <Image
+                        <BlurImage
                             src="/images/amazigh-art.jpg"
                             layout="fill"
                             className="mb-2"
                             priority
-                            placeholder="blur"
                         />
                     </ImageContainer>
                     <span>Exclusive deals</span>
                 </Slide>
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <Image
+                        <BlurImage
                             src="/images/kabyle-shepherd.jpg"
                             layout="fill"
                             className="mb-2"
                             priority
-                            placeholder="blur"
                         />
                     </ImageContainer>
                     <span>Amazigh culture</span>
                 </Slide>
                 <Slide type="button" className="keen-slider__slide">
                     <ImageContainer>
-                        <Image
+                        <BlurImage
                             src="/images/amazigh-art-3.jpg"
                             layout="fill"
                             className="mb-2"
                             priority
-                            placeholder="blur"
                         />
                     </ImageContainer>
                     <span>Hiempsal Events</span>

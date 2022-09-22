@@ -1,19 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line import/no-cycle
 import { getConfig } from "@framework/api/config";
-import getCustomer from "@framework/customer/get-customer";
-import { Checkout, CheckoutCreatePayload } from "@framework/schema";
-import { ApiFetcher } from "@framework/types/api";
+import { Checkout } from "@framework/schema";
 import { Cart } from "@framework/types/cart";
 import { SWRHook } from "@framework/types/hooks";
-import { checkoutToCart, setCheckout } from "@framework/utils";
-import createCheckout from "@framework/utils/create-checkout";
+import { setCheckout } from "@framework/utils";
+
 import { getCheckoutQuery } from "@framework/utils/queries";
 import { useSWRHook } from "@framework/utils/use-hooks";
 
 import Cookies from "js-cookie";
 import { useMemo } from "react";
-import useAssociateCustomer from "./use-associate-customer";
+import getCart from "./get-cart";
 
 type UseCartHookDescriptor = {
     fetcherInput: {
@@ -32,57 +30,18 @@ const handler: SWRHook<UseCartHookDescriptor> = {
     fetcherOptions: {
         query: getCheckoutQuery,
     },
-    async fetcher({
-        fetch,
-        options,
-        input: { checkoutId, customerAccessToken },
-    }) {
-        let checkout: Checkout | null = null;
-        if (customerAccessToken) {
-            const config = getConfig();
-            const customer = await getCustomer({
-                config,
-                customerAccessToken,
-            });
-            if (customer?.lastIncompleteCheckout)
-                checkout = customer?.lastIncompleteCheckout;
-        }
-
-        if (!checkout) {
-            if (checkoutId) {
-                const { data } = await fetch({
-                    ...options,
-                    variables: {
-                        checkoutId,
-                    },
-                });
-
-                if (data.node) checkout = data.node;
-            }
-
-            if (!checkout) {
-                checkout = await createCheckout(
-                    fetch as unknown as ApiFetcher<{
-                        checkoutCreate: CheckoutCreatePayload;
-                    }>
-                );
-            }
-        }
-
-        if (customerAccessToken) {
-            const associateCustomer = useAssociateCustomer();
-            await associateCustomer({
-                checkoutId: checkout.id,
-                customerAccessToken,
-            });
-        }
+    async fetcher({ input: { checkoutId, customerAccessToken } }) {
+        const config = getConfig();
+        const cart: Cart = await getCart({
+            config: config,
+            checkoutId,
+            customerAccessToken,
+        });
 
         setCheckout({
-            checkoutId: checkout.id,
-            checkoutUrl: checkout.webUrl,
+            checkoutId: cart.id,
+            checkoutUrl: cart.webUrl,
         });
-        const cart = checkoutToCart(checkout);
-        // Associate and disassociate customer to the checkout
 
         return cart;
     },

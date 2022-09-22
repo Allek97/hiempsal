@@ -23,6 +23,7 @@ interface StateModifiers {
     closeHelp: () => void;
     openReview: () => void;
     closeReview: () => void;
+    resetUI: () => void;
 }
 
 export type State = StateValues & StateModifiers;
@@ -49,6 +50,7 @@ const stateModifiers: StateModifiers = {
     closeHelp: () => {},
     openReview: () => {},
     closeReview: () => {},
+    resetUI: () => {},
 };
 
 export const UIContext = createContext<State>({
@@ -69,7 +71,8 @@ type Action = {
         | "OPEN_HELP"
         | "CLOSE_HELP"
         | "OPEN_REVIEW"
-        | "CLOSE_REVIEW";
+        | "CLOSE_REVIEW"
+        | "RESET";
     payload?: any;
 };
 
@@ -135,6 +138,8 @@ function uiReducer(state: StateValues, action: Action) {
             };
         case "CLOSE_REVIEW":
             return { ...state, isReviewOpen: false };
+        case "RESET":
+            return { ...initialState };
 
         default:
             return { ...state };
@@ -161,6 +166,7 @@ const UIProvider: FC = ({ children }) => {
     const closeHelp = () => dispatch({ type: "CLOSE_HELP" });
     const openReview = () => dispatch({ type: "OPEN_REVIEW" });
     const closeReview = () => dispatch({ type: "CLOSE_REVIEW" });
+    const resetUI = () => dispatch({ type: "RESET" });
 
     const value: State = useMemo(() => {
         return {
@@ -177,6 +183,7 @@ const UIProvider: FC = ({ children }) => {
             closeHelp,
             openReview,
             closeReview,
+            resetUI,
         };
     }, [state]);
 

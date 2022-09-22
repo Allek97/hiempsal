@@ -5,3 +5,4 @@ export { default as useBodyScroll } from "./useBodyScroll";
 export { default as useScollToTop } from "./useScollToTop";
 export { default as useScrollDirectionNext } from "./useScrollDirectionNext";
 export { default as useTouchDevice } from "./useTouchDevice";
+export { default as useResetProvider } from "./useResetProvider";

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 // FIX: Find another library
 import Tilt from "react-parallax-tilt";
 
@@ -22,12 +22,11 @@ const Partner: FC = () => {
                         <Media greaterThanOrEqual="lg">
                             <Tilt className="cursor-pointer" key={id}>
                                 <PartnerSvgWrapper key={id} name={title}>
-                                    <Image
+                                    <BlurImage
                                         src={link}
                                         alt={title}
                                         layout="fill"
                                         objectFit="contain"
-                                        placeholder="blur"
                                         priority
                                     />
                                 </PartnerSvgWrapper>
@@ -35,12 +34,11 @@ const Partner: FC = () => {
                         </Media>
                         <Media lessThan="lg">
                             <PartnerSvgWrapper key={id} name={title}>
-                                <Image
+                                <BlurImage
                                     src={link}
                                     alt={title}
                                     layout="fill"
                                     objectFit="contain"
-                                    placeholder="blur"
                                     priority
                                 />
                             </PartnerSvgWrapper>

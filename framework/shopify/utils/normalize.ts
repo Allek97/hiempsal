@@ -152,10 +152,12 @@ export const normalizeCart = (checkout: Checkout): Cart => {
         subtotalPriceV2: { amount: subTotalAmount },
         taxesIncluded,
         lineItems,
+        webUrl,
     } = checkout;
 
     return {
         id,
+        webUrl,
         createdAt,
         completedAt,
         currency: {

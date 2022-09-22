@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ApiConfig, ApiFetcher } from "@framework/types/api";
-import { Checkout, CheckoutCreatePayload } from "@framework/schema";
+import { ApiConfig } from "@framework/types/api";
+import { Checkout } from "@framework/schema";
 import getCustomer from "@framework/customer/get-customer";
 import { checkoutToCart, getCheckoutQuery } from "@framework/utils";
 import { Cart } from "@framework/types/cart";
@@ -40,11 +40,7 @@ const getCart = async (options: {
         }
 
         if (!checkout) {
-            checkout = await createCheckout(
-                fetch as unknown as ApiFetcher<{
-                    checkoutCreate: CheckoutCreatePayload;
-                }>
-            );
+            checkout = await createCheckout(config.fetch);
         }
     }
 

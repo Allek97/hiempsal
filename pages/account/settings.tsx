@@ -1,6 +1,7 @@
 import { Settings } from "@components/account";
 import { SettingsProvider } from "@components/account/settings/context";
 import { Layout } from "@components/common";
+
 import { withAuthServerSideProps } from "auth/withAuthServerSide";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { SWRConfig } from "swr";

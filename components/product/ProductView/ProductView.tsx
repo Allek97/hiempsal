@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
@@ -154,6 +154,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 openPopup();
             else closePopup();
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isProductOverviewOpen, isProductCartOpen, isProductAdded]);
 
@@ -192,14 +193,13 @@ const ProductView: FC<Props> = ({ product }) => {
                     <ProductSlider key={product.id}>
                         {product.images.map((image, idx) => (
                             <ImageContainer key={image.url}>
-                                <Image
+                                <BlurImage
                                     src={image.url}
                                     alt={image.alt || `${product.name} Image`}
                                     layout="fill"
                                     objectFit="contain"
                                     priority={idx <= 3}
                                     key={image.url}
-                                    placeholder="blur"
                                 />
                             </ImageContainer>
                         ))}
@@ -272,13 +272,12 @@ const ProductView: FC<Props> = ({ product }) => {
                         key={`${featureImage.url}${idx}`}
                     >
                         <div>
-                            <Image
+                            <BlurImage
                                 src={featureImage.url}
                                 alt={featureImage.alt || "feature"}
                                 layout="fill"
                                 objectFit="fill"
                                 priority
-                                placeholder="blur"
                             />
                         </div>
                     </FeatureContainer>

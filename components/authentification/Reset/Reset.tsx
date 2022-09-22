@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
-
+import { BlurImage } from "@components/common";
 import {
     AiOutlineCheck,
     AiOutlineEye,
@@ -135,11 +134,10 @@ const Reset: FC = () => {
                     <>
                         <Header>
                             <ImageContainer>
-                                <Image
+                                <BlurImage
                                     src="/images/hiempsal-algeria.svg"
                                     alt="hiempsal company"
                                     layout="fill"
-                                    placeholder="blur"
                                     priority
                                 />
                             </ImageContainer>

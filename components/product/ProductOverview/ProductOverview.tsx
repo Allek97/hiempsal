@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { FC } from "react";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
@@ -72,7 +72,7 @@ const ProductOverview: FC<Props> = ({
         >
             <button type="button" className="flex items-center w-full">
                 <ImageWrapper>
-                    <Image
+                    <BlurImage
                         src={
                             productImage.url ?? "/product-image-placeholder.svg"
                         }
@@ -82,7 +82,6 @@ const ProductOverview: FC<Props> = ({
                         width={3}
                         objectFit="contain"
                         priority
-                        placeholder="blur"
                     />
                 </ImageWrapper>
                 <ProductInfo>

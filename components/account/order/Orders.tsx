@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@components/common";
 import { motion } from "framer-motion";
 import { AiTwotoneFire } from "react-icons/ai";
 import { SiOpennebula } from "react-icons/si";
@@ -89,7 +89,7 @@ const Orders: FC = () => {
                                                                 }
                                                             </span>
                                                         </QuantityIndicator>
-                                                        <Image
+                                                        <BlurImage
                                                             src={
                                                                 orderItem
                                                                     .variant
@@ -107,7 +107,6 @@ const Orders: FC = () => {
                                                             layout="fill"
                                                             objectFit="contain"
                                                             priority
-                                                            placeholder="blur"
                                                         />
                                                     </OrderImageContainer>
                                                 )

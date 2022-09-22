@@ -31,6 +31,7 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
                         layout="fill"
                         objectFit="cover"
                         priority
+                        placeholder="blur"
                     />
                 </HelpCardImage>
 

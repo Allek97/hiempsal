@@ -153,6 +153,9 @@ const Footer: FC = () => {
                                 src="https://images.ctfassets.net/l595fda2nfqd/5T0A57hTiC843tS2k2RWL1/e50c7c50fd6655c2006c18e797f17f60/american-express.svg"
                                 alt="American express"
                                 layout="fill"
+                                placeholder="blur"
+                                priority
+                                quality={90}
                             />
                         </div>
                         <div
@@ -163,6 +166,9 @@ const Footer: FC = () => {
                                 src="https://images.ctfassets.net/l595fda2nfqd/1wmQsWYBIj5gN5htnt7zaQ/e6c0a3f2ad065d431762b68ee5fdec71/paypal.svg"
                                 alt="American express"
                                 layout="fill"
+                                placeholder="blur"
+                                priority
+                                quality={90}
                             />
                         </div>
                         <div
@@ -173,6 +179,9 @@ const Footer: FC = () => {
                                 src="https://images.ctfassets.net/l595fda2nfqd/1wmQsWYBIj5gN5htnt7zaQ/e6c0a3f2ad065d431762b68ee5fdec71/paypal.svg"
                                 alt="American express"
                                 layout="fill"
+                                placeholder="blur"
+                                priority
+                                quality={90}
                             />
                         </div>
                         <div>

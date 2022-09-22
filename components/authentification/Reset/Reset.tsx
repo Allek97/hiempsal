@@ -139,6 +139,9 @@ const Reset: FC = () => {
                                     src="/images/hiempsal-algeria.svg"
                                     alt="hiempsal company"
                                     layout="fill"
+                                    placeholder="blur"
+                                    priority
+                                    quality={90}
                                 />
                             </ImageContainer>
                             <h1>Change Your Password</h1>

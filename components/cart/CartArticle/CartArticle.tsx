@@ -85,6 +85,7 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                         layout="fill"
                         objectFit="contain"
                         priority
+                        placeholder="blur"
                     />
                 </ImageContainer>
             </Link>

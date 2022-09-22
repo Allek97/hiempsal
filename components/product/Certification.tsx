@@ -48,6 +48,7 @@ const Certification: FC = () => {
                                 height={30}
                                 quality="85"
                                 priority
+                                placeholder="blur"
                             />
                         </a>
                     </li>

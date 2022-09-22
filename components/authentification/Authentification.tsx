@@ -65,6 +65,9 @@ const Authentification: FC = () => {
                     src="/images/amazigh-art-2.jpg"
                     alt="Amazigh art"
                     layout="fill"
+                    placeholder="blur"
+                    priority
+                    quality={90}
                 />
             </ImageWrapper>
             <AccountContainer>

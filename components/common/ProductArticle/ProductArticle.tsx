@@ -121,11 +121,15 @@ const ProductArticle: FC<Props> = ({
                                             src={
                                                 selectedImage.url ?? placeHolder
                                             }
-                                            alt="Black hoodie"
-                                            quality="80"
+                                            alt={
+                                                selectedImage.alt ??
+                                                "product article"
+                                            }
                                             layout="fill"
                                             objectFit="contain"
+                                            quality="85"
                                             priority
+                                            placeholder="blur"
                                         />
                                     </div>
                                 </ProductImageWrapper>

@@ -197,9 +197,10 @@ const ProductView: FC<Props> = ({ product }) => {
                                     alt={image.alt || `${product.name} Image`}
                                     layout="fill"
                                     objectFit="contain"
-                                    quality="85"
+                                    quality="80"
                                     priority={idx <= 3}
                                     key={image.url}
+                                    placeholder="blur"
                                 />
                             </ImageContainer>
                         ))}
@@ -277,8 +278,9 @@ const ProductView: FC<Props> = ({ product }) => {
                                 alt={featureImage.alt || "feature"}
                                 layout="fill"
                                 objectFit="fill"
-                                quality="85"
+                                quality="80"
                                 priority
+                                placeholder="blur"
                             />
                         </div>
                     </FeatureContainer>

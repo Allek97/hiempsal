@@ -39,6 +39,7 @@ const Hero: FC<Props> = ({ variant }) => {
                             blurDataURL={placeholderImage}
                             objectPosition="28.3% 33.1%"
                             priority
+                            quality="90"
                         />
                     ) : (
                         <Image
@@ -49,7 +50,7 @@ const Hero: FC<Props> = ({ variant }) => {
                             placeholder="blur"
                             blurDataURL={placeholderImage}
                             objectPosition="28.3% 33.1%"
-                            quality="100"
+                            quality="90"
                             priority
                         />
                     )}

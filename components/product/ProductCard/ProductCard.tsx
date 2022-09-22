@@ -93,6 +93,8 @@ const ProductCard: FC<Props> = ({
                                 width={320}
                                 quality="85"
                                 layout="fixed"
+                                placeholder="blur"
+                                priority
                             />
                         </ProductImageWrapper>
                     )}
@@ -127,6 +129,8 @@ const ProductCard: FC<Props> = ({
                                 quality="100"
                                 layout="responsive"
                                 objectFit="contain"
+                                placeholder="blur"
+                                priority
                             />
                         )}
                     </ProductImageWrapper>

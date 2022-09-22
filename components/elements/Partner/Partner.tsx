@@ -25,9 +25,11 @@ const Partner: FC = () => {
                                     <Image
                                         src={link}
                                         alt={title}
-                                        quality="100"
+                                        quality="95"
                                         layout="fill"
                                         objectFit="contain"
+                                        placeholder="blur"
+                                        priority
                                     />
                                 </PartnerSvgWrapper>
                             </Tilt>
@@ -37,9 +39,11 @@ const Partner: FC = () => {
                                 <Image
                                     src={link}
                                     alt={title}
-                                    quality="100"
+                                    quality="95"
                                     layout="fill"
                                     objectFit="contain"
+                                    placeholder="blur"
+                                    priority
                                 />
                             </PartnerSvgWrapper>
                         </Media>

@@ -54,6 +54,9 @@ const Advertisement: FC = () => {
                             src="/images/amazigh-art.jpg"
                             layout="fill"
                             className="mb-2"
+                            priority
+                            placeholder="blur"
+                            quality={85}
                         />
                     </ImageContainer>
                     <span>Exclusive deals</span>
@@ -64,6 +67,9 @@ const Advertisement: FC = () => {
                             src="/images/kabyle-shepherd.jpg"
                             layout="fill"
                             className="mb-2"
+                            priority
+                            placeholder="blur"
+                            quality={85}
                         />
                     </ImageContainer>
                     <span>Amazigh culture</span>
@@ -74,6 +80,9 @@ const Advertisement: FC = () => {
                             src="/images/amazigh-art-3.jpg"
                             layout="fill"
                             className="mb-2"
+                            priority
+                            placeholder="blur"
+                            quality={85}
                         />
                     </ImageContainer>
                     <span>Hiempsal Events</span>

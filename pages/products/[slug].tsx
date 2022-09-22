@@ -14,6 +14,7 @@ import {
     GetStaticPropsContext,
     InferGetStaticPropsType,
 } from "next";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SWRConfig } from "swr";
 
@@ -80,6 +81,11 @@ const ProductSlug = ({ product, fallback }: Props) => {
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);
+
+    const router = useRouter();
+    if (!router.isFallback && !product) {
+        return <h1>404 - Sorry could not find this page</h1>;
+    }
 
     return (
         <div>

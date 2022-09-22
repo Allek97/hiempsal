@@ -4,14 +4,14 @@ import {
     InferGetStaticPropsType,
 } from "next";
 import { useRouter } from "next/router";
-import { SWRConfig } from "swr";
+// import { SWRConfig } from "swr";
 
 import { Layout } from "@components/common";
 import { ProductView } from "@components/product";
 
 import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";
-import getReviews from "@framework/review/getReviews";
+// import getReviews from "@framework/review/getReviews";
 import { getConfig } from "@framework/api/config";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -39,37 +39,28 @@ export const getStaticProps = async ({
         variables: { slug: params?.slug },
     });
 
-    const reviews = await getReviews({
-        config,
-        productId: product?.id ?? "",
-    });
+    // const reviews = await getReviews({
+    //     config,
+    //     productId: product?.id ?? "",
+    // });
 
-    const key = `/api/reviews/${product?.id}`;
+    // const key = `/api/reviews/${product?.id}`;
 
     return {
         props: {
             product,
-            fall: {
-                [key]: reviews ?? null,
-            },
         },
     };
 };
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const ProductSlug = ({ product, fall }: Props) => {
+const ProductSlug = ({ product }: Props) => {
     const router = useRouter();
     if (!router.isFallback && !product) {
         return <h1>404 - Sorry could not find this page</h1>;
     }
-    return (
-        <div>
-            <SWRConfig value={{ fallback: fall }}>
-                {product && <ProductView product={product} />}
-            </SWRConfig>
-        </div>
-    );
+    return <div>{product && <ProductView product={product} />}</div>;
 };
 
 ProductSlug.Layout = Layout;

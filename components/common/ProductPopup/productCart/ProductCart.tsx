@@ -22,8 +22,6 @@ import {
     isOptionAvailable,
 } from "@components/common/helpers";
 
-import { Swatch } from "../swatch";
-
 import {
     CloseWrapper,
     Form,
@@ -33,6 +31,7 @@ import {
     VariantOptionContainer,
 } from "./ProductCart.styled";
 import { CartButton } from "../cartButton";
+import { Swatch } from "..";
 
 export interface ProductCartProps {
     product: Product;

@@ -51,7 +51,7 @@ const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
         return () => {
             flag = false;
         };
-    }, [productType]);
+    }, [product.id, productType]);
 
     return (
         <ProductSimilarBox>

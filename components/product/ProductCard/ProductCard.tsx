@@ -1,12 +1,11 @@
 import { FC, useState } from "react";
-import { BlurImage } from "@components/common";
 
 import { Product } from "@framework/types/product";
 
 import { IoHeartDislikeSharp } from "react-icons/io5";
 import { RiHeartAddFill } from "react-icons/ri";
 
-import { ProductArticle } from "@components/common";
+import { ProductArticle, BlurImage } from "@components/common";
 import { ErrorForm } from "@components/elements/FormInputsStyle";
 
 import useWishlistInitial from "wishlist/wishlistInitialState";

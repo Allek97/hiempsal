@@ -31,7 +31,7 @@ import {
     VariantOptionContainer,
 } from "./ProductCart.styled";
 import { CartButton } from "../cartButton";
-import { Swatch } from "..";
+import { Swatch } from "../swatch";
 
 export interface ProductCartProps {
     product: Product;

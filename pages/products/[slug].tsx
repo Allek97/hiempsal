@@ -72,6 +72,6 @@ const ProductSlug = ({ product, fallback }: Props) => {
     );
 };
 
-ProductSlug.Layout = Layout;
+// ProductSlug.Layout = Layout;
 
 export default ProductSlug;

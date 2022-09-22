@@ -1,21 +1,18 @@
-// NOTE https://nextjs.org/learn/basics/dynamic-routes
-
-import { Layout } from "@components/common";
-import { ProductView } from "@components/product";
-
-import { getConfig } from "@framework/api/config";
-import getAllProductsPaths from "@framework/product/get-all-products-paths";
-import getProduct from "@framework/product/get-product";
-import getReviews from "@framework/review/getReviews";
-
 import {
     GetStaticPaths,
     GetStaticPropsContext,
     InferGetStaticPropsType,
 } from "next";
 import { useRouter } from "next/router";
-
 import { SWRConfig } from "swr";
+
+import { Layout } from "@components/common";
+import { ProductView } from "@components/product";
+
+import getAllProductsPaths from "@framework/product/get-all-products-paths";
+import getProduct from "@framework/product/get-product";
+import getReviews from "@framework/review/getReviews";
+import { getConfig } from "@framework/api/config";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const config = getConfig();
@@ -66,7 +63,6 @@ const ProductSlug = ({ product, fallback }: Props) => {
     if (!router.isFallback && !product) {
         return <h1>404 - Sorry could not find this page</h1>;
     }
-
     return (
         <div>
             <SWRConfig value={{ fallback }}>

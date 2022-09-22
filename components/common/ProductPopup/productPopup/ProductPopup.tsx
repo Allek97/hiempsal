@@ -8,7 +8,7 @@ import { useUI } from "@components/ui/context";
 
 import { Popup } from "@components/ui";
 
-import { HelpCardContent } from "@components/elements/temp";
+import { HelpCardContent } from "@components/elements/HelpCard";
 import { ProductSelected, ProductCart } from "..";
 
 import { Container, Paddings } from "./ProductPopup.styled";

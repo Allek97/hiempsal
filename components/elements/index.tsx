@@ -1,5 +1,5 @@
 export { Partner } from "./Partner";
 export { TechArticle } from "./TechArticle";
 export { ImageSlide } from "./ImageSlider";
-export { HelpCard } from "./HelpCard";
+export { HelpCard } from "./temp";
 export { ImageVisualizer } from "./ImageVisualizer";

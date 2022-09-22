@@ -12,7 +12,7 @@ import { getWishlistToken } from "@framework/utils/wishlist-token";
 import useViewed from "@framework/viewed/use-viewed";
 import { getViewedToken } from "@framework/utils/viewed-token";
 
-import { HelpCard } from "../../elements/HelpCard";
+import { HelpCard } from "../../elements/temp";
 
 import {
     Content,

@@ -291,11 +291,11 @@ const MobileNav: FC<Props> = ({
                                                 }
                                             >
                                                 <BsPerson className="h-6 w-6" />
-                                                <span>
-                                                    {customerPendingOrders >
-                                                        0 &&
-                                                        customerPendingOrders}
-                                                </span>
+                                                {customerPendingOrders > 0 && (
+                                                    <span>
+                                                        {customerPendingOrders}
+                                                    </span>
+                                                )}
                                             </motion.div>
                                             <UtilityAnimation>
                                                 <motion.div

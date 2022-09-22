@@ -141,7 +141,6 @@ const Reset: FC = () => {
                                     layout="fill"
                                     placeholder="blur"
                                     priority
-                                    quality={90}
                                 />
                             </ImageContainer>
                             <h1>Change Your Password</h1>

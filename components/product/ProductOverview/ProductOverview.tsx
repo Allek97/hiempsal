@@ -82,7 +82,6 @@ const ProductOverview: FC<Props> = ({
                         width={3}
                         objectFit="contain"
                         priority
-                        quality={80}
                         placeholder="blur"
                     />
                 </ImageWrapper>

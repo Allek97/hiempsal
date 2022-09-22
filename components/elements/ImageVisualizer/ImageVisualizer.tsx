@@ -65,7 +65,6 @@ const ImageVisualizer: FC<Props> = ({
                         alt={variantImage?.alt ?? "product"}
                         layout="fill"
                         objectFit="contain"
-                        quality="90"
                         priority
                         placeholder="blur"
                     />

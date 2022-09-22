@@ -46,7 +46,6 @@ const Certification: FC = () => {
                                 layout="fixed"
                                 width={30}
                                 height={30}
-                                quality="85"
                                 priority
                                 placeholder="blur"
                             />

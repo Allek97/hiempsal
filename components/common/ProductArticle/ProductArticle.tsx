@@ -127,7 +127,6 @@ const ProductArticle: FC<Props> = ({
                                             }
                                             layout="fill"
                                             objectFit="contain"
-                                            quality="85"
                                             priority
                                             placeholder="blur"
                                         />

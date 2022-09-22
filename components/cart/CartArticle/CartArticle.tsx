@@ -81,7 +81,6 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         src={cartItem.variant.image!.url ?? ""}
                         alt={cartItem.variant.image?.alt}
-                        quality="85"
                         layout="fill"
                         objectFit="contain"
                         priority

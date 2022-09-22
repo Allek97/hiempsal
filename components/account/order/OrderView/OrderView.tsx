@@ -186,7 +186,6 @@ const OrderView: FC<Props> = ({ order }) => {
                                                             layout="fill"
                                                             objectFit="contain"
                                                             placeholder="blur"
-                                                            quality={85}
                                                             priority
                                                         />
                                                     </FunctionalLink>

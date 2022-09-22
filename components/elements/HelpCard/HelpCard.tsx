@@ -27,7 +27,6 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
                     <Image
                         alt="Help agent"
                         src="/images/agent.jpg"
-                        quality="80"
                         layout="fill"
                         objectFit="cover"
                         priority

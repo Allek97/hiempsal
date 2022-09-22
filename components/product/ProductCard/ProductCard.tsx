@@ -91,7 +91,6 @@ const ProductCard: FC<Props> = ({
                                 src={product.images[0].url ?? placeholderImage}
                                 height={320}
                                 width={320}
-                                quality="85"
                                 layout="fixed"
                                 placeholder="blur"
                                 priority
@@ -126,7 +125,6 @@ const ProductCard: FC<Props> = ({
                                 alt={alt ?? "Product image"}
                                 height={540}
                                 width={540}
-                                quality="100"
                                 layout="responsive"
                                 objectFit="contain"
                                 placeholder="blur"

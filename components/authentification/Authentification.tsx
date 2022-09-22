@@ -67,7 +67,6 @@ const Authentification: FC = () => {
                     layout="fill"
                     placeholder="blur"
                     priority
-                    quality={90}
                 />
             </ImageWrapper>
             <AccountContainer>

@@ -69,7 +69,6 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                         objectFit="contain"
                         priority
                         placeholder="blur"
-                        quality={90}
                     />
                 </ImageWrapper>
                 <div>

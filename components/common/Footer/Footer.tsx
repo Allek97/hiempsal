@@ -155,7 +155,6 @@ const Footer: FC = () => {
                                 layout="fill"
                                 placeholder="blur"
                                 priority
-                                quality={90}
                             />
                         </div>
                         <div
@@ -168,7 +167,6 @@ const Footer: FC = () => {
                                 layout="fill"
                                 placeholder="blur"
                                 priority
-                                quality={90}
                             />
                         </div>
                         <div
@@ -181,7 +179,6 @@ const Footer: FC = () => {
                                 layout="fill"
                                 placeholder="blur"
                                 priority
-                                quality={90}
                             />
                         </div>
                         <div>

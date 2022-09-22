@@ -93,7 +93,6 @@ const ImageSlider: FC<Props> = ({ images }) => {
                             alt={image.alt ?? "product"}
                             layout="fill"
                             objectFit="contain"
-                            quality="90"
                             priority={idx === 0}
                             placeholder="blur"
                         />

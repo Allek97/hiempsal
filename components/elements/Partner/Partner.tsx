@@ -25,7 +25,6 @@ const Partner: FC = () => {
                                     <Image
                                         src={link}
                                         alt={title}
-                                        quality="95"
                                         layout="fill"
                                         objectFit="contain"
                                         placeholder="blur"
@@ -39,7 +38,6 @@ const Partner: FC = () => {
                                 <Image
                                     src={link}
                                     alt={title}
-                                    quality="95"
                                     layout="fill"
                                     objectFit="contain"
                                     placeholder="blur"

@@ -106,7 +106,6 @@ const Orders: FC = () => {
                                                             }
                                                             layout="fill"
                                                             objectFit="contain"
-                                                            quality={90}
                                                             priority
                                                             placeholder="blur"
                                                         />

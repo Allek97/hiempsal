@@ -7,7 +7,6 @@ import { getConfig } from "@framework/api/config";
 import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";
 import getReviews from "@framework/review/getReviews";
-import useAddViewed from "@framework/viewed/use-add-viewed";
 
 import {
     GetStaticPaths,
@@ -15,7 +14,7 @@ import {
     InferGetStaticPropsType,
 } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+
 import { SWRConfig } from "swr";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -63,25 +62,6 @@ export const getStaticProps = async ({
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const ProductSlug = ({ product, fallback }: Props) => {
-    const addViewedProduct = useAddViewed();
-    useEffect(() => {
-        async function fetcher(): Promise<void> {
-            try {
-                if (product)
-                    await addViewedProduct({
-                        product,
-                    });
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        fetcher();
-
-        return () => {};
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [product]);
-
     const router = useRouter();
     if (!router.isFallback && !product) {
         return <h1>404 - Sorry could not find this page</h1>;

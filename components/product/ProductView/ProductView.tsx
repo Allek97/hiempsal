@@ -19,6 +19,7 @@ import { IoHeartDislikeSharp } from "react-icons/io5";
 import useAddWishlist from "@framework/wishlist/use-add-wishlist";
 import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
 import useWishlistInitial from "wishlist/wishlistInitialState";
+import useAddViewed from "@framework/viewed/use-add-viewed";
 
 import {
     ProductSlider,
@@ -65,6 +66,25 @@ export const VariantButtonPopup = () => {
 };
 
 const ProductView: FC<Props> = ({ product }) => {
+    const addViewedProduct = useAddViewed();
+    useEffect(() => {
+        async function fetcher(): Promise<void> {
+            try {
+                if (product)
+                    await addViewedProduct({
+                        product,
+                    });
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        fetcher();
+
+        return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product]);
+
     const {
         isPopupOpen,
         isProductCartOpen,

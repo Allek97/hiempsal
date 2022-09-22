@@ -6,7 +6,6 @@ import {
 import { useRouter } from "next/router";
 import { SWRConfig } from "swr";
 
-import { Layout } from "@components/common";
 import { ProductView } from "@components/product";
 
 import getAllProductsPaths from "@framework/product/get-all-products-paths";

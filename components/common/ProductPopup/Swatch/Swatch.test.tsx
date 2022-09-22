@@ -5,7 +5,8 @@ import { render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
 import { ImageProps } from "next/image";
-import Swatch, { SwatchProps } from "./Swatch";
+import { Swatch } from "..";
+import { SwatchProps } from "./Swatch";
 
 function renderSwatch(props?: Partial<SwatchProps>) {
     const defaultProps: SwatchProps = {

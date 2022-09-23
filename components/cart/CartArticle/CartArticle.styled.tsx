@@ -75,10 +75,6 @@ export const ImageContainer = styled.a`
     img {
         width: 100% !important;
     }
-
-    span {
-        padding: 118% 0px 0px !important;
-    }
 `;
 
 ////////////////////////////////////////////////////////

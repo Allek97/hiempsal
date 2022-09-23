@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { FC, useReducer } from "react";
 import { HiArrowRight } from "react-icons/hi";
 import {
@@ -63,6 +65,7 @@ const Authentification: FC = () => {
             <ImageWrapper>
                 <Image
                     placeholder="blur"
+                    blurDataURL={placeholderBlurUrl}
                     src="/images/amazigh-art-2.jpg"
                     alt="Amazigh art"
                     layout="fill"

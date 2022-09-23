@@ -7,6 +7,8 @@ import { Account } from "@components/account/commun";
 import { Order, OrderLineItem } from "@framework/types/order";
 import { FC, useState, useMemo } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import Link from "next/link";
 import { MdOutlineSubdirectoryArrowLeft } from "react-icons/md";
 import { IoMdChatbubbles } from "react-icons/io";
@@ -170,6 +172,9 @@ const OrderView: FC<Props> = ({ order }) => {
                                                     <FunctionalLink>
                                                         <Image
                                                             placeholder="blur"
+                                                            blurDataURL={
+                                                                placeholderBlurUrl
+                                                            }
                                                             src={
                                                                 orderItem
                                                                     .variant

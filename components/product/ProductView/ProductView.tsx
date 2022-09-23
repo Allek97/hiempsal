@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
@@ -195,6 +197,7 @@ const ProductView: FC<Props> = ({ product }) => {
                             <ImageContainer key={image.url}>
                                 <Image
                                     placeholder="blur"
+                                    blurDataURL={placeholderBlurUrl}
                                     src={image.url}
                                     alt={image.alt || `${product.name} Image`}
                                     layout="fill"
@@ -275,6 +278,7 @@ const ProductView: FC<Props> = ({ product }) => {
                         <div>
                             <Image
                                 placeholder="blur"
+                                blurDataURL={placeholderBlurUrl}
                                 src={featureImage.url}
                                 alt={featureImage.alt || "feature"}
                                 layout="fill"

@@ -1,6 +1,8 @@
 /* eslint-disable react/require-default-props */
 import { FC } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { Variants } from "framer-motion";
 
 import { Plus } from "@components/icons";
@@ -74,6 +76,7 @@ const ProductOverview: FC<Props> = ({
                 <ImageWrapper>
                     <Image
                         placeholder="blur"
+                        blurDataURL={placeholderBlurUrl}
                         src={
                             productImage.url ?? "/product-image-placeholder.svg"
                         }

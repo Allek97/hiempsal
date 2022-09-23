@@ -8,6 +8,8 @@ import { FC, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { ProductImage } from "@framework/types/product";
 
 import {
@@ -90,6 +92,7 @@ const ImageSlider: FC<Props> = ({ images }) => {
                     >
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src={image.url ?? placeHolder}
                             alt={image.alt ?? "product"}
                             layout="fill"

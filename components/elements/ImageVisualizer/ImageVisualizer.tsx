@@ -2,6 +2,8 @@
 import { getVariantImages } from "@components/common/helpers";
 import { Product, ProductImage } from "@framework/types/product";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import {
     VariantVisualizerBox,
@@ -62,6 +64,7 @@ const ImageVisualizer: FC<Props> = ({
                 >
                     <Image
                         placeholder="blur"
+                        blurDataURL={placeholderBlurUrl}
                         src={variantImage?.url ?? placeHolder}
                         alt={variantImage?.alt ?? "product"}
                         layout="fill"

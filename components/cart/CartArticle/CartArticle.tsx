@@ -2,6 +2,8 @@
 import { FC, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { Variants } from "framer-motion";
 
 import { MdRemoveShoppingCart } from "react-icons/md";
@@ -79,8 +81,8 @@ const CartArticle: FC<Props> = ({ cartItem, currencyCode }) => {
                 <ImageContainer>
                     <Image
                         placeholder="blur"
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        src={cartItem.variant.image!.url ?? ""}
+                        blurDataURL={placeholderBlurUrl}
+                        src={cartItem.variant.image?.url ?? ""}
                         alt={cartItem.variant.image?.alt}
                         layout="fill"
                         objectFit="contain"

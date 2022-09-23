@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
 
 import { Product } from "@framework/types/product";
 
@@ -88,6 +89,7 @@ const ProductCard: FC<Props> = ({
                         <ProductImageWrapper>
                             <Image
                                 placeholder="blur"
+                                blurDataURL={placeholderBlurUrl}
                                 alt={product.name ?? "Product image"}
                                 src={product.images[0].url ?? placeholderImage}
                                 height={320}
@@ -122,6 +124,7 @@ const ProductCard: FC<Props> = ({
                         {product.images && (
                             <Image
                                 placeholder="blur"
+                                blurDataURL={placeholderBlurUrl}
                                 src={thumbnailUrl ?? placeholderImage}
                                 alt={alt ?? "Product image"}
                                 height={540}

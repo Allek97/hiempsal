@@ -2,6 +2,8 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { MdLocalOffer } from "react-icons/md";
 import { ImHeartBroken } from "react-icons/im";
 import { RiHeartAddFill } from "react-icons/ri";
@@ -119,6 +121,7 @@ const ProductArticle: FC<Props> = ({
                                     <div>
                                         <Image
                                             placeholder="blur"
+                                            blurDataURL={placeholderBlurUrl}
                                             src={
                                                 selectedImage.url ?? placeHolder
                                             }

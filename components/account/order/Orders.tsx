@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { motion } from "framer-motion";
 import { AiTwotoneFire } from "react-icons/ai";
 import { SiOpennebula } from "react-icons/si";
@@ -91,6 +93,9 @@ const Orders: FC = () => {
                                                         </QuantityIndicator>
                                                         <Image
                                                             placeholder="blur"
+                                                            blurDataURL={
+                                                                placeholderBlurUrl
+                                                            }
                                                             src={
                                                                 orderItem
                                                                     .variant

@@ -1,5 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 // FIX: Find another library
 import Tilt from "react-parallax-tilt";
 
@@ -24,6 +26,7 @@ const Partner: FC = () => {
                                 <PartnerSvgWrapper key={id} name={title}>
                                     <Image
                                         placeholder="blur"
+                                        blurDataURL={placeholderBlurUrl}
                                         src={link}
                                         alt={title}
                                         layout="fill"
@@ -37,6 +40,7 @@ const Partner: FC = () => {
                             <PartnerSvgWrapper key={id} name={title}>
                                 <Image
                                     placeholder="blur"
+                                    blurDataURL={placeholderBlurUrl}
                                     src={link}
                                     alt={title}
                                     layout="fill"

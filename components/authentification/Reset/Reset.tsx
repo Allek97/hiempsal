@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import {
     AiOutlineCheck,
     AiOutlineEye,
@@ -136,6 +138,7 @@ const Reset: FC = () => {
                             <ImageContainer>
                                 <Image
                                     placeholder="blur"
+                                    blurDataURL={placeholderBlurUrl}
                                     src="/images/hiempsal-algeria.svg"
                                     alt="hiempsal company"
                                     layout="fill"

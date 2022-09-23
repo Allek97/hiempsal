@@ -3,6 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
 
 const Container = styled.div`
     ${tw`flex flex-col cursor[grab] w-full`}
@@ -52,6 +53,7 @@ const Advertisement: FC = () => {
                     <ImageContainer>
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src="/images/amazigh-art.jpg"
                             layout="fill"
                             className="mb-2"
@@ -64,6 +66,7 @@ const Advertisement: FC = () => {
                     <ImageContainer>
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src="/images/kabyle-shepherd.jpg"
                             layout="fill"
                             className="mb-2"
@@ -76,6 +79,7 @@ const Advertisement: FC = () => {
                     <ImageContainer>
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src="/images/amazigh-art-3.jpg"
                             layout="fill"
                             className="mb-2"

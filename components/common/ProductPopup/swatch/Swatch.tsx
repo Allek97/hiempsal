@@ -1,5 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { ProductImage } from "@framework/types/product";
 import { MdAddAlert } from "react-icons/md";
 import {
@@ -66,6 +68,7 @@ const Swatch: FC<SwatchProps> = ({
             <ImageVariantWrapper>
                 <Image
                     placeholder="blur"
+                    blurDataURL={placeholderBlurUrl}
                     src={image?.url ?? "/product-pattern-bg.svg"}
                     alt={image?.alt ?? "Item variant color"}
                     width={2}

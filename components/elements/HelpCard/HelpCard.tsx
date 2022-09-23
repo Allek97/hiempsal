@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { useUI } from "@components/ui/context";
@@ -44,6 +46,7 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
                 <HelpCardImage>
                     <Image
                         placeholder="blur"
+                        blurDataURL={placeholderBlurUrl}
                         alt="Help agent"
                         src="/images/agent.jpg"
                         layout="fill"

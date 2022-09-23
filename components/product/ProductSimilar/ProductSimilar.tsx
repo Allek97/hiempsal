@@ -6,6 +6,8 @@ import { getQueryProducts } from "@framework/product";
 import { Product, ProductImage } from "@framework/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import { FC, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { ProductCard } from "../ProductCard";
@@ -68,6 +70,7 @@ const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
                 >
                     <Image
                         placeholder="blur"
+                        blurDataURL={placeholderBlurUrl}
                         src={productImage.url}
                         alt={productImage.alt || "product"}
                         layout="fill"

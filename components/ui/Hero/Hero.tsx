@@ -1,5 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+
 import Link from "next/link";
 
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
@@ -32,6 +34,7 @@ const Hero: FC<Props> = ({ variant }) => {
                     {variant === "clothing" ? (
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src={`${AMAZON_S3_DOMAIN}/hero-cloth.jpg`}
                             alt="Model"
                             layout="fill"
@@ -43,6 +46,7 @@ const Hero: FC<Props> = ({ variant }) => {
                     ) : (
                         <Image
                             placeholder="blur"
+                            blurDataURL={placeholderBlurUrl}
                             src="/images/hero-tech-2.jpg"
                             alt="Model"
                             layout="fill"

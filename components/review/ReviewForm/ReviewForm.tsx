@@ -13,7 +13,6 @@ import useAddReview from "@framework/review/use-add-review";
 import useReview from "@framework/review/use-review";
 
 import { Review } from "@framework/types/review";
-import { useProduct } from "@components/product/context";
 
 import { FunctionalBtn } from "../Commun/FunctionalBtn.styled";
 import {
@@ -56,9 +55,10 @@ const formSchema: SchemaOf<Omit<ReviewFormType, "checks">> = object({
 
 interface Props {
     productId: string;
+    productType: "clothing" | "technology";
 }
 
-const ReviewForm: FC<Props> = ({ productId }) => {
+const ReviewForm: FC<Props> = ({ productId, productType }) => {
     const {
         isReviewUIOpen,
         reviewForm,
@@ -68,7 +68,6 @@ const ReviewForm: FC<Props> = ({ productId }) => {
         setReviewForm,
         setCheckErrors,
     } = useReviewContext();
-    const { productType } = useProduct();
 
     const [serverError, setServerError] = useState<string>("");
 
@@ -120,7 +119,7 @@ const ReviewForm: FC<Props> = ({ productId }) => {
                 score,
             } = reviewForm;
 
-            const review: Omit<Review, "ratingsAverage"> = {
+            const review: Omit<Review, "ratingsAverage" | "_id"> = {
                 score,
                 email: email.trim(),
                 name: name.trim(),

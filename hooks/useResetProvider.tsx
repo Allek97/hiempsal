@@ -8,8 +8,11 @@ const useResetProvider = (): void => {
     const { resetUI } = useUI();
     const { resetProductInfo } = useProduct();
     useEffect(() => {
-        resetUI();
-        resetProductInfo();
+        if (!pathname.includes("/products/")) {
+            console.log("hey");
+            resetUI();
+            resetProductInfo();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 };

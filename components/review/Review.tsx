@@ -17,11 +17,12 @@ import { QuestionForm } from "./QuestionForm";
 
 interface Props {
     productId: string;
+    productType: "clothing" | "technology";
 }
 
 // NOTE This component will sit beside <ProductInformation /> component
 // NOTE This component will also be reused in order page to write review about the product
-const Review: FC<Props> = ({ productId }) => {
+const Review: FC<Props> = ({ productId, productType }) => {
     const {
         isReviewOpen,
         isReviewUIOpen,
@@ -108,13 +109,28 @@ const Review: FC<Props> = ({ productId }) => {
             <div>
                 {isReviewOpen ? (
                     <div>
-                        <ReviewForm productId={productId} />
-                        <Customer data={reviews ?? []} type="review" />
+                        <ReviewForm
+                            key="review-form"
+                            productId={productId}
+                            productType={productType}
+                        />
+                        <Customer
+                            key="review"
+                            data={reviews ?? []}
+                            type="review"
+                        />
                     </div>
                 ) : (
                     <div>
-                        <QuestionForm productId={productId} />
-                        <Customer data={questions ?? []} type="question" />
+                        <QuestionForm
+                            key="question-form"
+                            productId={productId}
+                        />
+                        <Customer
+                            key="question"
+                            data={questions ?? []}
+                            type="question"
+                        />
                     </div>
                 )}
             </div>

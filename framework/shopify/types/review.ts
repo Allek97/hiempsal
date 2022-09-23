@@ -10,6 +10,7 @@ export type ChecksTech = {
 };
 
 export interface Review {
+    _id: string;
     score: number;
     review: string;
     title: string;

@@ -5,7 +5,6 @@ import {
     disableBodyScroll,
     enableBodyScroll,
 } from "body-scroll-lock";
-import { useResetProvider } from "@hooks";
 
 import { useUI } from "@components/ui/context";
 import useCart from "@framework/cart/use-cart";
@@ -70,8 +69,6 @@ const Layout: FC<Props> = ({
             ).length ?? 0,
         [customer?.orders]
     );
-
-    useResetProvider();
 
     return (
         <Root ref={ref}>

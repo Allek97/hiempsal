@@ -1,4 +1,5 @@
 export interface Question {
+    _id: string;
     answer: string;
     question: string;
     name: string;

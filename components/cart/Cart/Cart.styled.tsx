@@ -107,6 +107,9 @@ export const CheckoutWrapper = styled.div`
 
 export const CheckoutButton = styled(Button)`
     ${tw`padding[1em]`}
+
+    -webkit-appearance: none !important;
+    appearance: none !important;
 `;
 
 export const PaymentVendors = styled.ul`

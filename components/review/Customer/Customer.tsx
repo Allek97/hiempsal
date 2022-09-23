@@ -58,7 +58,7 @@ const Customer: FC<Props> = ({ data, type }) => {
                                     opacity: [0, 1],
                                     transition: { ease: "easeIn" },
                                 }}
-                                key={item.email}
+                                key={item._id}
                             >
                                 <div className="flex">
                                     <ReviewIdentification>

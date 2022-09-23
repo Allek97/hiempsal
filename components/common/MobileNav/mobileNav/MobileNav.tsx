@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useResetProvider } from "@hooks";
 
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -167,6 +168,8 @@ const MobileNav: FC<Props> = ({
             isReviewOpen,
         ]
     );
+
+    useResetProvider();
 
     return (
         <>

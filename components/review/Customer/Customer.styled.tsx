@@ -61,8 +61,9 @@ export const ReviewPagination = styled.div`
         ${tw`flex items-center`}
 
         & .active {
-            ${tw`font-bold`}
+            ${tw`font-size[15px] font-bold`}
         }
+
         & .disabled {
             svg {
                 ${tw`fill[var(--accents-5)]`}

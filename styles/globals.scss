@@ -55,13 +55,10 @@ a {
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
 
-    [type="button"],
-    [type="reset"],
-    [type="submit"],
     button {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
     }
 }
 

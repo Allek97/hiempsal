@@ -8,13 +8,13 @@ import { getConfig } from "@framework/api/config";
 import { Review } from "@framework/types/review";
 
 type UseAddReview = (
-    input: Omit<Review, "ratingsAverage">
+    input: Omit<Review, "ratingsAverage" | "_id">
 ) => Promise<Omit<Review, "ratingsAverage">>;
 
 const useAddReview = (): UseAddReview => {
     const { fetchRest } = getConfig();
 
-    return async (input: Omit<Review, "ratingsAverage">) => {
+    return async (input: Omit<Review, "ratingsAverage" | "_id">) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const { data } = await fetchRest<Omit<Review, "ratingsAverage">>({
             url: "/api/reviews",

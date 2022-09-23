@@ -59,6 +59,7 @@ a {
     font-weight: 400;
     letter-spacing: -0.05em;
     color: #191919;
+    text-size-adjust: none;
 
     @media only screen and (min-width: 1024px) {
         font-size: 1.2vw;

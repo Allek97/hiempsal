@@ -25,8 +25,6 @@ interface Props {
 }
 
 const Hero: FC<Props> = ({ variant }) => {
-    const placeholderImage = "/product-image-placeholder.svg";
-
     return (
         <Root>
             <HeroContainer>

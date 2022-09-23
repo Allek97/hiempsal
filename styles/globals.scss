@@ -54,6 +54,10 @@ a {
 
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 #__next {

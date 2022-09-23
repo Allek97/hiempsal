@@ -89,6 +89,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
             setPhoneError("");
             router.push("/account/overview");
         } catch (error) {
+            console.log(error);
             if (error instanceof Error) {
                 if (error.message.includes("phone"))
                     setPhoneError("Phone number is not valid");

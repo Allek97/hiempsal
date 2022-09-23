@@ -6,4 +6,3 @@ export { ProductArticle } from "./ProductArticle";
 export { ProductPopup } from "./ProductPopup";
 export { Userlist } from "./Userlist";
 export { Footer } from "./Footer";
-export { BlurImage } from "./BlurImage";

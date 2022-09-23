@@ -193,7 +193,7 @@ const ProductView: FC<Props> = ({ product }) => {
             <ProductOverviewContainer>
                 <SliderContainer>
                     <ProductSlider key={product.id}>
-                        {product.images.map((image, idx) => (
+                        {product.images.map((image) => (
                             <ImageContainer key={image.url}>
                                 <Image
                                     placeholder="blur"
@@ -202,7 +202,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                     alt={image.alt || `${product.name} Image`}
                                     layout="fill"
                                     objectFit="contain"
-                                    priority={idx <= 3}
+                                    priority
                                     key={image.url}
                                 />
                             </ImageContainer>

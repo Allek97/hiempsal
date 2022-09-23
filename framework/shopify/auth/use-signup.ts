@@ -1,10 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import useCustomer from "@framework/customer/use-customer";
 import { CustomerCreatePayload } from "@framework/schema";
-import { Customer } from "@framework/types/customer";
 import { HookDescriptor, MutationHook } from "@framework/types/hooks";
 import { customerCreateMutation } from "@framework/utils/mutations";
-import { normalizeCustomer } from "@framework/utils/normalize-customer";
 import { useMutationHook } from "@framework/utils/use-hooks";
 import { useCallback } from "react";
 import useLogin from "./use-login";
@@ -19,7 +16,7 @@ interface CustomerCreateHookDescriptor extends HookDescriptor {
     fetcherOutput: {
         customerCreate: CustomerCreatePayload;
     };
-    data: Customer;
+    data: null;
 }
 
 type UseAddCustomer<H extends MutationHook> = ReturnType<H["useHook"]>;
@@ -63,23 +60,15 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
         const login = useLogin();
         await login({ email, password });
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const customer = normalizeCustomer(data.customerCreate.customer);
-
-        return customer;
+        return null;
     },
     useHook:
         ({ fetch }) =>
         () => {
-            const { mutate } = useCustomer();
-            return useCallback(
-                async (input) => {
-                    const data = await fetch(input);
-                    mutate(data, false);
-                    return data;
-                },
-                [mutate]
-            );
+            return useCallback(async (input) => {
+                const data = await fetch(input);
+                return data;
+            }, []);
         },
 };
 

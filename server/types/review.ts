@@ -4,9 +4,10 @@ export type IChecksCloth = {
     integrity: string;
 };
 export type IChecksTech = {
-    fit: string;
-    durability: string;
-    integrity: string;
+    battery: string;
+    design: string;
+    usability: string;
+    performance: string;
 };
 
 export interface IReview {

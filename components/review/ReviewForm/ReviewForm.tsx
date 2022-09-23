@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from "axios";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import RatingStyle from "@components/elements/RatingStyle";
 import { AnimatePresence, motion } from "framer-motion";
 import { FormProvider, useForm, Controller } from "react-hook-form";
@@ -84,10 +84,18 @@ const ReviewForm: FC<Props> = ({ productId, productType }) => {
         reset,
     } = methods;
 
+    const errorChecks = useMemo(
+        () =>
+            productType === "clothing"
+                ? ["fit", "durability", "integrity"]
+                : ["battery", "design", "usability", "performance"],
+        [productType]
+    );
+
     function handleCheckErrors() {
         let updatedCheckErrors: CheckErrors = { ...checkErrors };
         Object.entries(reviewForm.checks).forEach(([key, value]) => {
-            if (value === "") {
+            if (value === "" && errorChecks.includes(key)) {
                 updatedCheckErrors = {
                     ...updatedCheckErrors,
                     [key]: { message: "You need to select one option" },
@@ -267,7 +275,9 @@ const ReviewForm: FC<Props> = ({ productId, productType }) => {
                                     </label>
                                 </div>
                                 <FormProvider {...methods}>
-                                    <ReviewFormChecks />
+                                    <ReviewFormChecks
+                                        productType={productType}
+                                    />
                                 </FormProvider>
 
                                 <div className="mb-6">

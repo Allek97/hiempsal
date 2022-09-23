@@ -1,13 +1,4 @@
-export type ChecksCloth = {
-    fit: string;
-    durability: string;
-    integrity: string;
-};
-export type ChecksTech = {
-    fit: string;
-    durability: string;
-    integrity: string;
-};
+import { IChecksCloth, IChecksTech } from "server/types/review";
 
 export interface Review {
     _id: string;
@@ -16,8 +7,8 @@ export interface Review {
     title: string;
     name: string;
     email: string;
-    clothChecks?: ChecksCloth;
-    techChecks?: ChecksTech;
+    clothChecks?: IChecksCloth;
+    techChecks?: IChecksTech;
     productId: string;
     productType: "clothing" | "technology";
     ratingsAverage: number;

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IChecksCloth, IReview } from "server/types/review";
+import { IChecksCloth, IChecksTech, IReview } from "server/types/review";
 import validator from "validator";
 
 const checkClothSchema = new Schema<IChecksCloth>({
@@ -7,10 +7,11 @@ const checkClothSchema = new Schema<IChecksCloth>({
     durability: { type: String, required: true },
     integrity: { type: String, required: true },
 });
-const checkTechSchema = new Schema<IChecksCloth>({
-    fit: { type: String, required: true },
-    durability: { type: String, required: true },
-    integrity: { type: String, required: true },
+const checkTechSchema = new Schema<IChecksTech>({
+    battery: { type: String, required: true },
+    design: { type: String, required: true },
+    usability: { type: String, required: true },
+    performance: { type: String, required: true },
 });
 
 const reviewSchema = new Schema<IReview>({

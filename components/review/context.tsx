@@ -25,7 +25,15 @@ export const defaultReviewForm: ReviewFormType = {
     score: 0,
     title: "",
     review: "",
-    checks: { fit: "", durability: "", integrity: "" },
+    checks: {
+        fit: "",
+        durability: "",
+        integrity: "",
+        battery: "",
+        design: "",
+        usability: "",
+        performance: "",
+    },
     name: "",
     email: "",
 };

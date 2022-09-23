@@ -42,16 +42,20 @@ export const CustomerReviews: FC<Props> = ({ review }) => {
                 : review.techChecks && (
                       <div>
                           <ReviewField>
-                              <span>Fit:</span>
-                              <span>{review.techChecks.fit}</span>
+                              <span>Battery life:</span>
+                              <span>{review.techChecks.battery}</span>
                           </ReviewField>
                           <ReviewField>
-                              <span>Quality:</span>
-                              <span>{review.techChecks.integrity}</span>
+                              <span>Design:</span>
+                              <span>{review.techChecks.design}</span>
                           </ReviewField>
                           <ReviewField>
-                              <span>Durability:</span>
-                              <span>{review.techChecks.durability}</span>
+                              <span>Performance:</span>
+                              <span>{review.techChecks.performance}</span>
+                          </ReviewField>
+                          <ReviewField>
+                              <span>Usability:</span>
+                              <span>{review.techChecks.usability}</span>
                           </ReviewField>
                       </div>
                   )}

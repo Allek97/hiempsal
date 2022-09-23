@@ -340,7 +340,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                 <span>{order.email}</span>
                             </DetailBloc>
                         </OrderDetails>
-                        <OrderDetails className="border-b-0 md:(w-2/3 max-w-lg)">
+                        <OrderDetails className="border-b-1 md:(w-2/3 max-w-lg)">
                             <DetailBloc className="w-full">
                                 <h2 className="font-bold uppercase mb-2">
                                     Order
@@ -406,7 +406,7 @@ const OrderView: FC<Props> = ({ order }) => {
                                 </div>
                             </DetailBloc>
                         </OrderDetails>
-                        <div>
+                        <div className="mt-2">
                             <span className="mr-2 leading-normal">
                                 For more details about your order see:
                             </span>

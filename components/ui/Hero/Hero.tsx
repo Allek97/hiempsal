@@ -39,7 +39,6 @@ const Hero: FC<Props> = ({ variant }) => {
                             alt="Model"
                             layout="fill"
                             objectFit="cover"
-                            blurDataURL={placeholderImage}
                             objectPosition="28.3% 33.1%"
                             priority
                         />
@@ -51,7 +50,6 @@ const Hero: FC<Props> = ({ variant }) => {
                             alt="Model"
                             layout="fill"
                             objectFit="cover"
-                            blurDataURL={placeholderImage}
                             objectPosition="28.3% 33.1%"
                             priority
                         />

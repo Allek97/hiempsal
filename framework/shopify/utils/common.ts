@@ -126,6 +126,7 @@ lineItems(first: 250) {
         product{
             id
             handle
+            productType
         }
         sku
         requiresShipping

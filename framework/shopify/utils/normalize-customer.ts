@@ -70,6 +70,7 @@ export const normalizeOrderLineItem = (
         variant: variant ? normalizeOrderVariant(variant) : null,
         productId: variant?.product.id ?? "",
         productSlug: variant?.product.handle ?? "",
+        productType: variant?.product.productType?.toLocaleLowerCase() ?? "",
     };
 };
 export const normalizeOrderFulfillment = (

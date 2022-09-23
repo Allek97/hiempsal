@@ -14,6 +14,7 @@ export interface OrderLineItem {
     price: ProductPrice;
     variant: ProductVariant | null;
     productId: string;
+    productType: "clothing" | "technology" | string;
     productSlug: string;
 }
 export interface OrderFulfillment {

@@ -67,14 +67,20 @@ const OrderView: FC<Props> = ({ order }) => {
         [order.currencyCode]
     );
 
+    console.log(selectedProduct?.productType);
+
     return (
         <>
             {selectedProduct && (
                 <OrderReview
+                    key={selectedProduct.name}
                     productId={selectedProduct.productId}
                     productImage={selectedProduct.variant?.image!}
                     productName={selectedProduct.name}
                     productPrice={selectedProduct.price}
+                    productType={
+                        selectedProduct.productType as "clothing" | "technology"
+                    }
                 />
             )}
             <Account>

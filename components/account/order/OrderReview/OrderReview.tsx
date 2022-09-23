@@ -8,6 +8,7 @@ import { ProductImage, ProductPrice } from "@framework/types/product";
 
 interface Props {
     productId: string;
+    productType: "clothing" | "technology";
     productImage: ProductImage;
     productName: string;
     productPrice: ProductPrice;
@@ -18,6 +19,7 @@ const OrderReview: FC<Props> = ({
     productImage,
     productName,
     productPrice,
+    productType,
 }) => {
     const { isReviewOpen } = useUI();
     return (
@@ -25,7 +27,11 @@ const OrderReview: FC<Props> = ({
             {isReviewOpen && (
                 <Popup data-testid="product-popup">
                     <AnimatePresence>
-                        <Review productId={productId} />
+                        <Review
+                            key={productName}
+                            productId={productId}
+                            productType={productType}
+                        />
                         <ProductOverview
                             productImage={productImage}
                             productName={productName}

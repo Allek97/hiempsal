@@ -12,24 +12,6 @@ interface Props {
     isOnline?: boolean;
 }
 
-const keyStr =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-
-const triplet = (e1: number, e2: number, e3: number) =>
-    // eslint-disable-next-line no-bitwise
-    keyStr.charAt(e1 >> 2) +
-    // eslint-disable-next-line no-bitwise
-    keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
-    // eslint-disable-next-line no-bitwise
-    keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
-    // eslint-disable-next-line no-bitwise
-    keyStr.charAt(e3 & 63);
-
-const rgbDataURL = (r: number, g: number, b: number) =>
-    `data:image/gif;base64,R0lGODlhAQABAPAA${
-        triplet(0, r, g) + triplet(b, 255, 255)
-    }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`;
-
 const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
     const { openHelp } = useUI();
 
@@ -52,7 +34,6 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
                         layout="fill"
                         objectFit="cover"
                         priority
-                        blurDataURL={rgbDataURL(237, 181, 6)}
                     />
                 </HelpCardImage>
 

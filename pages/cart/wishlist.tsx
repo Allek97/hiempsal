@@ -42,7 +42,14 @@ export const getServerSideProps = async (
             },
         };
     } catch (err) {
-        console.log(err);
+        return {
+            props: {
+                customerId: null,
+                fallback: {
+                    "/api/wishlist": null,
+                },
+            },
+        };
     }
 };
 

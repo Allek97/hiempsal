@@ -132,7 +132,7 @@ const ProductArticle: FC<Props> = ({
                                             layout="fill"
                                             objectFit="contain"
                                             priority
-                                            quality={20}
+                                            quality={60}
                                         />
                                     </div>
                                 </ProductImageWrapper>

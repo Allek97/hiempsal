@@ -70,7 +70,7 @@ const Authentification: FC = () => {
                     alt="Amazigh art"
                     layout="fill"
                     priority
-                    quality={20}
+                    quality={60}
                 />
             </ImageWrapper>
             <AccountContainer>

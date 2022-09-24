@@ -143,7 +143,7 @@ const Reset: FC = () => {
                                     alt="hiempsal company"
                                     layout="fill"
                                     priority
-                                    quality={20}
+                                    quality={60}
                                 />
                             </ImageContainer>
                             <h1>Change Your Password</h1>

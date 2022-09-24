@@ -34,7 +34,7 @@ const HelpCard: FC<Props> = ({ text = "Get Help", isOnline = true }) => {
                         layout="fill"
                         objectFit="cover"
                         priority
-                        quality={20}
+                        quality={60}
                     />
                 </HelpCardImage>
 

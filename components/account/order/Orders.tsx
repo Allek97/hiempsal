@@ -113,7 +113,7 @@ const Orders: FC = () => {
                                                             layout="fill"
                                                             objectFit="contain"
                                                             priority
-                                                            quality={20}
+                                                            quality={60}
                                                         />
                                                     </OrderImageContainer>
                                                 )

@@ -72,7 +72,7 @@ const ProductSelected: FC<ProductSelectedProps> = ({
                         height={3}
                         objectFit="contain"
                         priority
-                        quality={20}
+                        quality={60}
                     />
                 </ImageWrapper>
                 <div>

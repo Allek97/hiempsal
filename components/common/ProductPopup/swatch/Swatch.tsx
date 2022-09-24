@@ -77,7 +77,7 @@ const Swatch: FC<SwatchProps> = ({
                     objectFit="contain"
                     data-testid="variant-image"
                     priority
-                    quality={20}
+                    quality={60}
                 />
             </ImageVariantWrapper>
             <span>{value}</span>

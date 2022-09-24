@@ -51,7 +51,7 @@ const Certification: FC = () => {
                                 width={30}
                                 height={30}
                                 priority
-                                quality={20}
+                                quality={60}
                             />
                         </a>
                     </li>

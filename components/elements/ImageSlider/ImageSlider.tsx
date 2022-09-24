@@ -98,7 +98,7 @@ const ImageSlider: FC<Props> = ({ images }) => {
                             layout="fill"
                             objectFit="contain"
                             priority
-                            quality={20}
+                            quality={60}
                         />
                     </ImageContainer>
                 ))}

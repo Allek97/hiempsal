@@ -39,6 +39,7 @@ const Hero: FC<Props> = ({ variant }) => {
                             objectFit="cover"
                             objectPosition="28.3% 33.1%"
                             priority
+                            quality={20}
                         />
                     ) : (
                         <Image
@@ -50,6 +51,7 @@ const Hero: FC<Props> = ({ variant }) => {
                             objectFit="cover"
                             objectPosition="28.3% 33.1%"
                             priority
+                            quality={20}
                         />
                     )}
                 </HeroImageWrapper>

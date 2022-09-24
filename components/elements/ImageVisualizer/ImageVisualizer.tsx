@@ -70,6 +70,7 @@ const ImageVisualizer: FC<Props> = ({
                         layout="fill"
                         objectFit="contain"
                         priority
+                        quality={20}
                     />
                 </VariantVisualizers>
             ))}

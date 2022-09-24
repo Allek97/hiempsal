@@ -76,6 +76,7 @@ const ProductSimilar: FC<Props> = ({ productImage, productType, product }) => {
                         layout="fill"
                         objectFit="contain"
                         priority
+                        quality={20}
                     />
                 </motion.div>
                 <AnimateText

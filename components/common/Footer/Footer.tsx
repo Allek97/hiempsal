@@ -158,6 +158,7 @@ const Footer: FC = () => {
                                 alt="American express"
                                 layout="fill"
                                 priority
+                                quality={20}
                             />
                         </div>
                         <div
@@ -171,6 +172,7 @@ const Footer: FC = () => {
                                 alt="American express"
                                 layout="fill"
                                 priority
+                                quality={20}
                             />
                         </div>
                         <div
@@ -184,6 +186,7 @@ const Footer: FC = () => {
                                 alt="American express"
                                 layout="fill"
                                 priority
+                                quality={20}
                             />
                         </div>
                         <div>

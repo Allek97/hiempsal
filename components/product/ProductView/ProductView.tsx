@@ -203,6 +203,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                     layout="fill"
                                     objectFit="contain"
                                     priority
+                                    quality={20}
                                     key={image.url}
                                 />
                             </ImageContainer>
@@ -284,6 +285,7 @@ const ProductView: FC<Props> = ({ product }) => {
                                 layout="fill"
                                 objectFit="fill"
                                 priority
+                                quality={20}
                             />
                         </div>
                     </FeatureContainer>

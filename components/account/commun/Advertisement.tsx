@@ -58,6 +58,7 @@ const Advertisement: FC = () => {
                             layout="fill"
                             className="mb-2"
                             priority
+                            quality={20}
                         />
                     </ImageContainer>
                     <span>Exclusive deals</span>
@@ -71,6 +72,7 @@ const Advertisement: FC = () => {
                             layout="fill"
                             className="mb-2"
                             priority
+                            quality={20}
                         />
                     </ImageContainer>
                     <span>Amazigh culture</span>
@@ -84,6 +86,7 @@ const Advertisement: FC = () => {
                             layout="fill"
                             className="mb-2"
                             priority
+                            quality={20}
                         />
                     </ImageContainer>
                     <span>Hiempsal Events</span>

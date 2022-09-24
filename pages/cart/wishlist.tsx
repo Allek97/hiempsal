@@ -19,27 +19,31 @@ import { SWRConfig } from "swr";
 export const getServerSideProps = async (
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-    const config = getConfig();
-    const customerAccessToken: string | undefined =
-        context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
-    const wishlistToken: string | undefined =
-        context.req.cookies[SHOPIFY_WISHLIST_TOKEN_COOKIE];
+    try {
+        const config = getConfig();
+        const customerAccessToken: string | undefined =
+            context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
+        const wishlistToken: string | undefined =
+            context.req.cookies[SHOPIFY_WISHLIST_TOKEN_COOKIE];
 
-    const customerId = await getCustomerId({ config, customerAccessToken });
-    const wishlist = await getWishlist({
-        config,
-        customerId: customerId ?? undefined,
-        wishlistToken: wishlistToken ?? undefined,
-    });
+        const customerId = await getCustomerId({ config, customerAccessToken });
+        const wishlist = await getWishlist({
+            config,
+            customerId: customerId ?? undefined,
+            wishlistToken: wishlistToken ?? undefined,
+        });
 
-    return {
-        props: {
-            customerId,
-            fallback: {
-                "/api/wishlist": wishlist ?? null,
+        return {
+            props: {
+                customerId,
+                fallback: {
+                    "/api/wishlist": wishlist ?? null,
+                },
             },
-        },
-    };
+        };
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;

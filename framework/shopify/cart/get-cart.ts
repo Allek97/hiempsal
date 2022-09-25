@@ -23,7 +23,10 @@ const getCart = async (options: {
             config,
             customerAccessToken,
         });
-        if (customer?.lastIncompleteCheckout)
+        if (
+            customer?.lastIncompleteCheckout &&
+            !customer?.lastIncompleteCheckout.completedAt
+        )
             checkout = customer?.lastIncompleteCheckout;
     }
 

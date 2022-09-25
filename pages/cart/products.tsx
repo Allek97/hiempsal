@@ -31,6 +31,7 @@ export const getServerSideProps = async (
             config,
             customerId: customerId ?? undefined,
             viewedToken: viewedToken ?? undefined,
+            url: context.resolvedUrl,
         });
 
         return {

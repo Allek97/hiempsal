@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { WEBSITE_API_URL } from "@framework/const";
 import { ApiConfig } from "@framework/types/api";
 import { Wishlist } from "@framework/types/wishlist";
 import _ from "underscore";
@@ -8,14 +7,15 @@ const getWishlist = async (options: {
     config: ApiConfig;
     customerId: string | undefined;
     wishlistToken: string | undefined;
+    url: string;
 }): Promise<Wishlist> => {
-    const { config, customerId, wishlistToken } = options;
+    const { config, customerId, wishlistToken, url } = options;
     const { fetchRest } = config;
 
     let wishlist;
     if (customerId) {
         const { data } = await fetchRest<Wishlist | null>({
-            url: `${WEBSITE_API_URL}/api/wishlist?customerId=${customerId}`,
+            url: `${url}/api/wishlist?customerId=${customerId}`,
             method: "GET",
         });
 
@@ -24,7 +24,7 @@ const getWishlist = async (options: {
 
     if (wishlistToken) {
         const { data } = await fetchRest<Wishlist | null>({
-            url: `${WEBSITE_API_URL}/api/wishlist?_id=${wishlistToken}`,
+            url: `${url}/api/wishlist?_id=${wishlistToken}`,
             method: "GET",
         });
 
@@ -43,7 +43,7 @@ const getWishlist = async (options: {
 
     if (!wishlist) {
         const { data } = await fetchRest<Wishlist>({
-            url: `${WEBSITE_API_URL}/api/wishlist`,
+            url: `${url}/api/wishlist`,
             method: "POST",
         });
 
@@ -52,9 +52,7 @@ const getWishlist = async (options: {
 
     if (customerId) {
         await fetchRest<Wishlist>({
-            url: `${WEBSITE_API_URL}/api/wishlist?_id=${
-                wishlistToken ?? wishlist._id
-            }`,
+            url: `${url}/api/wishlist?_id=${wishlistToken ?? wishlist._id}`,
             method: "PATCH",
             body: {
                 customerId,

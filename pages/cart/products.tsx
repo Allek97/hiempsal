@@ -19,27 +19,38 @@ import { SWRConfig } from "swr";
 export const getServerSideProps = async (
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-    const config = getConfig();
-    const customerAccessToken: string | undefined =
-        context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
-    const viewedToken: string | undefined =
-        context.req.cookies[SHOPIFY_VIEWED_TOKEN_COOKIE];
+    try {
+        const config = getConfig();
+        const customerAccessToken: string | undefined =
+            context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
+        const viewedToken: string | undefined =
+            context.req.cookies[SHOPIFY_VIEWED_TOKEN_COOKIE];
 
-    const customerId = await getCustomerId({ config, customerAccessToken });
-    const viewedProducts = await getViewed({
-        config,
-        customerId: customerId ?? undefined,
-        viewedToken: viewedToken ?? undefined,
-    });
+        const customerId = await getCustomerId({ config, customerAccessToken });
+        const viewedProducts = await getViewed({
+            config,
+            customerId: customerId ?? undefined,
+            viewedToken: viewedToken ?? undefined,
+        });
 
-    return {
-        props: {
-            customerId,
-            fallback: {
-                "/api/viewed": viewedProducts ?? null,
+        return {
+            props: {
+                customerId,
+                fallback: {
+                    "/api/viewed": viewedProducts ?? null,
+                },
             },
-        },
-    };
+        };
+    } catch (err) {
+        return {
+            props: {
+                customerId: null,
+                fallback: {
+                    "/api/viewed": null,
+                },
+            },
+        };
+    }
 };
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;

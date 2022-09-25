@@ -6,25 +6,31 @@ import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const config = getConfig();
-    const customerAccessToken: string | undefined =
-        context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
-    const customer = await getCustomer({ config, customerAccessToken });
+    try {
+        const config = getConfig();
+        const customerAccessToken: string | undefined =
+            context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
+        const customer = await getCustomer({ config, customerAccessToken });
 
-    if (customer) {
+        if (customer) {
+            return {
+                redirect: {
+                    destination: "/account/overview",
+                    permanent: false,
+                },
+            };
+        }
+        context.res.setHeader("Set-Cookie", [
+            `${SHOPIFY_CUSTOMER_TOKEN_COOKIE}=deleted; Max-Age=0`,
+        ]);
         return {
-            redirect: {
-                destination: "/account/overview",
-                permanent: false,
-            },
+            props: {},
+        };
+    } catch (err) {
+        return {
+            props: {},
         };
     }
-    context.res.setHeader("Set-Cookie", [
-        `${SHOPIFY_CUSTOMER_TOKEN_COOKIE}=deleted; Max-Age=0`,
-    ]);
-    return {
-        props: {},
-    };
 };
 
 const AuthentificationPage = () => {

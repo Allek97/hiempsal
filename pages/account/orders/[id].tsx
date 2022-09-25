@@ -8,6 +8,7 @@ import { Order } from "@framework/types/order";
 
 import { getShopifyId } from "@lib/getShopifyId";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const config = getConfig();
@@ -45,6 +46,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const OrderIdPage = ({ order }: Props) => {
+    const router = useRouter();
+    if (!router.isFallback && !order) {
+        return <h1>404 - Sorry could not find this page</h1>;
+    }
     return <OrderView order={order as Order} />;
 };
 

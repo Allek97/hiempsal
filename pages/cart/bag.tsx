@@ -18,25 +18,35 @@ import { SWRConfig } from "swr";
 export const getServerSideProps = async (
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-    const config = getConfig();
-    const checkoutToken: string | undefined =
-        context.req.cookies[SHOPIFY_CHECKOUT_ID_COOKIE];
-    const customerAccessToken: string | undefined =
-        context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
+    try {
+        const config = getConfig();
+        const checkoutToken: string | undefined =
+            context.req.cookies[SHOPIFY_CHECKOUT_ID_COOKIE];
+        const customerAccessToken: string | undefined =
+            context.req.cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE];
 
-    const cart = await getCart({
-        config,
-        checkoutId: checkoutToken,
-        customerAccessToken,
-    });
+        const cart = await getCart({
+            config,
+            checkoutId: checkoutToken,
+            customerAccessToken,
+        });
 
-    return {
-        props: {
-            fallback: {
-                [getCheckoutQuery]: cart,
+        return {
+            props: {
+                fallback: {
+                    [getCheckoutQuery]: cart,
+                },
             },
-        },
-    };
+        };
+    } catch (err) {
+        return {
+            props: {
+                fallback: {
+                    [getCheckoutQuery]: null,
+                },
+            },
+        };
+    }
 };
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;

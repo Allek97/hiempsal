@@ -39,7 +39,7 @@ const getCart = async (options: {
                 },
             });
 
-            if (data.node) checkout = data.node;
+            if (data.node && !data.node.completedAt) checkout = data.node;
         }
 
         if (!checkout) {

@@ -13,3 +13,4 @@ export { default as customerRecoverPasswordMutation } from "./customer-recover-p
 export { default as customerResetPasswordMutation } from "./customer-reset-password";
 export { default as checkoutCustomerAssociateMutation } from "./checkout-customer-associate";
 export { default as checkoutCustomerDisassociateMutation } from "./checkout-customer-disassociate";
+export { default as checkoutUpdateAddressMutation } from "./checkout-update-address";

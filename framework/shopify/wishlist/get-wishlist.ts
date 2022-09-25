@@ -7,7 +7,7 @@ const getWishlist = async (options: {
     config: ApiConfig;
     customerId: string | undefined;
     wishlistToken: string | undefined;
-    url: string;
+    url?: "";
 }): Promise<Wishlist> => {
     const { config, customerId, wishlistToken, url } = options;
     const { fetchRest } = config;

@@ -1,8 +1,10 @@
+import { checkoutDetailFragment } from "../common";
+
 const checkoutUpdateAddressMutation = `
 mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
     checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
       checkout {
-        id
+        ${checkoutDetailFragment}
       }
       checkoutUserErrors {
         code

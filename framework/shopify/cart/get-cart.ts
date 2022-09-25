@@ -25,7 +25,8 @@ const getCart = async (options: {
         });
         if (
             customer?.lastIncompleteCheckout &&
-            !customer?.lastIncompleteCheckout.completedAt
+            !customer?.lastIncompleteCheckout.completedAt &&
+            customer?.lastIncompleteCheckout.webUrl
         )
             checkout = customer?.lastIncompleteCheckout;
     }
@@ -39,7 +40,8 @@ const getCart = async (options: {
                 },
             });
 
-            if (data.node && !data.node.completedAt) checkout = data.node;
+            if (data.node && !data.node.completedAt && data.node.webUrl)
+                checkout = data.node;
         }
 
         if (!checkout) {

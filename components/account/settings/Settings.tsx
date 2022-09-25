@@ -14,7 +14,7 @@ import useCustomerCreateAddress, {
 } from "@framework/customer/use-customer-create-address";
 import { object, SchemaOf, string, ValidationError } from "yup";
 
-import { getCustomerToken } from "@framework/utils";
+import { getCheckoutId, getCustomerToken } from "@framework/utils";
 import useCustomerUpdateAddress, {
     CustomerAddressUpdate,
 } from "@framework/customer/use-customer-update-address";
@@ -22,6 +22,7 @@ import useCustomerUpdateDefaultAddress from "@framework/customer/use-customer-up
 import useCustomerUpdate, {
     CustomerUpdate,
 } from "@framework/customer/use-customer-update";
+import useUpdateCartAddress from "@framework/cart/use-update-address";
 
 import { ErrorForm } from "@components/elements/FormInputsStyle";
 import { CartButton } from "@components/common/ProductPopup";
@@ -147,6 +148,7 @@ const Settings: FC = () => {
     const createAddress = useCustomerCreateAddress();
     const updateAddress = useCustomerUpdateAddress();
     const updateDefaulAddress = useCustomerUpdateDefaultAddress();
+    const updateCheckoutAddress = useUpdateCartAddress();
     async function onSubmit(): Promise<void> {
         try {
             setConfirm(false);
@@ -191,6 +193,11 @@ const Settings: FC = () => {
             await updateDefaulAddress({
                 addressId: defaultAddressId,
                 customerAccessToken,
+            });
+
+            await updateCheckoutAddress({
+                checkoutId: getCheckoutId(),
+                shippingAddress: newAddress,
             });
 
             await updateCustomer(customerInput);

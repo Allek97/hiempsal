@@ -25,6 +25,7 @@ const useViewed = (): UseViewed => {
             config,
             customerId,
             viewedToken,
+            url: "",
         });
 
         setViewedToken(viewed._id);

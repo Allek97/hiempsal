@@ -25,6 +25,7 @@ const useWishlist = (): UseWishlist => {
             config,
             customerId,
             wishlistToken,
+            url: "",
         });
 
         setWishlistToken(viewed._id);

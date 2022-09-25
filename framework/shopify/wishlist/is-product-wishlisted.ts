@@ -6,7 +6,7 @@ const isProductWishlisted = async (options: {
     config: ApiConfig;
     productId: string;
     wishlistToken: string;
-    url?: "";
+    url: string;
 }): Promise<boolean> => {
     const { config, productId, wishlistToken, url } = options;
     const { fetchRest } = config;

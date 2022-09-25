@@ -7,7 +7,7 @@ const getViewed = async (options: {
     config: ApiConfig;
     customerId: string | undefined;
     viewedToken: string | undefined;
-    url?: "";
+    url: string;
 }): Promise<Viewed> => {
     const { config, customerId, viewedToken, url } = options;
     const { fetchRest } = config;

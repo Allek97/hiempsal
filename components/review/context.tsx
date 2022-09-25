@@ -106,7 +106,8 @@ type Action = {
         | "SET_QUESTION_FORM"
         | "SET_CHECK_ERRORS"
         | "SET_REVIEW_SUBMISSION_STATUS"
-        | "SET_QUESTION_SUBMISSION_STATUS";
+        | "SET_QUESTION_SUBMISSION_STATUS"
+        | "RESET";
     payload?: ReviewFormType | CheckErrors | boolean | any;
 };
 
@@ -173,6 +174,8 @@ function reviewReducer(state: StateValues, action: Action) {
                 ...state,
                 isQuestionSubmitted: false,
             };
+        case "RESET":
+            return { ...initialState };
 
         default:
             return { ...state };

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Popup } from "@components/ui";
-import { Review } from "@components/review";
+import { Review, ReviewProvider } from "@components/review";
 import { useUI } from "@components/ui/context";
 import { ProductOverview } from "@components/product/ProductOverview";
 import { ProductImage, ProductPrice } from "@framework/types/product";
@@ -24,23 +24,25 @@ const OrderReview: FC<Props> = ({
     const { isReviewOpen } = useUI();
     return (
         <div>
-            {isReviewOpen && (
-                <Popup data-testid="product-popup">
-                    <AnimatePresence>
-                        <Review
-                            key={productName}
-                            productId={productId}
-                            productType={productType}
-                        />
-                        <ProductOverview
-                            productImage={productImage}
-                            productName={productName}
-                            productPrice={productPrice}
-                            variant="review"
-                        />
-                    </AnimatePresence>
-                </Popup>
-            )}
+            <ReviewProvider>
+                {isReviewOpen && (
+                    <Popup data-testid="product-popup">
+                        <AnimatePresence>
+                            <Review
+                                key={productName}
+                                productId={productId}
+                                productType={productType}
+                            />
+                            <ProductOverview
+                                productImage={productImage}
+                                productName={productName}
+                                productPrice={productPrice}
+                                variant="review"
+                            />
+                        </AnimatePresence>
+                    </Popup>
+                )}
+            </ReviewProvider>
         </div>
     );
 };

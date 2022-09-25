@@ -165,7 +165,7 @@ const ReviewForm: FC<Props> = ({ productId, productType }) => {
 
     return (
         <div>
-            {isReviewSubmitted && <Confirmation isReview />}
+            {isReviewSubmitted && <Confirmation key={productId} isReview />}
             <AnimatePresence>
                 {isReviewUIOpen ? (
                     <motion.div

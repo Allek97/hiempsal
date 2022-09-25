@@ -7,7 +7,7 @@ import ThemeUIProvider from "@components/ui/themeContext";
 import HistoryProvider from "@contexts/History";
 
 import { ProductInfoProvider } from "@components/product";
-import { ReviewProvider } from "@components/review";
+
 import { MediaContextProvider } from "@lib/media";
 import { useScollToTop } from "@hooks";
 
@@ -33,11 +33,9 @@ function MyApp({
                 <HistoryProvider>
                     <MediaContextProvider>
                         <ProductInfoProvider>
-                            <ReviewProvider>
-                                <Layout {...Component.Variables}>
-                                    <Component {...pageProps} />
-                                </Layout>
-                            </ReviewProvider>
+                            <Layout {...Component.Variables}>
+                                <Component {...pageProps} />
+                            </Layout>
                         </ProductInfoProvider>
                     </MediaContextProvider>
                 </HistoryProvider>

@@ -60,7 +60,11 @@ const ProductSlug = ({ product }: Props) => {
     if (!router.isFallback && !product) {
         return <h1>404 - Sorry could not find this page</h1>;
     }
-    return <div>{product && <ProductView product={product} />}</div>;
+    return (
+        <div>
+            {product && <ProductView key={product.id} product={product} />}
+        </div>
+    );
 };
 
 ProductSlug.Layout = Layout;

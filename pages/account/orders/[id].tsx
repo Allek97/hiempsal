@@ -1,7 +1,8 @@
 import { OrderView } from "@components/account/order";
 import { Layout } from "@components/common";
+import Seo from "@components/SEO";
 import { getConfig } from "@framework/api/config";
-import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
+import { DOMAIN, SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
 import getCustomer from "@framework/customer/get-customer";
 import getOrder from "@framework/order/get-order";
 import { Order } from "@framework/types/order";
@@ -50,7 +51,18 @@ const OrderIdPage = ({ order }: Props) => {
     if (!router.isFallback && !order) {
         return <h1>404 - Sorry could not find this page</h1>;
     }
-    return <OrderView order={order as Order} />;
+    return (
+        <>
+            <Seo
+                title={`Order: ${(order as Order).orderNumber}`}
+                description={`Get access to all the details about the ${
+                    (order as Order).orderName
+                } order. You can track your order, add a review, consult your invoice and more.`}
+                canonical={`${DOMAIN}/orders/${getShopifyId(order.id)}`}
+            />
+            <OrderView order={order as Order} />
+        </>
+    );
 };
 
 OrderIdPage.Layout = Layout;

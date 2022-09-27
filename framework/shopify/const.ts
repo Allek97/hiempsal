@@ -2,6 +2,7 @@ export const API_URL = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 export const STOREFRONT_TOKEN =
     process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 export const WEBSITE_API_URL = process.env.NEXT_PUBLIC_URL_DOMAIN;
+export const DOMAIN = "https://www.hiempsal.vercel.app";
 
 export const AMAZON_S3_DOMAIN = process.env.NEXT_PUBLIC_AMAZON_S3_DOMAIN;
 // checkout

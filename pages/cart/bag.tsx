@@ -2,6 +2,7 @@ import { Cart } from "@components/cart";
 import { Layout } from "@components/common";
 import { getConfig } from "@framework/api/config";
 import {
+    DOMAIN,
     SHOPIFY_CHECKOUT_ID_COOKIE,
     SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 } from "@framework/const";
@@ -14,6 +15,7 @@ import { ParsedUrlQuery } from "querystring";
 import { getCheckoutQuery } from "@framework/utils/queries";
 import getCart from "@framework/cart/get-cart";
 import { SWRConfig } from "swr";
+import Seo from "@components/SEO";
 
 export const getServerSideProps = async (
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
@@ -53,9 +55,16 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Bag({ fallback }: Props) {
     return (
-        <SWRConfig value={{ fallback }}>
-            <Cart />
-        </SWRConfig>
+        <>
+            <Seo
+                title="Cart"
+                description="Cart with your items"
+                canonical={`${DOMAIN}/cart/bag`}
+            />
+            <SWRConfig value={{ fallback }}>
+                <Cart />
+            </SWRConfig>
+        </>
     );
 }
 

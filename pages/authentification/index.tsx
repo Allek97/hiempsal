@@ -2,8 +2,9 @@ import { Layout } from "@components/common";
 import { Authentification } from "@components/authentification";
 import getCustomer from "@framework/customer/get-customer";
 import { getConfig } from "@framework/api/config";
-import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
+import { DOMAIN, SHOPIFY_CUSTOMER_TOKEN_COOKIE } from "@framework/const";
 import { GetServerSideProps } from "next";
+import Seo from "@components/SEO";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
@@ -34,7 +35,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const AuthentificationPage = () => {
-    return <Authentification />;
+    return (
+        <>
+            <Seo
+                title="Authentification"
+                description="Authentification page to login, signup and reset password"
+                canonical={`${DOMAIN}/authentification`}
+            />
+            <Authentification />;
+        </>
+    );
 };
 AuthentificationPage.Variables = { isFooter: false };
 AuthentificationPage.Layout = Layout;

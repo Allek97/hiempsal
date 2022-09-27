@@ -1,7 +1,9 @@
 import { Layout } from "@components/common";
+import Seo from "@components/SEO";
 import { Wishlist } from "@components/wishlist";
 import { getConfig } from "@framework/api/config";
 import {
+    DOMAIN,
     SHOPIFY_CUSTOMER_TOKEN_COOKIE,
     SHOPIFY_WISHLIST_TOKEN_COOKIE,
 } from "@framework/const";
@@ -58,9 +60,16 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function WishlistPage({ fallback, customerId }: Props) {
     return (
-        <SWRConfig value={{ fallback }}>
-            <Wishlist customerId={customerId} />
-        </SWRConfig>
+        <>
+            <Seo
+                title="Wishlist"
+                description="Wishlist with your wish items"
+                canonical={`${DOMAIN}/cart/wishlist`}
+            />
+            <SWRConfig value={{ fallback }}>
+                <Wishlist customerId={customerId} />
+            </SWRConfig>
+        </>
     );
 }
 

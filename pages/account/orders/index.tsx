@@ -1,5 +1,7 @@
 import { Orders } from "@components/account";
 import { Layout } from "@components/common";
+import Seo from "@components/SEO";
+import { DOMAIN } from "@framework/const";
 
 import { withAuthServerSideProps } from "auth/withAuthServerSide";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -12,9 +14,16 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const OrderPage = ({ fallback }: Props) => {
     return (
-        <SWRConfig value={{ fallback }}>
-            <Orders />
-        </SWRConfig>
+        <>
+            <Seo
+                title="orders"
+                description="Get access to all your order history"
+                canonical={`${DOMAIN}/orders`}
+            />
+            <SWRConfig value={{ fallback }}>
+                <Orders />
+            </SWRConfig>
+        </>
     );
 };
 

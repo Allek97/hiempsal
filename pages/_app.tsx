@@ -13,6 +13,7 @@ import { useScollToTop } from "@hooks";
 
 import "../styles/globals.scss";
 import "../assets/base.css";
+import Seo from "@components/SEO";
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
 const Noop: FC = ({ children }) => <>{children}</>;
@@ -34,6 +35,7 @@ function MyApp({
                     <MediaContextProvider>
                         <ProductInfoProvider>
                             <Layout {...Component.Variables}>
+                                <Seo />
                                 <Component {...pageProps} />
                             </Layout>
                         </ProductInfoProvider>

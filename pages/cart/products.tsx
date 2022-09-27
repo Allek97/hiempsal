@@ -1,7 +1,9 @@
 import { Layout } from "@components/common";
+import Seo from "@components/SEO";
 import { ViewedProduct } from "@components/viewedProduct";
 import { getConfig } from "@framework/api/config";
 import {
+    DOMAIN,
     SHOPIFY_CUSTOMER_TOKEN_COOKIE,
     SHOPIFY_VIEWED_TOKEN_COOKIE,
 } from "@framework/const";
@@ -58,9 +60,16 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function ViewedProductsPage({ fallback, customerId }: Props) {
     return (
-        <SWRConfig value={{ fallback }}>
-            <ViewedProduct customerId={customerId} />
-        </SWRConfig>
+        <>
+            <Seo
+                title="Viewed Products"
+                description="The products that you visited on Hiempsal online shop"
+                canonical={`${DOMAIN}/cart/products`}
+            />
+            <SWRConfig value={{ fallback }}>
+                <ViewedProduct customerId={customerId} />
+            </SWRConfig>
+        </>
     );
 }
 

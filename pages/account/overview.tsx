@@ -1,5 +1,7 @@
 import { Overview } from "@components/account";
 import { Layout } from "@components/common";
+import Seo from "@components/SEO";
+import { DOMAIN } from "@framework/const";
 
 import { withAuthServerSideProps } from "auth/withAuthServerSide";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -12,9 +14,16 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const OverviewPage = ({ fallback }: Props) => {
     return (
-        <SWRConfig value={{ fallback }}>
-            <Overview />
-        </SWRConfig>
+        <>
+            <Seo
+                title="Overview"
+                description="An overview of your account that will notify you of your pending orders"
+                canonical={`${DOMAIN}/account/overview`}
+            />
+            <SWRConfig value={{ fallback }}>
+                <Overview />
+            </SWRConfig>
+        </>
     );
 };
 

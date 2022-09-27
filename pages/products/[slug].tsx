@@ -3,7 +3,6 @@ import {
     GetStaticPropsContext,
     InferGetStaticPropsType,
 } from "next";
-import { useRouter } from "next/router";
 // import { SWRConfig } from "swr";
 
 import { Layout } from "@components/common";
@@ -13,6 +12,8 @@ import getAllProductsPaths from "@framework/product/get-all-products-paths";
 import getProduct from "@framework/product/get-product";
 // import getReviews from "@framework/review/getReviews";
 import { getConfig } from "@framework/api/config";
+import Seo from "@components/SEO";
+import { truncateText } from "@lib/truncateText";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const config = getConfig();
@@ -55,15 +56,23 @@ export const getStaticProps = async ({
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
+const DOMAIN = "https://www.hiempsal.vercel.app";
 const ProductSlug = ({ product }: Props) => {
-    const router = useRouter();
-    if (!router.isFallback && !product) {
+    if (!product) {
         return <h1>404 - Sorry could not find this page</h1>;
     }
     return (
-        <div>
-            {product && <ProductView key={product.id} product={product} />}
-        </div>
+        <>
+            <Seo
+                title={product.name}
+                description={truncateText(product.description, 250)}
+                canonical={`${DOMAIN}/${product.path}`}
+                ogImage={product.images[0].url}
+            />
+            <div>
+                <ProductView key={product.id} product={product} />
+            </div>
+        </>
     );
 };
 

@@ -6,9 +6,9 @@ const DEFAULT_OG_IMAGE =
     "https://og-image.vercel.app/Hiempsal.jpeg?theme=dark&md=1&fontSize=150px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-white-logo.svg&images=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fremojansen%2Flogo.ts%40master%2Fts.svg";
 
 export default function Seo({
-    title = "Hiempsal E-commerce for premium quality",
+    title = "",
     description = "Official Hiempsal® E-commerce | Everything you need for your next fashion look and technological device is available online. Check out T-shirts, Hoodies, Laptops, Tablets; Other high-end gadgets. Are you ready?",
-    siteName = "Hiempsal",
+    siteName = "Hiempsal E-commerce Shop",
     canonical = DOMAIN,
     ogImage = DEFAULT_OG_IMAGE,
     ogType = "website",
@@ -16,7 +16,9 @@ export default function Seo({
 }) {
     return (
         <Head>
-            <title key="title">{`${title} – ${siteName}`}</title>
+            <title key="title">
+                {title ? `${title} | ${siteName}` : `${siteName}`}
+            </title>
             <meta name="description" content={description} />
             <meta key="og_type" property="og:type" content={ogType} />
             <meta key="og_title" property="og:title" content={title} />

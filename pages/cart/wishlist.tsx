@@ -62,7 +62,7 @@ export default function WishlistPage({ fallback, customerId }: Props) {
     return (
         <>
             <Seo
-                title="Wishlist"
+                title="Your Wish List"
                 description="Wishlist with your wish items"
                 canonical={`${DOMAIN}/cart/wishlist`}
             />

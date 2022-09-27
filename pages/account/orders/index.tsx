@@ -16,9 +16,9 @@ const OrderPage = ({ fallback }: Props) => {
     return (
         <>
             <Seo
-                title="orders"
+                title="Orders"
                 description="Get access to all your order history"
-                canonical={`${DOMAIN}/orders`}
+                canonical={`${DOMAIN}/account/orders`}
             />
             <SWRConfig value={{ fallback }}>
                 <Orders />

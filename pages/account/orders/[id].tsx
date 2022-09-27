@@ -54,11 +54,11 @@ const OrderIdPage = ({ order }: Props) => {
     return (
         <>
             <Seo
-                title={`Order: ${(order as Order).orderNumber}`}
+                title={`Order ${(order as Order).orderName}`}
                 description={`Get access to all the details about the ${
                     (order as Order).orderName
                 } order. You can track your order, add a review, consult your invoice and more.`}
-                canonical={`${DOMAIN}/orders/${getShopifyId(order.id)}`}
+                canonical={`${DOMAIN}/account/orders/${getShopifyId(order.id)}`}
             />
             <OrderView order={order as Order} />
         </>

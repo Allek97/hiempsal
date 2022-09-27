@@ -62,7 +62,7 @@ export default function ViewedProductsPage({ fallback, customerId }: Props) {
     return (
         <>
             <Seo
-                title="Viewed Products"
+                title="Recently Viewed"
                 description="The products that you visited on Hiempsal online shop"
                 canonical={`${DOMAIN}/cart/products`}
             />

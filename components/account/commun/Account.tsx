@@ -43,6 +43,7 @@ const Account: FC = ({ children }) => {
                             <NavBtn
                                 isSelected={isOverviewSelected}
                                 className="border-t-2"
+                                aria-label="account"
                             >
                                 <HiArrowNarrowRight />
                                 <h1
@@ -60,7 +61,10 @@ const Account: FC = ({ children }) => {
                     </Link>
                     <Link href="/account/orders" passHref>
                         <FunctionalLink>
-                            <NavBtn isSelected={isOrderSelected}>
+                            <NavBtn
+                                isSelected={isOrderSelected}
+                                aria-label="orders"
+                            >
                                 <HiArrowNarrowRight />
                                 <h1
                                     style={{
@@ -76,7 +80,10 @@ const Account: FC = ({ children }) => {
                     </Link>
                     <Link href="/account/settings" passHref>
                         <FunctionalLink>
-                            <NavBtn isSelected={isSettingSelected}>
+                            <NavBtn
+                                isSelected={isSettingSelected}
+                                aria-label="settings"
+                            >
                                 <HiArrowNarrowRight />
                                 <h1
                                     style={{

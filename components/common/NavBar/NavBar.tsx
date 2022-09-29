@@ -120,6 +120,9 @@ const Navbar: FC<Props> = ({
                                 onClick={() => back("/")}
                                 isHistoric={isHistoric}
                                 type="button"
+                                aria-label={
+                                    isHistoric ? "back" : "hiempsal shop logo"
+                                }
                             >
                                 {isHistoric ? (
                                     <Back isLogin={isAuthentificationOpen} />

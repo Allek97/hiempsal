@@ -12,14 +12,18 @@ import { Layout } from "@components/common";
 import { Paddings } from "@components/ui";
 
 export async function getStaticProps() {
-    const config = getConfig();
+    try {
+        const config = getConfig();
 
-    const products = await getAllProducts(config);
+        const products = await getAllProducts(config);
 
-    return {
-        props: { products },
-        revalidate: 4 * 60 * 60,
-    };
+        return {
+            props: { products },
+            revalidate: 4 * 60 * 60,
+        };
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;

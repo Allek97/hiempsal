@@ -32,14 +32,14 @@
 
 During the process of building this website I've learned how to write cleaner, reusable and scalable code. I've learned how to write unit and integration tests using react testing library and implement end to end tests with cypress.
 
-I dove deeper into react and levraged all the benefits of nextjs such as using server-side rendering (getSeverSideProps) and static site generation (getStaticProps/getStaticPaths) to generate content on the server which optimizes SEO and performance. I took advantage of nextjs API routes to write my own rest api directly in the framework with express and mongoose.
+I dove deeper into react and leveraged all the benefits of nextjs such as using server-side rendering (getSeverSideProps) and static site generation (getStaticProps/getStaticPaths) to generate content on the server which optimizes SEO and performance. I took advantage of nextjs API routes to write my own rest API directly in the framework with express and mongoose.
 
-I also implemented a scalable and reusable hook architecture to handle the data coming from the server either from shopify storefront API or my own rest API. Their are two types of data server-side data handling hooks :
+I also implemented a scalable and reusable hook architecture to handle the data coming from the server either from shopify storefront API or my own rest API. There are two types of data server-side data handling hooks:
 
-1.  SWRHooks which fetchs the data from the server and manipulate it with SWR which gonna stale(cache data with a unique key) and refetch (revalidate) it.
-2.  MutationHooks are used to modify server-side data (add products,delete review,etc) which mutate the SWRHook caching the specific data.
+1. SWRHooks which fetches the data from the server and manipulate it with SWR which gonna stale (cache data with a unique key) and refetch (revalidate.) it.
+2. MutationHooks are used to modify server-side data (add products, delete review, etc.) which mutate the SWRHook caching the specific data.
 
-The UI is styled using tailwindcss and emotion styled-components which facilatated the work and made my components easily reusable and customizable.
+The UI is styled using tailwindcss and emotion styled-components which facilitated the work and made my components easily reusable and customizable.
 
 This app was definitely a challenge filled with problems to solve but I've enjoyed building it and I've had a lot of fun teaching myself new things.
 

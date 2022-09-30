@@ -8,7 +8,7 @@
 
 <div  align="center"  >
 
-<a  href="https://hiempsal.vercel.app"  rel="noopener"  align="center"> https://hiempsal.vercel.app
+<a  href="https://hiempsal.vercel.app"  target="_blank" rel="noopener noreferrer" align="center"> https://hiempsal.vercel.app
 
 </div>
 

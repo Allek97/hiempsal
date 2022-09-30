@@ -4,9 +4,9 @@
 
 </p>
 
-<h3  align="center">Hiempsal Shopify E-commerce</h3>
+<h3 align="center">Hiempsal Shopify E-commerce</h3>
 
-<div  align="center"  >
+<div align="center"  >
 
 <a  href="https://hiempsal.vercel.app"  rel="noopener" align="center"> https://hiempsal.vercel.app
 

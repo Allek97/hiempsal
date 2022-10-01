@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
 
-import { FC, useReducer } from "react";
+import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
+import { Loader } from "@components/common";
+
+import { FC, useReducer, useState } from "react";
 import { HiArrowRight } from "react-icons/hi";
 import {
     Main,
@@ -53,6 +55,9 @@ function reducer(state: State, action: Action) {
 
 const Authentification: FC = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [isLoging, setIsLoging] = useState<boolean>(false);
+    const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
+    const [isResetSent, setIsResetSent] = useState<boolean>(false);
 
     const { isLoginOpen, isSignupOpen, isForgotPWOpen } = state;
 
@@ -75,7 +80,7 @@ const Authentification: FC = () => {
             </ImageWrapper>
             <AccountContainer>
                 <h1>Account</h1>
-                <div className="flex mb-4 lg:mb-10">
+                <div className="flex items-center h-16 mb-6">
                     <UtilityBtn
                         type="button"
                         $isActive={isLoginOpen}
@@ -92,18 +97,26 @@ const Authentification: FC = () => {
                         <HiArrowRight className="mr-1.5" />
                         <span>Sign up</span>
                     </UtilityBtn>
+                    <div className="ml-auto">
+                        <Loader
+                            isLoading={isLoging || isSigningUp || isResetSent}
+                        />
+                    </div>
                 </div>
                 <LoginForm
                     isDisplayed={isLoginOpen}
                     openPWForgot={openPWForgot}
+                    setIsLoging={setIsLoging}
                 />
                 <SignupForm
                     isDisplayed={isSignupOpen}
                     openPWForgot={openPWForgot}
+                    setIsSigningUp={setIsSigningUp}
                 />
                 <PasswordRecoverForm
                     isDisplayed={isForgotPWOpen}
                     openPWForgot={openPWForgot}
+                    setIsResetSent={setIsResetSent}
                 />
             </AccountContainer>
         </Main>

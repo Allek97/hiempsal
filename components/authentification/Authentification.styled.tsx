@@ -46,7 +46,7 @@ export const UtilityBtn = styled(
     motion.button,
     transientOptions
 )<UtilityBtnProps>`
-    ${tw`flex items-center justify-between padding[0.7em 1.5em] w-max`}
+    ${tw`flex items-center justify-between padding[0.7em 1.5em] height[fit-content] w-max`}
 
     ${({ $isActive }) =>
         $isActive

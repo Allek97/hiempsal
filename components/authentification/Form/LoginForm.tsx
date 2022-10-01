@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { object, SchemaOf, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +17,7 @@ import {
 interface Props {
     isDisplayed: boolean;
     openPWForgot: () => void;
+    setIsLoging: Dispatch<SetStateAction<boolean>>;
 }
 
 type Login = {
@@ -32,7 +33,7 @@ const formSchema: SchemaOf<Login> = object({
     password: string().required("Password is required"),
 });
 
-const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
+const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loginError, setLoginError] = useState<string>("");
@@ -52,14 +53,15 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
     async function onSubmit(): Promise<void> {
         try {
             setLoginError("");
+            setIsLoging(true);
             const input: Login = {
                 email,
                 password,
             };
-
             await login(input);
             router.push("/account/overview");
         } catch (error) {
+            setIsLoging(false);
             if (error instanceof Error) setLoginError(error.message);
         }
     }

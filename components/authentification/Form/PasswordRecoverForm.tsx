@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { object, SchemaOf, string, ValidationError } from "yup";
 import isEmailValidator from "validator/lib/isEmail";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
 interface Props {
     isDisplayed: boolean;
     openPWForgot: () => void;
+    setIsResetSent: Dispatch<SetStateAction<boolean>>;
 }
 
 type RecoverForm = {
@@ -39,7 +40,11 @@ const formSchema: SchemaOf<RecoverForm> = object({
         ),
 });
 
-const PasswordRecoverForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
+const PasswordRecoverForm: FC<Props> = ({
+    isDisplayed,
+    openPWForgot,
+    setIsResetSent,
+}) => {
     const [email, setIsEmail] = useState<string>("");
     const [serverError, setServerError] = useState<string>("");
     const [submissionState, setSubmissionState] =
@@ -59,6 +64,7 @@ const PasswordRecoverForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
     async function onSubmit(): Promise<void> {
         try {
             setSubmissionState("neutral");
+            setIsResetSent(true);
             const input: RecoverForm = {
                 email: email,
             };
@@ -67,6 +73,7 @@ const PasswordRecoverForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
             setSubmissionState("success");
         } catch (error) {
             setSubmissionState("error");
+            setIsResetSent(false);
             if (error instanceof Error) {
                 setServerError(error.message);
             } else

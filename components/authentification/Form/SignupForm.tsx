@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, SchemaOf, string, ValidationError } from "yup";
@@ -21,6 +21,7 @@ import {
 interface Props {
     isDisplayed: boolean;
     openPWForgot: () => void;
+    setIsSigningUp: Dispatch<SetStateAction<boolean>>;
 }
 
 type Signup = {
@@ -52,7 +53,11 @@ const formSchema: SchemaOf<Signup> = object({
     phone: string().required("You need to enter a phone number"),
 });
 
-const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
+const SignupForm: FC<Props> = ({
+    isDisplayed,
+    openPWForgot,
+    setIsSigningUp,
+}) => {
     const [firstName, setFirstName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -77,6 +82,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
         try {
             setServerError("");
             setPhoneError("");
+            setIsSigningUp(true);
             const input: Signup = {
                 firstName,
                 email,
@@ -89,7 +95,7 @@ const SignupForm: FC<Props> = ({ isDisplayed, openPWForgot }) => {
             setPhoneError("");
             router.push("/account/overview");
         } catch (error) {
-            console.log(error);
+            setIsSigningUp(false);
             if (error instanceof Error) {
                 if (error.message.includes("phone"))
                     setPhoneError("Phone number is not valid");

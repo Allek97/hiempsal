@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
+        "types": ["cypress", "@testing-library/cypress"],
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
@@ -40,6 +41,7 @@
         "**/*.tsx",
         "__mocks__/framer-motion.js",
         "**/*.config.js",
+        "cypress/support/e2e.js",
         "./pages/_document.js"
     ],
     "exclude": ["node_modules"]

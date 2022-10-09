@@ -281,6 +281,7 @@ const MobileNav: FC<Props> = ({
                                         <button
                                             aria-label="Profile"
                                             type="button"
+                                            data-testid="profile-mobile"
                                         >
                                             <motion.div
                                                 key={customerPendingOrders}

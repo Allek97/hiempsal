@@ -18,6 +18,7 @@
         "@emotion/server": "^11.4.0",
         "@emotion/styled": "^11.8.1",
         "@hookform/resolvers": "^2.8.10",
+        "@jackfranklin/test-data-bot": "^2.0.0",
         "@mui/icons-material": "^5.6.2",
         "@mui/material": "^5.5.0",
         "@tailwindcss/jit": "^0.1.18",
@@ -79,6 +80,7 @@
         "@emotion/jest": "^11.9.1",
         "@faker-js/faker": "^6.1.2",
         "@next/eslint-plugin-next": "^12.1.4",
+        "@testing-library/cypress": "^8.0.3",
         "@testing-library/jest-dom": "^5.16.3",
         "@testing-library/react": "^12.1.5",
         "@testing-library/react-hooks": "^8.0.0",
@@ -97,7 +99,8 @@
         "@typescript-eslint/parser": "^5.3.1",
         "autoprefixer": "^10.4.0",
         "babel-plugin-styled-components": "^2.0.2",
-        "cypress": "^9.5.2",
+        "cypress": "^10.9.0",
+        "cypress-testing-library": "^4.0.0",
         "eslint": "^8.12.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-next": "^12.0.3",
@@ -109,7 +112,8 @@
         "jest-watch-typeahead": "^1.0.0",
         "msw": "^0.39.2",
         "postcss": "^8.4.12",
-        "postcss-import": "^14.0.2"
+        "postcss-import": "^14.0.2",
+        "test-data-bot": "^0.8.0"
     },
     "babelMacros": {
         "twin": {

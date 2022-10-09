@@ -76,6 +76,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                     <FormInput
                         {...register("email")}
                         id="login-email"
+                        data-testid="login-email"
                         type="email"
                         required
                         placeholder=" "
@@ -109,6 +110,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                     <FormInput
                         {...register("password")}
                         id="login-password"
+                        data-testid="login-password"
                         type="password"
                         required
                         placeholder=" "

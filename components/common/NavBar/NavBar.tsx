@@ -289,6 +289,7 @@ const Navbar: FC<Props> = ({
                                 <UtilityButton
                                     aria-label="Profile"
                                     type="button"
+                                    data-testid="profile-desktop"
                                 >
                                     <motion.div
                                         key={customerPendingOrders}

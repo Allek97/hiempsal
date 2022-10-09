@@ -93,6 +93,7 @@ const Authentification: FC = () => {
                         type="button"
                         $isActive={isSignupOpen}
                         onClick={openSignup}
+                        data-testid="signup-link"
                     >
                         <HiArrowRight className="mr-1.5" />
                         <span>Sign up</span>

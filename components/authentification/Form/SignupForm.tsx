@@ -163,6 +163,7 @@ const SignupForm: FC<Props> = ({
                     <FormInput
                         {...register("email")}
                         id="signup-email"
+                        data-testid="signup-email"
                         type="email"
                         required
                         placeholder=" "
@@ -203,6 +204,7 @@ const SignupForm: FC<Props> = ({
                     <FormInput
                         {...register("password")}
                         id="signup-password"
+                        data-testid="signup-password"
                         type="password"
                         required
                         placeholder=" "
@@ -245,13 +247,11 @@ const SignupForm: FC<Props> = ({
                         <Controller
                             name="phone"
                             control={control}
-                            defaultValue=""
                             render={({ field: { onChange } }) => (
                                 <PhoneInput
                                     {...register("phone")}
-                                    country="ca"
                                     placeholder="+1 123 456 7890"
-                                    value={`+${phone}`}
+                                    value={phone ? `+${phone}` : ""}
                                     onChange={(e) => {
                                         onChange("+" + e);
                                         setPhone("+" + e);
@@ -268,7 +268,11 @@ const SignupForm: FC<Props> = ({
                 </ForgotPassword>
             </div>
             <div className="w-full mt-8 ml-auto">
-                <FormSubmitBtn isHoverActive={false} type="submit">
+                <FormSubmitBtn
+                    isHoverActive={false}
+                    type="submit"
+                    data-testid="signup-submit"
+                >
                     Sign up
                 </FormSubmitBtn>
             </div>

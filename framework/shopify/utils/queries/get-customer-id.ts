@@ -1,5 +1,5 @@
 const getCustomerIdQuery = `
-query ($customerAccessToken: String!) {
+query getCustomerId($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       id
     }

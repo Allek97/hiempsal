@@ -5,7 +5,7 @@ import {
 } from "../common";
 
 const getCustomerQuery = `
-query ($customerAccessToken: String!) {
+query getCustomer($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       id
       firstName

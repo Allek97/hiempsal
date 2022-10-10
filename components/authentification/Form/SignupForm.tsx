@@ -99,8 +99,9 @@ const SignupForm: FC<Props> = ({
             if (error instanceof Error) {
                 if (error.message.includes("phone"))
                     setPhoneError("Phone number is not valid");
-                else setServerError(error.message);
+                else setServerError("Server error. Please try again!");
             }
+            setServerError("Server error. Please try again!");
         }
     }
 

@@ -37,7 +37,7 @@ const Overview: FC = () => {
                     <DecorationTwoBottom />
 
                     <h2>
-                        Welcome back. You have
+                        Welcome back {customer?.firstName}. You have
                         {nbPendingOrders > 0
                             ? ` ${nbPendingOrders} pending ${setTextPlural(
                                   "order",

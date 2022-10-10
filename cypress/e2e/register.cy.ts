@@ -17,7 +17,7 @@ describe("access to authetification from homepage", () => {
     });
 });
 
-describe.only("registration for desktop", () => {
+describe.only("registration", () => {
     it.only("should register a new customer", () => {
         const customer = buildCustomer();
 
@@ -33,7 +33,7 @@ describe.only("registration for desktop", () => {
 
         cy.url().should("eq", `${Cypress.config().baseUrl}/account/overview`);
 
-        cy.getCookie("shopify_customerToken").should("be.a", "string");
+        cy.getCookie("shopify_customerToken").should("exist");
         cy.findByText(RegExp(`${customer.firstName}`, "g"));
     });
 

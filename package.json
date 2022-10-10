@@ -9,7 +9,8 @@
         "cypress": "cypress open",
         "test": "jest --watch --verbose",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-        "preinstall": "npx npm-force-resolutions"
+        "preinstall": "npx npm-force-resolutions",
+        "cy:run": "cypress run"
     },
     "dependencies": {
         "@artsy/fresnel": "^3.4.0",

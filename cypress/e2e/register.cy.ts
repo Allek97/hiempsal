@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+
 import { buildCustomer } from "../support/generate";
 
 // NOTE: Make sure we can access authentification page from mobile and desktop
@@ -31,10 +32,8 @@ describe.only("registration", () => {
 
         cy.findByTestId("signup-submit").click({ force: true });
 
-        cy.url().should("eq", `${Cypress.config().baseUrl}/account/overview`);
-
-        cy.getCookie("shopify_customerToken").should("exist");
-        cy.findByText(RegExp(`${customer.firstName}`, "g"));
+        cy.assertAccount();
+        cy.assertLoggedInAs(customer);
     });
 
     it("should show an error message if there's an error registering", () => {

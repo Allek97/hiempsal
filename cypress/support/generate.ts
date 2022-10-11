@@ -1,6 +1,13 @@
 import { build } from "@jackfranklin/test-data-bot";
 import { faker } from "@faker-js/faker";
 
+type CustomerSignup = {
+    firstName: string;
+    email: string;
+    password: string;
+    phone: string;
+};
+
 const buildCustomer = build("Customer", {
     fields: {
         firstName: faker.name.firstName(),
@@ -11,3 +18,4 @@ const buildCustomer = build("Customer", {
 });
 
 export { buildCustomer };
+export type { CustomerSignup };

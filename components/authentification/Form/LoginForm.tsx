@@ -150,7 +150,11 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                 </ForgotPassword>
             </div>
             <div className="w-full mt-8 ml-auto">
-                <FormSubmitBtn isHoverActive={false} type="submit">
+                <FormSubmitBtn
+                    isHoverActive={false}
+                    type="submit"
+                    data-testid="login-submit"
+                >
                     Login
                 </FormSubmitBtn>
             </div>

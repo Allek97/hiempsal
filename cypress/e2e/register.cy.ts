@@ -63,3 +63,5 @@ describe.only("registration", () => {
         cy.findByText(/Server error. Please try again!/i);
     });
 });
+
+export {};

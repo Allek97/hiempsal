@@ -12,3 +12,5 @@ describe("login", () => {
         });
     });
 });
+
+export {};

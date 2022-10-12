@@ -223,7 +223,10 @@ const OrderView: FC<Props> = ({ order }) => {
                                             </motion.button>
                                         </div>
                                         <div>
-                                            <Link href="/" passHref>
+                                            <Link
+                                                href={`/products/${orderItem.productSlug}`}
+                                                passHref
+                                            >
                                                 <FunctionalLink>
                                                     <motion.h2
                                                         className="mb-3.5 text-accents-9 uppercase tracking-normal"

@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 describe("login", () => {
     it("should login an existing customer", () => {
         cy.createCustomer().then((customer) => {

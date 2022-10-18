@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
-        "types": ["jest", "@testing-library/jest-dom"],
+        "baseUrl": "../",
+        "types": ["cypress", "@testing-library/cypress"],
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
@@ -33,15 +33,9 @@
         }
     },
     "include": [
-        "next-env.d.ts",
-        "jest.config.js",
-        "next.config.js",
-        "__mocks__/*",
-        "**/*.ts",
-        "**/*.tsx",
-        "__mocks__/framer-motion.js",
-        "**/*.config.js",
-        "./pages/_document.js"
-    ],
-    "exclude": ["node_modules", "./cypress.config.js", "./cypress"]
+        "../node_modules/cypress",
+        "../cypress",
+        "./**/*.ts",
+        "./file.ts"
+    ]
 }

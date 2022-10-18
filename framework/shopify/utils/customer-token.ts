@@ -10,10 +10,12 @@ export const getCustomerToken = () =>
 export const removeCustomerToken = () =>
     Cookies.remove(SHOPIFY_CUSTOMER_TOKEN_COOKIE);
 
-export const setCustomerToken = (token: string, options?: CookieAttributes) => {
-    Cookies.set(
-        SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-        token,
-        options ?? { expires: SHOPIFY_COOKIE_EXPIRE }
-    );
+export const setCustomerToken = (
+    token: string,
+    { expires, ...options }: CookieAttributes = {}
+) => {
+    Cookies.set(SHOPIFY_CUSTOMER_TOKEN_COOKIE, token, {
+        ...options,
+        expires: expires ?? SHOPIFY_COOKIE_EXPIRE,
+    });
 };

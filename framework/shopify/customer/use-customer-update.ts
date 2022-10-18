@@ -46,10 +46,9 @@ const handler: MutationHook<AddItemHookDescriptor> = {
             throw new Error(customerUpdate.customerUserErrors[0].message);
 
         if (customerUpdate.customerAccessToken)
-            setCustomerToken(
-                customerUpdate.customerAccessToken.accessToken,
-                customerUpdate.customerAccessToken.expiresAt
-            );
+            setCustomerToken(customerUpdate.customerAccessToken.accessToken, {
+                expires: customerUpdate.customerAccessToken.expiresAt,
+            });
 
         return null;
     },

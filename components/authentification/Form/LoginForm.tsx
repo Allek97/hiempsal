@@ -14,7 +14,7 @@ import {
     InputPlaceholder,
 } from "../../elements/FormInputsStyle";
 
-interface Props {
+export interface Props {
     isDisplayed: boolean;
     openPWForgot: () => void;
     setIsLoging: Dispatch<SetStateAction<boolean>>;

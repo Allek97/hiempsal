@@ -48,7 +48,9 @@ const handler: MutationHook<CustomerCreateHookDescriptor> = {
         const accessToken = customerAccessToken?.accessToken;
 
         if (accessToken)
-            setCustomerToken(accessToken, customerAccessToken.expiresAt);
+            setCustomerToken(accessToken, {
+                expires: customerAccessToken.expiresAt,
+            });
 
         return null;
     },

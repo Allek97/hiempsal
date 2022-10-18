@@ -21,7 +21,7 @@ export const RootEmpty = styled.div`
     ${tw`flex items-center justify-center w-full h-full 
     lg:(border-0)`}
 
-    h2 {
+    h1 {
         ${textSizeMain}
     }
 `;

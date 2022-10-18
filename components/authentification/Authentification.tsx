@@ -104,6 +104,7 @@ const Authentification: FC = () => {
                         />
                     </div>
                 </div>
+
                 <LoginForm
                     isDisplayed={isLoginOpen}
                     openPWForgot={openPWForgot}

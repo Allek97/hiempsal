@@ -9,7 +9,6 @@ const useResetProvider = (): void => {
     const { resetProductInfo } = useProduct();
     useEffect(() => {
         if (!pathname.includes("/products/")) {
-            console.log("hey");
             resetUI();
             resetProductInfo();
         }

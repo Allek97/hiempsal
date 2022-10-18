@@ -13,7 +13,7 @@ query getCustomer($customerAccessToken: String!) {
       displayName
       email
       phone
-      acceptsMarketing
+      acceptsMarketing 
       updatedAt
       createdAt
       tags

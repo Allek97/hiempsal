@@ -37,6 +37,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loginError, setLoginError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const methods = useForm<Login>({
         resolver: yupResolver(formSchema),
@@ -54,6 +55,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
         try {
             setLoginError("");
             setIsLoging(true);
+            setIsLoading(true);
             const input: Login = {
                 email,
                 password,
@@ -62,6 +64,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
             router.push("/account/overview");
         } catch (error) {
             setIsLoging(false);
+            setIsLoading(false);
             if (error instanceof Error) setLoginError(error.message);
         }
     }
@@ -139,9 +142,9 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                     <InputPlaceholder>Password</InputPlaceholder>
                 </motion.label>
             </div>
-            <div className="w-max ml-auto mb-2">
+            <div className="flex items-end justify-between w-full ml-auto mb-2">
                 <ErrorForm>
-                    <span className="mr-auto text-orange-red">
+                    <span className="mr-2 text-orange-red">
                         {errors.email?.message}
                     </span>
                 </ErrorForm>
@@ -154,6 +157,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                     isHoverActive={false}
                     type="submit"
                     data-testid="login-submit"
+                    disabled={isLoading}
                 >
                     Login
                 </FormSubmitBtn>

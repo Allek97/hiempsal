@@ -4,7 +4,7 @@ const customerCreateAccessTokenMutation = `
             customerUserErrors {
                 code
                 field
-                message
+                message 
             }
             customerAccessToken {
                 accessToken

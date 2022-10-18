@@ -125,7 +125,7 @@ export const ForgotPassword = styled(motion.button)`
 `;
 
 export const FormSubmitBtn = styled(Button)`
-    ${tw`padding[1em 0] margin[0.25em] font-bold
+    ${tw`padding[1em 0]  font-bold
     xl:padding[1.2em 0]`}
 `;
 

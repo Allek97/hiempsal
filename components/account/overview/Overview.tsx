@@ -36,7 +36,7 @@ const Overview: FC = () => {
                     <DecorationTwoTop />
                     <DecorationTwoBottom />
 
-                    <h2>
+                    <h1>
                         Welcome back
                         {customer?.firstName ? ` ${customer?.firstName}` : ""}.
                         You have
@@ -65,7 +65,7 @@ const Overview: FC = () => {
                                 </BrowsingBtn>
                             </FunctionalLink>
                         </Link>
-                    </h2>
+                    </h1>
                 </RootEmpty>
             </Container>
         </Account>

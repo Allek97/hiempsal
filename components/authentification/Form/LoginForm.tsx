@@ -82,7 +82,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
             onSubmit={handleSubmit(onSubmit)}
             style={isDisplayed ? { display: "block" } : { display: "none" }}
         >
-            <div className="w-full mb-2">
+            <div className="w-full mb-2" role="form" aria-label="Login email">
                 <motion.label htmlFor="login-email" className="relative">
                     <FormInput
                         {...register("email")}
@@ -93,7 +93,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-email"
+                        autoComplete="on"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         whileHover={{
@@ -116,7 +116,11 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                     <InputPlaceholder>Email Address</InputPlaceholder>
                 </motion.label>
             </div>
-            <div className="w-full mb-2">
+            <div
+                className="w-full mb-2"
+                role="form"
+                aria-label="Login password"
+            >
                 <motion.label htmlFor="login-password" className="relative">
                     <FormInput
                         {...register("password")}
@@ -127,7 +131,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                         placeholder=" "
                         aria-required
                         maxLength={150}
-                        autoComplete="login-password"
+                        autoComplete="on"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         whileHover={{

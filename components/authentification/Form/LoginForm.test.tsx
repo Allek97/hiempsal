@@ -5,7 +5,7 @@ import { build } from "@jackfranklin/test-data-bot";
 import { faker } from "@faker-js/faker";
 import { mockUseRouter, render, screen, waitFor } from "@tests/customRender";
 import userEvent from "@testing-library/user-event";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 
 import { authServer } from "@mocks/api";
 import LoginForm, { Props } from "./LoginForm";
@@ -33,7 +33,7 @@ test("Renders login form correctely", () => {
     render(<LoginForm {...defaultProps} />);
 
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/)).toBeInTheDocument();
     expect(
         screen.getByRole("button", { name: /forgot password\?/i })
     ).toBeInTheDocument();
@@ -55,7 +55,7 @@ test("Can fill out form and send request to shopify storefront api to log in", a
     );
 
     await userEvent.type(
-        screen.getByLabelText(/password/i),
+        screen.getByLabelText(/Password/),
         customerLogin.password
     );
 
@@ -84,7 +84,7 @@ const errorLoginAction = async (customerLogin: {
     );
 
     await userEvent.type(
-        screen.getByLabelText(/password/i),
+        screen.getByLabelText(/Password/),
         customerLogin.password
     );
     const loginBtn = screen.getByRole("button", { name: /login/i });
@@ -150,7 +150,7 @@ describe("Login errors", () => {
     });
 });
 
-test.only("Should not have any a11y errors", async () => {
+test("Should not have any a11y errors", async () => {
     const { container } = render(<LoginForm {...defaultProps} />);
 
     const results = await axe(container.innerHTML);

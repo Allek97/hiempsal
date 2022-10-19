@@ -38,24 +38,36 @@ test("renders login form correctely", () => {
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
 });
 
-test.only("Can fill out login form and send request to shopify storefront api", () => {
-    render(<LoginForm {...defaultProps} />);
+test.only("Can fill out login form and send request to shopify storefront api", async () => {
+    const { mockRouter } = render(<LoginForm {...defaultProps} />, {
+        routerOptions: {
+            push: jest.fn().mockResolvedValue(true),
+        },
+    });
     const customerLogin = buildCustomerLogin();
-    console.log(customerLogin.email);
 
-    userEvent.type(
+    await userEvent.type(
         screen.getByLabelText(/email address/i),
         customerLogin.email
     );
-    userEvent.type(screen.getByLabelText(/password/i), customerLogin.password);
+
+    await userEvent.type(
+        screen.getByLabelText(/password/i),
+        customerLogin.password
+    );
 
     const loginBtn = screen.getByRole("button", { name: /login/i });
 
     expect(loginBtn).not.toBeDisabled();
 
-    userEvent.click(loginBtn);
+    await userEvent.click(loginBtn);
 
-    screen.debug();
-
-    // await waitFor(() => expect(loginBtn).toBeDisabled());
+    expect(loginBtn).toBeDisabled();
+    await waitFor(() => {
+        expect(mockRouter.push).toHaveBeenCalledWith(
+            "/account/overview",
+            "/account/overview",
+            expect.any(Object)
+        );
+    });
 });

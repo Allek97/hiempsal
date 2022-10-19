@@ -27,7 +27,7 @@ afterEach(() => authServer.resetHandlers());
 
 authServer.printHandlers();
 
-test("renders login form correctely", () => {
+test("Renders login form correctely", () => {
     render(<LoginForm {...defaultProps} />);
 
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
@@ -38,12 +38,8 @@ test("renders login form correctely", () => {
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
 });
 
-test.only("Can fill out login form and send request to shopify storefront api", async () => {
-    const { mockRouter } = render(<LoginForm {...defaultProps} />, {
-        routerOptions: {
-            push: jest.fn().mockResolvedValue(true),
-        },
-    });
+test("Can fill out form and send request to shopify storefront api to log in", async () => {
+    const { mockRouter } = render(<LoginForm {...defaultProps} />);
 
     mockUseRouter.mockReturnValue({
         ...mockRouter,
@@ -74,4 +70,80 @@ test.only("Can fill out login form and send request to shopify storefront api", 
     });
 
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
+});
+
+const errorLoginAction = async (customerLogin: {
+    email: string;
+    password: string;
+}) => {
+    await userEvent.type(
+        screen.getByLabelText(/email address/i),
+        customerLogin.email
+    );
+
+    await userEvent.type(
+        screen.getByLabelText(/password/i),
+        customerLogin.password
+    );
+    const loginBtn = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.click(loginBtn);
+};
+
+describe("Login errors", () => {
+    const loginUnregistered = buildCustomerLogin({
+        overrides: {
+            email: faker.internet.email(
+                undefined,
+                undefined,
+                "unregistered-customer.com"
+            ),
+        },
+    });
+    const loginInvalid = buildCustomerLogin({
+        overrides: {
+            email: faker.internet.email(undefined, undefined, "invalid-email"),
+        },
+    });
+    const loginServerError = buildCustomerLogin({
+        overrides: {
+            email: faker.internet.email(
+                undefined,
+                undefined,
+                "server-error.ca"
+            ),
+        },
+    });
+
+    test("Unregistered", async () => {
+        render(<LoginForm {...defaultProps} />);
+
+        await errorLoginAction(loginUnregistered);
+
+        const serverErrorMsg = await screen.findByRole("alert", {
+            name: /server error/i,
+        });
+        expect(serverErrorMsg).toBeInTheDocument();
+    });
+
+    test("wrong email format", async () => {
+        render(<LoginForm {...defaultProps} />);
+        await errorLoginAction(loginInvalid);
+
+        const emailErrorMsg = await screen.findByRole("alert", {
+            name: /invalid email/i,
+        });
+        expect(emailErrorMsg).toHaveTextContent(/please enter a valid email/i);
+    });
+    test.only("server error", async () => {
+        render(<LoginForm {...defaultProps} />);
+        await errorLoginAction(loginServerError);
+
+        const serverErrorMsg = await screen.findByRole("alert", {
+            name: /server error/i,
+        });
+        expect(serverErrorMsg).toHaveTextContent(
+            /sorry for the inconvenience, please try again/i
+        );
+    });
 });

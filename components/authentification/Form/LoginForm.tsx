@@ -65,7 +65,15 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
         } catch (error) {
             setIsLoging(false);
             setIsLoading(false);
-            if (error instanceof Error) setLoginError(error.message);
+            if (error instanceof Error) {
+                if (error.message.includes("Wrong email"))
+                    setLoginError(error.message);
+                else
+                    setLoginError(
+                        "sorry for the inconvenience, please try again"
+                    );
+            } else
+                setLoginError("sorry for the inconvenience, please try again");
         }
     }
 
@@ -143,11 +151,13 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                 </motion.label>
             </div>
             <div className="flex items-end justify-between w-full ml-auto mb-2">
-                <ErrorForm>
-                    <span className="mr-2 text-orange-red">
-                        {errors.email?.message}
-                    </span>
-                </ErrorForm>
+                {errors.email?.message && (
+                    <ErrorForm role="alert" aria-label="invalid email">
+                        <span className="mr-2 text-orange-red">
+                            {errors.email?.message}
+                        </span>
+                    </ErrorForm>
+                )}
                 <ForgotPassword type="button" onClick={openPWForgot}>
                     Forgot password?
                 </ForgotPassword>
@@ -163,7 +173,11 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
                 </FormSubmitBtn>
             </div>
             {loginError && (
-                <ErrorForm className="block mt-4">
+                <ErrorForm
+                    className="block mt-4"
+                    role="alert"
+                    aria-label="server error"
+                >
                     <span
                         style={{
                             color: "var(--orange-red)",

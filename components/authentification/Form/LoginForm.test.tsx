@@ -3,7 +3,7 @@
 import "whatwg-fetch";
 import { build } from "@jackfranklin/test-data-bot";
 import { faker } from "@faker-js/faker";
-import { render, screen, waitFor } from "@tests/customRender";
+import { mockUseRouter, render, screen, waitFor } from "@tests/customRender";
 import userEvent from "@testing-library/user-event";
 import { authServer } from "@mocks/api";
 import LoginForm, { Props } from "./LoginForm";
@@ -44,6 +44,11 @@ test.only("Can fill out login form and send request to shopify storefront api", 
             push: jest.fn().mockResolvedValue(true),
         },
     });
+
+    mockUseRouter.mockReturnValue({
+        ...mockRouter,
+    });
+
     const customerLogin = buildCustomerLogin();
 
     await userEvent.type(
@@ -63,11 +68,10 @@ test.only("Can fill out login form and send request to shopify storefront api", 
     await userEvent.click(loginBtn);
 
     expect(loginBtn).toBeDisabled();
+
     await waitFor(() => {
-        expect(mockRouter.push).toHaveBeenCalledWith(
-            "/account/overview",
-            "/account/overview",
-            expect.any(Object)
-        );
+        expect(mockRouter.push).toHaveBeenCalledWith("/account/overview");
     });
+
+    expect(mockRouter.push).toHaveBeenCalledTimes(1);
 });

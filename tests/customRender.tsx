@@ -1,4 +1,3 @@
-import * as nextRouter from "next/router";
 import { NextRouter } from "next/router";
 import { FC, ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
@@ -28,7 +27,9 @@ jest.mock("next/router", () => ({
 
 // NOTE : allows me to run mockImplementation in relevent tests and add
 // my custom useRouter attributes
-const useRouter = jest.spyOn(nextRouter, "useRouter");
+// const useRouter = jest.spyOn(nextRouter, "useRouter");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
 const AllTheProviders: FC = ({ children }) => {
     return (
@@ -50,15 +51,18 @@ type CustomOptions = {
 const customRender = (
     ui: ReactElement,
     { renderOptions, routerOptions = {} }: CustomOptions = {}
-) => ({
-    ...render(
-        <RouterContext.Provider value={createMockRouter(routerOptions)}>
-            {ui}
-        </RouterContext.Provider>,
-        { wrapper: AllTheProviders, ...renderOptions }
-    ),
-    mockRouter: createMockRouter(routerOptions),
-});
+) => {
+    const mockRouter = createMockRouter(routerOptions);
+    return {
+        ...render(
+            <RouterContext.Provider value={mockRouter}>
+                {ui}
+            </RouterContext.Provider>,
+            { wrapper: AllTheProviders, ...renderOptions }
+        ),
+        mockRouter: mockRouter,
+    };
+};
 
 export * from "@testing-library/react";
 export { customRender as render, useRouter as mockUseRouter };

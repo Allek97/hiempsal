@@ -5,6 +5,8 @@ import { build } from "@jackfranklin/test-data-bot";
 import { faker } from "@faker-js/faker";
 import { mockUseRouter, render, screen, waitFor } from "@tests/customRender";
 import userEvent from "@testing-library/user-event";
+import { axe, toHaveNoViolations } from "jest-axe";
+
 import { authServer } from "@mocks/api";
 import LoginForm, { Props } from "./LoginForm";
 
@@ -135,7 +137,7 @@ describe("Login errors", () => {
         });
         expect(emailErrorMsg).toHaveTextContent(/please enter a valid email/i);
     });
-    test.only("server error", async () => {
+    test("server error", async () => {
         render(<LoginForm {...defaultProps} />);
         await errorLoginAction(loginServerError);
 
@@ -146,4 +148,11 @@ describe("Login errors", () => {
             /sorry for the inconvenience, please try again/i
         );
     });
+});
+
+test.only("Should not have any a11y errors", async () => {
+    const { container } = render(<LoginForm {...defaultProps} />);
+
+    const results = await axe(container.innerHTML);
+    expect(results).toHaveNoViolations();
 });

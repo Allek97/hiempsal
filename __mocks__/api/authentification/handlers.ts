@@ -14,7 +14,7 @@ export const authHandlers = [
             return res(
                 ctx.errors([
                     {
-                        message: "Network error, muration failed to fetch",
+                        message: "Network error, mutation failed to fetch",
                         locations: [
                             {
                                 line: 8,

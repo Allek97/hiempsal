@@ -10,9 +10,9 @@ import { RiHeartAddFill } from "react-icons/ri";
 import { ProductArticle } from "@components/common";
 import { ErrorForm } from "@components/elements/FormInputsStyle";
 
-import useWishlistInitial from "wishlist/wishlistInitialState";
 import useAddWishlist from "@framework/wishlist/use-add-wishlist";
 import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
+import useWishlistInitial from "../../../wishlist/wishlistInitialState";
 
 import {
     ProductBg,

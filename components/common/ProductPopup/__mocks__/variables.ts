@@ -7,23 +7,29 @@ import {
 import { currencyMap } from "@framework/utils/optionMapping";
 import { ProductCartProps } from "../productCart/ProductCart";
 
-const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
+const randomCurrency = faker.helpers.arrayElement(Object.keys(currencyMap));
 
 const productOptions: ProductOption[] = [
     {
         id: faker.datatype.uuid(),
-        displayName: "color",
+        displayName: faker.helpers.arrayElement(["color", "watch band"]),
         values: [{ label: faker.commerce.color() }],
     },
     {
         id: faker.datatype.uuid(),
-        displayName: "size",
+        displayName: faker.helpers.arrayElement([
+            "size",
+            faker.commerce.productAdjective(),
+        ]),
         values: [{ label: faker.commerce.productMaterial() }],
     },
     {
         id: faker.datatype.uuid(),
-        displayName: "gender",
-        values: [{ label: faker.commerce.productDescription() }],
+        displayName: faker.helpers.arrayElement([
+            "gender",
+            faker.commerce.productAdjective(),
+        ]),
+        values: [{ label: faker.commerce.product() }],
     },
 ];
 const productVariants: ProductVariant[] = [
@@ -35,7 +41,7 @@ const productVariants: ProductVariant[] = [
         price: faker.datatype.number(),
         listPrice: faker.datatype.number(),
         requiresShipping: faker.datatype.boolean(),
-        availableForSale: faker.datatype.boolean(),
+        availableForSale: true,
         options: productOptions,
     },
 ];
@@ -52,10 +58,30 @@ const product: Product = {
         currencyCode: randomCurrency,
         value: faker.datatype.number(),
     },
-    availableForSale: faker.datatype.boolean(),
+    availableForSale: true,
     featureImages: [{ url: faker.image.fashion(), alt: faker.image.fashion() }],
     options: productOptions,
     variants: productVariants,
+    dimensions: {},
+    featureName: "",
+    features: {
+        features: {},
+    },
+    materials: {},
+    shipping: {
+        shipping: {
+            content: "",
+            description: "",
+        },
+        shippingCost: {
+            description: "",
+            content: "",
+        },
+    },
+    sustainability: {
+        features: {},
+    },
+    type: "clothing",
 };
 const defaultProps: ProductCartProps = {
     product,

@@ -17,10 +17,10 @@ import { Media } from "@lib/media";
 import { Plus } from "@components/icons";
 import { ImageVisualizer } from "@components/elements";
 import useDeleteWishlist from "@framework/wishlist/use-delete-wishlist";
-import useWishlistInitial from "wishlist/wishlistInitialState";
 import useAddWishlist from "@framework/wishlist/use-add-wishlist";
 import { IoHeartDislikeSharp } from "react-icons/io5";
 import { ErrorForm } from "@components/elements/FormInputsStyle";
+import useWishlistInitial from "../../../wishlist/wishlistInitialState";
 
 import {
     Root,

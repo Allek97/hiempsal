@@ -54,6 +54,7 @@ const Swatch: FC<SwatchProps> = ({
             isOutOfStock={isOutOfStock}
             hasImage
             data-testid={`swatch-${option}`}
+            onClick={() => clickHandler(option, value)}
         >
             <input
                 id={value}
@@ -91,6 +92,7 @@ const Swatch: FC<SwatchProps> = ({
             isOutOfStock={isOutOfStock}
             isPride={value.toLowerCase() === "genderfluid"}
             data-testid={`swatch-${option}`}
+            onClick={() => clickHandler(option, value)}
         >
             <input
                 id={value}

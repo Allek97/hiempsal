@@ -1,4 +1,11 @@
-import { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
+import {
+    Dispatch,
+    FC,
+    FormEvent,
+    SetStateAction,
+    useCallback,
+    useState,
+} from "react";
 import { motion } from "framer-motion";
 
 import { useUI } from "@components/ui/context";
@@ -53,7 +60,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
             const variant = getVariant(product, choices);
             setSelectedVariant(variant);
             const input = {
-                variantId: variant ? variant.id : product.variants[0].id,
+                variantId: variant ? variant.id : "asd",
                 quantity: 1,
             };
             setIsLoading(true);
@@ -66,12 +73,15 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
         }
     };
 
-    const handleSwatchClick = (optionName: AvailableChoices, value: string) => {
-        setChoices((previous) => ({
-            ...previous,
-            [optionName]: value,
-        }));
-    };
+    const handleSwatchClick = useCallback(
+        (optionName: AvailableChoices, value: string) => {
+            setChoices((previous) => ({
+                ...previous,
+                [optionName]: value,
+            }));
+        },
+        []
+    );
 
     return (
         <div data-testid="product-cart">

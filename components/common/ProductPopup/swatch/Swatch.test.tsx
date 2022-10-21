@@ -7,29 +7,20 @@ import userEvent from "@testing-library/user-event";
 import { ImageProps } from "next/image";
 import Swatch, { SwatchProps } from "./Swatch";
 
-function renderSwatch(props?: Partial<SwatchProps>) {
-    const defaultProps: SwatchProps = {
-        clickHandler: () => {},
-        value: faker.datatype.string(),
-        isAvailable: true,
-        isOutOfStock: false,
-        isSelected: false,
-        option: "size",
-    };
+const defaultProps: SwatchProps = {
+    clickHandler: () => {},
+    value: faker.datatype.string(),
+    isAvailable: true,
+    isOutOfStock: false,
+    isSelected: false,
+    option: "size",
+};
 
+function renderSwatch(props?: Partial<SwatchProps>) {
     return {
         ...render(<Swatch {...defaultProps} {...props} />),
         swatchProps: { ...defaultProps, ...props },
     };
-}
-
-function renderWhenOutOfStock(option: string) {
-    renderSwatch({
-        isOutOfStock: true,
-        option: option,
-    });
-
-    expect(screen.getByRole("alert")).toHaveTextContent(/get notified/i);
 }
 
 jest.mock("next/image", () => ({
@@ -42,41 +33,48 @@ jest.mock("next/image", () => ({
     },
 }));
 
+function assertRender(props?: SwatchProps) {
+    const { swatchProps } = renderSwatch(props);
+
+    expect(screen.getByText(swatchProps.value)).toBeInTheDocument();
+
+    const swatchInput = screen.getByRole("radio") as HTMLInputElement;
+    expect(swatchInput.checked).toBe(swatchProps.isSelected);
+    expect(swatchInput).toBeRequired();
+    expect(swatchInput).not.toBeDisabled();
+
+    const spanEffect = screen.getByTestId("span-effect");
+    expect(spanEffect).toBeInTheDocument();
+}
+
 describe("component renders correctly", () => {
-    test("when the selected option is size or gender", () => {
-        const randomOption = faker.random.arrayElement(["size", "gender"]);
-        const { swatchProps } = renderSwatch({
+    test("when the selected option is any option but color or watch band", () => {
+        const randomOption = faker.helpers.arrayElement([
+            "size",
+            "gender",
+            faker.commerce.productAdjective(),
+        ]);
+        assertRender({
+            ...defaultProps,
             option: randomOption,
         });
-
-        expect(screen.getByText(swatchProps.value)).toBeInTheDocument();
-        const swatchInput = screen.getByRole("radio") as HTMLInputElement;
-        expect(swatchInput.checked).toBe(swatchProps.isSelected);
-        expect(swatchInput).toBeRequired();
-        const spanEffect = screen.getByTestId("span-effect");
-        expect(spanEffect).toBeInTheDocument();
     });
-    test("when the selected option is color", () => {
-        const randomColor = faker.commerce.color();
+    test("when the selected option is color or watch band", () => {
+        const randomValue = faker.commerce.productMaterial();
         const randomImgUrl = faker.image.fashion();
         const randomImgAlt = faker.lorem.lines(1);
 
-        const { swatchProps } = renderSwatch({
-            option: "color",
-            value: randomColor,
+        assertRender({
+            ...defaultProps,
+            option: faker.helpers.arrayElement(["color", "watch band"]),
+            value: randomValue,
             image: { url: randomImgUrl, alt: randomImgAlt },
         });
 
-        expect(screen.getByText(swatchProps.value)).toBeInTheDocument();
-        const swatchInput = screen.getByRole("radio") as HTMLInputElement;
-        expect(swatchInput.checked).toBe(swatchProps.isSelected);
-        expect(swatchInput).toBeRequired();
         const variantImage = screen.getByAltText(randomImgAlt);
         expect(variantImage).toBeInTheDocument();
         expect(variantImage.getAttribute("src")).toBe(randomImgUrl);
         expect(variantImage).toHaveAttribute("alt", randomImgAlt);
-        const spanEffect = screen.getByTestId("span-effect");
-        expect(spanEffect).toBeInTheDocument();
     });
 });
 
@@ -95,7 +93,7 @@ test("select optionName with it's value when clicked", async () => {
     expect(mockClickHandler).toHaveBeenCalledWith(option, value);
 });
 
-test("can't select value of a certain option when it's out of stock", async () => {
+test.only("can't select value of a certain option when it's out of stock", async () => {
     const mockClickHandler = jest.fn();
 
     renderSwatch({
@@ -104,11 +102,12 @@ test("can't select value of a certain option when it's out of stock", async () =
     });
 
     const swatchInput = screen.getByRole("radio");
+    expect(swatchInput).toBeDisabled();
     await userEvent.click(swatchInput);
 
     expect(mockClickHandler).not.toHaveBeenCalled();
 });
-test("can't select value of a certain option when it's unavailable", async () => {
+test.only("can't select value of a certain option when it's unavailable", async () => {
     const mockClickHandler = jest.fn();
 
     renderSwatch({
@@ -117,17 +116,29 @@ test("can't select value of a certain option when it's unavailable", async () =>
     });
 
     const swatchInput = screen.getByRole("radio");
+    expect(swatchInput).toBeDisabled();
     await userEvent.click(swatchInput);
 
     expect(mockClickHandler).not.toHaveBeenCalled();
 });
 
+function assertOutOfStock(optionName: string) {
+    const { swatchProps } = renderSwatch({
+        ...defaultProps,
+        isOutOfStock: true,
+        option: optionName,
+    });
+    const { value } = swatchProps;
+    expect(screen.getByRole("alert")).toHaveTextContent(/get notified/i);
+    expect(screen.getByLabelText(value)).toBeDisabled();
+}
+
 describe("notify when option is out of stock", () => {
     test("for option size or gender", () => {
-        const randomOption = faker.random.arrayElement(["size", "gender"]);
-        renderWhenOutOfStock(randomOption);
+        const randomOption = faker.helpers.arrayElement(["size", "gender"]);
+        assertOutOfStock(randomOption);
     });
     test("for option color", () => {
-        renderWhenOutOfStock("color");
+        assertOutOfStock("color");
     });
 });

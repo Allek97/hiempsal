@@ -89,10 +89,6 @@ test.only("adds selected variant to our checkout cart", async () => {
     await userEvent.click(optionInput2);
     await userEvent.click(optionInput3);
 
-    screen.debug(optionInput1);
-    screen.debug(optionInput2);
-    screen.debug(optionInput3);
-
     // add them to the cart
     await userEvent.click(cartBtn);
 

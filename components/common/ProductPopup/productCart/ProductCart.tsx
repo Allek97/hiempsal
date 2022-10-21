@@ -60,7 +60,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
             const variant = getVariant(product, choices);
             setSelectedVariant(variant);
             const input = {
-                variantId: variant ? variant.id : "asd",
+                variantId: variant ? variant.id : product.variants[0].id,
                 quantity: 1,
             };
             setIsLoading(true);
@@ -96,6 +96,9 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                         <CloseWrapper
                             data-testid="close-wrapper"
                             onClick={closePopup}
+                            onKeyDown={closePopup}
+                            role="button"
+                            tabIndex={0}
                         >
                             <Media greaterThanOrEqual="lg">
                                 <Close />
@@ -112,27 +115,30 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                             return (
                                 <div key={option.id}>
                                     <motion.div className="relative flex">
-                                        <motion.div
-                                            className="absolute -top-0.5"
-                                            initial={{ opacity: 0 }}
-                                            animate={
-                                                showError
-                                                    ? { opacity: 1 }
-                                                    : {
-                                                          opacity: 0,
-                                                          transition: {
-                                                              duration: 0,
-                                                          },
-                                                      }
-                                            }
-                                        >
-                                            <RiErrorWarningLine
-                                                style={{
-                                                    fill: "var(--orange-red)",
-                                                }}
-                                                className="w-5 h-5"
-                                            />
-                                        </motion.div>
+                                        {showError && (
+                                            <motion.div
+                                                className="absolute -top-0.5"
+                                                initial={{ opacity: 0 }}
+                                                animate={
+                                                    showError
+                                                        ? { opacity: 1 }
+                                                        : {
+                                                              opacity: 0,
+                                                              transition: {
+                                                                  duration: 0,
+                                                              },
+                                                          }
+                                                }
+                                                role="alert"
+                                            >
+                                                <RiErrorWarningLine
+                                                    style={{
+                                                        fill: "var(--orange-red)",
+                                                    }}
+                                                    className="w-5 h-5"
+                                                />
+                                            </motion.div>
+                                        )}
                                         <motion.h3
                                             initial={{ x: 0 }}
                                             animate={

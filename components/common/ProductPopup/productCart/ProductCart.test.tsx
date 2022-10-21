@@ -1,71 +1,69 @@
-import { render, act, screen } from "@tests/customRender";
+import { render, screen, waitFor } from "@tests/customRender";
+import userEvent from "@testing-library/user-event";
 import useAddItem from "@framework/cart/use-add-item";
-
-import { faker } from "@faker-js/faker";
 
 import { currencyMap } from "@framework/utils/optionMapping";
 
 import ProductCart, { ProductCartProps } from "./ProductCart";
-import { defaultProps, productOptions } from "../__mocks__/variables";
+import { defaultProps } from "../__mocks__/variables";
 
 function renderProductCart(props?: Partial<ProductCartProps>) {
     return {
         ...render(<ProductCart {...defaultProps} {...props} />),
+        mockProps: { ...defaultProps, ...props },
     };
 }
 
 jest.mock("@framework/cart/use-add-item");
 
 test("renders correctly", async () => {
-    // FIX : https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning
-    const mockUseAddItem = useAddItem as unknown as jest.Mock;
-    mockUseAddItem.mockImplementation(() => {});
-
-    await act(async () => mockUseAddItem());
+    const { mockProps } = renderProductCart();
 
     const {
-        product: { name, price },
-    } = defaultProps;
-    const randomCurrency = faker.random.arrayElement(Object.keys(currencyMap));
-    const color = productOptions[0].values[0].label;
-
-    renderProductCart({
         product: {
-            ...defaultProps.product,
-            price: { currencyCode: randomCurrency, value: price.value },
+            name,
+            price: { currencyCode, value },
+            options,
         },
-    });
+    } = mockProps;
 
     expect(screen.getByText(name)).toBeInTheDocument();
 
     expect(
-        screen.getByText(`${currencyMap[randomCurrency]}${price.value}`)
+        screen.getByText(`${currencyMap[currencyCode]}${value}`)
     ).toBeInTheDocument();
 
     expect(screen.getByTestId("close-wrapper")).toBeInTheDocument();
 
-    expect(
-        screen.getByText(RegExp(String.raw`^${color}$`, "i"))
-    ).toBeInTheDocument();
-    expect(
-        screen.getByText(
-            RegExp(String.raw`^${productOptions[1].values[0].label}$`, "i")
-        )
-    ).toBeInTheDocument();
-    expect(
-        screen.getByText(
-            RegExp(String.raw`^${productOptions[2].values[0].label}$`, "i")
-        )
-    ).toBeInTheDocument();
+    const optionInput1 = screen.getByLabelText(
+        RegExp(String.raw`^${options[0].values[0].label}$`, "i")
+    );
+
+    const optionInput2 = screen.getByLabelText(
+        RegExp(String.raw`^${options[1].values[0].label}$`, "i")
+    );
+
+    const optionInput3 = screen.getByLabelText(
+        RegExp(String.raw`^${options[2].values[0].label}$`, "i")
+    );
+
+    expect(optionInput1).toBeInTheDocument();
+    expect(optionInput1).toBeRequired();
+
+    expect(optionInput2).toBeInTheDocument();
+    expect(optionInput2).toBeRequired();
+
+    expect(optionInput3).toBeInTheDocument();
+    expect(optionInput3).toBeRequired();
 
     expect(
-        screen.getByText(`Select ${productOptions[0].displayName}`)
+        screen.getByText(`Select ${options[0].displayName.toLowerCase()}`)
     ).toBeInTheDocument();
     expect(
-        screen.getByText(`Select ${productOptions[1].displayName}`)
+        screen.getByText(`Select ${options[1].displayName.toLowerCase()}`)
     ).toBeInTheDocument();
     expect(
-        screen.getByText(`Select ${productOptions[2].displayName}`)
+        screen.getByText(`Select ${options[2].displayName.toLowerCase()}`)
     ).toBeInTheDocument();
 
     expect(
@@ -77,5 +75,58 @@ test("renders correctly", async () => {
         screen.getByText(/FREE SHIPPING FROM \$50.00 CAD/i)
     ).toBeInTheDocument();
 
-    expect(screen.getByTestId("cart-button")).toBeInTheDocument();
+    expect(screen.getByTestId("cart-button")).toHaveTextContent(
+        /Add to Cart Adding/i
+    );
+});
+
+test("show warning sign when options are not selected", async () => {
+    //////////////////////////////////////////////////////////////////
+    // NOTE ARRANGE
+    //////////////////////////////////////////////////////////////////
+    const mockUseAddItem = useAddItem as unknown as jest.Mock;
+    const mockAddItem = jest.fn(
+        async (input: { variantId: string; quantity: number }) =>
+            input.variantId
+    );
+    mockUseAddItem.mockImplementation(() => mockAddItem);
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+
+    const { mockProps } = renderProductCart();
+    const {
+        product: { options },
+    } = mockProps;
+
+    const optionInput1 = screen.getByLabelText(
+        RegExp(String.raw`^${options[0].values[0].label}$`, "i")
+    );
+
+    const optionInput2 = screen.getByLabelText(
+        RegExp(String.raw`^${options[1].values[0].label}$`, "i")
+    );
+
+    const optionInput3 = screen.getByLabelText(
+        RegExp(String.raw`^${options[2].values[0].label}$`, "i")
+    );
+
+    const cartButton = screen.getByRole("button", {
+        name: /A d d t o C a r t/i,
+    });
+
+    await userEvent.click(cartButton);
+    expect(screen.getAllByRole("alert")).toHaveLength(3);
+
+    await userEvent.click(optionInput1);
+    await userEvent.click(cartButton);
+    expect(screen.getAllByRole("alert")).toHaveLength(2);
+
+    await userEvent.click(optionInput3);
+    await userEvent.click(cartButton);
+    expect(screen.getAllByRole("alert")).toHaveLength(1);
+
+    await userEvent.click(optionInput2);
+    await userEvent.click(cartButton);
+    expect(screen.queryAllByRole("alert")).toHaveLength(0);
 });

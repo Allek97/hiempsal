@@ -6,7 +6,7 @@ import { AnimatedTextProps } from "@components/utils/animations/AnimatedText";
 
 import { CartBtn, CartBtnWrapper } from "./CartButton.styled";
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading: boolean;
     preText: string;
     loadingText: string;
@@ -57,7 +57,6 @@ const CartButton: FC<Props> = ({
     isLoading,
     preText,
     loadingText,
-
     onClick,
 }) => {
     const placeholderTextInitial: AnimatedTextProps[] = [

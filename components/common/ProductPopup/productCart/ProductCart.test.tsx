@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@tests/customRender";
+import { render, screen } from "@tests/customRender";
 import userEvent from "@testing-library/user-event";
 import useAddItem from "@framework/cart/use-add-item";
 

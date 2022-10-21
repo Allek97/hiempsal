@@ -1,14 +1,28 @@
 /* eslint-disable no-irregular-whitespace */
+
 import { render, screen, waitFor } from "@testing-library/react";
-import CartButton from "./CartButton";
+import CartButton, { Props } from "./CartButton";
 
 jest.mock("framer-motion", () => ({
     ...jest.requireActual("framer-motion"),
     useReducedMotion: () => true,
 }));
 
+const defaultProps: Props = {
+    isLoading: false,
+    loadingText: "Adding",
+    preText: "Add to Cart",
+};
+
+const renderCartBtn = (props?: Props) => {
+    return {
+        ...render(<CartButton {...defaultProps} />),
+        mockProps: { ...defaultProps, ...props },
+    };
+};
+
 test("renders correctly", () => {
-    render(<CartButton />);
+    renderCartBtn();
 
     expect(screen.getByRole("button")).toBeInTheDocument();
 
@@ -23,12 +37,12 @@ test("renders correctly", () => {
 });
 
 test("should display add to cart before loading", async () => {
-    const { container } = render(<CartButton isLoading />);
+    const { container } = renderCartBtn({ ...defaultProps, isLoading: true });
 
     expect(container).toMatchSnapshot();
 });
-test("should display adding after loading", async () => {
-    const { container } = render(<CartButton isLoading />);
+test("should display 'adding' after loading", async () => {
+    const { container } = renderCartBtn({ ...defaultProps, isLoading: true });
 
     // const motionBox = screen.getByTestId("motion-x");
     const component = screen.getByTestId("cart-button");

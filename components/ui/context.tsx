@@ -28,7 +28,7 @@ interface StateModifiers {
 
 export type State = StateValues & StateModifiers;
 
-const initialState: StateValues = {
+export const initialState: StateValues = {
     isMobileMenuOpen: false,
     isPopupOpen: false,
     isProductAdded: false,
@@ -37,7 +37,7 @@ const initialState: StateValues = {
     isReviewOpen: false,
 };
 
-const stateModifiers: StateModifiers = {
+export const stateModifiers: StateModifiers = {
     openMobileMenu: () => {},
     closeMobileMenu: () => {},
     openPopup: () => {},
@@ -58,7 +58,7 @@ export const UIContext = createContext<State>({
     ...stateModifiers,
 });
 
-type Action = {
+export type Action = {
     type:
         | "OPEN_MOBILE_MENU"
         | "CLOSE_MOBILE_MENU"
@@ -76,7 +76,7 @@ type Action = {
     payload?: any;
 };
 
-function uiReducer(state: StateValues, action: Action) {
+export const uiReducer = (state: StateValues, action: Action) => {
     switch (action.type) {
         case "OPEN_MOBILE_MENU":
             return {
@@ -144,7 +144,7 @@ function uiReducer(state: StateValues, action: Action) {
         default:
             return { ...state };
     }
-}
+};
 
 const UIProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(uiReducer, initialState);

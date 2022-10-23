@@ -18,8 +18,8 @@ describe("access to authetification from homepage", () => {
     });
 });
 
-describe.only("registration", () => {
-    it.only("should register a new customer", () => {
+describe("registration", () => {
+    it("should register a new customer", () => {
         const customer = buildCustomer();
 
         cy.visit("/");

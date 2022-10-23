@@ -56,7 +56,7 @@ test("renders correctely", () => {
     ).toBeInTheDocument();
 });
 
-test.only("user is redirected to cart page when clicking the view cart button", async () => {
+test("user is redirected to cart page when clicking the view cart button", async () => {
     const { mockRouter } = renderProductSelected();
 
     const cartBtn = screen.getByRole("button", { name: /view cart/i });

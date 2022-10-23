@@ -93,7 +93,7 @@ test("select optionName with it's value when clicked", async () => {
     expect(mockClickHandler).toHaveBeenCalledWith(option, value);
 });
 
-test.only("can't select value of a certain option when it's out of stock", async () => {
+test("can't select value of a certain option when it's out of stock", async () => {
     const mockClickHandler = jest.fn();
 
     renderSwatch({
@@ -107,7 +107,7 @@ test.only("can't select value of a certain option when it's out of stock", async
 
     expect(mockClickHandler).not.toHaveBeenCalled();
 });
-test.only("can't select value of a certain option when it's unavailable", async () => {
+test("can't select value of a certain option when it's unavailable", async () => {
     const mockClickHandler = jest.fn();
 
     renderSwatch({

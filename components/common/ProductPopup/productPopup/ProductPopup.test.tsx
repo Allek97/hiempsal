@@ -35,7 +35,7 @@ function renderProductPopup(props?: Partial<ProductPopupProps>) {
     };
 }
 
-test.only("adds selected variant to our checkout cart", async () => {
+test("adds selected variant to our checkout cart", async () => {
     /////////////////////////////////////////////////////////////////////
     // NOTE Arrange
     /////////////////////////////////////////////////////////////////////

@@ -80,8 +80,6 @@ describe("UI context prodiver", () => {
         });
 
         act(() => result.current.closePopup());
-
-        console.log(mockUseReducer.mock.calls);
     });
     test("Open and close review UI component", () => {
         const { result } = renderHook(useUI, { wrapper });

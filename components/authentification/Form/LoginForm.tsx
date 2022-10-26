@@ -64,7 +64,7 @@ const LoginForm: FC<Props> = ({ isDisplayed, openPWForgot, setIsLoging }) => {
             router.push("/account/overview");
         } catch (error) {
             const serverErrorMsg =
-                "sorry for the inconvenience, please try again";
+                "Sorry for the inconvenience, please try again";
             setIsLoging(false);
             setIsLoading(false);
             if (error instanceof Error) {

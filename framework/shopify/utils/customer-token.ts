@@ -16,6 +16,6 @@ export const setCustomerToken = (
 ) => {
     Cookies.set(SHOPIFY_CUSTOMER_TOKEN_COOKIE, token, {
         ...options,
-        expires: expires ?? SHOPIFY_COOKIE_EXPIRE,
+        expires: expires ? new Date(expires) : SHOPIFY_COOKIE_EXPIRE,
     });
 };

@@ -90,15 +90,13 @@ const SignupForm: FC<Props> = ({
                 phone,
             };
             await signup(input);
-            setServerError("");
-            setPhoneError("");
             router.push("/account/overview");
         } catch (error) {
             setIsSigningUp(false);
             if (error instanceof Error) {
-                if (error.message.includes("phone"))
+                if (error.message.toLowerCase().includes("phone"))
                     setPhoneError("Phone number is not valid");
-                else setServerError("Server error. Please try again!");
+                else setServerError(error.message);
             } else setServerError("Server error. Please try again!");
         }
     }

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { FunctionalLink } from "@components/utils";
 
-import { AMAZON_S3_DOMAIN } from "@framework/const";
+// import { AMAZON_S3_DOMAIN } from "@framework/const";
 
 import {
     Root,
@@ -33,7 +33,7 @@ const Hero: FC<Props> = ({ variant }) => {
                         <Image
                             placeholder="blur"
                             blurDataURL={placeholderBlurUrl}
-                            src={`${AMAZON_S3_DOMAIN}/hero-cloth.jpg`}
+                            src="/images/amazigh-art.jpg"
                             alt="Model"
                             layout="fill"
                             objectFit="cover"

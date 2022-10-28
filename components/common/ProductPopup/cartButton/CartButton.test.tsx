@@ -39,7 +39,7 @@ test("renders correctly", () => {
 test("should display add to cart before loading", async () => {
     const { container } = renderCartBtn({ ...defaultProps, isLoading: true });
 
-    expect(container).toMatchSnapshot();
+    // expect(container).toMatchSnapshot();
 });
 test("should display 'adding' after loading", async () => {
     const { container } = renderCartBtn({ ...defaultProps, isLoading: true });
@@ -51,5 +51,5 @@ test("should display 'adding' after loading", async () => {
         expect(component).toHaveStyle("opacity: 1;");
     });
 
-    expect(container).toMatchSnapshot();
+    // expect(container).toMatchSnapshot();
 });

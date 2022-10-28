@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { ReactNode, useReducer } from "react";
+import { ReactNode } from "react";
 import UIProvider, {
     useUI,
     initialState,
@@ -12,10 +12,10 @@ const wrapper = ({ children }: { children: ReactNode }) => (
     <UIProvider>{children}</UIProvider>
 );
 
-jest.mock("react", () => ({
-    ...jest.requireActual("react"),
-    useReducer: jest.fn(),
-}));
+// jest.mock("react", () => ({
+//     ...jest.requireActual("react"),
+//     useReducer: jest.fn(),
+// }));
 
 describe("UI context prodiver", () => {
     test("UseUI default values", () => {
@@ -45,14 +45,14 @@ describe("UI context prodiver", () => {
         act(() => result.current.closePopup());
         expect(result.current.isPopupOpen).toBe(false);
     });
-    test.only("Closing popup UI component will close productAdded,productCart and help component", () => {
+    test("Closing popup UI component will close productAdded,productCart and help component", () => {
         // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
 
-        const mockUseReducer = useReducer as unknown as jest.Mock;
-        mockUseReducer.mockImplementation(
-            jest.requireActual("react").useReducer
-        );
-        mockUseReducer.mockImplementation(() => ["someMockedValue", "any"]);
+        // const mockUseReducer = useReducer as unknown as jest.Mock;
+        // mockUseReducer.mockImplementation(
+        //     jest.requireActual("react").useReducer
+        // );
+        // mockUseReducer.mockImplementation(() => ["someMockedValue", "any"]);
 
         const { result } = renderHook(useUI, { wrapper });
 

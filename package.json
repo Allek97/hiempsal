@@ -6,13 +6,16 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "cypress": "cypress open",
-        "test": "is-ci \"test:ci\" \"test:watch\"",
+        "test": "(is-ci && npm run test:coverage) || npm run test:watch",
+        "test:coverage": "jest --coverage",
         "test:watch": "jest --watch --verbose",
-        "test:ci": "jest --coverage",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
         "preinstall": "npx npm-force-resolutions",
-        "cy:run": "cypress run"
+        "cy:open": "cypress open",
+        "cy:run": "cypress run",
+        "test:e2e": "(is-ci && npm run test:e2e:run) || npm run test:e2e:dev",
+        "test:e2e:run": "start-server-and-test start http://localhost:8080 cy:run",
+        "test:e2e:dev": "start-server-and-test dev http://localhost:8080 cy:open"
     },
     "dependencies": {
         "@artsy/fresnel": "^3.4.0",
@@ -118,6 +121,7 @@
         "msw": "^0.39.2",
         "postcss": "^8.4.12",
         "postcss-import": "^14.0.2",
+        "start-server-and-test": "^1.14.0",
         "test-data-bot": "^0.8.0",
         "ts-jest": "^29.0.3"
     },

@@ -30,7 +30,8 @@
         "react",
         "@typescript-eslint",
         "styled-components-a11y",
-        "@emotion"
+        "@emotion",
+        "jest"
     ],
     "rules": {
         "prettier/prettier": [
@@ -95,7 +96,13 @@
         "scss/at-rule-no-unknown": "off",
         "css-rcurlyexpected": "off",
         "react/function-component-definition": "off",
-        "no-restricted-exports": "off"
+        "no-restricted-exports": "off",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "jest/valid-title": "warn"
     },
     "parserOptions": {
         "ecmaVersion": 2021,
@@ -108,6 +115,7 @@
     },
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jest/globals": true
     }
 }

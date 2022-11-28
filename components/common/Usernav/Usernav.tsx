@@ -114,7 +114,7 @@ const Usernav: FC<Props> = ({ children }) => {
                     </Link>
 
                     <WrapperMedia>
-                        <Link href="/cart/products" passHref>
+                        <Link href="/" passHref>
                             <FunctionalLink>
                                 <NavBtn
                                     type="button"

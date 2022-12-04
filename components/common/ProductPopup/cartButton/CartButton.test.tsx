@@ -41,7 +41,7 @@ test("should display add to cart before loading", async () => {
     // expect(container).toMatchSnapshot();
 });
 test("should display 'adding' after loading", async () => {
-    // const { container } = renderCartBtn({ ...defaultProps, isLoading: true });
+    renderCartBtn({ ...defaultProps, isLoading: true });
 
     // const motionBox = screen.getByTestId("motion-x");
     const component = screen.getByTestId("cart-button");

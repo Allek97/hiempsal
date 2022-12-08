@@ -3,9 +3,13 @@ import Image from "next/image";
 import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
 
 import { FC } from "react";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { HiLink, HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { IoLocationSharp } from "react-icons/io5";
+import { FaLinkedinIn } from "react-icons/fa";
+import { BsTwitter } from "react-icons/bs";
+
 import { constants } from "./constants";
+
 import {
     FooterContainer,
     FooterInfo,
@@ -20,6 +24,7 @@ import {
     FooterUtilityBox,
     FooterPayments,
     MoreBtn,
+    Socials,
 } from "./Footer.styled";
 
 const BtnSkew: FC = ({ children }) => {
@@ -197,6 +202,56 @@ const Footer: FC = () => {
                         </div>
                     </FooterPayments>
                 </div>
+            </div>
+            <div className="flex flex-col items-center w-max mx-auto mt-20">
+                <h1 className="text-white">
+                    ©Copyright {new Date().getFullYear()} Ilias Allek. All
+                    rights reserved.
+                </h1>
+                <Socials className="mt-4">
+                    <motion.button
+                        type="button"
+                        whileHover={{
+                            scale: 1.1,
+                        }}
+                    >
+                        <a
+                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaLinkedinIn />
+                        </a>
+                    </motion.button>
+                    <motion.button
+                        type="button"
+                        whileHover={{
+                            scale: 1.1,
+                        }}
+                    >
+                        <a
+                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <HiLink />
+                        </a>
+                    </motion.button>
+                    <motion.button
+                        type="button"
+                        whileHover={{
+                            scale: 1.1,
+                        }}
+                    >
+                        <a
+                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <BsTwitter />
+                        </a>
+                    </motion.button>
+                </Socials>
             </div>
         </FooterContainer>
     );

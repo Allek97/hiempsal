@@ -207,3 +207,13 @@ export const MoreBtn = styled(EffectButton)`
         }
     }
 `;
+
+export const Socials = styled.div`
+    ${tw`flex w-40 mt-4 space-x-5`}
+
+    svg {
+        fill: white;
+        height: 1.4rem;
+        width: 1.4rem;
+    }
+`;

@@ -216,7 +216,7 @@ const Footer: FC = () => {
                         }}
                     >
                         <a
-                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            href="https://www.linkedin.com/in/ilias-allek/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -230,7 +230,7 @@ const Footer: FC = () => {
                         }}
                     >
                         <a
-                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            href="https://iliasallek.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -244,7 +244,7 @@ const Footer: FC = () => {
                         }}
                     >
                         <a
-                            href="https://bobbyhadz.com/blog/react-open-link-in-new-tab"
+                            href="https://twitter.com/IAllekAmazigh"
                             target="_blank"
                             rel="noopener noreferrer"
                         >

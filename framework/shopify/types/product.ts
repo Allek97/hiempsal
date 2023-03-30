@@ -126,8 +126,8 @@ export interface ProductVariant {
     name: string;
     sku: string;
     image?: ProductImage;
-    price?: number;
-    listPrice?: number | null;
+    price: number;
+    listPrice: number | null;
     requiresShipping: boolean;
     availableForSale: boolean;
     options: ProductOption[];

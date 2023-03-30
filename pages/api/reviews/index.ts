@@ -1,12 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Review as ReviewType } from "@framework/types/review";
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import Review from "server/models/Review";
 import { IReview } from "server/types/review";
 import { assertIsError, dbConnect } from "server/utils";
 import { APIFeatures } from "server/utils/apiFeatures";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler: NextApiHandler = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+) => {
     const { method } = req;
 
     await dbConnect();
@@ -20,7 +23,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             if (req.query.email) filter = { ...filter, email: req.query.email };
 
             const features = new APIFeatures(Review.find(filter), req.query);
-            const doc: Array<Partial<ReviewType>> = await features.filter().doc;
+            const doc: Array<Partial<ReviewType>> = await features
+                .filter()
+                .sort().doc;
+
             return res.status(200).json({
                 status: "success",
                 data: doc,

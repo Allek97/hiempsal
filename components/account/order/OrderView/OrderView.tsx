@@ -67,8 +67,6 @@ const OrderView: FC<Props> = ({ order }) => {
         [order.currencyCode]
     );
 
-    console.log(selectedProduct?.productType);
-
     return (
         <>
             {selectedProduct && (

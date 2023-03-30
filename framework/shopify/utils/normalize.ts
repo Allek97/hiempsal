@@ -17,6 +17,7 @@ import {
     ProductPrice,
     ShopifyProductMeta,
 } from "@framework/types/product";
+import { normalizeShopifyId } from "./normalizeShopifyId";
 
 type OptionValues = {
     label: string;
@@ -50,7 +51,7 @@ export const normalizeProductOption = ({
     values,
 }: ProductOption) => {
     const normalized = {
-        id,
+        id: normalizeShopifyId(id),
         displayName,
         values: values.map((value) => {
             let output: OptionValues = {
@@ -84,9 +85,9 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         } = node;
 
         return {
-            id,
+            id: normalizeShopifyId(id),
             name: title,
-            sku: sku || id,
+            sku: sku || normalizeShopifyId(id),
             image: normalizeProductImage(variantImage),
             price: priceV2 && +priceV2.amount,
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
@@ -109,7 +110,7 @@ const normalizeLineItem = ({
     node: { id, title, variant, ...rest },
 }: CheckoutLineItemEdge): LineItem => {
     return {
-        id,
+        id: normalizeShopifyId(id),
         variantId: String(variant?.id),
         productId: String(variant?.id),
         name: title,
@@ -127,7 +128,7 @@ const normalizeLineItem = ({
             }
         ),
         variant: {
-            id: String(variant?.id),
+            id: normalizeShopifyId(String(variant?.id)),
             sku: variant?.sku ?? "",
             name: variant?.title,
             image: {
@@ -156,7 +157,7 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     } = checkout;
 
     return {
-        id,
+        id: normalizeShopifyId(id),
         webUrl,
         createdAt,
         completedAt,
@@ -208,7 +209,7 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
     } = productNode;
 
     const product: Product = {
-        id,
+        id: normalizeShopifyId(id),
         name,
         vendor,
         description: description ?? "",

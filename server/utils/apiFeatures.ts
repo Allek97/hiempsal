@@ -17,6 +17,9 @@ class APIFeatures {
         if (this.query.select && typeof this.query.select === "string")
             this.doc = this.doc.select(this.query.select.split(";").join(" "));
 
+        if (this.query.limit && typeof this.query.limit === "string")
+            this.doc = this.doc.limit(Number(this.query.limit));
+
         let queryStr: string = JSON.stringify(this.query);
         queryStr = queryStr.replace(
             /\b(gt|gte|lt|lte|eq|ne)\b/g,
@@ -24,6 +27,17 @@ class APIFeatures {
         );
 
         this.doc = this.doc.find(JSON.parse(queryStr));
+
+        return this;
+    }
+
+    sort(): this {
+        if (this.query.sort && typeof this.query.sort === "string") {
+            const sortBy = this.query.sort.split(";").join(" ");
+            this.doc = this.doc.sort(sortBy);
+        } else {
+            this.doc = this.doc.sort("-createdAt");
+        }
 
         return this;
     }

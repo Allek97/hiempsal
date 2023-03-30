@@ -1,3 +1,5 @@
+import { Document } from "mongoose";
+
 export type IChecksCloth = {
     fit: string;
     durability: string;
@@ -10,7 +12,7 @@ export type IChecksTech = {
     performance: string;
 };
 
-export interface IReview {
+export interface IReview extends Document {
     score: number;
     review: string;
     title: string;

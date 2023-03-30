@@ -41,7 +41,7 @@ const handler: MutationHook<CustomerResetPasswordDescription> = {
             );
 
         const variables: ResetPasswordInput = {
-            id: `gid://shopify/Customer/${id}`,
+            id,
             input: {
                 resetToken,
                 password,

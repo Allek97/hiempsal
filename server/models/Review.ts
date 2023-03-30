@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import { IChecksCloth, IChecksTech, IReview } from "server/types/review";
 import validator from "validator";
 
@@ -13,6 +13,10 @@ const checkTechSchema = new Schema<IChecksTech>({
     usability: { type: String, required: true },
     performance: { type: String, required: true },
 });
+
+interface ReviewStatic extends Model<IReview> {
+    calcAverageRatings(productId: string): Promise<number>;
+}
 
 const reviewSchema = new Schema<IReview>({
     score: {
@@ -76,7 +80,9 @@ const reviewSchema = new Schema<IReview>({
 
 reviewSchema.index({ email: 1, productId: 1 }, { unique: true });
 
-reviewSchema.statics.calcAverageRatings = async function (productId: string) {
+reviewSchema.statics.calcAverageRatings = async function (
+    productId: string
+): Promise<number> {
     const stats = await this.aggregate([
         {
             $match: { productId: productId },
@@ -89,24 +95,11 @@ reviewSchema.statics.calcAverageRatings = async function (productId: string) {
         },
     ]);
 
-    const filter = { productId: productId };
-
-    if (stats.length > 0) {
-        await this.findOneAndUpdate(filter, {
-            ratingsAverage: stats[0].avgRating,
-        });
-    } else {
-        await this.findOneAndUpdate(filter, {
-            ratingsAverage: 0,
-        });
-    }
+    return stats.length > 0 ? stats[0].avgRating : 0;
 };
 
-reviewSchema.post("save", async function () {
-    await (this as any).constructor.calcAverageRatings(this.productId);
-});
-
 const Review =
-    mongoose.models.Review || mongoose.model<IReview>("Review", reviewSchema);
+    mongoose.models.Review ||
+    mongoose.model<IReview, ReviewStatic>("Review", reviewSchema);
 
-export default Review;
+export default Review as ReviewStatic;

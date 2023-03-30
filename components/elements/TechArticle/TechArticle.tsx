@@ -9,9 +9,9 @@ import ImageSlider from "@components/elements/ImageSlider/ImageSlider";
 import { Product } from "@framework/types/product";
 import colors from "@lib/const/colors";
 import { useCurrency } from "@lib/useCurrency";
-import useReview from "@framework/review/use-review";
 import { FunctionalLink } from "@components/utils";
 
+import useReviewSummary from "@framework/review/use-review-summary";
 import {
     Color,
     DeviceButton,
@@ -30,11 +30,10 @@ interface Props {
 const TechArticle: FC<Props> = ({ product }) => {
     const currency = useCurrency(product.price);
 
-    const getUseReview = useReview();
-    const { data: review } = getUseReview({
-        productId: product.id,
-    });
+    const getReviewSummary = useReviewSummary();
+    const { data } = getReviewSummary({ productId: product.id });
 
+    console.log(data);
     return (
         <Root>
             <ImageWrapper>
@@ -47,19 +46,19 @@ const TechArticle: FC<Props> = ({ product }) => {
                         <h3>{product.name}</h3>
                     </a>
                 </Link>
-                {!!review && !!review.length && (
+                {data && (
                     <ReviewWrapper>
                         <Rating
-                            key={review[0].ratingsAverage}
+                            key={data.ratingsAverage}
                             name="half-rating-read"
-                            defaultValue={review[0].ratingsAverage}
+                            defaultValue={data.ratingsAverage}
                             // value={2}
                             precision={0.1}
                             readOnly
                             color="red"
                         />
-                        <span>{review[0].ratingsAverage}</span>
-                        <span>({review.length})</span>
+                        <span>{data.ratingsAverage}</span>
+                        <span>({data.reviewsCount})</span>
                     </ReviewWrapper>
                 )}
 

@@ -18,7 +18,7 @@ const productConnection = `
                   currencyCode
                 }
               }
-            images(first: 1) { 
+            images(first: 20) { 
                 pageInfo {
                     hasNextPage
                     hasPreviousPage
@@ -27,8 +27,7 @@ const productConnection = `
                     node {
                         url
                         altText
-                        width
-                        height
+                 
                     }
                 }
             }

@@ -20,12 +20,10 @@ const handler: NextApiHandler = async (
             ]);
 
             return res.status(200).json({
+                status: "success",
                 data: {
-                    status: "success",
-                    data: {
-                        ratingsAverage,
-                        reviewsCount,
-                    },
+                    ratingsAverage,
+                    reviewsCount,
                 },
             });
         } catch (err) {

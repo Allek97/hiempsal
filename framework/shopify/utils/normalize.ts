@@ -88,7 +88,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             name: title,
             sku: sku || id,
             image: normalizeProductImage(variantImage),
-            price: +priceV2.amount,
+            price: priceV2 && +priceV2.amount,
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
             requiresShipping, // NOTE Verify with shopify when shipping is required for variants,
             availableForSale,
@@ -211,12 +211,12 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         id,
         name,
         vendor,
-        description,
+        description: description ?? "",
         path: `/${handle}`,
         slug: handle.replace(/^\/+|\/+$/g, ""),
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange),
-        availableForSale,
+        availableForSale: availableForSale ?? "",
         featureImages:
             featureImage1 && featureImage2
                 ? normalizeMediaImages({

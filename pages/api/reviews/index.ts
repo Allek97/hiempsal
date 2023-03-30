@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Review from "server/models/Review";
 import { IReview } from "server/types/review";
 import { assertIsError, dbConnect } from "server/utils";
+import { APIFeatures } from "server/utils/apiFeatures";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { method } = req;
@@ -13,11 +14,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // NOTE: This needs to be writter directely in getStaticProps if possible
     if (method === "GET") {
         try {
-            let query = {};
-            if (req.query.productId) query = { productId: req.query.productId };
-            if (req.query.email) query = { ...query, email: req.query.email };
+            let filter = {};
+            if (req.query.productId)
+                filter = { productId: req.query.productId };
+            if (req.query.email) filter = { ...filter, email: req.query.email };
 
-            const doc: ReviewType[] = await Review.find(query);
+            const features = new APIFeatures(Review.find(filter), req.query);
+            const doc: Array<Partial<ReviewType>> = await features.filter().doc;
             return res.status(200).json({
                 status: "success",
                 data: doc,

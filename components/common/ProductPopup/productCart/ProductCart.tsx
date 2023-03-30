@@ -161,7 +161,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, setSelectedVariant }) => {
                                                 optionName.match(/colou?r/gi) ||
                                                 optionName.match(/watch band/gi)
                                                     ? getVariantImage(
-                                                          product,
+                                                          product.variants,
                                                           optValue.label
                                                       )
                                                     : undefined;

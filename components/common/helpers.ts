@@ -78,17 +78,17 @@ export const getVariant = (
     );
 
 export const getVariantImage = (
-    product: Product,
-    color: string
+    variants: ProductVariant[],
+    value: string
 ): ProductImage | undefined =>
-    product.variants.find((variant) =>
+    variants.find((variant) =>
         variant.options.find((variantOpt) => {
             const optionName = variantOpt.displayName.toLowerCase();
 
             return (
                 (optionName.match(/colou?r/gi) ||
                     optionName.match(/watch band/gi)) &&
-                variantOpt.values[0].label === color
+                variantOpt.values[0].label === value
             );
         })
     )?.image;
@@ -102,4 +102,4 @@ export const getVariantImages = (
                 option.displayName.match(/colou?r/gi) ||
                 option.displayName.match(/watch band/gi)
         )[0]
-        .values.map((value) => getVariantImage(product, value.label));
+        .values.map((value) => getVariantImage(product.variants, value.label));

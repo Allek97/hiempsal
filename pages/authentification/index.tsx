@@ -42,7 +42,7 @@ const AuthentificationPage = () => {
                 description="Authentification page to login, signup and reset password"
                 canonical={`${DOMAIN}/authentification`}
             />
-            <Authentification />;
+            <Authentification />
         </>
     );
 };

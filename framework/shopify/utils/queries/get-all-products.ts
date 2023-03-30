@@ -1,8 +1,4 @@
 const productConnection = `
-    pageInfo {
-        hasNextPage
-        hasPreviousPage
-        }
         edges {
             node {
             id
@@ -17,30 +13,26 @@ const productConnection = `
                 values
               }
             priceRange {
-                minVariantPrice {
-                amount
-                currencyCode
+                minVariantPrice{
+                  amount
+                  currencyCode
                 }
-            }
-            images(first: 250) { 
+              }
+            images(first: 1) { 
                 pageInfo {
-                hasNextPage
-                hasPreviousPage
+                    hasNextPage
+                    hasPreviousPage
                 }
                 edges {
-                node {
-                    url
-                    altText
-                    width
-                    height
-                }
+                    node {
+                        url
+                        altText
+                        width
+                        height
+                    }
                 }
             }
             variants(first: 250) {
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
                 edges {
                   node {
                     id
@@ -54,7 +46,7 @@ const productConnection = `
                       priceV2 {
                         amount
                         currencyCode
-                      }
+                    }
                     image {
                       url
                       altText
@@ -82,7 +74,6 @@ const getAllProductsQuery = `
             products(first: $first) {
                 ${productConnection}
             }
-        
     }
 `;
 

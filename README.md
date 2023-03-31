@@ -34,43 +34,43 @@ Fully functional e-commerce online shop powered by Shopify Storefront API and my
 
 # What I used 🔷
 
--   ###### Nextjs/Typescript
+-   #### Nextjs/Typescript
 
     I used Nextjs with typescript in this website to build the user interfaces and my own server API.
 
--   ###### Tailwind/Emotion
+-   ##### Tailwind/Emotion
 
     I mainly used tailwind and emotion styled-components to design this e-commerce website.
 
--   ###### React Testing Library
+-   ##### React Testing Library
 
     I used RTL for unit and integration testing.
 
--   ###### Cypress
+-   ##### Cypress
 
     I used Cypress to write E2E tests for authentication and payment.
 
--   ###### CircleCI
+-   ##### CircleCI
 
     Create and maintain fully automated CI/CD pipeline for code deployment using CircleCI.
 
--   ###### MongoDB/Mongoose
+-   ##### MongoDB/Mongoose
 
     I used MongoDB with mongoose to store and manipulate the data coming from my API such as reviews, wishlist, questions and more.
 
--   ###### Vercel
+-   ##### Vercel
 
     I deployed it on Vercel.
 
--   ###### Shopify Storefront API
+-   ##### Shopify Storefront API
 
     This website is mainly powered by the Shopify to handle the main functionalities such as products, cart, checkout, customers and more.
 
--   ###### SWR
+-   ##### SWR
 
     I've used SWR to manage fetching, caching and revalidating data that is coming from the server.
 
--   ###### React Hook Form
+-   ##### React Hook Form
 
     Extensively used RHF for form validation.
 
@@ -82,7 +82,7 @@ I dove deeper into react and leveraged all the benefits of nextjs such as using 
 
 > I also implemented a scalable and reusable hook architecture to handle the data coming from the server either from shopify storefront API or my own rest API. There are two types of server-side data handling hooks:
 
--   ###### 1\. SWRHooks :
+-   ##### 1\. SWRHooks :
 
     Fetches the data from the server and manipulate it with SWR which gonna stale (cache data with a unique key) and refetch (revalidate.) it.
     <br>
@@ -94,7 +94,7 @@ I dove deeper into react and leveraged all the benefits of nextjs such as using 
 
          <img  src="https://images.ctfassets.net/zk1zaxgr0lvi/2GynFNnzSStfKwKBNkGc8O/f5d0f827e1e74aaf81bacde9094de499/use-swr-code.png?w=1434&h=1568&q=100&fm=png"  alt="useSWRHook code">
 
--   ###### 2\. MutationHooks :
+-   ##### 2\. MutationHooks :
 
     Used to modify server-side data (add products, delete review, etc.) which mutate the SWRHook that was caching the specific data.
 

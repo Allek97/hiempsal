@@ -23,6 +23,7 @@ export interface Metafields {
     type: {
         value: "clothing" | "technology";
     };
+    variantImages: any;
 }
 
 export type ShopifyProductMeta = ShopifyProduct & Metafields;
@@ -96,6 +97,7 @@ export type ProductShipping = {
         notice?: string;
     };
 };
+
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -151,6 +153,7 @@ export interface Product {
     dimensions: ProductDimensions;
     shipping: ProductShipping;
     type: "clothing" | "technology";
+    variantImages: ProductImage[] | null;
     options: ProductOption[];
     variants: ProductVariant[];
 }

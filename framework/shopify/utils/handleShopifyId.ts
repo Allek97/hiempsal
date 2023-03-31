@@ -10,4 +10,7 @@ const normalizeShopifyId = (shopifyId: string): string => {
     return shopifyId;
 };
 
-export { normalizeShopifyId };
+const transformToShopifyId = (id: string): string =>
+    `gid://shopify/${id.split("-").join("/")}`;
+
+export { normalizeShopifyId, transformToShopifyId };

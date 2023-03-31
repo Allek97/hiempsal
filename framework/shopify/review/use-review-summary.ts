@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { getConfig } from "@framework/api/config";
+import { normalizeShopifyId } from "@framework/utils/handleShopifyId";
 import axios, { AxiosError } from "axios";
 import { useMemo } from "react";
 import useSWR, { SWRResponse } from "swr";
@@ -45,7 +46,9 @@ const useReviewSummary = (): UseReviewSummary => {
 
         const { productId } = context;
 
-        const result = useSWR(`/api/reviews/summary/${productId}`, hookFetcher);
+        const id = normalizeShopifyId(productId);
+
+        const result = useSWR(`/api/reviews/summary/${id}`, hookFetcher);
 
         return result;
     };

@@ -33,7 +33,6 @@ const TechArticle: FC<Props> = ({ product }) => {
     const getReviewSummary = useReviewSummary();
     const { data } = getReviewSummary({ productId: product.id });
 
-    console.log(data);
     return (
         <Root>
             <ImageWrapper>

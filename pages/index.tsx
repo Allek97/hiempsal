@@ -16,6 +16,9 @@ export async function getStaticProps() {
 
     const products = await getAllProducts(config);
 
+    const dataSize = JSON.stringify(products).length / 1024;
+    console.log(`Data size: ${dataSize.toFixed(2)} KB`);
+
     return {
         props: { products },
         revalidate: 4 * 60 * 60,

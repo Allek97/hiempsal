@@ -13,7 +13,7 @@ import { Customer as ShopifyCustomer } from "@framework/types/customer";
 import { Order, OrderFulfillment, OrderLineItem } from "@framework/types/order";
 import { ProductPrice, ProductVariant } from "@framework/types/product";
 import { normalizeProductImage, normalizeProductOption } from "./normalize";
-import { normalizeShopifyId } from "./normalizeShopifyId";
+import {} from "./handleShopifyId";
 
 const normalizeOrderPrice = ({
     amount,
@@ -39,9 +39,9 @@ const normalizeOrderVariant = (
     } = variant;
 
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         name: title,
-        sku: sku || normalizeShopifyId(id),
+        sku: sku || id,
         image: normalizeProductImage(variantImage),
         price: +priceV2.amount,
         listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
@@ -109,7 +109,7 @@ export const normalizeAddress = (address: MailingAddress): Address => {
     } = address;
 
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         name,
         address1,
         address2,
@@ -155,7 +155,7 @@ export const normalizeOrder = (node: ShopifyOrder): Order => {
     } = node;
 
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         email: email,
         phone: phone,
         orderName,
@@ -210,7 +210,7 @@ export const normalizeCustomer = (customer: Customer): ShopifyCustomer => {
         defaultAddress,
     } = customer;
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         email,
         firstName,
         lastName,

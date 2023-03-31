@@ -17,7 +17,7 @@ import {
     ProductPrice,
     ShopifyProductMeta,
 } from "@framework/types/product";
-import { normalizeShopifyId } from "./normalizeShopifyId";
+import {} from "./handleShopifyId";
 
 type OptionValues = {
     label: string;
@@ -51,7 +51,7 @@ export const normalizeProductOption = ({
     values,
 }: ProductOption) => {
     const normalized = {
-        id: normalizeShopifyId(id),
+        id: id,
         displayName,
         values: values.map((value) => {
             let output: OptionValues = {
@@ -85,9 +85,9 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         } = node;
 
         return {
-            id: normalizeShopifyId(id),
+            id: id,
             name: title,
-            sku: sku || normalizeShopifyId(id),
+            sku: sku || id,
             image: normalizeProductImage(variantImage),
             price: priceV2 && +priceV2.amount,
             listPrice: +(compareAtPriceV2?.amount || priceV2.amount),
@@ -110,7 +110,7 @@ const normalizeLineItem = ({
     node: { id, title, variant, ...rest },
 }: CheckoutLineItemEdge): LineItem => {
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         variantId: String(variant?.id),
         productId: String(variant?.id),
         name: title,
@@ -128,7 +128,7 @@ const normalizeLineItem = ({
             }
         ),
         variant: {
-            id: normalizeShopifyId(String(variant?.id)),
+            id: String(variant?.id),
             sku: variant?.sku ?? "",
             name: variant?.title,
             image: {
@@ -157,7 +157,7 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     } = checkout;
 
     return {
-        id: normalizeShopifyId(id),
+        id: id,
         webUrl,
         createdAt,
         completedAt,
@@ -171,6 +171,11 @@ export const normalizeCart = (checkout: Checkout): Cart => {
         discounts: [],
     };
 };
+
+export const normalizeVariantImages = (edges: any[]): ProductImage[] =>
+    edges.map((edge) =>
+        normalizeProductImage(edge.node.image as Maybe<Image> | undefined)
+    );
 
 export const normalizeMediaImages = (
     featureImages: Pick<Metafields, "featureImage1" | "featureImage2">
@@ -205,11 +210,12 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         dimensions,
         shipping,
         type,
+        variantImages,
         ...rest
     } = productNode;
 
     const product: Product = {
-        id: normalizeShopifyId(id),
+        id: id,
         name,
         vendor,
         description: description ?? "",
@@ -238,6 +244,9 @@ export const normalizeProduct = (productNode: ShopifyProductMeta): Product => {
         dimensions: JSON.parse(dimensions?.value ?? null),
         shipping: JSON.parse(shipping?.value ?? null),
         type: JSON.parse(JSON.stringify(type?.value) ?? null),
+        variantImages: variantImages
+            ? normalizeVariantImages(variantImages.references.edges)
+            : null,
         ...rest,
     };
 

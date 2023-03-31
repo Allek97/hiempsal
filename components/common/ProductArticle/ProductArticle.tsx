@@ -145,7 +145,8 @@ const ProductArticle: FC<Props> = ({
                             <div className="w-full">
                                 <div className="flex">
                                     <ImageVisualizer
-                                        product={product}
+                                        variantImages={product.variantImages!}
+                                        thumbnail={product.images[0]}
                                         selectedImage={selectedImage}
                                         setSelectedImage={setSelectedImage}
                                         variant={

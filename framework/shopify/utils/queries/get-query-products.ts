@@ -27,39 +27,20 @@ const productConnection = `
                     currencyCode
                   }
                 }
-                variants(first: 250) {
-                  pageInfo {
-                    hasNextPage
-                    hasPreviousPage
-                  }
-                  edges {
-                    node {
-                      id
-                      title
-                      sku
-                      requiresShipping
-                      availableForSale
-                      selectedOptions {
-                        name
-                        value
-                      }
-                      priceV2 {
-                        amount
-                        currencyCode
-                      }
-                      compareAtPriceV2 {
-                        amount
-                        currencyCode
-                      }
-                      image {
-                        url
-                        altText
-                        width
-                        height
+                variantImages: metafield(namespace: "custom", key: "variants_thumbnails") {
+                    references(first: 10) {
+                      edges {
+                        node {
+                          ... on ProductVariant {
+                            image {
+                              url
+                              altText
+                            }
+                          }
+                        }
                       }
                     }
                   }
-                }
                 images(first: 250) {
                   pageInfo {
                     hasNextPage

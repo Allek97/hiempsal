@@ -56,6 +56,20 @@ query product($slug: String!) {
           }
         }
       }
+      variantImages: metafield(namespace: "custom", key: "variants_thumbnails") {
+        references(first: 10) {
+          edges {
+            node {
+              ... on ProductVariant {
+                image {
+                  url
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
       images(first: 250) {
         pageInfo {
           hasNextPage

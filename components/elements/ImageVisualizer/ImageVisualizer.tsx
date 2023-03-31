@@ -1,45 +1,39 @@
 /* eslint-disable react/require-default-props */
-import { getVariantImages } from "@components/common/helpers";
-import { Product, ProductImage } from "@framework/types/product";
+import { ProductImage } from "@framework/types/product";
 import Image from "next/image";
 import { placeholderBlurUrl } from "@lib/placeholderBlurUrl";
 
-import { Dispatch, FC, SetStateAction, useMemo } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import {
     VariantVisualizerBox,
     VariantVisualizers,
 } from "./ImageVisualizer.styled";
 
 interface Props {
-    product: Product;
+    variantImages: (ProductImage | undefined)[];
+    thumbnail: ProductImage;
     selectedImage: ProductImage;
     setSelectedImage: Dispatch<SetStateAction<ProductImage>>;
     variant?: "product" | "userlist";
 }
+const placeHolder = "/product-image-placeholder.svg";
 
 const ImageVisualizer: FC<Props> = ({
-    product,
+    variantImages,
+    thumbnail,
     selectedImage,
     setSelectedImage,
     variant = "product",
 }) => {
-    const { images } = product;
-    const placeHolder = "/product-image-placeholder.svg";
-
-    const variantImages = useMemo(
-        () => [images[0], ...getVariantImages(product)],
-        [product, images]
-    );
-
     return (
         <VariantVisualizerBox>
-            {variantImages.map((variantImage, idx) => (
+            {[thumbnail, ...variantImages].map((variantImage, idx) => (
                 <VariantVisualizers
                     // eslint-disable-next-line react/no-array-index-key
                     key={`${variantImage?.url ?? idx},${idx}`}
                     type="button"
                     onMouseOver={() => {
-                        setSelectedImage(variantImage ?? images[0]);
+                        setSelectedImage(variantImage ?? thumbnail);
                     }}
                     whileHover={{
                         border: "1px solid #cdcdcd",
@@ -54,7 +48,7 @@ const ImageVisualizer: FC<Props> = ({
                               }
                     }
                     style={
-                        variantImage?.url === images[0].url
+                        variantImage?.url === thumbnail.url
                             ? {
                                   backgroundColor: "rgb(217, 217, 217)",
                               }
